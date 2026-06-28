@@ -1925,19 +1925,31 @@ var SUPA_KEY = '';  // sua anon/public key
 
 function supaReady(){return !!(SUPA_URL && SUPA_KEY);}
 
+function supaHeaders(){
+  var h={'Content-Type':'application/json','Prefer':'return=minimal'};
+  if(SUPA_KEY.indexOf('sb_publishable_')===0){
+    h['Authorization']='Bearer '+SUPA_KEY;
+    h['apikey']=SUPA_KEY;
+  } else {
+    h['apikey']=SUPA_KEY;
+    h['Authorization']='Bearer '+SUPA_KEY;
+  }
+  return h;
+}
 async function supaSalvar(email, dados){
   if(!supaReady())return false;
   try{
-    var res=await fetch(SUPA_URL+'/rest/v1/raiz_dados?email=eq.'+encodeURIComponent(email),{
-      method:'GET',
-      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json'}
+    var baseUrl=SUPA_URL.replace(/\/+$/,'');
+    var getH=Object.assign({},supaHeaders());delete getH['Prefer'];
+    var res=await fetch(baseUrl+'/rest/v1/raiz_dados?email=eq.'+encodeURIComponent(email),{
+      method:'GET',headers:getH
     });
     var existe=await res.json();
     var method=existe&&existe.length?'PATCH':'POST';
-    var url=existe&&existe.length?SUPA_URL+'/rest/v1/raiz_dados?email=eq.'+encodeURIComponent(email):SUPA_URL+'/rest/v1/raiz_dados';
+    var url=existe&&existe.length?baseUrl+'/rest/v1/raiz_dados?email=eq.'+encodeURIComponent(email):baseUrl+'/rest/v1/raiz_dados';
     await fetch(url,{
       method:method,
-      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      headers:supaHeaders(),
       body:JSON.stringify({email:email,dados:dados,atualizado:new Date().toISOString()})
     });
     return true;
@@ -1947,8 +1959,10 @@ async function supaSalvar(email, dados){
 async function supaCarregar(email){
   if(!supaReady())return null;
   try{
-    var res=await fetch(SUPA_URL+'/rest/v1/raiz_dados?email=eq.'+encodeURIComponent(email)+'&select=dados',{
-      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+    var baseUrl=SUPA_URL.replace(/\/+$/,'');
+    var h=Object.assign({},supaHeaders());delete h['Prefer'];delete h['Content-Type'];
+    var res=await fetch(baseUrl+'/rest/v1/raiz_dados?email=eq.'+encodeURIComponent(email)+'&select=dados',{
+      headers:h
     });
     var data=await res.json();
     if(data&&data.length&&data[0].dados)return JSON.stringify(data[0].dados);
@@ -1959,8 +1973,10 @@ async function supaCarregar(email){
 async function supaLogin(email,senha){
   if(!supaReady())return null;
   try{
-    var res=await fetch(SUPA_URL+'/rest/v1/raiz_usuarios?email=eq.'+encodeURIComponent(email)+'&select=nome,email,senha',{
-      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+    var baseUrl=SUPA_URL.replace(/\/+$/,'');
+    var h=Object.assign({},supaHeaders());delete h['Prefer'];delete h['Content-Type'];
+    var res=await fetch(baseUrl+'/rest/v1/raiz_usuarios?email=eq.'+encodeURIComponent(email)+'&select=nome,email,senha',{
+      headers:h
     });
     var data=await res.json();
     if(data&&data.length&&data[0].senha===senha)return data[0];
@@ -1971,9 +1987,10 @@ async function supaLogin(email,senha){
 async function supaCadastrar(nome,email,senha){
   if(!supaReady())return false;
   try{
-    await fetch(SUPA_URL+'/rest/v1/raiz_usuarios',{
+    var baseUrl=SUPA_URL.replace(/\/+$/,'');
+    await fetch(baseUrl+'/rest/v1/raiz_usuarios',{
       method:'POST',
-      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      headers:supaHeaders(),
       body:JSON.stringify({nome:nome,email:email,senha:senha,criado:new Date().toISOString()})
     });
     return true;
@@ -2979,7 +2996,10 @@ function salvarSupaConfig(){
   var status=document.getElementById('cfg-supa-status');
   if(status){status.textContent='Testando conexão...';status.style.color='var(--muted)';}
   // Test connection
-  fetch(url+'/rest/v1/',{headers:{'apikey':key}})
+  var testH={'Content-Type':'application/json'};
+  if(key.indexOf('sb_publishable_')===0){testH['Authorization']='Bearer '+key;testH['apikey']=key;}
+  else{testH['apikey']=key;testH['Authorization']='Bearer '+key;}
+  fetch(url.replace(/\/+$/,'')+'/rest/v1/',{headers:testH})
     .then(function(r){
       if(status){
         if(r.ok||r.status===200||r.status===400){
