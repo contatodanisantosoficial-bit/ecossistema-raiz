@@ -2242,7 +2242,18 @@ document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('.mo').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open');});});
   try{
     var session=JSON.parse(storageGet('raizv2-session'));
-    if(session&&session.email){var users=getUsers();if(users[session.email]){CU={nome:users[session.email].nome,email:session.email};loadDB();openApp();return;}}
+    if(session&&session.email){
+      CU={nome:session.nome||session.email,email:session.email};
+      loadCfgFields();
+      if(supaReady()){
+        loadDBAsync().then(function(){openApp();});
+      } else {
+        var users=getUsers();
+        if(users[session.email])CU.nome=users[session.email].nome;
+        loadDB();openApp();
+      }
+      return;
+    }
   }catch(e){}
   document.getElementById('auth-overlay').style.display='flex';
 });
