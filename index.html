@@ -2049,6 +2049,7 @@ async function login(){
   var err=document.getElementById('log-err');
   if(!email||!senha){err.textContent='Preencha e-mail e senha.';return;}
   err.textContent='Entrando...';
+  loadSupaConfig();
   // Try Supabase first
   if(supaReady()){
     var user=await supaLogin(email,senha);
@@ -2244,7 +2245,7 @@ document.addEventListener('DOMContentLoaded',function(){
     var session=JSON.parse(storageGet('raizv2-session'));
     if(session&&session.email){
       CU={nome:session.nome||session.email,email:session.email};
-      loadCfgFields();
+      loadSupaConfig();
       if(supaReady()){
         loadDBAsync().then(function(){openApp();});
       } else {
