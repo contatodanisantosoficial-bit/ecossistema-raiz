@@ -562,63 +562,103 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   </div>
 
 <div class="page" id="page-empresa">
-  <div class="ph"><div class="pe">Empresa</div><div class="pt">A identidade do que você <em>está construindo</em></div></div>
+  <div class="ph"><div class="pe">Empresa</div><div class="pt">O DNA do que você <em>está construindo</em></div></div>
 
-  <div class="card warm" style="text-align:center;padding:22px;margin-bottom:13px">
-    <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;font-style:italic;color:var(--cafe);line-height:1.5" id="vis-text">Ainda definindo minha visão...</div>
+  <div class="itabs" style="margin-bottom:13px">
+    <button class="itab active" onclick="showItab('emp','identidade',this)">💗 Identidade</button>
+    <button class="itab" onclick="showItab('emp','dados',this)">📄 Dados</button>
+    <button class="itab" onclick="showItab('emp','links',this)">🔗 Links</button>
+    <button class="itab" onclick="showItab('emp','recibo',this)">🧾 Recibo</button>
   </div>
 
-  <div class="card" style="margin-bottom:13px">
-    <div class="cl">Identidade da Empresa</div>
-    <div class="fi"><label>Tipo de empresa</label>
-      <select id="emp-tipo" onchange="toggleCustom()">
-        <option value="">Selecione...</option>
-        <option value="Consultoria boutique">Consultoria boutique</option>
-        <option value="Consultoria escalável">Consultoria escalável</option>
-        <option value="Negócio de impacto">Negócio de impacto</option>
-        <option value="Mentoria">Mentoria</option>
-        <option value="Assessoria estratégica">Assessoria estratégica</option>
-        <option value="Agência">Agência</option>
-        <option value="Educação">Educação / Cursos</option>
-        <option value="Tecnologia">Tecnologia / SaaS</option>
-        <option value="custom">✏️ Escrever minha visão</option>
-      </select>
-    </div>
-    <div class="fi" id="emp-custom-wrap" style="display:none"><label>Minha visão</label><textarea id="emp-custom"></textarea></div>
-    <div class="fr">
-      <div class="fi"><label>Minha proposta de valor</label><textarea id="emp-prop" placeholder="O que eu entrego que ninguém mais entrega do jeito que eu entrego?"></textarea></div>
-      <div class="fi"><label>Meu diferencial</label><textarea id="emp-dif" placeholder="O que me torna única no mercado?"></textarea></div>
-    </div>
-    <div class="fi"><label>Meu público</label><textarea id="emp-pub" placeholder="Para quem eu trabalho? Quem é minha cliente ideal?"></textarea></div>
-    <div class="fi"><label>Onde quero estar em 1 ano</label><textarea id="emp-1ano" placeholder="Descreva como você quer que sua empresa seja daqui a 12 meses..."></textarea></div>
-    <button class="bp" onclick="salvarEmpresa()">Salvar Identidade</button>
-  </div>
-
-  <div class="card" id="emp-saved" style="display:none;margin-bottom:13px">
-    <div class="cl">Identidade Salva</div>
-    <div id="emp-saved-c"></div>
-  </div>
-
-  <div class="card" style="margin-bottom:13px">
-    <div class="cl">Estrutura do Negócio</div>
-    <div class="fr">
-      <div class="fi"><label>Modelo de receita</label>
-        <select id="emp-modelo">
+  <!-- ABA IDENTIDADE -->
+  <div class="itab-pane active" id="emp-identidade" style="display:block">
+    <div class="card" style="margin-bottom:13px">
+      <div class="cl">💗 Bio da Empresa</div>
+      <div class="fi"><label>Bio curta (para Instagram, WhatsApp, apresentações)</label>
+        <textarea id="emp-bio" placeholder="Ex: Consultora estratégica para mulheres empreendedoras. Ajudo a organizar, crescer e ganhar dinheiro com intencionalidade. Salvador/BA 🌿"></textarea>
+      </div>
+      <div class="fi"><label>Tipo de negócio</label>
+        <select id="emp-tipo" onchange="toggleEmpCustom()">
           <option value="">Selecione...</option>
-          <option value="Mensalidade fixa">Mensalidade fixa</option>
-          <option value="Por projeto">Por projeto</option>
-          <option value="Comissão por resultado">Comissão por resultado</option>
-          <option value="Híbrido (fixo + variável)">Híbrido (fixo + variável)</option>
-          <option value="Assinatura">Assinatura / SaaS</option>
-          <option value="Por hora">Por hora</option>
+          <option value="Consultoria boutique">Consultoria boutique</option>
+          <option value="Consultoria escalável">Consultoria escalável</option>
+          <option value="Assessoria estratégica">Assessoria estratégica</option>
+          <option value="Mentoria">Mentoria</option>
+          <option value="Agência">Agência</option>
+          <option value="Educação / Cursos">Educação / Cursos</option>
+          <option value="Tecnologia / SaaS">Tecnologia / SaaS</option>
+          <option value="custom">✏️ Outro — escrever</option>
         </select>
       </div>
-      <div class="fi"><label>Nº máximo de clientes</label>
-        <input type="number" id="emp-max-cli" placeholder="ex: 5">
+      <div class="fi" id="emp-custom-wrap" style="display:none">
+        <label>Descreva seu tipo de negócio</label>
+        <input type="text" id="emp-custom" placeholder="ex: Ecossistema de desenvolvimento para empreendedoras">
       </div>
     </div>
-    <div class="fr">
-      <div class="fi"><label>Fase atual do negócio</label>
+
+    <div class="card" style="margin-bottom:13px">
+      <div class="cl">✅ Missão, Visão e Valores</div>
+      <div class="fi"><label>Missão — Por que você existe?</label>
+        <textarea id="emp-missao" placeholder="Ex: Transformar a relação das mulheres com o dinheiro e o negócio, criando autonomia real e sustentável."></textarea>
+      </div>
+      <div class="fi"><label>Visão — Onde quer chegar?</label>
+        <textarea id="emp-visao" placeholder="Ex: Ser referência em consultoria estratégica para mulheres empreendedoras no Brasil."></textarea>
+      </div>
+      <div class="fi"><label>Valores — O que guia tudo?</label>
+        <textarea id="emp-valores" placeholder="Ex: Autonomia, clareza, resultado concreto, relação de confiança, sem enrolação."></textarea>
+      </div>
+      <div class="fi"><label>❌ Termos Inegociáveis — o que você NUNCA aceita</label>
+        <textarea id="emp-inegociavel" placeholder="Ex: Clientes que não implementam, escopo sem limite definido, pagamento atrasado sem comunicação..."></textarea>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:13px">
+      <div class="cl">🧑‍🤝‍🧑 Público-alvo e Posicionamento</div>
+      <div class="fi"><label>Quem é sua cliente ideal?</label>
+        <textarea id="emp-pub" placeholder="Ex: Mulheres empreendedoras, 28-45 anos, que já faturam mas não sabem para onde o dinheiro vai. Querem clareza e estrutura."></textarea>
+      </div>
+      <div class="fi"><label>Minha proposta de valor</label>
+        <textarea id="emp-prop" placeholder="O que você entrega que ninguém mais entrega do jeito que você entrega?"></textarea>
+      </div>
+      <div class="fi"><label>Meu diferencial</label>
+        <textarea id="emp-dif" placeholder="O que me torna única no mercado?"></textarea>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:13px">
+      <div class="cl">🗣️ Linguagem e Identidade Visual</div>
+      <div class="fi"><label>Tom de voz — como você fala?</label>
+        <textarea id="emp-tom" placeholder="Ex: Direta, acolhedora, sem jargões, fala como uma amiga que entende de negócio. Usa metáforas da natureza."></textarea>
+      </div>
+      <div class="fi"><label>Palavras que USO</label>
+        <input type="text" id="emp-palavras-uso" placeholder="ex: raiz, florescer, clareza, intencional, resultado...">
+      </div>
+      <div class="fi"><label>Palavras que EVITO</label>
+        <input type="text" id="emp-palavras-evito" placeholder="ex: coach, mentora, metodologia, disruptivo...">
+      </div>
+      <div class="fi"><label>Paleta de cores (códigos hex)</label>
+        <input type="text" id="emp-cores" placeholder="ex: #4A3428 (café), #D9C2A3 (areia), #B76A4A (terracota)">
+      </div>
+      <div class="fi"><label>Fontes</label>
+        <input type="text" id="emp-fontes" placeholder="ex: Cormorant Garamond (títulos), Outfit (corpo)">
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:13px">
+      <div class="cl">🎯 Objetivos do Negócio</div>
+      <div class="fi"><label>Onde quero estar em 1 ano</label>
+        <textarea id="emp-1ano" placeholder="Descreva como quer que sua empresa seja daqui a 12 meses..."></textarea>
+      </div>
+      <div class="fr">
+        <div class="fi"><label>Meta de faturamento mensal (R$)</label>
+          <input type="number" id="emp-meta-fat" placeholder="ex: 10000">
+        </div>
+        <div class="fi"><label>Nº máximo de clientes</label>
+          <input type="number" id="emp-max-cli" placeholder="ex: 5">
+        </div>
+      </div>
+      <div class="fi"><label>Fase atual</label>
         <select id="emp-fase">
           <option value="">Selecione...</option>
           <option value="Validação">Validação (primeiros clientes)</option>
@@ -627,24 +667,174 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
           <option value="Expansão">Expansão (novos mercados)</option>
         </select>
       </div>
-      <div class="fi"><label>Meta de faturamento mensal (R$)</label>
-        <input type="number" id="emp-meta-fat" placeholder="ex: 10000">
-      </div>
     </div>
-    <div class="fi"><label>Ferramentas que uso</label>
-      <input type="text" id="emp-ferramentas" placeholder="ex: Claude, Notion, Trello, WhatsApp Business...">
+
+    <button class="bp" style="width:100%;margin-bottom:13px" onclick="salvarEmpresaIdentidade()">💾 Salvar Identidade</button>
+    <div id="emp-identidade-saved" style="display:none" class="card">
+      <div class="cl">✅ Identidade Salva</div>
+      <div id="emp-identidade-c"></div>
     </div>
-    <div class="fi"><label>Valores inegociáveis</label>
-      <textarea id="emp-valores" placeholder="O que você nunca abre mão? Quais princípios guiam seu negócio?"></textarea>
-    </div>
-    <button class="bp" onclick="salvarEstrutura()">Salvar Estrutura</button>
   </div>
 
-  <div class="card" id="emp-estrutura-saved" style="display:none">
-    <div class="cl">Estrutura Salva</div>
-    <div id="emp-estrutura-c"></div>
+  <!-- ABA DADOS -->
+  <div class="itab-pane" id="emp-dados" style="display:none">
+    <div class="card" style="margin-bottom:13px">
+      <div class="cl">📄 Dados da Empresa</div>
+      <div class="fr">
+        <div class="fi"><label>Nome fantasia</label>
+          <input type="text" id="emp-fantasia" placeholder="ex: Germina Ori">
+        </div>
+        <div class="fi"><label>Razão social</label>
+          <input type="text" id="emp-razao" placeholder="ex: Daniela Santos dos Santos ME">
+        </div>
+      </div>
+      <div class="fr">
+        <div class="fi"><label>CNPJ</label>
+          <input type="text" id="emp-cnpj" placeholder="ex: 00.000.000/0001-00">
+        </div>
+        <div class="fi"><label>CPF (enquanto PF)</label>
+          <input type="text" id="emp-cpf" placeholder="ex: 000.000.000-00">
+        </div>
+      </div>
+      <div class="fr">
+        <div class="fi"><label>Cidade / Estado</label>
+          <input type="text" id="emp-cidade" placeholder="ex: Salvador / BA">
+        </div>
+        <div class="fi"><label>E-mail comercial</label>
+          <input type="text" id="emp-email" placeholder="ex: contato@germinaori.com.br">
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:13px">
+      <div class="cl">💳 Dados Bancários</div>
+      <div class="fr">
+        <div class="fi"><label>Banco</label>
+          <input type="text" id="emp-banco" placeholder="ex: Inter">
+        </div>
+        <div class="fi"><label>Tipo de conta</label>
+          <select id="emp-tipo-conta">
+            <option value="">Selecione...</option>
+            <option value="Conta corrente">Conta corrente</option>
+            <option value="Conta de pagamento">Conta de pagamento</option>
+            <option value="Conta poupança">Conta poupança</option>
+          </select>
+        </div>
+      </div>
+      <div class="fr">
+        <div class="fi"><label>Agência</label>
+          <input type="text" id="emp-agencia" placeholder="ex: 0001">
+        </div>
+        <div class="fi"><label>Conta</label>
+          <input type="text" id="emp-conta" placeholder="ex: 57411131">
+        </div>
+      </div>
+      <div class="fi"><label>🔑 Chave PIX</label>
+        <input type="text" id="emp-pix" placeholder="ex: 71984026950 ou email ou CNPJ">
+      </div>
+      <div class="fi"><label>Nome completo (para PIX)</label>
+        <input type="text" id="emp-nome-pix" placeholder="ex: Daniela Santos dos Santos">
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:13px">
+      <div class="cl">🧾 Dados para Nota Fiscal (MEI)</div>
+      <div class="fr">
+        <div class="fi"><label>Código do serviço (CNAE)</label>
+          <input type="text" id="emp-cnae" placeholder="ex: 7020400">
+        </div>
+        <div class="fi"><label>Alíquota ISS (%)</label>
+          <input type="text" id="emp-iss" placeholder="ex: 2%">
+        </div>
+      </div>
+      <div class="fi"><label>Descrição padrão do serviço na NF</label>
+        <input type="text" id="emp-nf-desc" placeholder="ex: Prestação de serviços de consultoria empresarial">
+      </div>
+      <div class="fi"><label>Prefeitura / Portal de emissão</label>
+        <input type="text" id="emp-nf-portal" placeholder="ex: https://nfse.salvador.ba.gov.br">
+      </div>
+    </div>
+
+    <button class="bp" style="width:100%;margin-bottom:13px" onclick="salvarEmpresaDados()">💾 Salvar Dados</button>
+    <div id="emp-dados-saved" style="display:none" class="card">
+      <div class="cl">✅ Dados Salvos</div>
+      <div id="emp-dados-c"></div>
+    </div>
+  </div>
+
+  <!-- ABA LINKS -->
+  <div class="itab-pane" id="emp-links" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px">
+      <div style="font-size:.74rem;color:var(--muted)">Seus links importantes — acesse rápido</div>
+      <button class="bp" onclick="openModal('modal-add-link-emp')">+ Adicionar Link</button>
+    </div>
+
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:13px" id="emp-links-filtros">
+      <button class="itab active" onclick="filtrarLinksEmp('',this)">Todos</button>
+      <button class="itab" onclick="filtrarLinksEmp('drive',this)">📁 Drive</button>
+      <button class="itab" onclick="filtrarLinksEmp('rede',this)">📱 Redes</button>
+      <button class="itab" onclick="filtrarLinksEmp('ferramenta',this)">🛠 Ferramentas</button>
+      <button class="itab" onclick="filtrarLinksEmp('cliente',this)">🌸 Clientes</button>
+      <button class="itab" onclick="filtrarLinksEmp('outro',this)">📌 Outros</button>
+    </div>
+
+    <div id="emp-lista-links">
+      <div class="ev"><div class="eicon">🔗</div><div class="etitle">Nenhum link ainda</div><div class="edesc">Adicione links do Drive, redes sociais, ferramentas e qualquer coisa que precisa acessar rápido.</div></div>
+    </div>
+  </div>
+
+  <!-- ABA RECIBO -->
+  <div class="itab-pane" id="emp-recibo" style="display:none">
+    <div class="card" style="margin-bottom:13px">
+      <div class="cl">🧾 Gerar Recibo</div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:13px">Preencha abaixo e clique em Gerar — o recibo aparece pronto para copiar ou imprimir.</div>
+      <div class="fr">
+        <div class="fi"><label>Cliente</label>
+          <select id="rec-cliente" onchange="preencherRecibo()">
+            <option value="">Selecione...</option>
+          </select>
+        </div>
+        <div class="fi"><label>Valor (R$)</label>
+          <input type="number" id="rec-valor" step="0.01" placeholder="ex: 500">
+        </div>
+      </div>
+      <div class="fr">
+        <div class="fi"><label>Mês de referência</label>
+          <input type="text" id="rec-mes" placeholder="ex: Junho 2026">
+        </div>
+        <div class="fi"><label>Data do recebimento</label>
+          <input type="date" id="rec-data">
+        </div>
+      </div>
+      <div class="fi"><label>Serviço prestado</label>
+        <input type="text" id="rec-servico" placeholder="ex: Consultoria empresarial — Germina Ori">
+      </div>
+      <div class="fi"><label>Forma de pagamento</label>
+        <select id="rec-forma">
+          <option value="PIX">PIX</option>
+          <option value="Transferência bancária">Transferência bancária</option>
+          <option value="Boleto">Boleto</option>
+          <option value="Dinheiro">Dinheiro</option>
+        </select>
+      </div>
+      <button class="bp" style="width:100%;margin-top:8px" onclick="gerarRecibo()">🧾 Gerar Recibo</button>
+    </div>
+
+    <div id="recibo-preview" style="display:none">
+      <div class="card" style="border:2px solid var(--nude);margin-bottom:13px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--cafe)">RECIBO DE PAGAMENTO</div>
+          <div style="display:flex;gap:8px">
+            <button class="be" onclick="imprimirRecibo()">🖨️ Imprimir</button>
+            <button class="bp" onclick="copiarRecibo()">📋 Copiar</button>
+          </div>
+        </div>
+        <div id="recibo-conteudo" style="font-size:.82rem;line-height:2;color:var(--text)"></div>
+      </div>
+    </div>
   </div>
 </div>
+
 
 <div class="page" id="page-config"><div class="ph"><div class="pe">Configurações</div><div class="pt"><em>Personalize</em> seu ecossistema</div></div><div class="card"><div class="cl">Preferências</div><div class="fr"><div class="fi"><label>Seu nome</label><input type="text" id="cfg-nome"></div><div class="fi"><label>Lembrar pagamentos</label><select id="cfg-dias"><option value="3">3 dias antes</option><option value="5">5 dias antes</option><option value="7">7 dias antes</option></select></div></div><div class="fr"><div class="fi"><label>Custo pessoal mensal (R$)</label><input type="number" id="cfg-custo"></div><div class="fi"><label>Meta Caixa Emergência PJ (R$)</label><input type="number" id="cfg-meta-caixa"></div></div><button class="bp" onclick="salvarConfig()">Salvar</button></div><div class="card"><div class="cl">Clara — Chave de API</div><div style="font-size:.74rem;color:var(--muted);margin-bottom:11px;line-height:1.6">Para a Clara funcionar fora do Claude.ai. <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--nude)">Criar chave →</a></div><div class="fi"><label>Chave de API (sk-ant-...)</label><input type="password" id="cfg-apikey"></div><button class="bp" onclick="salvarApiKey()">Salvar Chave</button><span id="cfg-apikey-status" style="font-size:.72rem;color:var(--green);margin-left:10px"></span></div><div class="card"><div class="cl">Conta</div><div style="font-size:.76rem;color:var(--muted);margin-bottom:11px" id="cfg-user-info">—</div><button class="bd" onclick="if(confirm('Apagar todos os dados?')){limparDados();}">Apagar todos os dados</button></div>
 <div class="card" style="border:2px solid var(--ouro)">
@@ -754,7 +944,25 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
       <option value="">— Selecionar serviço cadastrado —</option>
     </select>
     <textarea id="cli-servico" placeholder="Descreva o escopo..."></textarea>
-  </div><div class="fr"><div class="fi"><label>Reajuste Previsto</label><input type="text" id="cli-reajuste"></div><div class="fi"><label>Como chegou</label><input type="text" id="cli-origem"></div></div><div class="fi"><label>NPS (0–10)</label><input type="number" id="cli-nps" min="0" max="10"></div><div class="fi"><label>Perfil / Resumo</label><textarea id="cli-resumo"></textarea></div><div class="fi"><label>Notas</label><textarea id="cli-notas"></textarea></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-cli')">Cancelar</button><button class="bp" onclick="salvarCliente()">Salvar</button></div></div></div>
+  </div><div class="fi"><label>Modelo de receita</label>
+    <select id="cli-modelo-rec" onchange="toggleCliVariavel()">
+      <option value="fixo">💰 Fixo mensal</option>
+      <option value="hibrido">⚡ Híbrido (fixo + variável)</option>
+      <option value="projeto">📦 Por projeto</option>
+      <option value="comissao">🤝 Comissão por resultado</option>
+      <option value="hora">⏱ Por hora</option>
+    </select>
+  </div>
+  <div id="cli-variavel-wrap" style="display:none">
+    <div style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:9px;padding:12px;margin-bottom:10px">
+      <div style="font-size:.65rem;font-weight:700;color:var(--cafe);margin-bottom:8px">⚡ PARTE VARIÁVEL</div>
+      <div class="fr">
+        <div class="fi"><label>Valor variável recebido (R$)</label><input type="number" id="cli-val-variavel" placeholder="ex: 200"></div>
+        <div class="fi"><label>Do que se trata</label><input type="text" id="cli-variavel-desc" placeholder="ex: Bônus por 10 leads, comissão de fechamento..."></div>
+      </div>
+    </div>
+  </div>
+  <div class="fr"><div class="fi"><label>Reajuste Previsto</label><input type="text" id="cli-reajuste"></div><div class="fi"><label>Como chegou</label><input type="text" id="cli-origem"></div></div><div class="fi"><label>NPS (0–10)</label><input type="number" id="cli-nps" min="0" max="10"></div><div class="fi"><label>Perfil / Resumo</label><textarea id="cli-resumo"></textarea></div><div class="fi"><label>Notas</label><textarea id="cli-notas"></textarea></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-cli')">Cancelar</button><button class="bp" onclick="salvarCliente()">Salvar</button></div></div></div>
 <div class="mo" id="modal-add-conta"><div class="md"><div class="mt">Adicionar Conta</div><div class="fr"><div class="fi"><label>Descrição</label><input type="text" id="ct-desc"></div><div class="fi"><label>Valor (R$)</label><input type="number" id="ct-val"></div></div><div class="fr"><div class="fi"><label>Tipo</label><select id="ct-tipo"><option value="PJ">PJ (negócio)</option><option value="PF">PF (pessoal)</option></select></div><div class="fi"><label>Tipo de Valor</label><select id="ct-rec" onchange="toggleValVar()"><option value="mensal">Fixo mensal</option><option value="variavel">Variável mensal</option><option value="anual">Fixo anual</option><option value="unica">Única vez</option></select></div></div><div class="fi" id="ct-val-var-wrap" style="display:none"><label>Valor Médio (R$)</label><input type="number" id="ct-val-var"></div><div class="fi"><label>Dia Vencimento</label><input type="number" id="ct-dia" min="1" max="31"></div><div class="fi"><label>Categoria</label><select id="ct-cat"><optgroup label="Negócio (PJ)"><option>MEI / Impostos</option><option>Contador / Consultoria</option><option>Ferramentas / Apps</option><option>Cursos / Capacitação</option><option>Marketing / Tráfego</option><option>Assinaturas PJ</option><option>Outros PJ</option></optgroup><optgroup label="Pessoal (PF)"><option>Moradia / Aluguel</option><option>Água / Luz / Gás</option><option>Internet / Telefone</option><option>Mercado / Alimentação</option><option>Transporte / Combustível</option><option>Saúde / Plano</option><option>Educação</option><option>Vestuário</option><option>Lazer / Entretenimento</option><option>Beleza / Autocuidado</option><option>Filhos / Família</option><option>Outros PF</option></optgroup></select></div><div class="fi"><label>Notas</label><input type="text" id="ct-nota"></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-conta')">Cancelar</button><button class="bp" onclick="adicionarConta()">Salvar</button></div></div></div>
 <div class="mo" id="modal-baixa-rec"><div class="md"><div class="mt">Confirmar Recebimento</div><input type="hidden" id="mbr-id"><div class="fi"><label>Cliente</label><input type="text" id="mbr-nome" disabled style="opacity:.6"></div><div class="fr"><div class="fi"><label>Valor (R$)</label><input type="number" id="mbr-val"></div><div class="fi"><label>Data</label><input type="date" id="mbr-data"></div></div><div class="fi"><label>Observação</label><input type="text" id="mbr-obs"></div><div class="ma"><button class="bg" onclick="closeModal('modal-baixa-rec')">Cancelar</button><button class="bp" onclick="confirmarBaixa('rec')">Confirmar</button></div></div></div>
 <div class="mo" id="modal-baixa-pag"><div class="md"><div class="mt">Confirmar Pagamento</div><input type="hidden" id="mbp-id"><div class="fi"><label>Conta</label><input type="text" id="mbp-nome" disabled style="opacity:.6"></div><div class="fr"><div class="fi"><label>Valor (R$)</label><input type="number" id="mbp-val"></div><div class="fi"><label>Data</label><input type="date" id="mbp-data"></div></div><div class="fi"><label>Observação</label><input type="text" id="mbp-obs"></div><div class="ma"><button class="bg" onclick="closeModal('modal-baixa-pag')">Cancelar</button><button class="bp" onclick="confirmarBaixa('pag')">Confirmar</button></div></div></div>
@@ -891,6 +1099,12 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 
 
 <script>
+function toggleCliVariavel(){
+  var modelo=document.getElementById('cli-modelo-rec').value;
+  var wrap=document.getElementById('cli-variavel-wrap');
+  if(wrap)wrap.style.display=modelo==='hibrido'||modelo==='comissao'?'block':'none';
+}
+
 var CU=null;var DB=null;
 
 function parseBRL(v){
@@ -1237,9 +1451,12 @@ function scCol(s){return s==='Ativo'?'g':s==='Saindo'?'r':s==='Parceria'?'o':'m'
 function salvarCliente(){
   var nome=document.getElementById('cli-nome').value.trim();if(!nome){notif('Informe o nome da cliente.');return;}
   var eid=document.getElementById('cli-edit-id').value;
-  var obj={id:eid||uid(),nome:nome,val:Math.round((parseBRL(document.getElementById('cli-val').value)||0)*100)/100,dia:document.getElementById('cli-dia').value,meio:document.getElementById('cli-meio').value,inicio:document.getElementById('cli-inicio').value,primeiro_pag:document.getElementById('cli-primeiro-pag').value,fim:document.getElementById('cli-fim').value,status:document.getElementById('cli-status').value,canal:document.getElementById('cli-canal').value,servico:document.getElementById('cli-servico').value,reajuste:document.getElementById('cli-reajuste').value,origem:document.getElementById('cli-origem').value,nps:document.getElementById('cli-nps').value!==''?parseInt(document.getElementById('cli-nps').value):null,resumo:document.getElementById('cli-resumo').value,notas:document.getElementById('cli-notas').value};
+  var modeloRecEl=document.getElementById('cli-modelo-rec');
+  var valVariavelEl=document.getElementById('cli-val-variavel');
+  var varDescEl=document.getElementById('cli-variavel-desc');
+  var obj={id:eid||uid(),nome:nome,val:Math.round((parseBRL(document.getElementById('cli-val').value)||0)*100)/100,dia:document.getElementById('cli-dia').value,meio:document.getElementById('cli-meio').value,inicio:document.getElementById('cli-inicio').value,primeiro_pag:document.getElementById('cli-primeiro-pag').value,fim:document.getElementById('cli-fim').value,status:document.getElementById('cli-status').value,canal:document.getElementById('cli-canal').value,servico:document.getElementById('cli-servico').value,reajuste:document.getElementById('cli-reajuste').value,origem:document.getElementById('cli-origem').value,nps:document.getElementById('cli-nps').value!==''?parseInt(document.getElementById('cli-nps').value):null,resumo:document.getElementById('cli-resumo').value,notas:document.getElementById('cli-notas').value,modelo_rec:modeloRecEl?modeloRecEl.value:'fixo',val_variavel:valVariavelEl?parseFloat(valVariavelEl.value)||0:0,variavel_desc:varDescEl?varDescEl.value.trim():''};
   if(eid){var idx=DB.clientes.findIndex(function(c){return c.id===eid;});if(idx>=0)DB.clientes[idx]=obj;else DB.clientes.push(obj);}else DB.clientes.push(obj);
-  saveDB();document.getElementById('cli-edit-id').value='';['cli-nome','cli-val','cli-dia','cli-inicio','cli-primeiro-pag','cli-fim','cli-canal','cli-servico','cli-reajuste','cli-origem','cli-resumo','cli-notas'].forEach(function(id){document.getElementById(id).value='';});
+  saveDB();document.getElementById('cli-edit-id').value='';['cli-nome','cli-val','cli-dia','cli-inicio','cli-primeiro-pag','cli-fim','cli-canal','cli-servico','cli-reajuste','cli-origem','cli-resumo','cli-notas','cli-val-variavel','cli-variavel-desc'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('cli-nps').value='';
   closeModal('modal-add-cli');renderClientes();renderHome();notif('Cliente salva!');
 }
@@ -1304,7 +1521,19 @@ function renderClientes(){
     if(c.dia)h.push('<span class="bdg m">DIA '+c.dia+'</span>');
     if(c.nps!==null&&c.nps!==undefined)h.push('<span class="bdg '+(c.nps>=8?'g':c.nps>=6?'o':'r')+'">NPS '+c.nps+'</span>');
     h.push('</div></div>');
-    h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+c.val.toLocaleString('pt-BR')+'</div><div class="bdg '+(baixa?'g':'o')+'" style="margin-top:5px">'+pi+'</div></div></div>');
+    var totalCli=c.val+(c.val_variavel&&c.modelo_rec==='hibrido'?c.val_variavel:0);
+    h.push('<div style="text-align:right">');
+    h.push('<div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+c.val.toLocaleString('pt-BR')+'</div>');
+    if(c.val_variavel&&c.modelo_rec==='hibrido'){
+      h.push('<div style="font-size:.65rem;color:var(--green);margin-top:2px">+R$ '+c.val_variavel.toLocaleString('pt-BR')+(c.variavel_desc?' ('+c.variavel_desc+')':'')+'</div>');
+      h.push('<div style="font-size:.6rem;color:var(--muted)">Total: R$ '+totalCli.toLocaleString('pt-BR')+'</div>');
+    }
+    if(c.modelo_rec&&c.modelo_rec!=='fixo'){
+      var modeloLabel={hibrido:'⚡ Híbrido',projeto:'📦 Por projeto',comissao:'🤝 Comissão',hora:'⏱ Por hora'};
+      h.push('<div class="bdg n" style="font-size:.5rem;margin-top:3px">'+(modeloLabel[c.modelo_rec]||c.modelo_rec)+'</div>');
+    }
+    h.push('<div class="bdg '+(baixa?'g':'o')+'" style="margin-top:5px">'+pi+'</div>');
+    h.push('</div></div>');
     h.push('<div id="cli-details-'+c.id+'" style="display:none;margin-top:11px;padding-top:11px;border-top:1px solid var(--border)">');
     var dets=[];
     if(c.inicio)dets.push({l:'Início',v:c.inicio});if(c.primeiro_pag)dets.push({l:'1º Pagamento',v:c.primeiro_pag});if(c.fim)dets.push({l:'Fim',v:c.fim});if(c.reajuste)dets.push({l:'Reajuste',v:c.reajuste});if(c.canal)dets.push({l:'Canal',v:c.canal});if(c.origem)dets.push({l:'Como chegou',v:c.origem});
@@ -1809,73 +2038,10 @@ function editarReserva(id){
 }
 function remReserva(id){if(!confirm('Remover aplicação?'))return;DB.reservas=DB.reservas.filter(function(r){return r.id!==id;});saveDB();renderReservas();notif('Aplicação removida.');}
 
-function toggleCustom(){document.getElementById('emp-custom-wrap').style.display=document.getElementById('emp-tipo').value==='custom'?'flex':'none';}
-function salvarEmpresa(){
-  var tipo=document.getElementById('emp-tipo').value;
-  DB.empresa={tipo:tipo==='custom'?document.getElementById('emp-custom').value.trim():tipo,prop:document.getElementById('emp-prop').value.trim(),dif:document.getElementById('emp-dif').value.trim(),um_ano:document.getElementById('emp-1ano').value.trim(),pub:document.getElementById('emp-pub').value.trim()};
-  saveDB();renderEmpresa();notif('Identidade salva!');
-}
 
-function salvarEstrutura(){
-  if(!DB)return;
-  if(!DB.empresa)DB.empresa={};
-  DB.empresa.modelo=document.getElementById('emp-modelo').value;
-  DB.empresa.max_cli=document.getElementById('emp-max-cli').value;
-  DB.empresa.fase=document.getElementById('emp-fase').value;
-  DB.empresa.meta_fat=document.getElementById('emp-meta-fat').value;
-  DB.empresa.ferramentas=document.getElementById('emp-ferramentas').value;
-  DB.empresa.valores=document.getElementById('emp-valores').value.trim();
-  saveDB();
-  renderEmpresa();
-  notif('Estrutura salva! ✅');
-}
 
-function renderEmpresa(){
-  if(!DB)return;var e=DB.empresa||{};
-  var vtEl=document.getElementById('vis-text');if(vtEl)vtEl.textContent=e.tipo||'Ainda definindo minha visão...';
-  var sd=document.getElementById('emp-saved');
-  if(e.prop||e.dif||e.um_ano||e.pub){
-    sd.style.display='block';
-    var h=[];
-    if(e.pub)h.push('<div style="margin-bottom:11px"><div class="cl">Público Ideal</div><div style="font-size:.79rem">'+e.pub+'</div></div>');
-    if(e.prop)h.push('<div style="margin-bottom:11px"><div class="cl">Proposta de Valor</div><div style="font-size:.79rem;line-height:1.6">'+e.prop+'</div></div>');
-    if(e.dif)h.push('<div style="margin-bottom:11px"><div class="cl">Diferencial</div><div style="font-size:.79rem">'+e.dif+'</div></div>');
-    if(e.um_ano)h.push('<div><div class="cl">Em 1 Ano</div><div style="font-family:Cormorant Garamond,serif;font-style:italic;font-size:1rem;color:var(--cafe);line-height:1.5">'+e.um_ano+'</div></div>');
-    document.getElementById('emp-saved-c').innerHTML=h.join('');
-    if(e.tipo){document.getElementById('emp-tipo').value=e.tipo;document.getElementById('emp-prop').value=e.prop||'';document.getElementById('emp-dif').value=e.dif||'';document.getElementById('emp-1ano').value=e.um_ano||'';document.getElementById('emp-pub').value=e.pub||'';}
-  }
 
-  // Load structure fields
-  if(e.modelo){var em=document.getElementById('emp-modelo');if(em)em.value=e.modelo||'';}
-  if(e.max_cli){var ec=document.getElementById('emp-max-cli');if(ec)ec.value=e.max_cli||'';}
-  if(e.fase){var ef=document.getElementById('emp-fase');if(ef)ef.value=e.fase||'';}
-  if(e.meta_fat){var emf=document.getElementById('emp-meta-fat');if(emf)emf.value=e.meta_fat||'';}
-  if(e.ferramentas){var efe=document.getElementById('emp-ferramentas');if(efe)efe.value=e.ferramentas||'';}
-  if(e.valores){var ev2=document.getElementById('emp-valores');if(ev2)ev2.value=e.valores||'';}
-  // Show saved structure
-  var estSaved=document.getElementById('emp-estrutura-saved');
-  var estC=document.getElementById('emp-estrutura-c');
-  if(estSaved&&estC&&(e.modelo||e.fase||e.valores)){
-    estSaved.style.display='block';
-    var sh=[];
-    if(e.fase)sh.push('<div style="margin-bottom:8px"><span class="bdg n">'+e.fase+'</span></div>');
-    if(e.modelo)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Modelo:</strong> '+e.modelo+'</div>');
-    if(e.max_cli)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Máx. clientes:</strong> '+e.max_cli+'</div>');
-    if(e.meta_fat)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Meta mensal:</strong> R$ '+parseFloat(e.meta_fat).toLocaleString('pt-BR')+'</div>');
-    if(e.ferramentas)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Ferramentas:</strong> '+e.ferramentas+'</div>');
-    if(e.valores)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Valores:</strong> '+e.valores+'</div>');
-    if(e.cnpj)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>CNPJ/CPF:</strong> '+e.cnpj+'</div>');
-    if(e.fantasia)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Nome fantasia:</strong> '+e.fantasia+'</div>');
-    if(e.redes)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Redes:</strong> '+e.redes+'</div>');
-    if(e.servicos_desc)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Serviços:</strong> '+e.servicos_desc+'</div>');
-    estC.innerHTML=sh.join('');
-  }
-  // Load new fields
-  var cnpjEl=document.getElementById('emp-cnpj');if(cnpjEl)cnpjEl.value=e.cnpj||'';
-  var fantEl=document.getElementById('emp-fantasia');if(fantEl)fantEl.value=e.fantasia||'';
-  var redesEl=document.getElementById('emp-redes');if(redesEl)redesEl.value=e.redes||'';
-  var srvEl=document.getElementById('emp-servicos-desc');if(srvEl)srvEl.value=e.servicos_desc||'';
-}
+
 function loadCfgFields(){
   if(!DB)return;
   document.getElementById('cfg-nome').value=CU?CU.nome:'';
@@ -2160,6 +2326,7 @@ function defaultDB(){return{
   servicos:[],
   meses_fin:{},
   contas_fixas:[],
+  empresa_links:[],
   entregas:[],
   propostas:[],
   hist_cli:[],
@@ -2195,6 +2362,7 @@ function loadDB(){
   if(!DB.propostas)DB.propostas=[];
   if(!DB.hist_cli)DB.hist_cli=[];
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   migrarDB();}
 function migrarDB(){
   // Migrate and enforce 3-caixa structure
@@ -2252,6 +2420,7 @@ function showItab(g,id,btn){
   }
   btn.classList.add('active');
   // Render content
+  if(g==='emp'){renderEmpresa();}
   if(g==='cli'){if(id==='carteira')renderClientes();else if(id==='reunioes')renderReunioes();else if(id==='projetos')renderProjetos();}
   if(g==='fin'){renderFinanceiro();}
   if(g==='est'){if(id==='trimestre')renderMetas();else if(id==='pessoal')renderMetasPessoais();else if(id==='marcos')renderMarcos();else if(id==='anual')renderVisaoAnual();else if(id==='estrategias')renderEstrategias();}
@@ -2359,6 +2528,7 @@ function prodInit(){
   if(!DB.propostas)DB.propostas=[];
   if(!DB.hist_cli)DB.hist_cli=[];
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   prodPopularSelects();prodRenderSessoes();prodRenderDemandas();
   prodRenderRentabilidade();prodRenderHistorico();prodRenderDiagnostico();prodRenderResumoCards();
 }
@@ -2411,6 +2581,7 @@ function prodPararTimer(){
   if(!DB.propostas)DB.propostas=[];
   if(!DB.hist_cli)DB.hist_cli=[];
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   DB.produtividade.sessoes.push({id:uid(),clienteId:cliId,clienteNome:cli?cli.nome:'—',tipo:document.getElementById('prod-tipo-demanda').value,descricao:document.getElementById('prod-desc-sessao').value.trim(),durMin:durMin,inicio:_prodTimerInicio?_prodTimerInicio.toISOString():'',data:new Date().toISOString().slice(0,10)});
   saveDB();prodResetTimer();prodRenderSessoes();prodRenderRentabilidade();prodRenderResumoCards();
   notif('Sessão de '+durMin+'min registrada!');
@@ -2443,6 +2614,7 @@ function prodSalvarManual(){
   if(!DB.propostas)DB.propostas=[];
   if(!DB.hist_cli)DB.hist_cli=[];
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   DB.produtividade.sessoes.push({id:uid(),clienteId:cliId,clienteNome:cli?cli.nome:'—',tipo:document.getElementById('prod-tipo-demanda').value,descricao:document.getElementById('prod-desc-sessao').value.trim(),durMin:min,data:data,manual:true});
   saveDB();document.getElementById('prod-man-min').value='';document.getElementById('prod-desc-sessao').value='';
   prodRenderSessoes();prodRenderRentabilidade();prodRenderResumoCards();
@@ -2491,6 +2663,7 @@ function prodSalvarDemanda(){
   if(!DB.propostas)DB.propostas=[];
   if(!DB.hist_cli)DB.hist_cli=[];
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   DB.produtividade.demandas.push({id:uid(),clienteId:cliId,clienteNome:cli?cli.nome:'—',tipo:document.getElementById('dem-tipo').value,descricao:document.getElementById('dem-desc').value.trim(),status:document.getElementById('dem-status').value,durMin:parseInt(document.getElementById('dem-min').value)||0,data:new Date().toISOString().slice(0,10)});
   saveDB();document.getElementById('dem-desc').value='';document.getElementById('dem-min').value='';
   closeModal('modal-add-demanda');prodRenderDemandas();notif('Demanda registrada!');
@@ -2589,6 +2762,7 @@ function prodRenderMetasHoras(){
   if(!DB.propostas)DB.propostas=[];
   if(!DB.hist_cli)DB.hist_cli=[];
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   el.innerHTML='';
   clientes.forEach(function(c){
     var row=document.createElement('div');row.style.cssText='display:flex;align-items:center;gap:12px;margin-bottom:9px';
@@ -2610,6 +2784,7 @@ function prodSalvarMeta(cliId,val){
   if(!DB.propostas)DB.propostas=[];
   if(!DB.hist_cli)DB.hist_cli=[];
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   DB.produtividade.meta_horas[cliId]=parseFloat(val)||0;
   saveDB();prodRenderRentabilidade();notif('Meta salva!');
 }
@@ -2746,6 +2921,7 @@ function renderReunioes(){
   if(!DB.propostas)DB.propostas=[];
   if(!DB.hist_cli)DB.hist_cli=[];
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   // Populate client select
   var clientes=DB.clientes.filter(function(c){return c.status!=='Encerrado';});
   var opts='<option value="">Selecione...</option>'+clientes.map(function(c){return '<option value="'+c.id+'">'+c.nome+'</option>';}).join('');
@@ -2806,6 +2982,7 @@ function salvarReuniao(){
   if(!DB.propostas)DB.propostas=[];
   if(!DB.hist_cli)DB.hist_cli=[];
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   var eid=document.getElementById('reu-edit-id').value;
   var obj={
     id:eid||uid(),
@@ -2869,6 +3046,7 @@ function renderProjetos(){
   if(!DB.propostas)DB.propostas=[];
   if(!DB.hist_cli)DB.hist_cli=[];
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   var clientes=DB.clientes.filter(function(c){return c.status!=='Encerrado';});
   var opts='<option value="">Selecione...</option>'+clientes.map(function(c){
     return '<option value="'+c.id+'">'+c.nome+'</option>';
@@ -2947,6 +3125,7 @@ function salvarProjeto(){
   if(!DB.propostas)DB.propostas=[];
   if(!DB.hist_cli)DB.hist_cli=[];
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   var eid=document.getElementById('proj-edit-id').value;
   var obj={
     id:eid||uid(),
@@ -3003,6 +3182,7 @@ function adicionarServico(){
   if(!DB.propostas)DB.propostas=[];
   if(!DB.hist_cli)DB.hist_cli=[];
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   var valor=parseBRL(document.getElementById('srv-valor').value)||0;
   DB.servicos.push({id:uid(),nome:nome,valor:valor});
   saveDB();
@@ -3453,6 +3633,7 @@ var _bibFiltro='';
 function renderBiblioteca(){
   if(!DB)return;
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   var el=document.getElementById('lista-biblioteca');if(!el)return;
   var items=DB.biblioteca.slice();
   if(_bibFiltro)items=items.filter(function(b){return b.cat===_bibFiltro;});
@@ -3488,6 +3669,7 @@ function salvarBib(){
   var titulo=document.getElementById('bib-titulo').value.trim();
   if(!titulo){notif('Informe o título.');return;}
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
   var eid=document.getElementById('bib-edit-id').value;
   var obj={id:eid||uid(),titulo:titulo,cat:document.getElementById('bib-cat').value,url:document.getElementById('bib-url').value.trim(),desc:document.getElementById('bib-desc').value.trim(),tags:document.getElementById('bib-tags').value.trim(),criado:new Date().toISOString()};
   if(eid){var idx=DB.biblioteca.findIndex(function(x){return x.id===eid;});if(idx>=0)DB.biblioteca[idx]=obj;else DB.biblioteca.push(obj);}
@@ -4016,6 +4198,270 @@ function remContaFixa(id){
   renderFinanceiro();
   notif('Conta fixa removida.');
 }
+
+// ══════════════════════════════════════════════
+// EMPRESA — funções completas
+// ══════════════════════════════════════════════
+
+function toggleEmpCustom(){
+  var v=document.getElementById('emp-tipo').value;
+  var w=document.getElementById('emp-custom-wrap');
+  if(w)w.style.display=v==='custom'?'block':'none';
+}
+
+function salvarEmpresaIdentidade(){
+  if(!DB)return;
+  if(!DB.empresa)DB.empresa={};
+  var e=DB.empresa;
+  var tipo=document.getElementById('emp-tipo').value;
+  if(tipo==='custom'){var c=document.getElementById('emp-custom');tipo=c?c.value.trim():'';}
+  e.tipo=tipo;
+  e.bio=document.getElementById('emp-bio').value.trim();
+  e.missao=document.getElementById('emp-missao').value.trim();
+  e.visao=document.getElementById('emp-visao').value.trim();
+  e.valores=document.getElementById('emp-valores').value.trim();
+  e.inegociavel=document.getElementById('emp-inegociavel').value.trim();
+  e.pub=document.getElementById('emp-pub').value.trim();
+  e.prop=document.getElementById('emp-prop').value.trim();
+  e.dif=document.getElementById('emp-dif').value.trim();
+  e.tom=document.getElementById('emp-tom').value.trim();
+  e.palavras_uso=document.getElementById('emp-palavras-uso').value.trim();
+  e.palavras_evito=document.getElementById('emp-palavras-evito').value.trim();
+  e.cores=document.getElementById('emp-cores').value.trim();
+  e.fontes=document.getElementById('emp-fontes').value.trim();
+  e.um_ano=document.getElementById('emp-1ano').value.trim();
+  e.meta_fat=document.getElementById('emp-meta-fat').value;
+  e.max_cli=document.getElementById('emp-max-cli').value;
+  e.fase=document.getElementById('emp-fase').value;
+  saveDB();
+  renderEmpresa();
+  notif('Identidade salva! ✅');
+}
+
+function salvarEmpresaDados(){
+  if(!DB)return;
+  if(!DB.empresa)DB.empresa={};
+  var e=DB.empresa;
+  e.fantasia=document.getElementById('emp-fantasia').value.trim();
+  e.razao=document.getElementById('emp-razao').value.trim();
+  e.cnpj=document.getElementById('emp-cnpj').value.trim();
+  e.cpf=document.getElementById('emp-cpf').value.trim();
+  e.cidade=document.getElementById('emp-cidade').value.trim();
+  e.email_comercial=document.getElementById('emp-email').value.trim();
+  e.banco=document.getElementById('emp-banco').value.trim();
+  e.tipo_conta=document.getElementById('emp-tipo-conta').value;
+  e.agencia=document.getElementById('emp-agencia').value.trim();
+  e.conta=document.getElementById('emp-conta').value.trim();
+  e.pix=document.getElementById('emp-pix').value.trim();
+  e.nome_pix=document.getElementById('emp-nome-pix').value.trim();
+  e.cnae=document.getElementById('emp-cnae').value.trim();
+  e.iss=document.getElementById('emp-iss').value.trim();
+  e.nf_desc=document.getElementById('emp-nf-desc').value.trim();
+  e.nf_portal=document.getElementById('emp-nf-portal').value.trim();
+  saveDB();
+  renderEmpresa();
+  notif('Dados salvos! ✅');
+}
+
+function renderEmpresa(){
+  if(!DB)return;
+  var e=DB.empresa||{};
+
+  // Load identidade fields
+  var tipoEl=document.getElementById('emp-tipo');
+  if(tipoEl){
+    if(e.tipo&&!tipoEl.querySelector('option[value="'+e.tipo+'"]')){
+      tipoEl.value='custom';
+      var cw=document.getElementById('emp-custom-wrap');if(cw)cw.style.display='block';
+      var ce=document.getElementById('emp-custom');if(ce)ce.value=e.tipo;
+    } else if(e.tipo){tipoEl.value=e.tipo;}
+  }
+  var fields={
+    'emp-bio':'bio','emp-missao':'missao','emp-visao':'visao','emp-valores':'valores',
+    'emp-inegociavel':'inegociavel','emp-pub':'pub','emp-prop':'prop','emp-dif':'dif',
+    'emp-tom':'tom','emp-palavras-uso':'palavras_uso','emp-palavras-evito':'palavras_evito',
+    'emp-cores':'cores','emp-fontes':'fontes','emp-1ano':'um_ano',
+    'emp-meta-fat':'meta_fat','emp-max-cli':'max_cli','emp-fase':'fase',
+    'emp-fantasia':'fantasia','emp-razao':'razao','emp-cnpj':'cnpj','emp-cpf':'cpf',
+    'emp-cidade':'cidade','emp-email':'email_comercial','emp-banco':'banco',
+    'emp-tipo-conta':'tipo_conta','emp-agencia':'agencia','emp-conta':'conta',
+    'emp-pix':'pix','emp-nome-pix':'nome_pix','emp-cnae':'cnae','emp-iss':'iss',
+    'emp-nf-desc':'nf_desc','emp-nf-portal':'nf_portal'
+  };
+  Object.keys(fields).forEach(function(elId){
+    var el=document.getElementById(elId);
+    if(el&&e[fields[elId]])el.value=e[fields[elId]];
+  });
+
+  // Show saved identidade summary
+  var idSaved=document.getElementById('emp-identidade-saved');
+  var idC=document.getElementById('emp-identidade-c');
+  if(idSaved&&idC&&(e.missao||e.visao||e.bio)){
+    idSaved.style.display='block';
+    var h=[];
+    if(e.bio)h.push('<div style="margin-bottom:9px"><div style="font-size:.6rem;font-weight:700;color:var(--nude);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px">BIO</div><div style="font-size:.78rem;line-height:1.6">'+e.bio+'</div></div>');
+    if(e.missao)h.push('<div style="margin-bottom:9px"><div style="font-size:.6rem;font-weight:700;color:var(--nude);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px">MISSÃO</div><div style="font-size:.78rem;line-height:1.6">'+e.missao+'</div></div>');
+    if(e.visao)h.push('<div style="margin-bottom:9px"><div style="font-size:.6rem;font-weight:700;color:var(--nude);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px">VISÃO</div><div style="font-size:.78rem;line-height:1.6">'+e.visao+'</div></div>');
+    if(e.valores)h.push('<div style="margin-bottom:9px"><div style="font-size:.6rem;font-weight:700;color:var(--nude);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px">VALORES</div><div style="font-size:.78rem;line-height:1.6">'+e.valores+'</div></div>');
+    if(e.inegociavel)h.push('<div style="margin-bottom:9px"><div style="font-size:.6rem;font-weight:700;color:var(--red);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px">❌ INEGOCIÁVEIS</div><div style="font-size:.78rem;line-height:1.6">'+e.inegociavel+'</div></div>');
+    idC.innerHTML=h.join('');
+  }
+
+  // Show saved dados summary
+  var dadosSaved=document.getElementById('emp-dados-saved');
+  var dadosC=document.getElementById('emp-dados-c');
+  if(dadosSaved&&dadosC&&(e.cnpj||e.pix||e.banco)){
+    dadosSaved.style.display='block';
+    var dh=[];
+    if(e.fantasia)dh.push('<div style="font-size:.78rem;margin-bottom:5px"><strong>'+e.fantasia+'</strong>'+(e.razao?' — '+e.razao:'')+'</div>');
+    if(e.cnpj)dh.push('<div style="font-size:.76rem;margin-bottom:4px">CNPJ: '+e.cnpj+'</div>');
+    if(e.pix)dh.push('<div style="font-size:.76rem;margin-bottom:4px;background:var(--green-dim);border-radius:6px;padding:5px 8px">🔑 PIX: <strong>'+e.pix+'</strong>'+(e.nome_pix?' — '+e.nome_pix:'')+'</div>');
+    if(e.banco)dh.push('<div style="font-size:.76rem;margin-bottom:4px">Banco: '+e.banco+(e.agencia?' · Ag: '+e.agencia:'')+(e.conta?' · Conta: '+e.conta:'')+'</div>');
+    dadosC.innerHTML=dh.join('');
+  }
+
+  // Load links
+  renderLinksEmp();
+
+  // Load recibo cliente selector
+  var recCli=document.getElementById('rec-cliente');
+  if(recCli){
+    recCli.innerHTML='<option value="">Selecione...</option>'+
+      DB.clientes.filter(function(c){return c.status!=='Encerrado';})
+      .map(function(c){return '<option value="'+c.id+'">'+c.nome+'</option>';}).join('');
+  }
+  // Set today as default recibo date
+  var recData=document.getElementById('rec-data');
+  if(recData&&!recData.value)recData.value=new Date().toISOString().slice(0,10);
+}
+
+// ── LINKS ──
+var _empLinkFiltro='';
+function filtrarLinksEmp(cat,btn){
+  _empLinkFiltro=cat;
+  document.querySelectorAll('#emp-links-filtros .itab').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  renderLinksEmp();
+}
+
+function renderLinksEmp(){
+  var el=document.getElementById('emp-lista-links');if(!el)return;
+  if(!DB.empresa_links)DB.empresa_links=[];
+  var items=DB.empresa_links.slice();
+  if(_empLinkFiltro)items=items.filter(function(l){return l.cat===_empLinkFiltro;});
+  if(!items.length){
+    el.innerHTML='<div class="ev"><div class="eicon">🔗</div><div class="etitle">Nenhum link'+(DB.empresa_links.length?' nesta categoria':'')+'</div><div class="edesc">Adicione links do Drive, redes, ferramentas e tudo que precisa acessar rápido.</div></div>';
+    return;
+  }
+  var catIcon={drive:'📁',rede:'📱',ferramenta:'🛠',cliente:'🌸',outro:'📌'};
+  var catLabel={drive:'Drive',rede:'Rede social',ferramenta:'Ferramenta',cliente:'Cliente',outro:'Outro'};
+  el.innerHTML='';
+  items.forEach(function(l){
+    var card=document.createElement('div');
+    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px';
+    card.innerHTML='<div style="flex:1;min-width:0">'
+      +'<div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+(catIcon[l.cat]||'📌')+' '+l.titulo+'</div>'
+      +'<div style="font-size:.65rem;color:var(--muted);margin-top:2px">'+(catLabel[l.cat]||l.cat)+(l.desc?' · '+l.desc:'')+'</div>'
+      +'</div>'
+      +'<div style="display:flex;gap:6px;flex-shrink:0">'
+      +'<a href="'+l.url+'" target="_blank" style="font-size:.65rem;padding:5px 10px;background:var(--cafe);color:#fff;border-radius:7px;text-decoration:none;font-weight:600">Abrir →</a>'
+      +'<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+l.id+'" onclick="remLinkEmp(this.dataset.id)">✕</button>'
+      +'</div>';
+    el.appendChild(card);
+  });
+}
+
+function salvarLinkEmp(){
+  var titulo=document.getElementById('lkemp-titulo').value.trim();
+  if(!titulo){notif('Informe o título.');return;}
+  var url=document.getElementById('lkemp-url').value.trim();
+  if(!url){notif('Cole o link.');return;}
+  if(!DB.empresa_links)DB.empresa_links=[];
+  DB.empresa_links.push({
+    id:uid(),titulo:titulo,url:url,
+    cat:document.getElementById('lkemp-cat').value,
+    desc:document.getElementById('lkemp-desc').value.trim(),
+    criado:new Date().toISOString()
+  });
+  saveDB();
+  ['lkemp-titulo','lkemp-url','lkemp-desc'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  closeModal('modal-add-link-emp');
+  renderLinksEmp();
+  notif('Link adicionado! ✅');
+}
+
+function remLinkEmp(id){
+  if(!confirm('Remover link?'))return;
+  DB.empresa_links=DB.empresa_links.filter(function(l){return l.id!==id;});
+  saveDB();renderLinksEmp();notif('Removido.');
+}
+
+// ── RECIBO ──
+function preencherRecibo(){
+  var cliId=document.getElementById('rec-cliente').value;
+  if(!cliId)return;
+  var cli=DB.clientes.find(function(c){return c.id===cliId;});
+  if(!cli)return;
+  var valEl=document.getElementById('rec-valor');if(valEl&&!valEl.value)valEl.value=cli.val||'';
+  var srvEl=document.getElementById('rec-servico');
+  if(srvEl&&!srvEl.value)srvEl.value=(cli.servico||'Consultoria')+(DB.empresa&&DB.empresa.fantasia?' — '+DB.empresa.fantasia:'');
+}
+
+function gerarRecibo(){
+  var cliId=document.getElementById('rec-cliente').value;
+  if(!cliId){notif('Selecione a cliente.');return;}
+  var valor=document.getElementById('rec-valor').value;
+  if(!valor){notif('Informe o valor.');return;}
+  var cli=DB.clientes.find(function(c){return c.id===cliId;});
+  var e=DB.empresa||{};
+  var mes=document.getElementById('rec-mes').value||'—';
+  var data=document.getElementById('rec-data').value||new Date().toISOString().slice(0,10);
+  var servico=document.getElementById('rec-servico').value||'Consultoria';
+  var forma=document.getElementById('rec-forma').value||'PIX';
+  var valorFmt='R$ '+parseFloat(valor).toLocaleString('pt-BR',{minimumFractionDigits:2});
+
+  var recibo=
+    '<div style="border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:12px">'
+    +'<strong style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:var(--cafe)">'+(e.fantasia||e.razao||'Daniela Santos')+'</strong>'
+    +(e.cnpj?'<div style="font-size:.7rem;color:var(--muted)">CNPJ: '+e.cnpj+'</div>':'')
+    +(e.cidade?'<div style="font-size:.7rem;color:var(--muted)">'+e.cidade+'</div>':'')
+    +'</div>'
+    +'<div style="margin-bottom:10px"><span style="font-size:.6rem;font-weight:700;color:var(--nude);letter-spacing:1.5px;text-transform:uppercase">PAGADOR</span>'
+    +'<div style="font-size:.84rem;font-weight:600;margin-top:3px">'+(cli?cli.nome:'—')+'</div></div>'
+    +'<div style="margin-bottom:10px"><span style="font-size:.6rem;font-weight:700;color:var(--nude);letter-spacing:1.5px;text-transform:uppercase">SERVIÇO</span>'
+    +'<div style="font-size:.82rem;margin-top:3px">'+servico+'</div>'
+    +'<div style="font-size:.72rem;color:var(--muted)">Referência: '+mes+'</div></div>'
+    +'<div style="background:var(--green-dim);border:1px solid var(--green-b);border-radius:8px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center">'
+    +'<div><div style="font-size:.6rem;font-weight:700;color:var(--green);letter-spacing:1.5px;text-transform:uppercase">VALOR RECEBIDO</div>'
+    +'<div style="font-family:Cormorant Garamond,serif;font-size:1.5rem;font-weight:600;color:var(--green)">'+valorFmt+'</div></div>'
+    +'<div style="text-align:right"><div style="font-size:.7rem;color:var(--muted)">Via '+forma+'</div>'
+    +'<div style="font-size:.7rem;color:var(--muted)">'+data+'</div></div></div>'
+    +(e.pix?'<div style="font-size:.7rem;color:var(--muted);margin-bottom:8px">PIX: '+e.pix+(e.nome_pix?' — '+e.nome_pix:'')+'</div>':'')
+    +'<div style="font-size:.68rem;color:var(--muted);border-top:1px solid var(--border);padding-top:8px;margin-top:8px">'
+    +'Declaro que recebi o valor acima referente aos serviços prestados.<br>'
+    +(e.cidade||'Salvador')+', '+data+'</div>';
+
+  var preview=document.getElementById('recibo-preview');
+  var conteudo=document.getElementById('recibo-conteudo');
+  if(preview)preview.style.display='block';
+  if(conteudo)conteudo.innerHTML=recibo;
+  notif('Recibo gerado! ✅');
+}
+
+function copiarRecibo(){
+  var el=document.getElementById('recibo-conteudo');
+  if(!el)return;
+  var text=el.innerText;
+  navigator.clipboard.writeText(text).then(function(){notif('Recibo copiado! 📋');}).catch(function(){notif('Selecione e copie manualmente.');});
+}
+
+function imprimirRecibo(){
+  var el=document.getElementById('recibo-conteudo');
+  if(!el)return;
+  var w=window.open('','_blank');
+  w.document.write('<html><head><title>Recibo</title><style>body{font-family:sans-serif;padding:30px;max-width:500px;margin:auto}</style></head><body>'+el.innerHTML+'</body></html>');
+  w.document.close();w.print();
+}
 </script>
 <div class="mo" id="modal-add-entrega"><div class="md">
   <div class="mt" id="ment-title">Nova Entrega</div>
@@ -4149,6 +4595,23 @@ function remContaFixa(id){
   </div>
   <div class="fi"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="cf-variavel"> Valor variável (digito na hora de pagar)</label></div>
   <div class="ma"><button class="bg" onclick="closeModal('modal-add-conta-fixa')">Cancelar</button><button class="bp" onclick="salvarContaFixa()">Salvar</button></div>
+</div></div>
+
+<div class="mo" id="modal-add-link-emp"><div class="md">
+  <div class="mt">Adicionar Link</div>
+  <div class="fi"><label>Título</label><input type="text" id="lkemp-titulo" placeholder="ex: Pasta Lilian no Drive, Instagram, Notion..."></div>
+  <div class="fi"><label>URL</label><input type="text" id="lkemp-url" placeholder="https://..."></div>
+  <div class="fi"><label>Categoria</label>
+    <select id="lkemp-cat">
+      <option value="drive">📁 Drive (pasta de cliente ou geral)</option>
+      <option value="rede">📱 Rede social</option>
+      <option value="ferramenta">🛠 Ferramenta</option>
+      <option value="cliente">🌸 Cliente (link direto)</option>
+      <option value="outro">📌 Outro</option>
+    </select>
+  </div>
+  <div class="fi"><label>Descrição (opcional)</label><input type="text" id="lkemp-desc" placeholder="ex: Pasta com contrato e entregas da Lilian"></div>
+  <div class="ma"><button class="bg" onclick="closeModal('modal-add-link-emp')">Cancelar</button><button class="bp" onclick="salvarLinkEmp()">Salvar</button></div>
 </div></div>
 
 </body>
