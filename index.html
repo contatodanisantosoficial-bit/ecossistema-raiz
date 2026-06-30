@@ -939,7 +939,24 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   </div>
 
 </main>
-<div class="mo" id="modal-add-cli"><div class="md"><div class="mt" id="mcli-title">Nova Cliente</div><input type="hidden" id="cli-edit-id"><div class="fr"><div class="fi"><label>Nome</label><input type="text" id="cli-nome"></div><div class="fi"><label>Valor Mensal (R$)</label><input type="number" id="cli-val"></div></div><div class="fr"><div class="fi"><label>Dia Vencimento</label><input type="number" id="cli-dia" min="1" max="31"></div><div class="fi"><label>Meio de Pagamento</label><select id="cli-meio"><option>PIX</option><option>Transferência</option><option>Boleto</option><option>Cartão</option></select></div></div><div class="fr"><div class="fi"><label>Início Contrato</label><input type="date" id="cli-inicio"></div><div class="fi"><label>Primeiro Pagamento</label><input type="date" id="cli-primeiro-pag"></div></div><div class="fr"><div class="fi"><label>Status</label><select id="cli-status"><option>Ativo</option><option>Saindo</option><option>Parceria</option><option>Encerrado</option></select></div><div class="fi"><label>Canal</label><input type="text" id="cli-canal"></div></div><div class="fi"><label>Fim Contrato</label><input type="date" id="cli-fim"></div><div class="fi"><label>Serviço</label>
+<div class="mo" id="modal-add-cli"><div class="md"><div class="mt" id="mcli-title">Nova Cliente</div><input type="hidden" id="cli-edit-id"><div class="fr"><div class="fi"><label>Nome</label><input type="text" id="cli-nome"></div><div class="fi"><label>Valor Mensal (R$)</label><input type="number" id="cli-val"></div></div><div class="fr"><div class="fi"><label>Dia Vencimento</label><input type="number" id="cli-dia" min="1" max="31"></div><div class="fi"><label>Meio de Pagamento</label><select id="cli-meio"><option>PIX</option><option>Transferência</option><option>Boleto</option><option>Cartão</option></select></div></div><div class="fr"><div class="fi"><label>Início Contrato</label><input type="date" id="cli-inicio"></div><div class="fi"><label>Primeiro Pagamento</label><input type="date" id="cli-primeiro-pag"></div></div><div class="fr"><div class="fi"><label>Status</label><select id="cli-status"><option>Ativo</option><option>Saindo</option><option>Parceria</option><option>Encerrado</option></select></div><div class="fi"><label>Canal</label><input type="text" id="cli-canal"></div></div><div class="fi"><label>Fim Contrato</label><input type="date" id="cli-fim"></div>
+  <div class="fi"><label>Situação do contrato</label>
+    <select id="cli-contrato-status" onchange="toggleContratoObs()">
+      <option value="ativo">✅ Ativo — dentro do prazo</option>
+      <option value="sem_prazo">🔄 Ativo — sem data de fim (contínuo)</option>
+      <option value="vencido_renovando">⚠️ Vencido — seguindo sem renovação formal</option>
+      <option value="em_renovacao">📝 Em renovação — negociando novo contrato</option>
+      <option value="encerrado">❌ Encerrado</option>
+    </select>
+  </div>
+  <div id="cli-contrato-obs-wrap" style="display:none">
+    <div style="background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:9px;padding:11px;margin-bottom:10px">
+      <div style="font-size:.63rem;font-weight:700;color:var(--ouro);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px">⚠️ CONTRATO VENCIDO — EM ANDAMENTO</div>
+      <div class="fi" style="margin-bottom:0"><label>Observação</label>
+        <input type="text" id="cli-contrato-obs" placeholder="ex: Contrato venceu em jun/2026, seguindo sem renovação. Novo contrato previsto para julho.">
+      </div>
+    </div>
+  </div><div class="fi"><label>Serviço</label>
     <select id="cli-servico-sel" onchange="clinkerServico(this.value)" style="margin-bottom:6px">
       <option value="">— Selecionar serviço cadastrado —</option>
     </select>
@@ -1099,6 +1116,12 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 
 
 <script>
+function toggleContratoObs(){
+  var v=document.getElementById('cli-contrato-status').value;
+  var wrap=document.getElementById('cli-contrato-obs-wrap');
+  if(wrap)wrap.style.display=(v==='vencido_renovando'||v==='em_renovacao')?'block':'none';
+}
+
 function toggleCliVariavel(){
   var modelo=document.getElementById('cli-modelo-rec').value;
   var wrap=document.getElementById('cli-variavel-wrap');
@@ -1456,7 +1479,7 @@ function salvarCliente(){
   var varDescEl=document.getElementById('cli-variavel-desc');
   var obj={id:eid||uid(),nome:nome,val:Math.round((parseBRL(document.getElementById('cli-val').value)||0)*100)/100,dia:document.getElementById('cli-dia').value,meio:document.getElementById('cli-meio').value,inicio:document.getElementById('cli-inicio').value,primeiro_pag:document.getElementById('cli-primeiro-pag').value,fim:document.getElementById('cli-fim').value,status:document.getElementById('cli-status').value,canal:document.getElementById('cli-canal').value,servico:document.getElementById('cli-servico').value,reajuste:document.getElementById('cli-reajuste').value,origem:document.getElementById('cli-origem').value,nps:document.getElementById('cli-nps').value!==''?parseInt(document.getElementById('cli-nps').value):null,resumo:document.getElementById('cli-resumo').value,notas:document.getElementById('cli-notas').value,modelo_rec:modeloRecEl?modeloRecEl.value:'fixo',val_variavel:valVariavelEl?parseFloat(valVariavelEl.value)||0:0,variavel_desc:varDescEl?varDescEl.value.trim():''};
   if(eid){var idx=DB.clientes.findIndex(function(c){return c.id===eid;});if(idx>=0)DB.clientes[idx]=obj;else DB.clientes.push(obj);}else DB.clientes.push(obj);
-  saveDB();document.getElementById('cli-edit-id').value='';['cli-nome','cli-val','cli-dia','cli-inicio','cli-primeiro-pag','cli-fim','cli-canal','cli-servico','cli-reajuste','cli-origem','cli-resumo','cli-notas','cli-val-variavel','cli-variavel-desc'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  saveDB();document.getElementById('cli-edit-id').value='';['cli-nome','cli-val','cli-dia','cli-inicio','cli-primeiro-pag','cli-fim','cli-canal','cli-servico','cli-reajuste','cli-origem','cli-resumo','cli-notas','cli-val-variavel','cli-variavel-desc','cli-contrato-obs'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('cli-nps').value='';
   closeModal('modal-add-cli');renderClientes();renderHome();notif('Cliente salva!');
 }
@@ -1484,7 +1507,11 @@ function checarContratosVencidos(){
   DB.clientes.forEach(function(c){
     if(c.status==='Ativo'&&c.fim){
       var fim=new Date(c.fim);fim.setHours(0,0,0,0);
-      if(fim<hoje){c.status='Encerrado';mudou=true;}
+      // Only auto-archive if NOT in "vencido mas seguindo" or "em renovacao"
+      var excluir=c.contrato_status==='vencido_renovando'||c.contrato_status==='em_renovacao'||c.contrato_status==='sem_prazo';
+      if(fim<hoje&&!excluir){c.status='Encerrado';mudou=true;}
+      // Auto-mark as vencido_renovando if past end date and still active
+      if(fim<hoje&&!c.contrato_status){c.contrato_status='vencido_renovando';mudou=true;}
     }
   });
   if(mudou)saveDB();
@@ -1520,6 +1547,8 @@ function renderClientes(){
     if(c.meio)h.push('<span class="bdg m">'+c.meio+'</span>');
     if(c.dia)h.push('<span class="bdg m">DIA '+c.dia+'</span>');
     if(c.nps!==null&&c.nps!==undefined)h.push('<span class="bdg '+(c.nps>=8?'g':c.nps>=6?'o':'r')+'">NPS '+c.nps+'</span>');
+    if(c.contrato_status==='vencido_renovando')h.push('<span class="bdg o" style="font-size:.5rem">⚠️ Renovar</span>');
+    if(c.contrato_status==='em_renovacao')h.push('<span class="bdg n" style="font-size:.5rem">📝 Renovando</span>');
     h.push('</div></div>');
     var totalCli=c.val+(c.val_variavel&&c.modelo_rec==='hibrido'?c.val_variavel:0);
     h.push('<div style="text-align:right">');
@@ -1536,7 +1565,11 @@ function renderClientes(){
     h.push('</div></div>');
     h.push('<div id="cli-details-'+c.id+'" style="display:none;margin-top:11px;padding-top:11px;border-top:1px solid var(--border)">');
     var dets=[];
-    if(c.inicio)dets.push({l:'Início',v:c.inicio});if(c.primeiro_pag)dets.push({l:'1º Pagamento',v:c.primeiro_pag});if(c.fim)dets.push({l:'Fim',v:c.fim});if(c.reajuste)dets.push({l:'Reajuste',v:c.reajuste});if(c.canal)dets.push({l:'Canal',v:c.canal});if(c.origem)dets.push({l:'Como chegou',v:c.origem});
+    if(c.inicio)dets.push({l:'Início',v:c.inicio});
+    // Show contrato status if relevant
+    var cStatusLabel={ativo:'✅ Dentro do prazo',sem_prazo:'🔄 Contínuo (sem fim)',vencido_renovando:'⚠️ Vencido — seguindo sem renovação',em_renovacao:'📝 Em renovação',encerrado:'❌ Encerrado'};
+    if(c.contrato_status&&c.contrato_status!=='ativo')dets.push({l:'Contrato',v:cStatusLabel[c.contrato_status]||c.contrato_status,alert:c.contrato_status==='vencido_renovando'||c.contrato_status==='em_renovacao'});
+    if(c.contrato_obs)dets.push({l:'Obs. contrato',v:c.contrato_obs});if(c.primeiro_pag)dets.push({l:'1º Pagamento',v:c.primeiro_pag});if(c.fim)dets.push({l:'Fim',v:c.fim});if(c.reajuste)dets.push({l:'Reajuste',v:c.reajuste});if(c.canal)dets.push({l:'Canal',v:c.canal});if(c.origem)dets.push({l:'Como chegou',v:c.origem});
     if(dets.length){h.push('<div class="g2" style="margin-bottom:10px">');dets.forEach(function(d){h.push('<div class="di"><div class="dl">'+d.l+'</div><div class="dv">'+d.v+'</div></div>');});h.push('</div>');}
     if(c.servico)h.push('<div style="background:var(--s2);border-radius:8px;padding:10px;margin-bottom:8px;font-size:.76rem;line-height:1.55;color:var(--text)"><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:5px">ESCOPO</div>'+c.servico+'</div>');
     if(c.resumo)h.push('<div style="background:var(--s2);border-radius:8px;padding:10px;margin-bottom:8px;font-size:.76rem;line-height:1.55;color:var(--text)"><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:5px">PERFIL COMPORTAMENTAL</div>'+c.resumo+'</div>');
