@@ -221,7 +221,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <div class="nb-scroll">
     <div class="nb-group-label">Principal</div>
     <button class="nb active" onclick="goPage('home',this)"><span class="ni">🏠</span><span class="nl">Início</span></button>
-    <button class="nb" onclick="goPage('clientes',this)"><span class="ni">🌸</span><span class="nl">Clientes</span><span class="ndot" id="dot-cli"></span></button>
+    <button class="nb" id="nav-btn-clientes" onclick="goPage('clientes',this)"><span class="ni">🌸</span><span class="nl">Clientes</span><span class="ndot" id="dot-cli"></span></button>
     <button class="nb" onclick="goPage('financeiro',this)"><span class="ni">💛</span><span class="nl">Finanças</span></button>
     <button class="nb" onclick="goPage('crm',this)"><span class="ni">🎯</span><span class="nl">CRM</span></button>
     <div class="nb-group-label">Gestão</div>
@@ -318,7 +318,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
       <button class="itab" onclick="showItab('cli','reunioes',this)">📅 Reuniões</button>
       <button class="itab" onclick="showItab('cli','projetos',this)">✨ Projetos</button>
     </div>
-    <div class="itab-pane active" id="cli-carteira">
+    <div class="itab-pane active" id="cli-carteira" style="display:block">
       <div class="g3" style="margin-bottom:13px;">
         <div class="sc"><div class="sl">Recorrência</div><div class="sv o" id="taxa-rec">—</div><div class="ss">ativas / total</div></div>
         <div class="sc"><div class="sl">NPS Médio</div><div class="sv g" id="taxa-nps">—</div></div>
@@ -328,9 +328,14 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
         <div style="font-size:.74rem;color:var(--muted);" id="cli-sum">Nenhuma cliente cadastrada</div>
         <button class="bp" onclick="openModal('modal-add-cli')">+ Nova Cliente</button>
       </div>
+      <div style="display:flex;gap:6px;margin-bottom:12px">
+        <button class="itab active" id="cli-filtro-ativas" onclick="filtrarCliStatus('ativas',this)">🌸 Ativas</button>
+        <button class="itab" id="cli-filtro-arquivadas" onclick="filtrarCliStatus('arquivadas',this)">📦 Arquivadas</button>
+        <button class="itab" id="cli-filtro-todas" onclick="filtrarCliStatus('todas',this)">Todas</button>
+      </div>
       <div id="lista-clientes"></div>
     </div>
-<div class="itab-pane" id="cli-reunioes">
+<div class="itab-pane" id="cli-reunioes" style="display:none">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
         <div style="font-size:.74rem;color:var(--muted)">Reuniões e contratos com suas clientes ativas</div>
         <button class="bp" onclick="openModal('modal-add-reuniao')">+ Nova Reunião</button>
@@ -343,7 +348,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
       <div id="lista-reunioes"><div class="ev"><div class="eicon">📅</div><div class="etitle">Nenhuma reunião registrada ainda</div><div class="edesc">Registre reuniões de alinhamento, renovação e fechamento de contrato.</div></div></div>
     </div><!-- end cli-reunioes -->
 
-    <div class="itab-pane" id="cli-projetos">
+    <div class="itab-pane" id="cli-projetos" style="display:none">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
         <div>
           <div style="font-size:.74rem;color:var(--muted);line-height:1.5">Projetos pontuais e comissões por resultado</div>
@@ -451,7 +456,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
     <button class="itab" onclick="showItab('prod','estrategia',this)">🧭 Estratégia</button>
   </div>
 
-  <div class="itab-pane active" id="prod-timer">
+  <div class="itab-pane active" id="prod-timer" style="display:block" style="display:none" style="display:none">
     <div class="card warm" style="margin-bottom:13px">
       <div class="cl">Registrar Sessão de Trabalho</div>
       <div class="fr">
@@ -481,7 +486,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
     <div class="card"><div class="cl">Sessões Recentes</div><div id="prod-lista-sessoes"><div class="ev"><div class="eicon">⏱️</div><div class="edesc">Nenhuma sessão registrada ainda.</div></div></div></div>
   </div>
 
-  <div class="itab-pane" id="prod-demandas">
+  <div class="itab-pane" id="prod-demandas" style="display:none" style="display:none">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
       <div style="font-size:.74rem;color:var(--muted)">Registre e acompanhe cada tipo de demanda</div>
       <button class="bp" onclick="openModal('modal-add-demanda')">+ Nova Demanda</button>
@@ -490,7 +495,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
     <div id="prod-lista-demandas"><div class="ev"><div class="eicon">📋</div><div class="edesc">Nenhuma demanda cadastrada ainda.</div></div></div>
   </div>
 
-  <div class="itab-pane" id="prod-rentabilidade">
+  <div class="itab-pane" id="prod-rentabilidade" style="display:none" style="display:none">
     <div class="card warm" style="margin-bottom:13px">
       <div class="cl">R$ por hora — por cliente</div>
       <div id="prod-lista-rh"><div class="ev"><div class="eicon">💰</div><div class="edesc">Registre sessões para calcular a rentabilidade.</div></div></div>
@@ -502,7 +507,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
     </div>
   </div>
 
-  <div class="itab-pane" id="prod-historico">
+  <div class="itab-pane" id="prod-historico" style="display:none" style="display:none">
     <div style="display:flex;gap:10px;margin-bottom:13px;flex-wrap:wrap;align-items:center">
       <div class="fi" style="margin-bottom:0;flex:1;min-width:140px"><label>Filtrar por cliente</label><select id="prod-filtro-cli" onchange="prodRenderHistorico()"><option value="">Todos</option></select></div>
       <div class="fi" style="margin-bottom:0;flex:1;min-width:140px"><label>Filtrar por tipo</label><select id="prod-filtro-tipo" onchange="prodRenderHistorico()"><option value="">Todos</option><option>Reunião de alinhamento</option><option>Demanda operacional</option><option>Consultoria</option><option>Administrativo</option><option>Meu negócio</option></select></div>
@@ -510,7 +515,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
     <div id="prod-hist-lista"></div>
   </div>
 
-  <div class="itab-pane" id="prod-estrategia">
+  <div class="itab-pane" id="prod-estrategia" style="display:none" style="display:none">
     <div class="card warm" style="margin-bottom:13px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
         <div style="width:36px;height:36px;border-radius:50%;background:var(--cafe);display:flex;align-items:center;justify-content:center;font-size:1rem">🌿</div>
@@ -541,7 +546,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <div class="ma"><button class="bg" onclick="closeModal('modal-add-demanda')">Cancelar</button><button class="bp" onclick="prodSalvarDemanda()">Salvar</button></div>
 </div></div>
 
-    <div class="page" id="page-estrategia"><div class="ph"><div class="pe">Estratégia</div><div class="pt">O mapa do <em>seu futuro</em></div></div><div class="itabs"><button class="itab active" onclick="showItab('est','trimestre',this)">Metas Trimestrais</button><button class="itab" onclick="showItab('est','estrategias',this)">Estratégias</button><button class="itab" onclick="showItab('est','anual',this)">Visão Anual</button><button class="itab" onclick="showItab('est','pessoal',this)">Metas Pessoais</button><button class="itab" onclick="showItab('est','marcos',this)">Marcos</button></div><div class="itab-pane active" id="est-trimestre"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Metas trimestrais</span><button class="bp" onclick="openModal('modal-add-meta')">+ Nova Meta</button></div><div id="metas-trim"></div></div><div class="itab-pane" id="est-estrategias"><div id="estrategias-content"></div></div><div class="itab-pane" id="est-anual"><div class="card warm"><div class="cl">Visão Anual</div><div class="fi"><label>Onde quero estar em 12 meses</label><textarea id="vis-anual-txt" placeholder="Em dezembro de 2026, meu negócio vai..."></textarea></div><div class="fr"><div class="fi"><label>Meta Faturamento Anual (R$)</label><input type="number" id="vis-fat-anual"></div><div class="fi"><label>Nº de Clientes Alvo</label><input type="number" id="vis-cli-alvo"></div></div><button class="bp" onclick="salvarVisaoAnual()">Salvar Visão</button></div><div class="card" id="vis-anual-saved" style="display:none"><div class="cl">Sua Visão</div><div id="vis-anual-content"></div></div></div><div class="itab-pane" id="est-pessoal"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Objetivos pessoais</span><button class="bp" onclick="openModal('modal-add-meta-p')">+ Novo Objetivo</button></div><div id="metas-pessoais"></div></div><div class="itab-pane" id="est-marcos"><div class="card"><div class="cl">Marcos Conquistados</div><div id="marcos-list"></div></div></div></div>
+    <div class="page" id="page-estrategia"><div class="ph"><div class="pe">Estratégia</div><div class="pt">O mapa do <em>seu futuro</em></div></div><div class="itabs"><button class="itab active" onclick="showItab('est','trimestre',this)">Metas Trimestrais</button><button class="itab" onclick="showItab('est','estrategias',this)">Estratégias</button><button class="itab" onclick="showItab('est','anual',this)">Visão Anual</button><button class="itab" onclick="showItab('est','pessoal',this)">Metas Pessoais</button><button class="itab" onclick="showItab('est','marcos',this)">Marcos</button></div><div class="itab-pane active" id="est-trimestre" style="display:block"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Metas trimestrais</span><button class="bp" onclick="openModal('modal-add-meta')">+ Nova Meta</button></div><div id="metas-trim"></div></div><div class="itab-pane" id="est-estrategias" style="display:none"><div id="estrategias-content"></div></div><div class="itab-pane" id="est-anual" style="display:none"><div class="card warm"><div class="cl">Visão Anual</div><div class="fi"><label>Onde quero estar em 12 meses</label><textarea id="vis-anual-txt" placeholder="Em dezembro de 2026, meu negócio vai..."></textarea></div><div class="fr"><div class="fi"><label>Meta Faturamento Anual (R$)</label><input type="number" id="vis-fat-anual"></div><div class="fi"><label>Nº de Clientes Alvo</label><input type="number" id="vis-cli-alvo"></div></div><button class="bp" onclick="salvarVisaoAnual()">Salvar Visão</button></div><div class="card" id="vis-anual-saved" style="display:none"><div class="cl">Sua Visão</div><div id="vis-anual-content"></div></div></div><div class="itab-pane" id="est-pessoal" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Objetivos pessoais</span><button class="bp" onclick="openModal('modal-add-meta-p')">+ Novo Objetivo</button></div><div id="metas-pessoais"></div></div><div class="itab-pane" id="est-marcos" style="display:none"><div class="card"><div class="cl">Marcos Conquistados</div><div id="marcos-list"></div></div></div></div>
   <div class="page" id="page-investir"><div class="ph"><div class="pe">Análise de Investimentos</div><div class="pt">Antes de <em>gastar</em>, entender</div></div><div style="display:flex;justify-content:flex-end;margin-bottom:13px"><button class="bp" onclick="openModal('modal-add-inv')">+ Analisar Investimento</button></div><div id="lista-inv"></div></div>
   <div class="page" id="page-reservas"><div class="ph"><div class="pe">Reservas e Investimentos</div><div class="pt">Seu dinheiro <em>trabalhando por você</em></div></div><div id="reservas-edu" class="card warm" style="margin-bottom:13px"><div class="cl">Educação Financeira</div><div id="edu-content"></div></div><div class="g3" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Investido</div><div class="sv o" id="res-total">—</div></div><div class="sc"><div class="sl">Rentabilidade Média</div><div class="sv g" id="res-rent">—</div></div><div class="sc"><div class="sl">Rendimento Mensal Est.</div><div class="sv g" id="res-rend">—</div></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Meus Caixas e Reservas</div><div id="caixas-grid"></div><div style="margin-top:12px;display:flex;justify-content:flex-end"><button class="bp" onclick="openModal('modal-edit-caixas')">Atualizar Valores</button></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="cl" style="margin-bottom:0">Minhas Aplicações</div><button class="bp" onclick="openModal('modal-add-reserva')">+ Adicionar</button></div><div id="lista-reservas"></div></div><div class="card"><div class="cl">Distribuição das Reservas</div><div id="reservas-dist"></div></div>
 <div class="card" style="margin-top:13px;">
@@ -556,8 +561,92 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 
   </div>
 
-<div class="page" id="page-empresa"><div class="ph"><div class="pe">Identidade</div><div class="pt">Que empresa <em>estou construindo?</em></div></div><div class="card warm" style="text-align:center;padding:22px"><div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;font-style:italic;color:var(--cafe);line-height:1.5" id="vis-text">Ainda definindo minha visão...</div></div><div class="card"><div class="cl">Definir Identidade</div><div class="fi"><label>Tipo de empresa</label><select id="emp-tipo" onchange="toggleCustom()"><option value="">Selecione...</option><option value="Consultoria boutique">Consultoria boutique</option><option value="Consultoria escalável">Consultoria escalável</option><option value="Negócio de impacto">Negócio de impacto</option><option value="custom">Escrever minha visão</option></select></div><div class="fi" id="emp-custom-wrap" style="display:none"><label>Minha visão</label><textarea id="emp-custom"></textarea></div><div class="fr"><div class="fi"><label>Público Ideal</label><input type="text" id="emp-pub"></div><div class="fi"><label>Meu Diferencial</label><input type="text" id="emp-dif"></div></div><div class="fi"><label>Proposta de Valor</label><textarea id="emp-prop"></textarea></div><div class="fi"><label>Em 1 ano meu negócio vai...</label><textarea id="emp-1ano"></textarea></div><button class="bp" onclick="salvarEmpresa()">Salvar Identidade</button></div><div class="card" id="emp-saved" style="display:none"><div class="cl">Identidade Salva</div><div id="emp-saved-c"></div></div></div>
-  <div class="page" id="page-config"><div class="ph"><div class="pe">Configurações</div><div class="pt"><em>Personalize</em> seu ecossistema</div></div><div class="card"><div class="cl">Preferências</div><div class="fr"><div class="fi"><label>Seu nome</label><input type="text" id="cfg-nome"></div><div class="fi"><label>Lembrar pagamentos</label><select id="cfg-dias"><option value="3">3 dias antes</option><option value="5">5 dias antes</option><option value="7">7 dias antes</option></select></div></div><div class="fr"><div class="fi"><label>Custo pessoal mensal (R$)</label><input type="number" id="cfg-custo"></div><div class="fi"><label>Meta Caixa Emergência PJ (R$)</label><input type="number" id="cfg-meta-caixa"></div></div><button class="bp" onclick="salvarConfig()">Salvar</button></div><div class="card"><div class="cl">Clara — Chave de API</div><div style="font-size:.74rem;color:var(--muted);margin-bottom:11px;line-height:1.6">Para a Clara funcionar fora do Claude.ai. <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--nude)">Criar chave →</a></div><div class="fi"><label>Chave de API (sk-ant-...)</label><input type="password" id="cfg-apikey"></div><button class="bp" onclick="salvarApiKey()">Salvar Chave</button><span id="cfg-apikey-status" style="font-size:.72rem;color:var(--green);margin-left:10px"></span></div><div class="card"><div class="cl">Conta</div><div style="font-size:.76rem;color:var(--muted);margin-bottom:11px" id="cfg-user-info">—</div><button class="bd" onclick="if(confirm('Apagar todos os dados?')){limparDados();}">Apagar todos os dados</button></div>
+<div class="page" id="page-empresa">
+  <div class="ph"><div class="pe">Empresa</div><div class="pt">A identidade do que você <em>está construindo</em></div></div>
+
+  <div class="card warm" style="text-align:center;padding:22px;margin-bottom:13px">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;font-style:italic;color:var(--cafe);line-height:1.5" id="vis-text">Ainda definindo minha visão...</div>
+  </div>
+
+  <div class="card" style="margin-bottom:13px">
+    <div class="cl">Identidade da Empresa</div>
+    <div class="fi"><label>Tipo de empresa</label>
+      <select id="emp-tipo" onchange="toggleCustom()">
+        <option value="">Selecione...</option>
+        <option value="Consultoria boutique">Consultoria boutique</option>
+        <option value="Consultoria escalável">Consultoria escalável</option>
+        <option value="Negócio de impacto">Negócio de impacto</option>
+        <option value="Mentoria">Mentoria</option>
+        <option value="Assessoria estratégica">Assessoria estratégica</option>
+        <option value="Agência">Agência</option>
+        <option value="Educação">Educação / Cursos</option>
+        <option value="Tecnologia">Tecnologia / SaaS</option>
+        <option value="custom">✏️ Escrever minha visão</option>
+      </select>
+    </div>
+    <div class="fi" id="emp-custom-wrap" style="display:none"><label>Minha visão</label><textarea id="emp-custom"></textarea></div>
+    <div class="fr">
+      <div class="fi"><label>Minha proposta de valor</label><textarea id="emp-prop" placeholder="O que eu entrego que ninguém mais entrega do jeito que eu entrego?"></textarea></div>
+      <div class="fi"><label>Meu diferencial</label><textarea id="emp-dif" placeholder="O que me torna única no mercado?"></textarea></div>
+    </div>
+    <div class="fi"><label>Meu público</label><textarea id="emp-pub" placeholder="Para quem eu trabalho? Quem é minha cliente ideal?"></textarea></div>
+    <div class="fi"><label>Onde quero estar em 1 ano</label><textarea id="emp-1ano" placeholder="Descreva como você quer que sua empresa seja daqui a 12 meses..."></textarea></div>
+    <button class="bp" onclick="salvarEmpresa()">Salvar Identidade</button>
+  </div>
+
+  <div class="card" id="emp-saved" style="display:none;margin-bottom:13px">
+    <div class="cl">Identidade Salva</div>
+    <div id="emp-saved-c"></div>
+  </div>
+
+  <div class="card" style="margin-bottom:13px">
+    <div class="cl">Estrutura do Negócio</div>
+    <div class="fr">
+      <div class="fi"><label>Modelo de receita</label>
+        <select id="emp-modelo">
+          <option value="">Selecione...</option>
+          <option value="Mensalidade fixa">Mensalidade fixa</option>
+          <option value="Por projeto">Por projeto</option>
+          <option value="Comissão por resultado">Comissão por resultado</option>
+          <option value="Híbrido (fixo + variável)">Híbrido (fixo + variável)</option>
+          <option value="Assinatura">Assinatura / SaaS</option>
+          <option value="Por hora">Por hora</option>
+        </select>
+      </div>
+      <div class="fi"><label>Nº máximo de clientes</label>
+        <input type="number" id="emp-max-cli" placeholder="ex: 5">
+      </div>
+    </div>
+    <div class="fr">
+      <div class="fi"><label>Fase atual do negócio</label>
+        <select id="emp-fase">
+          <option value="">Selecione...</option>
+          <option value="Validação">Validação (primeiros clientes)</option>
+          <option value="Crescimento">Crescimento (escalar)</option>
+          <option value="Consolidação">Consolidação (otimizar)</option>
+          <option value="Expansão">Expansão (novos mercados)</option>
+        </select>
+      </div>
+      <div class="fi"><label>Meta de faturamento mensal (R$)</label>
+        <input type="number" id="emp-meta-fat" placeholder="ex: 10000">
+      </div>
+    </div>
+    <div class="fi"><label>Ferramentas que uso</label>
+      <input type="text" id="emp-ferramentas" placeholder="ex: Claude, Notion, Trello, WhatsApp Business...">
+    </div>
+    <div class="fi"><label>Valores inegociáveis</label>
+      <textarea id="emp-valores" placeholder="O que você nunca abre mão? Quais princípios guiam seu negócio?"></textarea>
+    </div>
+    <button class="bp" onclick="salvarEstrutura()">Salvar Estrutura</button>
+  </div>
+
+  <div class="card" id="emp-estrutura-saved" style="display:none">
+    <div class="cl">Estrutura Salva</div>
+    <div id="emp-estrutura-c"></div>
+  </div>
+</div>
+
+<div class="page" id="page-config"><div class="ph"><div class="pe">Configurações</div><div class="pt"><em>Personalize</em> seu ecossistema</div></div><div class="card"><div class="cl">Preferências</div><div class="fr"><div class="fi"><label>Seu nome</label><input type="text" id="cfg-nome"></div><div class="fi"><label>Lembrar pagamentos</label><select id="cfg-dias"><option value="3">3 dias antes</option><option value="5">5 dias antes</option><option value="7">7 dias antes</option></select></div></div><div class="fr"><div class="fi"><label>Custo pessoal mensal (R$)</label><input type="number" id="cfg-custo"></div><div class="fi"><label>Meta Caixa Emergência PJ (R$)</label><input type="number" id="cfg-meta-caixa"></div></div><button class="bp" onclick="salvarConfig()">Salvar</button></div><div class="card"><div class="cl">Clara — Chave de API</div><div style="font-size:.74rem;color:var(--muted);margin-bottom:11px;line-height:1.6">Para a Clara funcionar fora do Claude.ai. <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--nude)">Criar chave →</a></div><div class="fi"><label>Chave de API (sk-ant-...)</label><input type="password" id="cfg-apikey"></div><button class="bp" onclick="salvarApiKey()">Salvar Chave</button><span id="cfg-apikey-status" style="font-size:.72rem;color:var(--green);margin-left:10px"></span></div><div class="card"><div class="cl">Conta</div><div style="font-size:.76rem;color:var(--muted);margin-bottom:11px" id="cfg-user-info">—</div><button class="bd" onclick="if(confirm('Apagar todos os dados?')){limparDados();}">Apagar todos os dados</button></div>
 <div class="card" style="border:2px solid var(--ouro)">
   <div class="cl">☁️ Supabase — Dados na Nuvem</div>
   <div style="font-size:.74rem;color:var(--muted);margin-bottom:11px;line-height:1.6">Para acessar seus dados em qualquer dispositivo. Gratuito em <a href="https://supabase.com" target="_blank" style="color:var(--nude)">supabase.com →</a></div>
@@ -1012,7 +1101,7 @@ function confirmarBaixa(tipo){
   DB.baixas=DB.baixas.filter(function(b){return b.key!==key;});
   DB.baixas.push({key:key,tipo:tipo,id:id,val:parseBRL(document.getElementById(pre+'-val').value)||0,data:document.getElementById(pre+'-data').value,obs:document.getElementById(pre+'-obs').value});
   saveDB();closeModal('modal-baixa-'+tipo);
-  if(tipo==='rec'){renderVisaoMes();renderHome();}else{renderContas();renderHome();}
+  if(tipo==='rec'){renderHome();}else{renderHome();}
   notif(tipo==='rec'?'Recebimento confirmado!':'Pagamento confirmado!');
 }
 
@@ -1122,7 +1211,7 @@ function adicionarConta(){
   var desc=document.getElementById('ct-desc').value.trim();if(!desc){notif('Informe a descrição.');return;}
   DB.contas.push({id:uid(),desc:desc,val:Math.round((parseBRL(document.getElementById('ct-val').value)||0)*100)/100,tipo:document.getElementById('ct-tipo').value,rec:document.getElementById('ct-rec').value,dia:parseInt(document.getElementById('ct-dia').value)||'',cat:document.getElementById('ct-cat').value,nota:document.getElementById('ct-nota').value});
   saveDB();['ct-desc','ct-val','ct-dia','ct-nota','ct-val-var'].forEach(function(id){var e=document.getElementById(id);if(e)e.value='';});
-  closeModal('modal-add-conta');renderContas();renderResumoFin();renderHome();notif('Conta adicionada!');
+  closeModal('modal-add-conta');renderHome();notif('Conta adicionada!');
 }
 function editarConta(id){
   var c=DB.contas.find(function(x){return x.id===id;});if(!c)return;
@@ -1136,7 +1225,7 @@ function editarConta(id){
     var idx=DB.contas.findIndex(function(x){return x.id===cid;});if(idx<0)return;
     DB.contas[idx]={id:cid,desc:document.getElementById('ct-desc').value.trim(),val:Math.round((parseBRL(document.getElementById('ct-val').value)||0)*100)/100,tipo:document.getElementById('ct-tipo').value,rec:document.getElementById('ct-rec').value,dia:parseInt(document.getElementById('ct-dia').value)||'',cat:document.getElementById('ct-cat').value,nota:document.getElementById('ct-nota').value};
     saveDB();['ct-desc','ct-val','ct-dia','ct-nota'].forEach(function(id){document.getElementById(id).value='';});
-    closeModal('modal-add-conta');renderContas();renderResumoFin();renderHome();notif('Conta atualizada!');
+    closeModal('modal-add-conta');renderHome();notif('Conta atualizada!');
     btn.onclick=adicionarConta;
   };})(id);}
 }
@@ -1152,7 +1241,7 @@ function salvarCliente(){
   if(eid){var idx=DB.clientes.findIndex(function(c){return c.id===eid;});if(idx>=0)DB.clientes[idx]=obj;else DB.clientes.push(obj);}else DB.clientes.push(obj);
   saveDB();document.getElementById('cli-edit-id').value='';['cli-nome','cli-val','cli-dia','cli-inicio','cli-primeiro-pag','cli-fim','cli-canal','cli-servico','cli-reajuste','cli-origem','cli-resumo','cli-notas'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('cli-nps').value='';
-  closeModal('modal-add-cli');renderClientes();renderHome();renderVisaoMes();notif('Cliente salva!');
+  closeModal('modal-add-cli');renderClientes();renderHome();notif('Cliente salva!');
 }
 function toggleCli(id){var el=document.getElementById('cli-details-'+id);if(el)el.style.display=el.style.display==='none'?'block':'none';}
 function remCli(id){if(!confirm('Remover cliente?'))return;DB.clientes=DB.clientes.filter(function(c){return c.id!==id;});saveDB();renderClientes();renderHome();notif('Cliente removida.');}
@@ -1171,11 +1260,38 @@ function editarCli(id){
   popularServicosSelect();
   openModal('modal-add-cli');
 }
-function renderClientes(){
-  if(!DB)return;var el=document.getElementById('lista-clientes');if(!el)return;
-  if(!DB.clientes.length){el.innerHTML='<div class="ev"><div class="eicon">🌸</div><div class="etitle">Nenhuma cliente ainda</div><div class="edesc">Adicione sua primeira cliente.</div></div>';return;}
-  var h=[];
+function checarContratosVencidos(){
+  if(!DB||!DB.clientes)return;
+  var hoje=new Date();hoje.setHours(0,0,0,0);
+  var mudou=false;
   DB.clientes.forEach(function(c){
+    if(c.status==='Ativo'&&c.fim){
+      var fim=new Date(c.fim);fim.setHours(0,0,0,0);
+      if(fim<hoje){c.status='Encerrado';mudou=true;}
+    }
+  });
+  if(mudou)saveDB();
+}
+var _cliFiltroStatus='ativas';
+function filtrarCliStatus(f,btn){
+  _cliFiltroStatus=f;
+  document.querySelectorAll('#cli-filtro-ativas,#cli-filtro-arquivadas,#cli-filtro-todas').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  renderClientes();
+}
+function renderClientes(){
+  if(!DB)return;checarContratosVencidos();var el=document.getElementById('lista-clientes');if(!el)return;
+  var listaFiltrada=DB.clientes.filter(function(c){
+    if(_cliFiltroStatus==='todas')return true;
+    if(_cliFiltroStatus==='arquivadas')return c.status==='Encerrado';
+    return c.status!=='Encerrado';
+  });
+  if(!listaFiltrada.length){
+    var msg=_cliFiltroStatus==='arquivadas'?'Nenhuma cliente arquivada':'Nenhuma cliente ativa';
+    el.innerHTML='<div class="ev"><div class="eicon">🌸</div><div class="etitle">'+msg+'</div><div class="edesc">'+(DB.clientes.length?'Tente outro filtro acima.':'Adicione sua primeira cliente.')+'</div></div>';return;
+  }
+  var h=[];
+  listaFiltrada.forEach(function(c){
     var baixa=getBaixaInfo('rec',c.id);var pi=c.dia?payInfo(c):'—';
     var sc=scCol(c.status);
     h.push("<div class='cli-card'><div data-id='"+c.id+"' onclick=\"toggleCli(this.dataset.id)\" style='cursor:pointer'>");
@@ -1207,7 +1323,29 @@ function renderClientes(){
 
 
 function salvarEtapas(){var et=document.getElementById('crm-stages-txt').value.trim().split('\n').map(function(s){return s.trim();}).filter(Boolean);if(!et.length)return;DB.crm.etapas=et;saveDB();closeModal('modal-crm-stages');renderCRM();notif('Etapas atualizadas!');}
-function moverCRM(id,et){var c=DB.crm.cards.find(function(x){return x.id===id;});if(c){c.etapa=et;saveDB();renderCRM();}}
+function moverCRM(id,et){
+  var c=DB.crm.cards.find(function(x){return x.id===id;});
+  if(c){
+    var eraFechado=c.etapa==='Fechado';
+    c.etapa=et;
+    saveDB();renderCRM();
+    if(et==='Fechado'&&!eraFechado){
+      setTimeout(function(){promoverCRMParaCliente(c);},150);
+    }
+  }
+}
+function promoverCRMParaCliente(card){
+  if(!confirm('🎉 '+card.nome+' foi marcada como Fechado!\n\nQuer transformar em cliente ativa agora?'))return;
+  document.getElementById('cli-edit-id').value='';
+  document.getElementById('cli-nome').value=card.nome||'';
+  document.getElementById('cli-val').value=card.val||'';
+  if(document.getElementById('cli-origem'))document.getElementById('cli-origem').value=card.canal||'';
+  if(document.getElementById('cli-inicio'))document.getElementById('cli-inicio').value=new Date().toISOString().slice(0,10);
+  if(document.getElementById('cli-status'))document.getElementById('cli-status').value='Ativo';
+  var btnCli=document.getElementById('nav-btn-clientes');
+  if(btnCli)goPage('clientes',btnCli);
+  openModal('modal-add-cli');
+}
 function remCRM(id){DB.crm.cards=DB.crm.cards.filter(function(c){return c.id!==id;});saveDB();renderCRM();}
 function editarCRM(id){
   var c=DB.crm.cards.find(function(x){return x.id===id;});if(!c)return;
@@ -1324,7 +1462,7 @@ function salvarMacroItem(){
 }
 function remMI(k,idx){if(!confirm('Remover?'))return;DB.macros[k].items.splice(idx,1);saveDB();renderMacros();}
 
-function renderEstrategia(){renderMetas();renderMarcos();}
+function renderEstrategia(){renderMetas();}
 function salvarMeta(){
   var titulo=document.getElementById('mt-titulo').value.trim();if(!titulo){notif('Informe a meta.');return;}
   DB.metas.push({id:uid(),titulo:titulo,trim:document.getElementById('mt-trim').value,prog:parseInt(document.getElementById('mt-prog').value)||0,status:document.getElementById('mt-status').value,nota:document.getElementById('mt-nota').value});
@@ -1677,6 +1815,21 @@ function salvarEmpresa(){
   DB.empresa={tipo:tipo==='custom'?document.getElementById('emp-custom').value.trim():tipo,prop:document.getElementById('emp-prop').value.trim(),dif:document.getElementById('emp-dif').value.trim(),um_ano:document.getElementById('emp-1ano').value.trim(),pub:document.getElementById('emp-pub').value.trim()};
   saveDB();renderEmpresa();notif('Identidade salva!');
 }
+
+function salvarEstrutura(){
+  if(!DB)return;
+  if(!DB.empresa)DB.empresa={};
+  DB.empresa.modelo=document.getElementById('emp-modelo').value;
+  DB.empresa.max_cli=document.getElementById('emp-max-cli').value;
+  DB.empresa.fase=document.getElementById('emp-fase').value;
+  DB.empresa.meta_fat=document.getElementById('emp-meta-fat').value;
+  DB.empresa.ferramentas=document.getElementById('emp-ferramentas').value;
+  DB.empresa.valores=document.getElementById('emp-valores').value.trim();
+  saveDB();
+  renderEmpresa();
+  notif('Estrutura salva! ✅');
+}
+
 function renderEmpresa(){
   if(!DB)return;var e=DB.empresa||{};
   var vtEl=document.getElementById('vis-text');if(vtEl)vtEl.textContent=e.tipo||'Ainda definindo minha visão...';
@@ -1691,8 +1844,38 @@ function renderEmpresa(){
     document.getElementById('emp-saved-c').innerHTML=h.join('');
     if(e.tipo){document.getElementById('emp-tipo').value=e.tipo;document.getElementById('emp-prop').value=e.prop||'';document.getElementById('emp-dif').value=e.dif||'';document.getElementById('emp-1ano').value=e.um_ano||'';document.getElementById('emp-pub').value=e.pub||'';}
   }
-}
 
+  // Load structure fields
+  if(e.modelo){var em=document.getElementById('emp-modelo');if(em)em.value=e.modelo||'';}
+  if(e.max_cli){var ec=document.getElementById('emp-max-cli');if(ec)ec.value=e.max_cli||'';}
+  if(e.fase){var ef=document.getElementById('emp-fase');if(ef)ef.value=e.fase||'';}
+  if(e.meta_fat){var emf=document.getElementById('emp-meta-fat');if(emf)emf.value=e.meta_fat||'';}
+  if(e.ferramentas){var efe=document.getElementById('emp-ferramentas');if(efe)efe.value=e.ferramentas||'';}
+  if(e.valores){var ev2=document.getElementById('emp-valores');if(ev2)ev2.value=e.valores||'';}
+  // Show saved structure
+  var estSaved=document.getElementById('emp-estrutura-saved');
+  var estC=document.getElementById('emp-estrutura-c');
+  if(estSaved&&estC&&(e.modelo||e.fase||e.valores)){
+    estSaved.style.display='block';
+    var sh=[];
+    if(e.fase)sh.push('<div style="margin-bottom:8px"><span class="bdg n">'+e.fase+'</span></div>');
+    if(e.modelo)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Modelo:</strong> '+e.modelo+'</div>');
+    if(e.max_cli)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Máx. clientes:</strong> '+e.max_cli+'</div>');
+    if(e.meta_fat)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Meta mensal:</strong> R$ '+parseFloat(e.meta_fat).toLocaleString('pt-BR')+'</div>');
+    if(e.ferramentas)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Ferramentas:</strong> '+e.ferramentas+'</div>');
+    if(e.valores)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Valores:</strong> '+e.valores+'</div>');
+    if(e.cnpj)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>CNPJ/CPF:</strong> '+e.cnpj+'</div>');
+    if(e.fantasia)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Nome fantasia:</strong> '+e.fantasia+'</div>');
+    if(e.redes)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Redes:</strong> '+e.redes+'</div>');
+    if(e.servicos_desc)sh.push('<div style="font-size:.76rem;margin-bottom:6px"><strong>Serviços:</strong> '+e.servicos_desc+'</div>');
+    estC.innerHTML=sh.join('');
+  }
+  // Load new fields
+  var cnpjEl=document.getElementById('emp-cnpj');if(cnpjEl)cnpjEl.value=e.cnpj||'';
+  var fantEl=document.getElementById('emp-fantasia');if(fantEl)fantEl.value=e.fantasia||'';
+  var redesEl=document.getElementById('emp-redes');if(redesEl)redesEl.value=e.redes||'';
+  var srvEl=document.getElementById('emp-servicos-desc');if(srvEl)srvEl.value=e.servicos_desc||'';
+}
 function loadCfgFields(){
   if(!DB)return;
   document.getElementById('cfg-nome').value=CU?CU.nome:'';
@@ -1792,22 +1975,32 @@ function supaHeaders(){
   }
   return h;
 }
-async function supaSalvar(email, dados){
+var _supaSalvarQueue=Promise.resolve();
+function supaSalvar(email, dados){
+  // Serialize all saves to prevent race conditions (GET-then-write must not interleave)
+  _supaSalvarQueue = _supaSalvarQueue.then(function(){ return _supaSalvarDoIt(email, dados); }).catch(function(){return false;});
+  return _supaSalvarQueue;
+}
+async function _supaSalvarDoIt(email, dados){
   if(!supaReady())return false;
   try{
     var baseUrl=SUPA_URL.replace(/\/+$/,'');
-    var getH=Object.assign({},supaHeaders());delete getH['Prefer'];
-    var res=await fetch(baseUrl+'/rest/v1/raiz_dados?email=eq.'+encodeURIComponent(email),{
-      method:'GET',headers:getH
+    // Use upsert via POST with Prefer: resolution=merge-duplicates (requires unique constraint on email)
+    var h=supaHeaders();
+    h['Prefer']='resolution=merge-duplicates,return=minimal';
+    var resp=await fetch(baseUrl+'/rest/v1/raiz_dados',{
+      method:'POST',
+      headers:h,
+      body:JSON.stringify({email:email,dados:dados,atualizado:new Date().toISOString()})
     });
+    if(resp.ok) return true;
+    // Fallback: try PATCH if upsert isn't supported (older table without unique constraint trigger)
+    var getH=Object.assign({},supaHeaders());delete getH['Prefer'];
+    var res=await fetch(baseUrl+'/rest/v1/raiz_dados?email=eq.'+encodeURIComponent(email),{method:'GET',headers:getH});
     var existe=await res.json();
     var method=existe&&existe.length?'PATCH':'POST';
     var url=existe&&existe.length?baseUrl+'/rest/v1/raiz_dados?email=eq.'+encodeURIComponent(email):baseUrl+'/rest/v1/raiz_dados';
-    await fetch(url,{
-      method:method,
-      headers:supaHeaders(),
-      body:JSON.stringify({email:email,dados:dados,atualizado:new Date().toISOString()})
-    });
+    await fetch(url,{method:method,headers:supaHeaders(),body:JSON.stringify({email:email,dados:dados,atualizado:new Date().toISOString()})});
     return true;
   }catch(e){return false;}
 }
@@ -1948,8 +2141,8 @@ function logout(){
 function openApp(){
   document.getElementById('auth-overlay').style.display='none';
   document.getElementById('sidebar').style.display='flex';document.getElementById('main-content').style.display='block';
-  setupDate();applyNome();loadCfgFields();
-  renderHome();renderFinanceiro();renderClientes();renderCRM();renderMacros();renderEmpresa();renderInvestir();renderReunioes();renderProjetos();
+  setupDate();applyNome();loadCfgFields();setTimeout(initItabPanes,50);
+  renderHome();renderClientes();renderCRM();renderMacros();renderEmpresa();renderInvestir();
 }
 
 function defaultDB(){return{
@@ -2038,13 +2231,46 @@ function goPage(id,btn){
   if(r[id])r[id]();
 }
 function showItab(g,id,btn){
-  document.querySelectorAll('#page-'+g+' .itab-pane').forEach(function(p){p.classList.remove('active');});
-  btn.closest('.itabs').querySelectorAll('.itab').forEach(function(t){t.classList.remove('active');});
-  document.getElementById(g+'-'+id).classList.add('active');btn.classList.add('active');
+  // Hide all panes that belong to this group (by ID prefix)
+  var prefix=g+'-';
+  document.querySelectorAll('.itab-pane').forEach(function(p){
+    if(p.id&&p.id.indexOf(prefix)===0){
+      p.style.display='none';
+      p.classList.remove('active');
+    }
+  });
+  // Show selected pane
+  var target=document.getElementById(g+'-'+id);
+  if(target){
+    target.style.display='block';
+    target.classList.add('active');
+  }
+  // Update buttons - only the tab group buttons, not filter buttons
+  var itabsContainer=btn.closest('.itabs');
+  if(itabsContainer){
+    itabsContainer.querySelectorAll('.itab').forEach(function(t){t.classList.remove('active');});
+  }
+  btn.classList.add('active');
+  // Render content
   if(g==='cli'){if(id==='carteira')renderClientes();else if(id==='reunioes')renderReunioes();else if(id==='projetos')renderProjetos();}
-  if(g==='fin'){if(id==='visaomes')renderVisaoMes();else if(id==='historico')renderHistorico();else if(id==='contas'){renderContas();renderResumoFin();}else if(id==='cenarios')renderCenarios();else if(id==='previsao')renderPrevisao();else if(id==='outras')renderOutrasReceitas();}
+  if(g==='fin'){renderFinanceiro();}
   if(g==='est'){if(id==='trimestre')renderMetas();else if(id==='pessoal')renderMetasPessoais();else if(id==='marcos')renderMarcos();else if(id==='anual')renderVisaoAnual();else if(id==='estrategias')renderEstrategias();}
   if(g==='prod'){if(id==='timer')prodRenderSessoes();else if(id==='demandas')prodRenderDemandas();else if(id==='rentabilidade')prodRenderRentabilidade();else if(id==='historico')prodRenderHistorico();else if(id==='estrategia')prodRenderDiagnostico();}
+}
+
+function initItabPanes(){
+  document.querySelectorAll('.itab-pane').forEach(function(p){
+    if(p.classList.contains('active')){
+      p.style.display='block';
+    } else {
+      p.style.display='none';
+    }
+  });
+}
+// On page load, hide all non-active itab panes
+function initItabPanes(){
+  document.querySelectorAll('.itab-pane:not(.active)').forEach(function(p){p.style.display='none';});
+  document.querySelectorAll('.itab-pane.active').forEach(function(p){p.style.display='block';});
 }
 
 var MOS=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
@@ -2062,7 +2288,7 @@ function salvarReceita(){
   var obj={id:eid||uid(),desc:desc,val:Math.round((parseBRL(document.getElementById('rec-val').value)||0)*100)/100,dia:document.getElementById('rec-dia').value,rec:document.getElementById('rec-rec').value,cat:document.getElementById('rec-cat').value,nota:document.getElementById('rec-nota').value};
   if(eid){var idx=DB.outras_receitas.findIndex(function(r){return r.id===eid;});if(idx>=0)DB.outras_receitas[idx]=obj;else DB.outras_receitas.push(obj);}else DB.outras_receitas.push(obj);
   saveDB();['rec-desc','rec-val','rec-dia','rec-nota'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('rec-edit-id').value='';
-  closeModal('modal-add-receita');renderOutrasReceitas();renderHome();notif('Receita salva!');
+  closeModal('modal-add-receita');renderHome();notif('Receita salva!');
 }
 function abrirBaixaReceita(id){
   var r=DB.outras_receitas.find(function(x){return x.id===id;});if(!r)return;
@@ -2074,7 +2300,7 @@ function confirmarBaixaReceita(){
   var id=document.getElementById('mbrec-id').value;var key=getBK('outrec',id);
   DB.baixas=DB.baixas.filter(function(b){return b.key!==key;});
   DB.baixas.push({key:key,tipo:'outrec',id:id,val:parseBRL(document.getElementById('mbrec-val').value)||0,data:document.getElementById('mbrec-data').value,obs:document.getElementById('mbrec-obs').value});
-  saveDB();closeModal('modal-baixa-receita');renderOutrasReceitas();renderVisaoMes();renderHome();notif('Recebimento confirmado!');
+  saveDB();closeModal('modal-baixa-receita');renderHome();notif('Recebimento confirmado!');
 }
 function editarReceita(id){
   var r=DB.outras_receitas.find(function(x){return x.id===id;});if(!r)return;
@@ -2084,8 +2310,8 @@ function editarReceita(id){
   document.getElementById('rec-cat').value=r.cat||'Contribuição familiar';document.getElementById('rec-nota').value=r.nota||'';
   openModal('modal-add-receita');
 }
-function remReceita(id){if(!confirm('Remover?'))return;DB.outras_receitas=DB.outras_receitas.filter(function(r){return r.id!==id;});saveDB();renderOutrasReceitas();renderHome();notif('Receita removida.');}
-function desfBaixaRec(id){DB.baixas=DB.baixas.filter(function(b){return b.key!==getBK('outrec',id);});saveDB();renderOutrasReceitas();renderVisaoMes();renderHome();notif('Baixa desfeita.');}
+function remReceita(id){if(!confirm('Remover?'))return;DB.outras_receitas=DB.outras_receitas.filter(function(r){return r.id!==id;});saveDB();renderHome();notif('Receita removida.');}
+function desfBaixaRec(id){DB.baixas=DB.baixas.filter(function(b){return b.key!==getBK('outrec',id);});saveDB();renderHome();notif('Baixa desfeita.');}
 function renderResumoReceitas(){
   var el=document.getElementById('resumo-receitas');if(!el)return;
   var OR=DB.outras_receitas||[];if(!OR.length){el.innerHTML='<div style="font-size:.74rem;color:var(--muted)">Adicione receitas para ver o resumo.</div>';return;}
@@ -3325,6 +3551,23 @@ async function claraContextual(modulo, dados){
 
 var _finMesIdx = 0; // índice relativo ao mês atual (0 = este mês, -1 = anterior, +1 = próximo)
 
+
+function getBaixaInfo(tipo, id){
+  var key = finMesKey(0);
+  var mes = (DB.meses_fin && DB.meses_fin[key]) ? DB.meses_fin[key] : null;
+  if(!mes) return null;
+  if(tipo === 'rec'){
+    var r = (mes.receitas_clientes||[]).find(function(x){ return x.clienteId === id; });
+    if(r && r.recebido) return {data: r.dataRecebido, obs: ''};
+    return null;
+  } else if(tipo === 'pag'){
+    var d = (mes.despesas||[]).find(function(x){ return x.contaFixaId === id || x.id === id; });
+    if(d && d.pago) return {data: d.dataPago, obs: ''};
+    return null;
+  }
+  return null;
+}
+
 function finMesLabel(offset){
   var d = new Date();
   d.setDate(1);
@@ -3350,15 +3593,19 @@ function getOrCreateMesFin(key){
   if(!DB.meses_fin) DB.meses_fin = {};
   if(!DB.meses_fin[key]){
     DB.meses_fin[key] = {
-      receitas_clientes: [], // {clienteId, nome, valor, recebido, dataRecebido, meio}
-      despesas: [],          // {id, desc, valor, cat, tipo, pago, dataPago, variavel}
-      outras_receitas: [],   // {id, desc, valor, recebido, dataRecebido, tipo}
+      receitas_clientes: [],
+      despesas: [],
+      outras_receitas: [],
       caixa_pj: 0
     };
-    // Migrar contas fixas para este mês
     migrarContasFixas(key);
   }
-  return DB.meses_fin[key];
+  // Always ensure arrays exist (safety for old data)
+  var m = DB.meses_fin[key];
+  if(!m.receitas_clientes) m.receitas_clientes = [];
+  if(!m.despesas) m.despesas = [];
+  if(!m.outras_receitas) m.outras_receitas = [];
+  return m;
 }
 
 function migrarContasFixas(key){
