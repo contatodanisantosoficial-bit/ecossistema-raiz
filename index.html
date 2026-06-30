@@ -362,52 +362,72 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 
   <!-- FINANCEIRO -->
   <div class="page" id="page-financeiro">
-    <div class="ph"><div class="pe">Financeiro</div><div class="pt">Números que <em>orientam</em></div></div>
-    <div class="itabs">
-      <button class="itab active" onclick="showItab('fin','visaomes',this)">Visão do Mês</button>
-      <button class="itab" onclick="showItab('fin','registrar',this)">Registrar Mês</button>
-      <button class="itab" onclick="showItab('fin','outras',this)">Outras Receitas</button>
-      <button class="itab" onclick="showItab('fin','contas',this)">Contas PJ e PF</button>
-      <button class="itab" onclick="showItab('fin','previsao',this)">Previsibilidade</button>
-      <button class="itab" onclick="showItab('fin','cenarios',this)">Cenários</button>
-      <button class="itab" onclick="showItab('fin','historico',this)">Histórico</button>
-    </div>
-    <div class="itab-pane active" id="fin-visaomes"><div id="visaomes-content"></div></div>
-    <div class="itab-pane" id="fin-registrar">
-      <div class="card"><div class="cl">Registrar Mês</div>
-        <div class="fr"><div class="fi"><label>Mês / Ano</label><input type="text" id="fin-mes" placeholder="ex: Junho 2026"></div><div class="fi"><label>Faturamento (R$)</label><input type="number" id="fin-fat" placeholder="ex: 3000"></div></div>
-        <div class="fr"><div class="fi"><label>Gasto PJ — Negócio (R$)</label><input type="number" id="fin-gasto-pj" placeholder="ex: 153" oninput="calcGastoTotal()"></div><div class="fi"><label>Gasto PF — Pessoal (R$)</label><input type="number" id="fin-gasto-pf" placeholder="ex: 2354" oninput="calcGastoTotal()"></div></div>
-        <div class="fi" style="background:var(--s2);border-radius:8px;padding:8px 11px;margin-bottom:4px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:.64rem;color:var(--muted)">Gasto Total (PJ + PF)</span>
-            <span style="font-size:.82rem;font-weight:600;color:var(--red)" id="fin-gasto-total">R$ 0</span>
-          </div>
-        </div>
-        <div class="fr"><div class="fi"><label>Caixa PJ — Saldo (R$)</label><input type="number" id="fin-caixa" placeholder="ex: 1532"></div><div class="fi"></div></div>
-        <div class="fr"><div class="fi"><label>Reserva Pessoal (R$)</label><input type="number" id="fin-res" placeholder="ex: 17000"></div><div class="fi"><label>Conquista do Mês</label><input type="text" id="fin-con" placeholder="ex: fechei 1 cliente nova"></div></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;font-size:.72rem;">
-          <label style="display:flex;align-items:center;gap:5px;cursor:pointer;"><input type="checkbox" id="chk-n" style="accent-color:var(--nude)"> Cliente nova fechada</label>
-          <label style="display:flex;align-items:center;gap:5px;cursor:pointer;"><input type="checkbox" id="chk-f" style="accent-color:var(--nude)"> Consultoria física</label>
-          <label style="display:flex;align-items:center;gap:5px;cursor:pointer;"><input type="checkbox" id="chk-l" style="accent-color:var(--nude)"> Outro marco</label>
-        </div>
-        <button class="bp" onclick="registrarMes()">Salvar Mês</button>
-      </div>
-      <div class="card"><div class="cl">3 Camadas de Proteção</div>
-        <div class="pr"><div class="pt2"><span class="pn">🔴 Reserva Emergência PJ</span><span class="pp r" id="pct-em">—</span></div><div class="pt3"><div class="pf r" id="bar-em" style="width:0%"></div></div><div style="font-size:.63rem;color:var(--muted);margin-top:3px;" id="txt-em">Defina a meta em Configurações</div></div>
-        <div class="pr"><div class="pt2"><span class="pn">🟡 Pró-labore fixo</span><span class="pp o" id="pct-pl">—</span></div><div class="pt3"><div class="pf o" id="bar-pl" style="width:0%"></div></div><div style="font-size:.63rem;color:var(--muted);margin-top:3px;" id="txt-pl">Registre o primeiro mês</div></div>
-        <div class="pr" style="margin-bottom:0"><div class="pt2"><span class="pn">🟢 Caixa de Crescimento</span><span class="pp g" id="pct-cr">—</span></div><div class="pt3"><div class="pf g" id="bar-cr" style="width:0%"></div></div><div style="font-size:.63rem;color:var(--muted);margin-top:3px;" id="txt-cr">O que sobra além do pró-labore</div></div>
-      </div>
-    </div>
-    <div class="itab-pane" id="fin-outras"><div class="card"><div class="cl">Outras Receitas</div><div style="font-size:.74rem;color:var(--muted);margin-bottom:12px">Receitas que não são de clientes.</div><div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="bp" onclick="om3()">+ Adicionar</button></div><div id="lista-outras-rec"></div></div><div class="card"><div class="cl">Resumo de Receitas</div><div id="resumo-receitas"></div></div></div>
-    <div class="itab-pane" id="fin-contas"><div class="card"><div class="cl">Contas Fixas e Variáveis</div><div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="bp" onclick="openModal('modal-add-conta')">+ Adicionar Conta</button></div><div id="lista-contas"></div></div><div class="card"><div class="cl">Resumo Financeiro</div><div id="resumo-fin"></div></div></div>
-    <div class="itab-pane" id="fin-previsao"><div id="previsao-content"></div></div>
-    <div class="itab-pane" id="fin-cenarios"><div class="card"><div class="cl">Cenários</div><div id="cenarios-content"></div></div></div>
-    <div class="itab-pane" id="fin-historico"><div class="card"><div class="cl">Histórico Mensal</div><div id="hist-list"></div></div></div>
+  <div class="ph"><div class="pe">Financeiro</div><div class="pt">Mês a mês, <em>com clareza</em></div></div>
   
-    <div id="lista-clientes"></div>
+  <!-- Navegação de mês -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;background:var(--s2);border:1px solid var(--border);border-radius:11px;padding:12px 16px">
+    <button class="be" onclick="navMes(-1)" style="font-size:1.1rem;padding:4px 12px">‹</button>
+    <div style="text-align:center">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--cafe)" id="fin-mes-titulo">—</div>
+      <div style="font-size:.65rem;color:var(--muted);margin-top:2px" id="fin-mes-sub">Selecione um mês</div>
     </div>
+    <button class="be" onclick="navMes(1)" style="font-size:1.1rem;padding:4px 12px">›</button>
+  </div>
 
-<div class="page" id="page-crm"><div class="ph"><div class="pe">CRM</div><div class="pt">De <em>lead</em> a cliente fiel</div></div><div class="g4" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Leads</div><div class="sv o" id="crm-total">—</div></div><div class="sc"><div class="sl">Conversão</div><div class="sv g" id="crm-conv">—</div></div><div class="sc"><div class="sl">Via WhatsApp</div><div class="sv n" id="crm-wpp">—</div></div><div class="sc"><div class="sl">Precisou Reunião</div><div class="sv o" id="crm-reu">—</div></div></div><div style="display:flex;gap:8px;margin-bottom:13px;flex-wrap:wrap"><button class="bp" onclick="openModal('modal-add-crm')">+ Novo Lead</button><button class="bg" onclick="openModal('modal-crm-stages')">Editar Etapas</button><div style="font-size:.7rem;color:var(--muted);margin-left:auto" id="crm-sum"></div></div><div class="crm-b" id="crm-board"></div></div>
+  <!-- Cards resumo do mês -->
+  <div class="g4" style="margin-bottom:13px">
+    <div class="sc"><div class="sl">💰 Entrou</div><div class="sv g" id="fin-total-entrou">R$ —</div></div>
+    <div class="sc"><div class="sl">💸 Saiu</div><div class="sv r" id="fin-total-saiu">R$ —</div></div>
+    <div class="sc"><div class="sl">📊 Saldo</div><div class="sv n" id="fin-saldo">R$ —</div></div>
+    <div class="sc"><div class="sl">🏦 Caixa PJ</div><div class="sv o" id="fin-caixa-pj">R$ —</div></div>
+  </div>
+
+  <!-- Abas -->
+  <div class="itabs" style="margin-bottom:13px">
+    <button class="itab active" onclick="showFinTab('receitas',this)">💰 Receitas</button>
+    <button class="itab" onclick="showFinTab('despesas',this)">💸 Despesas</button>
+    <button class="itab" onclick="showFinTab('outras',this)">➕ Outras</button>
+    <button class="itab" onclick="showFinTab('contas',this)">📋 Contas fixas</button>
+  </div>
+
+  <!-- ABA RECEITAS -->
+  <div id="fin-tab-receitas">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-size:.72rem;color:var(--muted)">Recebimentos de clientes</div>
+    </div>
+    <div id="fin-lista-receitas"></div>
+  </div>
+
+  <!-- ABA DESPESAS -->
+  <div id="fin-tab-despesas" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-size:.72rem;color:var(--muted)">Gastos deste mês</div>
+      <button class="bp" onclick="openModal('modal-add-despesa-mes')" style="font-size:.7rem;padding:6px 12px">+ Despesa</button>
+    </div>
+    <div id="fin-lista-despesas"></div>
+  </div>
+
+  <!-- ABA OUTRAS RECEITAS -->
+  <div id="fin-tab-outras" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-size:.72rem;color:var(--muted)">Receitas fora dos clientes</div>
+      <button class="bp" onclick="openModal('modal-add-outra-rec')" style="font-size:.7rem;padding:6px 12px">+ Receita</button>
+    </div>
+    <div id="fin-lista-outras"></div>
+  </div>
+
+  <!-- ABA CONTAS FIXAS -->
+  <div id="fin-tab-contas" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-size:.72rem;color:var(--muted)">Contas recorrentes — migram automaticamente</div>
+      <button class="bp" onclick="openModal('modal-add-conta-fixa')" style="font-size:.7rem;padding:6px 12px">+ Conta fixa</button>
+    </div>
+    <div id="fin-lista-contas-fixas"></div>
+  </div>
+</div>
+
+
+  <div class="page" id="page-crm"><div class="ph"><div class="pe">CRM</div><div class="pt">De <em>lead</em> a cliente fiel</div></div><div class="g4" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Leads</div><div class="sv o" id="crm-total">—</div></div><div class="sc"><div class="sl">Conversão</div><div class="sv g" id="crm-conv">—</div></div><div class="sc"><div class="sl">Via WhatsApp</div><div class="sv n" id="crm-wpp">—</div></div><div class="sc"><div class="sl">Precisou Reunião</div><div class="sv o" id="crm-reu">—</div></div></div><div style="display:flex;gap:8px;margin-bottom:13px;flex-wrap:wrap"><button class="bp" onclick="openModal('modal-add-crm')">+ Novo Lead</button><button class="bg" onclick="openModal('modal-crm-stages')">Editar Etapas</button><div style="font-size:.7rem;color:var(--muted);margin-left:auto" id="crm-sum"></div></div><div class="crm-b" id="crm-board"></div></div>
   <div class="page" id="page-macros"><div class="ph"><div class="pe">Processos Internos</div><div class="pt">Construindo cada <em>pilar</em></div></div><div id="macros-content"></div></div>
   <div class="page" id="page-produtividade">
   <div class="ph">
@@ -868,11 +888,7 @@ function getAlerts(){
 function getBK(tipo,id){
   var hoje=new Date();return tipo+'-'+id+'-'+hoje.getFullYear()+'-'+hoje.getMonth();
 }
-function getBaixaInfo(tipo,id){
-  if(!DB.baixas)return null;
-  var hoje=new Date();var key=tipo+'-'+id+'-'+hoje.getFullYear()+'-'+hoje.getMonth();
-  return DB.baixas.find(function(b){return b.key===key;})||null;
-}
+
 
 function renderHome(){
   if(!DB)return;
@@ -1006,43 +1022,12 @@ function registrarMes(){
   ['chk-n','chk-f','chk-l'].forEach(function(id){document.getElementById(id).checked=false;});
   renderFinBars();renderHome();notif('Mês registrado!');
 }
-function renderFinanceiro(){
-  if(!DB)return;renderFinBars();renderVisaoMes();renderContas();renderResumoFin();renderOutrasReceitas();
-}
-function renderFinBars(){
-  if(!DB)return;
-  var ul=DB.meses.length?DB.meses[DB.meses.length-1]:null;var mc=DB.config.metaCaixa||0;
-  var gastoPJ=ul?(ul.gastoPJ||0):Math.round(DB.contas.filter(function(c){return c.tipo==='PJ';}).reduce(function(a,c){return a+c.val;},0)*100)/100;
-  var gastoPF=ul?(ul.gastoPF||0):Math.round(DB.contas.filter(function(c){return c.tipo==='PF';}).reduce(function(a,c){return a+c.val;},0)*100)/100;
-  if(ul){
-    var caixa=ul.caixa||0;var fat=ul.fat||0;
-    var cp=mc?Math.min(Math.round((caixa/mc)*100),100):0;
-    var e1=document.getElementById('pct-em');if(e1)e1.textContent=cp+'%';
-    var e2=document.getElementById('bar-em');if(e2)e2.style.width=cp+'%';
-    var e3=document.getElementById('txt-em');if(e3)e3.textContent=mc?'Caixa PJ: R$ '+caixa.toLocaleString('pt-BR')+' de R$ '+mc.toLocaleString('pt-BR'):'Defina a meta em Configurações';
-    var custoPF=DB.config.custo||gastoPF;var pp=custoPF?Math.min(Math.round((fat/custoPF)*100),100):0;
-    var e4=document.getElementById('pct-pl');if(e4)e4.textContent=pp+'%';
-    var e5=document.getElementById('bar-pl');if(e5)e5.style.width=pp+'%';
-    var e6=document.getElementById('txt-pl');if(e6)e6.textContent='Faturamento R$ '+fat.toLocaleString('pt-BR')+' · Custo PF R$ '+gastoPF.toLocaleString('pt-BR');
-    var gasto=Math.round((gastoPJ+gastoPF)*100)/100;var ex=Math.max(0,fat-gasto);
-    var e7=document.getElementById('pct-cr');if(e7)e7.textContent=ex?'R$ '+ex.toLocaleString('pt-BR'):'—';
-    var e8=document.getElementById('bar-cr');if(e8)e8.style.width=ex?Math.min(Math.round((ex/1000)*100),100)+'%':'0%';
-    var e9=document.getElementById('txt-cr');if(e9)e9.textContent=ex?'Sobra após PJ (R$ '+gastoPJ.toLocaleString('pt-BR')+') + PF (R$ '+gastoPF.toLocaleString('pt-BR')+')':'Registre um mês para ver';
-  }else{
-    var te=document.getElementById('txt-em');if(te)te.textContent=mc?'Meta: R$ '+mc.toLocaleString('pt-BR'):'Defina a meta em Configurações';
-    var tp=document.getElementById('txt-pl');if(tp)tp.textContent='PJ: R$ '+gastoPJ.toLocaleString('pt-BR')+' · PF: R$ '+gastoPF.toLocaleString('pt-BR');
-    var tc=document.getElementById('txt-cr');if(tc)tc.textContent='Registre o primeiro mês';
-  }
-}
-function renderResumoFin(){
-  if(!DB)return;
-  var pj=Math.round(DB.contas.filter(function(c){return c.tipo==='PJ';}).reduce(function(a,c){return a+c.val;},0)*100)/100;
-  var pf=Math.round(DB.contas.filter(function(c){return c.tipo==='PF';}).reduce(function(a,c){return a+c.val;},0)*100)/100;
-  var fat=Math.round(DB.clientes.filter(function(c){return c.status!=='Encerrado';}).reduce(function(a,c){return a+c.val;},0)*100)/100;
-  var el=document.getElementById('resumo-fin');if(!el)return;
-  if(!DB.contas.length){el.innerHTML='<div style="font-size:.74rem;color:var(--muted)">Adicione contas para ver o resumo.</div>';return;}
-  el.innerHTML='<div class="g3"><div class="sc"><div class="sl">Gastos PJ</div><div class="sv r">R$ '+pj.toLocaleString('pt-BR')+'</div></div><div class="sc"><div class="sl">Gastos PF</div><div class="sv r">R$ '+pf.toLocaleString('pt-BR')+'</div></div><div class="sc"><div class="sl">Sobra Real</div><div class="sv '+(fat-(pj+pf)>=0?'g':'r')+'">R$ '+(fat-(pj+pf)).toLocaleString('pt-BR')+'</div></div></div>';
-}
+
+
+
+
+
+
 function renderCenarios(){
   var el=document.getElementById('cenarios-content');if(!el||!DB)return;
   var fat=Math.round(DB.clientes.filter(function(c){return c.status!=='Encerrado';}).reduce(function(a,c){return a+c.val;},0)*100)/100;var gasto=DB.config.custo||0;
@@ -1101,88 +1086,7 @@ function renderHistorico(){
   }).join('');
 }
 
-function renderVisaoMes(){
-  if(!DB)return;var el=document.getElementById('visaomes-content');if(!el)return;
-  var hoje=new Date();hoje.setHours(0,0,0,0);var dias=parseInt(DB.config.dias)||3;
-  var mesAtual=hoje.getMonth();var anoAtual=hoje.getFullYear();
-  var clientes=DB.clientes.filter(function(c){
-    if(c.status==='Encerrado'||!c.dia)return false;
-    var hj2=new Date();hj2.setHours(0,0,0,0);
-    if(c.inicio){var ini=new Date(c.inicio);if(ini>hj2)return false;}
-    if(c.primeiro_pag){var pp2=new Date(c.primeiro_pag);pp2.setHours(0,0,0,0);if(pp2>hj2)return false;}
-    return true;
-  }).map(function(c){
-    var d=parseInt(c.dia);var v=new Date(anoAtual,mesAtual,d);
-    var diff=Math.round((v-hoje)/86400000);
-    var baixa=getBaixaInfo('rec',c.id);
-    var cls=baixa?'ok':diff===0?'urg':diff<0?'r':diff<=dias?'sn':'ok';
-    var msg=baixa?'Recebido em '+(baixa.data||'—')+(baixa.obs?' · '+baixa.obs:''):diff===0?'HOJE':diff<0?'Vencido há '+(-diff)+'d':'Em '+diff+'d';
-    return{id:c.id,nome:c.nome,val:c.val,dia:d,meio:c.meio,diff:diff,baixa:baixa,cls:cls,msg:msg};
-  });
-  var contas=DB.contas.map(function(c){
-    var d=parseInt(c.dia)||0;var v=d?new Date(anoAtual,mesAtual,d):null;
-    var diff=v?Math.round((v-hoje)/86400000):null;
-    var baixa=getBaixaInfo('pag',c.id);
-    var cls=baixa?'ok':diff===0?'urg':diff!==null&&diff<0?'r':diff!==null&&diff<=dias?'sn':'ok';
-    var msg=baixa?'Pago em '+(baixa.data||'—')+(baixa.obs?' · '+baixa.obs:''):diff===0?'HOJE':diff!==null&&diff<0?'Vencido há '+(-diff)+'d':diff!==null?'Em '+diff+'d':'—';
-    return{id:c.id,desc:c.desc,val:c.val,tipo:c.tipo,rec:c.rec,dia:d,diff:diff,baixa:baixa,cls:cls,msg:msg};
-  });
-  var tRcli=Math.round(clientes.reduce(function(a,c){return a+c.val;},0)*100)/100;
-  var OR=DB.outras_receitas||[];var tROther=Math.round(OR.reduce(function(a,r){return a+r.val;},0)*100)/100;
-  var tR=Math.round((tRcli+tROther)*100)/100;
-  var tP=Math.round(contas.reduce(function(a,c){return a+c.val;},0)*100)/100;
-  var recebidoCli=clientes.filter(function(c){return c.baixa;}).reduce(function(a,c){return a+(c.baixa.val||c.val);},0);
-  var recebidoOther=OR.filter(function(r){return getBaixaInfo('outrec',r.id);}).reduce(function(a,r){var b=getBaixaInfo('outrec',r.id);return a+(b.val||r.val);},0);
-  var recebido=Math.round((recebidoCli+recebidoOther)*100)/100;
-  var pago=Math.round(contas.filter(function(c){return c.baixa;}).reduce(function(a,c){return a+(c.baixa.val||c.val);},0)*100)/100;
-  var ul=DB.meses.length?DB.meses[DB.meses.length-1]:null;
-  var saldoP=Math.round((tR-tP)*100)/100;var saldoR=Math.round((recebido-pago)*100)/100;
-  var MOS2=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  var h=[];
-  h.push('<div class="card warm">');
-  h.push('<div class="cl">'+MOS2[mesAtual]+' '+anoAtual+' — Planejado vs Realizado</div>');
-  h.push('<div class="g4" style="margin-bottom:12px">');
-  h.push('<div class="sc"><div class="sl">A Receber</div><div class="sv o">R$ '+tR.toLocaleString('pt-BR')+'</div><div class="ss">'+clientes.length+' clientes'+(tROther?' + R$ '+tROther.toLocaleString('pt-BR')+' extras':'')+'</div></div>');
-  h.push('<div class="sc"><div class="sl">Recebido</div><div class="sv g">R$ '+recebido.toLocaleString('pt-BR')+'</div><div class="ss">'+clientes.filter(function(c){return c.baixa;}).length+' confirmados</div></div>');
-  h.push('<div class="sc"><div class="sl">A Pagar</div><div class="sv r">R$ '+tP.toLocaleString('pt-BR')+'</div><div class="ss">'+contas.length+' contas</div></div>');
-  h.push('<div class="sc"><div class="sl">Pago</div><div class="sv r">R$ '+pago.toLocaleString('pt-BR')+'</div><div class="ss">'+contas.filter(function(c){return c.baixa;}).length+' confirmados</div></div>');
-  h.push('</div>');
-  h.push('<div class="g2">');
-  h.push('<div class="sc"><div class="sl">Saldo Previsto</div><div class="sv '+(saldoP>=0?'g':'r')+'">R$ '+saldoP.toLocaleString('pt-BR')+'</div></div>');
-  h.push('<div class="sc"><div class="sl">Saldo Realizado</div><div class="sv '+(saldoR>=0?'g':'r')+'">R$ '+saldoR.toLocaleString('pt-BR')+'</div></div>');
-  h.push('</div></div>');
-  h.push('<div class="card"><div class="cl">Receitas do Mês</div><button class="bp" style="float:right;font-size:.6rem;padding:6px 11px;margin-bottom:10px" onclick="openModal(\'modal-add-cli\')">+ Cliente</button>');
-  if(clientes.length){
-    clientes.forEach(function(c){
-      h.push('<div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border)">');
-      h.push('<div><div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+c.nome+'</div>');
-      h.push('<div style="font-size:.64rem;color:var(--muted);margin-top:2px">Dia '+c.dia+(c.meio?' · '+c.meio:'')+'</div>');
-      h.push('<div class="pa '+c.cls+'" style="margin-top:5px;display:inline-flex;padding:3px 8px;font-size:.62rem">'+c.msg+'</div></div>');
-      h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:'+(c.baixa?'var(--green)':'var(--ouro)')+'">R$ '+c.val.toLocaleString('pt-BR')+'</div>');
-      h.push('<div style="display:flex;gap:5px;margin-top:5px;justify-content:flex-end">');
-      if(c.baixa){h.push("<button class='bg' data-id='"+c.id+"' onclick=\"desfazerBaixa('rec',this.dataset.id)\" style='font-size:.58rem;padding:2px 7px'>Desfazer</button>");}
-      else{h.push("<button class='bp' data-id='"+c.id+"' onclick=\"abrirBaixaRec(this.dataset.id)\" style='font-size:.6rem;padding:3px 9px'>✓ Recebido</button>");}
-      h.push('</div></div></div>');
-    });
-  }else{h.push('<div class="ev"><div class="eicon">💛</div><div class="edesc">Nenhuma cliente com dia de vencimento este mês.</div></div>');}
-  h.push('</div>');
-  h.push('<div class="card"><div class="cl">Despesas do Mês</div><button class="bp" style="float:right;font-size:.6rem;padding:6px 11px;margin-bottom:10px" onclick="openModal(\'modal-add-conta\')">+ Conta</button>');
-  if(contas.length){
-    contas.forEach(function(c){
-      h.push('<div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border)">');
-      h.push('<div><div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+c.desc+(c.rec==='variavel'?' <span class="bdg n" style="font-size:.5rem">VARIÁVEL</span>':'')+'</div>');
-      h.push('<div style="font-size:.64rem;color:var(--muted);margin-top:2px">'+c.tipo+(c.dia?' · Dia '+c.dia:'')+'</div>');
-      h.push('<div class="pa '+c.cls+'" style="margin-top:5px;display:inline-flex;padding:3px 8px;font-size:.62rem">'+c.msg+'</div></div>');
-      h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:'+(c.baixa?'var(--muted)':'var(--red)')+'">R$ '+c.val.toLocaleString('pt-BR')+'</div>');
-      h.push('<div style="display:flex;gap:5px;margin-top:5px;justify-content:flex-end">');
-      if(c.baixa){h.push("<button class='bg' data-id='"+c.id+"' onclick=\"desfazerBaixa('pag',this.dataset.id)\" style='font-size:.58rem;padding:2px 7px'>Desfazer</button>");}
-      else{h.push("<button class='bp' data-id='"+c.id+"' onclick=\"abrirBaixaPag(this.dataset.id)\" style='font-size:.6rem;padding:3px 9px'>✓ Pago</button>");}
-      h.push('</div></div></div>');
-    });
-  }else{h.push('<div class="ev"><div class="eicon">🧾</div><div class="edesc">Nenhuma conta cadastrada.</div></div>');}
-  h.push('</div>');
-  el.innerHTML=h.join('');
-}
+
 
 function abrirBaixaRec(id){
   var c=DB.clientes.find(function(x){return x.id===id;});if(!c)return;
@@ -1196,10 +1100,7 @@ function abrirBaixaPag(id){
   document.getElementById('mbp-val').value=c.val;document.getElementById('mbp-data').value=new Date().toISOString().slice(0,10);
   document.getElementById('mbp-obs').value='Pago via '+c.tipo;openModal('modal-baixa-pag');
 }
-function desfazerBaixa(tipo,id){
-  var key=getBK(tipo,id);DB.baixas=DB.baixas.filter(function(b){return b.key!==key;});
-  saveDB();renderVisaoMes();renderHome();notif('Baixa desfeita.');
-}
+
 
 function toggleValVar(){document.getElementById('ct-val-var-wrap').style.display=document.getElementById('ct-rec').value==='variavel'?'flex':'none';}
 function adicionarConta(){
@@ -1224,67 +1125,7 @@ function editarConta(id){
     btn.onclick=adicionarConta;
   };})(id);}
 }
-function remConta(id){
-  if(!confirm('Remover conta?'))return;
-  DB.contas=DB.contas.filter(function(c){return c.id!==id;});
-  saveDB();renderContas();renderResumoFin();renderHome();renderVisaoMes();notif('Conta removida.');
-}
-function renderContas(){
-  if(!DB)return;var el=document.getElementById('lista-contas');if(!el)return;
-  if(!DB.contas.length){el.innerHTML='<div class="ev"><div class="eicon">🧾</div><div class="etitle">Nenhuma conta ainda</div><div class="edesc">Adicione seus gastos fixos e variáveis.</div></div>';return;}
-  var rl={mensal:'Fixo mensal',variavel:'Variável',anual:'Fixo anual',unica:'Única vez'};
-  var h=[];
-  DB.contas.forEach(function(c){
-    h.push('<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);gap:10px">');
-    h.push('<div><div style="font-size:.79rem;font-weight:500;color:var(--cafe)">'+c.desc+(c.rec==='variavel'?' <span class="bdg n" style="font-size:.5rem">variável</span>':'')+'</div>');
-    h.push('<div style="font-size:.63rem;color:var(--muted);margin-top:1px">'+c.cat+' · '+c.tipo+' · '+(rl[c.rec]||c.rec)+(c.dia?' · Dia '+c.dia:'')+(c.nota?' · '+c.nota:'')+'</div></div>');
-    h.push('<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">');
-    h.push('<span class="bdg '+(c.tipo==='PJ'?'o':'n')+'">'+c.tipo+'</span>');
-    h.push('<div style="font-size:.85rem;font-weight:600;color:var(--cafe)">R$ '+c.val.toLocaleString('pt-BR')+'</div>');
-    h.push('<button class="be" style="font-size:.58rem;padding:2px 7px" data-id="'+c.id+'" onclick="editarConta(this.dataset.id)">Editar</button>');
-    h.push('<button class="bd" style="font-size:.66rem;padding:4px 10px" data-id="'+c.id+'" onclick="remConta(this.dataset.id)">✕</button>');
-    h.push('</div></div>');
-  });
-  el.innerHTML=h.join('');
-}
 
-function renderOutrasReceitas(){
-  if(!DB)return;var el=document.getElementById('lista-outras-rec');if(!el)return;
-  var OR=DB.outras_receitas||[];
-  if(!OR.length){el.innerHTML='<div class="ev"><div class="eicon">💚</div><div class="etitle">Nenhuma receita extra ainda</div><div class="edesc">Adicione receitas que não vêm de clientes.</div></div>';renderResumoReceitas();return;}
-  var hoje=new Date();hoje.setHours(0,0,0,0);var dias=parseInt(DB.config.dias)||3;
-  var mesAtual=hoje.getMonth();var anoAtual=hoje.getFullYear();
-  var frag=document.createDocumentFragment();
-  OR.forEach(function(r){
-    var baixa=getBaixaInfo('outrec',r.id);var msg='';var cls='ok';
-    if(r.dia){var d=parseInt(r.dia);var v=new Date(anoAtual,mesAtual,d);if(v<hoje)v.setMonth(v.getMonth()+1);var diff=Math.round((v-hoje)/86400000);
-      cls=baixa?'ok':diff===0?'urg':diff<=dias?'sn':'ok';
-      msg=baixa?'Recebido em '+(baixa.data||'—'):diff===0?'HOJE':diff<0?'Vencido há '+(-diff)+'d':'Em '+diff+'d';
-    }
-    var row=document.createElement('div');row.style.cssText='display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);gap:10px';
-    var left=document.createElement('div');left.style.cssText='flex:1;min-width:0';
-    var title=document.createElement('div');title.style.cssText='font-size:.82rem;font-weight:600;color:'+(baixa?'var(--muted)':'var(--cafe)');title.textContent=r.desc;
-    if(baixa){var ok=document.createElement('span');ok.className='bdg g';ok.style.marginLeft='6px';ok.textContent='Recebido';title.appendChild(ok);}
-    left.appendChild(title);
-    var sub=document.createElement('div');sub.style.cssText='font-size:.64rem;color:var(--muted);margin-top:2px';
-    sub.textContent=r.cat+' · '+(r.rec==='mensal'?'Mensal':'Eventual')+(r.dia?' · Dia '+r.dia:'')+(r.nota?' · '+r.nota:'');
-    left.appendChild(sub);
-    if(msg){var pa=document.createElement('div');pa.className='pa '+cls;pa.style.cssText='margin-top:5px;padding:3px 8px;font-size:.62rem;display:inline-flex';pa.textContent=msg;left.appendChild(pa);}
-    row.appendChild(left);
-    var right=document.createElement('div');right.style.cssText='text-align:right;flex-shrink:0';
-    var val=document.createElement('div');val.style.cssText='font-family:Cormorant Garamond,serif;font-size:1rem;font-weight:600;color:var(--green)';val.textContent='R$ '+r.val.toLocaleString('pt-BR');
-    right.appendChild(val);
-    var btns=document.createElement('div');btns.style.cssText='display:flex;gap:5px;margin-top:6px;justify-content:flex-end';
-    (function(rid){
-      if(baixa){var b=document.createElement('button');b.className='bg';b.style.cssText='font-size:.58rem;padding:2px 7px';b.textContent='Desfazer';b.onclick=function(){desfBaixaRec(rid);};btns.appendChild(b);}
-      else if(r.dia){var b2=document.createElement('button');b2.className='bp';b2.style.cssText='font-size:.58rem;padding:3px 8px';b2.textContent='✓ Recebido';b2.onclick=function(){abrirBaixaReceita(rid);};btns.appendChild(b2);}
-      var be=document.createElement('button');be.className='be';be.style.cssText='font-size:.58rem;padding:2px 7px';be.textContent='Editar';be.onclick=function(){editarReceita(rid);};btns.appendChild(be);
-      var bd=document.createElement('button');bd.className='bd';bd.style.cssText='font-size:.58rem;padding:2px 7px';bd.textContent='✕';bd.onclick=function(){remReceita(rid);};btns.appendChild(bd);
-    })(r.id);
-    right.appendChild(btns);row.appendChild(right);frag.appendChild(row);
-  });
-  el.innerHTML='';el.appendChild(frag);renderResumoReceitas();
-}
 
 function payInfo(c){var d=parseInt(c.dia);var hoje=new Date();hoje.setHours(0,0,0,0);var v=new Date(hoje.getFullYear(),hoje.getMonth(),d);if(v<hoje)v.setMonth(v.getMonth()+1);var diff=Math.round((v-hoje)/86400000);return diff===0?'HOJE':diff<0?'Vencido há '+(-diff)+'d':'Em '+diff+'d';}
 function scCol(s){return s==='Ativo'?'g':s==='Saindo'?'r':s==='Parceria'?'o':'m';}
@@ -2109,6 +1950,8 @@ function defaultDB(){return{
   reunioes:[],
   projetos:[],
   servicos:[],
+  meses_fin:{},
+  contas_fixas:[],
   entregas:[],
   propostas:[],
   hist_cli:[],
@@ -3460,6 +3303,457 @@ async function claraContextual(modulo, dados){
     out.innerHTML='<div style="font-size:.76rem;color:var(--muted)">Configure a chave de API em ⚙️ Config para a Clara funcionar fora do Claude.ai.</div>';
   }
 }
+
+// ══════════════════════════════════════════════
+// FINANCEIRO MÊS A MÊS
+// ══════════════════════════════════════════════
+
+var _finMesIdx = 0; // índice relativo ao mês atual (0 = este mês, -1 = anterior, +1 = próximo)
+
+function finMesLabel(offset){
+  var d = new Date();
+  d.setDate(1);
+  d.setMonth(d.getMonth() + offset);
+  var meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  return meses[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+function finMesKey(offset){
+  var d = new Date();
+  d.setDate(1);
+  d.setMonth(d.getMonth() + offset);
+  var m = String(d.getMonth()+1).padStart(2,'0');
+  return d.getFullYear() + '-' + m;
+}
+
+function navMes(dir){
+  _finMesIdx += dir;
+  renderFinanceiro();
+}
+
+function getOrCreateMesFin(key){
+  if(!DB.meses_fin) DB.meses_fin = {};
+  if(!DB.meses_fin[key]){
+    DB.meses_fin[key] = {
+      receitas_clientes: [], // {clienteId, nome, valor, recebido, dataRecebido, meio}
+      despesas: [],          // {id, desc, valor, cat, tipo, pago, dataPago, variavel}
+      outras_receitas: [],   // {id, desc, valor, recebido, dataRecebido, tipo}
+      caixa_pj: 0
+    };
+    // Migrar contas fixas para este mês
+    migrarContasFixas(key);
+  }
+  return DB.meses_fin[key];
+}
+
+function migrarContasFixas(key){
+  if(!DB.contas_fixas) return;
+  var mes = DB.meses_fin[key];
+  DB.contas_fixas.forEach(function(c){
+    // Verificar se já existe neste mês
+    var existe = mes.despesas.find(function(d){ return d.contaFixaId === c.id; });
+    if(!existe){
+      mes.despesas.push({
+        id: uid(),
+        contaFixaId: c.id,
+        desc: c.desc,
+        valor: c.valor,
+        cat: c.cat,
+        tipo: c.tipo,
+        pago: false,
+        dataPago: null,
+        variavel: c.variavel || false,
+        dia: c.dia
+      });
+    }
+  });
+}
+
+function showFinTab(tab, btn){
+  ['receitas','despesas','outras','contas'].forEach(function(t){
+    var el = document.getElementById('fin-tab-'+t);
+    if(el) el.style.display = t===tab ? 'block' : 'none';
+  });
+  document.querySelectorAll('.itab').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  renderFinTab(tab);
+}
+
+function renderFinanceiro(){
+  if(!DB) return;
+  if(!DB.meses_fin) DB.meses_fin = {};
+  if(!DB.contas_fixas) DB.contas_fixas = [];
+
+  var key = finMesKey(_finMesIdx);
+  var label = finMesLabel(_finMesIdx);
+  var mes = getOrCreateMesFin(key);
+
+  // Update header
+  var titulo = document.getElementById('fin-mes-titulo');
+  var sub = document.getElementById('fin-mes-sub');
+  if(titulo) titulo.textContent = label;
+  if(sub){
+    var hoje = new Date();
+    var mesAtual = finMesKey(0);
+    if(key === mesAtual) sub.textContent = 'Mês atual';
+    else if(_finMesIdx < 0) sub.textContent = 'Mês passado' + (_finMesIdx < -1 ? ' (há '+(-_finMesIdx)+' meses)' : '');
+    else sub.textContent = 'Mês futuro';
+  }
+
+  // Calculate totals
+  var totalReceitas = 0;
+  var totalSaiu = 0;
+
+  // Receitas de clientes recebidas
+  mes.receitas_clientes.forEach(function(r){
+    if(r.recebido) totalReceitas += parseFloat(r.valor||0);
+  });
+  // Outras receitas recebidas
+  mes.outras_receitas.forEach(function(r){
+    if(r.recebido) totalReceitas += parseFloat(r.valor||0);
+  });
+  // Despesas pagas
+  mes.despesas.forEach(function(d){
+    if(d.pago) totalSaiu += parseFloat(d.valor||0);
+  });
+
+  var saldo = totalReceitas - totalSaiu;
+
+  var e1 = document.getElementById('fin-total-entrou');
+  var e2 = document.getElementById('fin-total-saiu');
+  var e3 = document.getElementById('fin-saldo');
+  var e4 = document.getElementById('fin-caixa-pj');
+  if(e1) e1.textContent = 'R$ '+totalReceitas.toLocaleString('pt-BR',{minimumFractionDigits:2});
+  if(e2) e2.textContent = 'R$ '+totalSaiu.toLocaleString('pt-BR',{minimumFractionDigits:2});
+  if(e3){
+    e3.textContent = 'R$ '+Math.abs(saldo).toLocaleString('pt-BR',{minimumFractionDigits:2})+(saldo<0?' (déficit)':'');
+    e3.style.color = saldo >= 0 ? 'var(--green)' : 'var(--red)';
+  }
+  if(e4) e4.textContent = 'R$ '+(mes.caixa_pj||0).toLocaleString('pt-BR',{minimumFractionDigits:2});
+
+  // Render active tab
+  var activeTab = 'receitas';
+  document.querySelectorAll('.itab').forEach(function(b){
+    if(b.classList.contains('active') && b.getAttribute('onclick')){
+      var match = b.getAttribute('onclick').match(/showFinTab\('(\w+)'/);
+      if(match) activeTab = match[1];
+    }
+  });
+  renderFinTab(activeTab);
+}
+
+function renderFinTab(tab){
+  var key = finMesKey(_finMesIdx);
+  var mes = getOrCreateMesFin(key);
+
+  if(tab === 'receitas') renderFinReceitas(mes, key);
+  else if(tab === 'despesas') renderFinDespesas(mes, key);
+  else if(tab === 'outras') renderFinOutras(mes, key);
+  else if(tab === 'contas') renderFinContasFixas();
+}
+
+function renderFinReceitas(mes, key){
+  var el = document.getElementById('fin-lista-receitas');
+  if(!el) return;
+
+  // Build list from clientes ativos + existing records
+  var clientes = DB.clientes.filter(function(c){ return c.status !== 'Encerrado'; });
+
+  // Sync clientes into mes.receitas_clientes
+  clientes.forEach(function(c){
+    var existe = mes.receitas_clientes.find(function(r){ return r.clienteId === c.id; });
+    if(!existe){
+      mes.receitas_clientes.push({
+        id: uid(),
+        clienteId: c.id,
+        nome: c.nome,
+        valor: c.val || 0,
+        recebido: false,
+        dataRecebido: null,
+        meio: c.meio || 'PIX',
+        dia: c.dia
+      });
+    }
+  });
+
+  if(!mes.receitas_clientes.length){
+    el.innerHTML = '<div class="ev"><div class="eicon">💰</div><div class="etitle">Nenhum cliente ativo</div><div class="edesc">Cadastre clientes para ver os recebimentos.</div></div>';
+    return;
+  }
+
+  var totalRec = 0, totalPend = 0;
+  mes.receitas_clientes.forEach(function(r){ if(r.recebido) totalRec += parseFloat(r.valor||0); else totalPend += parseFloat(r.valor||0); });
+
+  var h = '<div style="display:flex;gap:10px;margin-bottom:12px">';
+  h += '<div class="sc" style="flex:1"><div class="sl">✅ Recebido</div><div class="sv g">R$ '+totalRec.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div></div>';
+  h += '<div class="sc" style="flex:1"><div class="sl">⏳ Pendente</div><div class="sv o">R$ '+totalPend.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div></div>';
+  h += '</div>';
+
+  mes.receitas_clientes.forEach(function(r){
+    var cor = r.recebido ? 'var(--green)' : 'var(--ouro)';
+    var icon = r.recebido ? '✅' : '⏳';
+    h += '<div style="background:var(--s2);border:1px solid var(--border);border-left:3px solid '+cor+';border-radius:9px;padding:12px;margin-bottom:8px">';
+    h += '<div style="display:flex;justify-content:space-between;align-items:center">';
+    h += '<div><div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+icon+' '+r.nome+'</div>';
+    h += '<div style="font-size:.65rem;color:var(--muted);margin-top:2px">'+(r.dia?'Dia '+r.dia+' · ':'')+r.meio+(r.dataRecebido?' · Recebido em '+r.dataRecebido:'')+'</div></div>';
+    h += '<div style="display:flex;align-items:center;gap:8px">';
+    h += '<div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+parseFloat(r.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
+    if(!r.recebido){
+      h += '<button class="bp" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="darBaixaReceita(this.dataset.id,this.dataset.key)">✓ Receber</button>';
+    } else {
+      h += '<button class="bg" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="desfazerBaixaReceita(this.dataset.id,this.dataset.key)">Desfazer</button>';
+    }
+    h += '</div></div></div>';
+  });
+
+  el.innerHTML = h;
+}
+
+function darBaixaReceita(id, key){
+  var mes = DB.meses_fin[key];
+  if(!mes) return;
+  var r = mes.receitas_clientes.find(function(x){ return x.id===id; });
+  if(!r) return;
+  r.recebido = true;
+  r.dataRecebido = new Date().toISOString().slice(0,10);
+  saveDB();
+  renderFinanceiro();
+  notif('Recebimento confirmado! ✅');
+}
+
+function desfazerBaixaReceita(id, key){
+  var mes = DB.meses_fin[key];
+  if(!mes) return;
+  var r = mes.receitas_clientes.find(function(x){ return x.id===id; });
+  if(!r) return;
+  r.recebido = false;
+  r.dataRecebido = null;
+  saveDB();
+  renderFinanceiro();
+  notif('Baixa desfeita.');
+}
+
+function renderFinDespesas(mes, key){
+  var el = document.getElementById('fin-lista-despesas');
+  if(!el) return;
+
+  if(!mes.despesas.length){
+    el.innerHTML = '<div class="ev"><div class="eicon">💸</div><div class="etitle">Nenhuma despesa</div><div class="edesc">Adicione despesas ou cadastre contas fixas que migram automaticamente.</div></div>';
+    return;
+  }
+
+  var totalPago = 0, totalPend = 0;
+  mes.despesas.forEach(function(d){ if(d.pago) totalPago += parseFloat(d.valor||0); else totalPend += parseFloat(d.valor||0); });
+
+  var h = '<div style="display:flex;gap:10px;margin-bottom:12px">';
+  h += '<div class="sc" style="flex:1"><div class="sl">✅ Pago</div><div class="sv g">R$ '+totalPago.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div></div>';
+  h += '<div class="sc" style="flex:1"><div class="sl">⏳ A pagar</div><div class="sv r">R$ '+totalPend.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div></div>';
+  h += '</div>';
+
+  // Sort: unpaid first
+  var sorted = mes.despesas.slice().sort(function(a,b){ return (a.pago?1:0)-(b.pago?1:0); });
+
+  sorted.forEach(function(d){
+    var cor = d.pago ? 'var(--green)' : 'var(--red)';
+    var icon = d.pago ? '✅' : '🔴';
+    var tipoLabel = d.tipo==='PF'?'PF (pessoal)':d.tipo==='PJ'?'PJ (empresa)':'—';
+    h += '<div style="background:var(--s2);border:1px solid var(--border);border-left:3px solid '+cor+';border-radius:9px;padding:12px;margin-bottom:8px">';
+    h += '<div style="display:flex;justify-content:space-between;align-items:center">';
+    h += '<div><div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+icon+' '+d.desc+(d.variavel?' <span class="bdg n" style="font-size:.5rem">variável</span>':'')+'</div>';
+    h += '<div style="font-size:.65rem;color:var(--muted);margin-top:2px">'+tipoLabel+(d.dia?' · Dia '+d.dia:'')+(d.dataPago?' · Pago em '+d.dataPago:'')+'</div></div>';
+    h += '<div style="display:flex;align-items:center;gap:8px">';
+    h += '<div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--red)">R$ '+parseFloat(d.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
+    if(!d.pago){
+      h += '<button class="bp" style="font-size:.6rem;padding:4px 10px" data-id="'+d.id+'" data-key="'+key+'" onclick="pagarDespesa(this.dataset.id,this.dataset.key)">✓ Pagar</button>';
+    } else {
+      h += '<button class="bg" style="font-size:.6rem;padding:4px 10px" data-id="'+d.id+'" data-key="'+key+'" onclick="desfazerPagamento(this.dataset.id,this.dataset.key)">Desfazer</button>';
+    }
+    if(!d.contaFixaId){
+      h += '<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+d.id+'" data-key="'+key+'" onclick="remDespesaMes(this.dataset.id,this.dataset.key)">✕</button>';
+    }
+    h += '</div></div></div>';
+  });
+
+  el.innerHTML = h;
+}
+
+function pagarDespesa(id, key){
+  var mes = DB.meses_fin[key];
+  if(!mes) return;
+  var d = mes.despesas.find(function(x){ return x.id===id; });
+  if(!d) return;
+  d.pago = true;
+  d.dataPago = new Date().toISOString().slice(0,10);
+  saveDB();
+  renderFinanceiro();
+  notif('Pagamento confirmado! ✅');
+}
+
+function desfazerPagamento(id, key){
+  var mes = DB.meses_fin[key];
+  if(!mes) return;
+  var d = mes.despesas.find(function(x){ return x.id===id; });
+  if(!d) return;
+  d.pago = false;
+  d.dataPago = null;
+  saveDB();
+  renderFinanceiro();
+  notif('Pagamento desfeito.');
+}
+
+function remDespesaMes(id, key){
+  if(!confirm('Remover despesa?')) return;
+  var mes = DB.meses_fin[key];
+  if(!mes) return;
+  mes.despesas = mes.despesas.filter(function(x){ return x.id!==id; });
+  saveDB();
+  renderFinanceiro();
+  notif('Despesa removida.');
+}
+
+function salvarDespesaMes(){
+  var desc = document.getElementById('dm-desc').value.trim();
+  if(!desc){ notif('Informe a descrição.'); return; }
+  var valor = parseFloat(document.getElementById('dm-valor').value);
+  if(!valor){ notif('Informe o valor.'); return; }
+  var key = finMesKey(_finMesIdx);
+  var mes = getOrCreateMesFin(key);
+  mes.despesas.push({
+    id: uid(),
+    desc: desc,
+    valor: valor,
+    cat: document.getElementById('dm-cat').value,
+    tipo: document.getElementById('dm-tipo').value,
+    variavel: document.getElementById('dm-variavel').checked,
+    dia: document.getElementById('dm-dia').value,
+    pago: document.getElementById('dm-pago').checked,
+    dataPago: document.getElementById('dm-pago').checked ? new Date().toISOString().slice(0,10) : null
+  });
+  saveDB();
+  ['dm-desc','dm-valor','dm-dia'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('dm-pago').checked = false;
+  closeModal('modal-add-despesa-mes');
+  renderFinanceiro();
+  notif('Despesa adicionada!');
+}
+
+function renderFinOutras(mes, key){
+  var el = document.getElementById('fin-lista-outras');
+  if(!el) return;
+  if(!mes.outras_receitas.length){
+    el.innerHTML = '<div class="ev"><div class="eicon">➕</div><div class="etitle">Nenhuma outra receita</div><div class="edesc">Adicione receitas que não são de clientes (família, freelance, etc).</div></div>';
+    return;
+  }
+  var h = '';
+  mes.outras_receitas.forEach(function(r){
+    var cor = r.recebido ? 'var(--green)' : 'var(--ouro)';
+    h += '<div style="background:var(--s2);border:1px solid var(--border);border-left:3px solid '+cor+';border-radius:9px;padding:12px;margin-bottom:8px">';
+    h += '<div style="display:flex;justify-content:space-between;align-items:center">';
+    h += '<div><div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+(r.recebido?'✅':'⏳')+' '+r.desc+'</div>';
+    h += '<div style="font-size:.65rem;color:var(--muted);margin-top:2px">'+r.tipo+(r.dataRecebido?' · Recebido em '+r.dataRecebido:'')+'</div></div>';
+    h += '<div style="display:flex;align-items:center;gap:8px">';
+    h += '<div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+parseFloat(r.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
+    if(!r.recebido){
+      h += '<button class="bp" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="receberOutra(this.dataset.id,this.dataset.key)">✓ Receber</button>';
+    } else {
+      h += '<button class="bg" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="desfazerOutra(this.dataset.id,this.dataset.key)">Desfazer</button>';
+    }
+    h += '<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+r.id+'" data-key="'+key+'" onclick="remOutra(this.dataset.id,this.dataset.key)">✕</button>';
+    h += '</div></div></div>';
+  });
+  el.innerHTML = h;
+}
+
+function salvarOutraReceita(){
+  var desc = document.getElementById('or-desc').value.trim();
+  if(!desc){ notif('Informe a descrição.'); return; }
+  var valor = parseFloat(document.getElementById('or-valor').value);
+  if(!valor){ notif('Informe o valor.'); return; }
+  var key = finMesKey(_finMesIdx);
+  var mes = getOrCreateMesFin(key);
+  mes.outras_receitas.push({
+    id: uid(),
+    desc: desc,
+    valor: valor,
+    tipo: document.getElementById('or-tipo').value,
+    recebido: document.getElementById('or-recebido').checked,
+    dataRecebido: document.getElementById('or-recebido').checked ? new Date().toISOString().slice(0,10) : null
+  });
+  saveDB();
+  ['or-desc','or-valor'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('or-recebido').checked = false;
+  closeModal('modal-add-outra-rec');
+  renderFinanceiro();
+  notif('Receita adicionada!');
+}
+
+function receberOutra(id,key){
+  var mes=DB.meses_fin[key];if(!mes)return;
+  var r=mes.outras_receitas.find(function(x){return x.id===id;});if(!r)return;
+  r.recebido=true;r.dataRecebido=new Date().toISOString().slice(0,10);
+  saveDB();renderFinanceiro();notif('Recebido! ✅');
+}
+function desfazerOutra(id,key){
+  var mes=DB.meses_fin[key];if(!mes)return;
+  var r=mes.outras_receitas.find(function(x){return x.id===id;});if(!r)return;
+  r.recebido=false;r.dataRecebido=null;
+  saveDB();renderFinanceiro();notif('Desfeito.');
+}
+function remOutra(id,key){
+  if(!confirm('Remover?'))return;
+  var mes=DB.meses_fin[key];if(!mes)return;
+  mes.outras_receitas=mes.outras_receitas.filter(function(x){return x.id!==id;});
+  saveDB();renderFinanceiro();notif('Removida.');
+}
+
+function renderFinContasFixas(){
+  var el = document.getElementById('fin-lista-contas-fixas');
+  if(!el) return;
+  if(!DB.contas_fixas || !DB.contas_fixas.length){
+    el.innerHTML = '<div class="ev"><div class="eicon">📋</div><div class="etitle">Nenhuma conta fixa</div><div class="edesc">Cadastre contas que se repetem todo mês — elas aparecem automaticamente em cada mês.</div></div>';
+    return;
+  }
+  var h = '<div style="font-size:.7rem;color:var(--muted);margin-bottom:10px">Estas contas aparecem automaticamente em todos os meses. Variáveis você atualiza o valor na hora de pagar.</div>';
+  DB.contas_fixas.forEach(function(c){
+    h += '<div style="background:var(--s2);border:1px solid var(--border);border-radius:9px;padding:11px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">';
+    h += '<div><div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+c.desc+(c.variavel?' <span class="bdg n" style="font-size:.5rem">variável</span>':'')+'</div>';
+    h += '<div style="font-size:.63rem;color:var(--muted);margin-top:2px">'+c.tipo+(c.dia?' · Dia '+c.dia:'')+'</div></div>';
+    h += '<div style="display:flex;align-items:center;gap:8px">';
+    h += '<div style="font-family:Cormorant Garamond,serif;font-size:1rem;font-weight:600;color:var(--cafe)">R$ '+parseFloat(c.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
+    h += '<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+c.id+'" onclick="remContaFixa(this.dataset.id)">✕</button>';
+    h += '</div></div>';
+  });
+  el.innerHTML = h;
+}
+
+function salvarContaFixa(){
+  var desc = document.getElementById('cf-desc').value.trim();
+  if(!desc){ notif('Informe a descrição.'); return; }
+  var valor = parseFloat(document.getElementById('cf-valor').value)||0;
+  if(!DB.contas_fixas) DB.contas_fixas = [];
+  DB.contas_fixas.push({
+    id: uid(),
+    desc: desc,
+    valor: valor,
+    tipo: document.getElementById('cf-tipo').value,
+    variavel: document.getElementById('cf-variavel').checked,
+    dia: document.getElementById('cf-dia').value
+  });
+  saveDB();
+  ['cf-desc','cf-valor','cf-dia'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('cf-variavel').checked = false;
+  closeModal('modal-add-conta-fixa');
+  renderFinanceiro();
+  notif('Conta fixa cadastrada!');
+}
+
+function remContaFixa(id){
+  if(!confirm('Remover conta fixa? Ela não aparecerá mais nos próximos meses.')) return;
+  DB.contas_fixas = DB.contas_fixas.filter(function(c){ return c.id!==id; });
+  saveDB();
+  renderFinanceiro();
+  notif('Conta fixa removida.');
+}
 </script>
 <div class="mo" id="modal-add-entrega"><div class="md">
   <div class="mt" id="ment-title">Nova Entrega</div>
@@ -3542,6 +3836,57 @@ async function claraContextual(modulo, dados){
   <div class="fi"><label>Descrição</label><textarea id="bib-desc" placeholder="Para que serve, quando usar..."></textarea></div>
   <div class="fi"><label>Tags (separadas por vírgula)</label><input type="text" id="bib-tags" placeholder="ex: onboarding, financeiro, diagnóstico"></div>
   <div class="ma"><button class="bg" onclick="closeModal('modal-add-bib')">Cancelar</button><button class="bp" onclick="salvarBib()">Salvar</button></div>
+</div></div>
+
+<div class="mo" id="modal-add-despesa-mes"><div class="md">
+  <div class="mt">Nova Despesa</div>
+  <div class="fr">
+    <div class="fi"><label>Descrição</label><input type="text" id="dm-desc" placeholder="ex: Mercado, Luz..."></div>
+    <div class="fi"><label>Valor (R$)</label><input type="number" id="dm-valor" step="0.01"></div>
+  </div>
+  <div class="fr">
+    <div class="fi"><label>Tipo</label><select id="dm-tipo"><option value="PF">PF (pessoal)</option><option value="PJ">PJ (empresa)</option></select></div>
+    <div class="fi"><label>Categoria</label><input type="text" id="dm-cat" placeholder="ex: Alimentação, Moradia..."></div>
+  </div>
+  <div class="fr">
+    <div class="fi"><label>Dia do vencimento</label><input type="number" id="dm-dia" min="1" max="31" placeholder="ex: 10"></div>
+    <div class="fi" style="justify-content:flex-end;padding-top:20px"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="dm-variavel"> Valor variável</label></div>
+  </div>
+  <div class="fi"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="dm-pago"> Já pago</label></div>
+  <div class="ma"><button class="bg" onclick="closeModal('modal-add-despesa-mes')">Cancelar</button><button class="bp" onclick="salvarDespesaMes()">Adicionar</button></div>
+</div></div>
+
+<div class="mo" id="modal-add-outra-rec"><div class="md">
+  <div class="mt">Nova Receita</div>
+  <div class="fr">
+    <div class="fi"><label>Descrição</label><input type="text" id="or-desc" placeholder="ex: Diego, Freelance..."></div>
+    <div class="fi"><label>Valor (R$)</label><input type="number" id="or-valor" step="0.01"></div>
+  </div>
+  <div class="fi"><label>Tipo</label>
+    <select id="or-tipo">
+      <option value="Contribuição familiar">Contribuição familiar</option>
+      <option value="Freelance">Freelance</option>
+      <option value="Venda">Venda</option>
+      <option value="Outro">Outro</option>
+    </select>
+  </div>
+  <div class="fi"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="or-recebido"> Já recebido</label></div>
+  <div class="ma"><button class="bg" onclick="closeModal('modal-add-outra-rec')">Cancelar</button><button class="bp" onclick="salvarOutraReceita()">Adicionar</button></div>
+</div></div>
+
+<div class="mo" id="modal-add-conta-fixa"><div class="md">
+  <div class="mt">Nova Conta Fixa</div>
+  <div style="font-size:.72rem;color:var(--muted);margin-bottom:12px">Contas fixas aparecem automaticamente em todos os meses.</div>
+  <div class="fr">
+    <div class="fi"><label>Descrição</label><input type="text" id="cf-desc" placeholder="ex: Internet, Escola..."></div>
+    <div class="fi"><label>Valor padrão (R$)</label><input type="number" id="cf-valor" step="0.01"></div>
+  </div>
+  <div class="fr">
+    <div class="fi"><label>Tipo</label><select id="cf-tipo"><option value="PF">PF (pessoal)</option><option value="PJ">PJ (empresa)</option></select></div>
+    <div class="fi"><label>Dia de vencimento</label><input type="number" id="cf-dia" min="1" max="31" placeholder="ex: 10"></div>
+  </div>
+  <div class="fi"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="cf-variavel"> Valor variável (digito na hora de pagar)</label></div>
+  <div class="ma"><button class="bg" onclick="closeModal('modal-add-conta-fixa')">Cancelar</button><button class="bp" onclick="salvarContaFixa()">Salvar</button></div>
 </div></div>
 
 </body>
