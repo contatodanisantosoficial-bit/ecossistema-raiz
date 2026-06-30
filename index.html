@@ -210,7 +210,17 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
       <div class="auth-field"><label>Senha</label><input type="password" id="log-senha" placeholder="sua senha"></div>
       <div class="auth-err" id="log-err"></div>
       <button class="bp" style="width:100%;padding:13px;" onclick="login()">Entrar →</button>
-      <div style="margin-top:12px;text-align:center;"><button onclick="resetSenha()" style="background:none;border:none;font-size:.72rem;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:Outfit,sans-serif;">Esqueci minha senha</button></div>
+      <div style="margin-top:14px;text-align:center">
+        <button onclick="toggleResetForm()" style="background:none;border:none;font-size:.72rem;color:var(--nude);cursor:pointer;text-decoration:underline;font-family:Outfit,sans-serif;">🔑 Esqueci minha senha</button>
+      </div>
+      <div id="reset-form" style="display:none;margin-top:12px;background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:14px">
+        <div style="font-size:.72rem;font-weight:600;color:var(--cafe);margin-bottom:10px">Redefinir senha</div>
+        <div class="auth-field"><label>E-mail</label><input type="email" id="reset-email" placeholder="seu@email.com"></div>
+        <div class="auth-field"><label>Nova senha</label><input type="password" id="reset-nova" placeholder="mínimo 6 caracteres"></div>
+        <div class="auth-field"><label>Confirmar senha</label><input type="password" id="reset-confirma" placeholder="repita a senha"></div>
+        <div class="auth-err" id="reset-err"></div>
+        <button class="bp" style="width:100%;margin-top:8px" onclick="resetSenha()">Redefinir senha</button>
+      </div>
     </div>
   </div>
 </div>
@@ -392,7 +402,6 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
     <button class="itab active" onclick="showFinTab('receitas',this)">💰 Receitas</button>
     <button class="itab" onclick="showFinTab('despesas',this)">💸 Despesas</button>
     <button class="itab" onclick="showFinTab('outras',this)">➕ Outras</button>
-    <button class="itab" onclick="showFinTab('contas',this)">📋 Contas fixas</button>
   </div>
 
   <!-- ABA RECEITAS -->
@@ -1116,6 +1125,23 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 
 
 <script>
+function toggleResetForm(){
+  var f=document.getElementById('reset-form');
+  if(f){
+    f.style.display=f.style.display==='none'?'block':'none';
+    // Pre-fill email from login field
+    var loginEmail=document.getElementById('log-email');
+    var resetEmail=document.getElementById('reset-email');
+    if(loginEmail&&resetEmail&&loginEmail.value)resetEmail.value=loginEmail.value;
+  }
+}
+
+function toggleDMNatureza(){
+  var v=document.getElementById('dm-natureza').value;
+  var wrap=document.getElementById('dm-media-wrap');
+  if(wrap)wrap.style.display=v==='variavel'?'block':'none';
+}
+
 function toggleContratoObs(){
   var v=document.getElementById('cli-contrato-status').value;
   var wrap=document.getElementById('cli-contrato-obs-wrap');
@@ -1192,7 +1218,7 @@ function getAlerts(){
   if(!DB)return[];
   var today=new Date();today.setHours(0,0,0,0);
   var dias=parseInt(DB.config.dias)||3;var al=[];
-  for(var gi=0;gi<DB.clientes.length;gi++){
+  for(var gi=0;gi<(DB.clientes&&DB.clientes.length);gi++){
     var gc=DB.clientes[gi];
     if(gc.status==='Encerrado'||!gc.dia)continue;
     if(gc.inicio){var gini=new Date(gc.inicio);gini.setHours(0,0,0,0);if(gini>today)continue;}
@@ -1202,7 +1228,7 @@ function getAlerts(){
     var gdiff=Math.round((gv-today)/86400000);
     if(gdiff<=dias)al.push({nome:gc.nome,val:gc.val,diff:gdiff,meio:gc.meio});
   }
-  for(var ci=0;ci<DB.contas.length;ci++){
+  for(var ci=0;ci<(DB.contas&&DB.contas.length);ci++){
     var cc=DB.contas[ci];if(!cc.dia)continue;
     var cd=parseInt(cc.dia);var cv=new Date(today.getFullYear(),today.getMonth(),cd);
     if(cv<today)cv.setMonth(cv.getMonth()+1);
@@ -1218,6 +1244,11 @@ function getBK(tipo,id){
 
 function renderHome(){
   if(!DB)return;
+  if(!DB.clientes)DB.clientes=[];
+  if(!DB.contas)DB.contas=[];
+  if(!DB.meses)DB.meses=[];
+  if(!DB.crm)DB.crm={etapas:[],cards:[]};
+  if(!DB.crm.cards)DB.crm.cards=[];
   var hoje=new Date();hoje.setHours(0,0,0,0);
   var mesAtual=hoje.getMonth();var anoAtual=hoje.getFullYear();
   var al=getAlerts();
@@ -1235,7 +1266,7 @@ function renderHome(){
     paysEl.innerHTML=pHTML;
   }else{paysEl.innerHTML='<div style="font-size:.74rem;color:var(--muted)">Tudo em dia.</div>';}
   var ativos=[];
-  for(var ci=0;ci<DB.clientes.length;ci++){
+  for(var ci=0;ci<(DB.clientes&&DB.clientes.length);ci++){
     var c=DB.clientes[ci];if(c.status==='Encerrado')continue;
     if(c.inicio){var ini=new Date(c.inicio);if(ini>hoje)continue;}
     if(c.primeiro_pag){var pp=new Date(c.primeiro_pag);pp.setHours(0,0,0,0);if(pp>hoje)continue;}
@@ -1264,7 +1295,7 @@ function renderHome(){
     }
   }
   var fatTotal=Math.round((fat+totalOR)*100)/100;
-  var ul=DB.meses.length?DB.meses[DB.meses.length-1]:null;
+  var ul=(DB.meses&&DB.meses.length)?DB.meses[(DB.meses&&DB.meses.length)-1]:null;
   var score=calcScore(ul);var st=getStage(score);
   var arc=document.getElementById('home-arc');var se=document.getElementById('home-score');
   if(score!==null){se.textContent=score;se.style.color=st.color;arc.style.stroke=st.color;arc.style.strokeDashoffset=251.33*(1-score/100);}
@@ -1308,7 +1339,7 @@ function renderHome(){
   if(recHTML){recHTML+='<div style="display:flex;justify-content:space-between;padding:8px 0"><span style="font-size:.7rem;color:var(--muted)">Total</span><span style="font-size:.82rem;font-weight:700;color:var(--ouro)">R$ '+fatTotal.toLocaleString('pt-BR')+'</span></div>';recListEl.innerHTML=recHTML;}
   else{recListEl.innerHTML='<div class="ev"><div class="eicon">💛</div><div class="edesc">Cadastre clientes com dia de vencimento.</div></div>';}
   var despEl=document.getElementById('home-desp-list');var despHTML='';var totalDesp=0;
-  for(var di=0;di<DB.contas.length;di++){var dc=DB.contas[di];totalDesp=Math.round((totalDesp+dc.val)*100)/100;var dbaixa=getBaixaInfo('pag',dc.id);
+  for(var di=0;di<(DB.contas&&DB.contas.length);di++){var dc=DB.contas[di];totalDesp=Math.round((totalDesp+dc.val)*100)/100;var dbaixa=getBaixaInfo('pag',dc.id);
     despHTML+='<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="font-size:.78rem;color:'+(dbaixa?'var(--muted)':'var(--cafe)')+'">'+dc.desc+(dbaixa?' <span class="bdg g" style="font-size:.5rem">ok</span>':'')+'</div><div style="font-size:.78rem;font-weight:600;color:'+(dbaixa?'var(--muted)':'var(--red)')+'">R$ '+dc.val.toLocaleString('pt-BR')+'</div></div>';
   }
   if(despHTML){despHTML+='<div style="display:flex;justify-content:space-between;padding:8px 0"><span style="font-size:.7rem;color:var(--muted)">Total</span><span style="font-size:.82rem;font-weight:700;color:var(--red)">R$ '+totalDesp.toLocaleString('pt-BR')+'</span></div>';despEl.innerHTML=despHTML;}
@@ -1381,7 +1412,7 @@ function renderPrevisao(){
   var el=document.getElementById('previsao-content');if(!el||!DB)return;
   var fat=Math.round(DB.clientes.filter(function(c){return c.status!=='Encerrado';}).reduce(function(a,c){return a+c.val;},0)*100)/100;
   var gasto=DB.config.custo||0;var mc=DB.config.metaCaixa||7062;
-  var ul=DB.meses.length?DB.meses[DB.meses.length-1]:null;var caixa=ul?ul.caixa:0;
+  var ul=(DB.meses&&DB.meses.length)?DB.meses[(DB.meses&&DB.meses.length)-1]:null;var caixa=ul?ul.caixa:0;
   if(!fat){el.innerHTML='<div class="ev"><div class="eicon">📈</div><div class="etitle">Sem dados ainda</div><div class="edesc">Cadastre clientes e registre um mês.</div></div>';return;}
   var hoje=new Date();var mes=hoje.getMonth();var ano=hoje.getFullYear();
   var MOS2=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
@@ -1485,21 +1516,7 @@ function salvarCliente(){
 }
 function toggleCli(id){var el=document.getElementById('cli-details-'+id);if(el)el.style.display=el.style.display==='none'?'block':'none';}
 function remCli(id){if(!confirm('Remover cliente?'))return;DB.clientes=DB.clientes.filter(function(c){return c.id!==id;});saveDB();renderClientes();renderHome();notif('Cliente removida.');}
-function editarCli(id){
-  var c=DB.clientes.find(function(x){return x.id===id;});if(!c)return;
-  document.getElementById('mcli-title').textContent='Editar Cliente';
-  document.getElementById('cli-edit-id').value=c.id;
-  document.getElementById('cli-nome').value=c.nome||'';document.getElementById('cli-val').value=c.val||'';
-  document.getElementById('cli-dia').value=c.dia||'';document.getElementById('cli-meio').value=c.meio||'PIX';
-  document.getElementById('cli-inicio').value=c.inicio||'';document.getElementById('cli-primeiro-pag').value=c.primeiro_pag||'';
-  document.getElementById('cli-fim').value=c.fim||'';document.getElementById('cli-status').value=c.status||'Ativo';
-  document.getElementById('cli-canal').value=c.canal||'';document.getElementById('cli-servico').value=c.servico||'';
-  document.getElementById('cli-reajuste').value=c.reajuste||'';document.getElementById('cli-origem').value=c.origem||'';
-  document.getElementById('cli-nps').value=c.nps!==null&&c.nps!==undefined?c.nps:'';
-  document.getElementById('cli-resumo').value=c.resumo||'';document.getElementById('cli-notas').value=c.notas||'';
-  popularServicosSelect();
-  openModal('modal-add-cli');
-}
+
 function checarContratosVencidos(){
   if(!DB||!DB.clientes)return;
   var hoje=new Date();hoje.setHours(0,0,0,0);
@@ -1524,7 +1541,8 @@ function filtrarCliStatus(f,btn){
   renderClientes();
 }
 function renderClientes(){
-  if(!DB)return;checarContratosVencidos();var el=document.getElementById('lista-clientes');if(!el)return;
+  if(!DB)return;
+  if(!DB.clientes)DB.clientes=[];checarContratosVencidos();var el=document.getElementById('lista-clientes');if(!el)return;
   var listaFiltrada=DB.clientes.filter(function(c){
     if(_cliFiltroStatus==='todas')return true;
     if(_cliFiltroStatus==='arquivadas')return c.status==='Encerrado';
@@ -1532,7 +1550,7 @@ function renderClientes(){
   });
   if(!listaFiltrada.length){
     var msg=_cliFiltroStatus==='arquivadas'?'Nenhuma cliente arquivada':'Nenhuma cliente ativa';
-    el.innerHTML='<div class="ev"><div class="eicon">🌸</div><div class="etitle">'+msg+'</div><div class="edesc">'+(DB.clientes.length?'Tente outro filtro acima.':'Adicione sua primeira cliente.')+'</div></div>';return;
+    el.innerHTML='<div class="ev"><div class="eicon">🌸</div><div class="etitle">'+msg+'</div><div class="edesc">'+((DB.clientes&&DB.clientes.length)?'Tente outro filtro acima.':'Adicione sua primeira cliente.')+'</div></div>';return;
   }
   var h=[];
   listaFiltrada.forEach(function(c){
@@ -1575,7 +1593,7 @@ function renderClientes(){
     if(c.resumo)h.push('<div style="background:var(--s2);border-radius:8px;padding:10px;margin-bottom:8px;font-size:.76rem;line-height:1.55;color:var(--text)"><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:5px">PERFIL COMPORTAMENTAL</div>'+c.resumo+'</div>');
     if(c.notas)h.push('<div style="background:var(--nude-dim);border-radius:8px;padding:10px;font-size:.76rem;line-height:1.55;color:var(--muted)"><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:5px">NOTAS</div>'+c.notas+'</div>');
     h.push('<div style="display:flex;gap:7px;margin-top:10px">');
-    h.push('<button class="be" style="font-size:.64rem;padding:5px 11px" data-id="'+c.id+'" onclick="editarCli(this.dataset.id)">Editar</button>');
+    h.push('<button class="be" style="font-size:.64rem;padding:5px 11px" data-id="'+c.id+'" onclick="editarCliente(this.dataset.id)">Editar</button>');
     h.push('<button class="bd" style="font-size:.64rem;padding:5px 11px" data-id="'+c.id+'" onclick="remCli(this.dataset.id)">Remover</button>');
     if(!baixa&&c.dia)h.push('<button class="bp" style="font-size:.64rem;padding:5px 11px" data-id="'+c.id+'" onclick="abrirBaixaRec(this.dataset.id)">✓ Confirmar</button>');
     h.push('</div></div></div>');
@@ -1629,6 +1647,9 @@ function editarCRM(id){
 function selEtapaCRM(et){document.getElementById('crm-etapa').value=et;openModal('modal-add-crm');}
 function renderCRM(){
   if(!DB)return;
+  if(!DB.crm)DB.crm={etapas:[],cards:[]};
+  if(!DB.crm.cards)DB.crm.cards=[];
+  if(!DB.crm.etapas)DB.crm.etapas=['Lead','Contato Feito','Proposta Enviada','Fechado','Perdido'];
   var sel=document.getElementById('crm-etapa');
   if(sel)sel.innerHTML=DB.crm.etapas.map(function(e){return '<option value="'+e+'">'+e+'</option>';}).join('');
   var stagesEl=document.getElementById('crm-stages-txt');
@@ -1776,7 +1797,7 @@ function renderVisaoAnual(){
 }
 function renderMarcos(){
   if(!DB)return;var el=document.getElementById('marcos-list');if(!el)return;
-  var ul=DB.meses.length?DB.meses[DB.meses.length-1]:null;var marcos=[];
+  var ul=(DB.meses&&DB.meses.length)?DB.meses[(DB.meses&&DB.meses.length)-1]:null;var marcos=[];
   if(ul){if(ul.clienteNovo)marcos.push('Fechou uma cliente nova');if(ul.fisico)marcos.push('Rodou consultoria física');if(ul.outro&&ul.conquista)marcos.push(ul.conquista);}
   var caixa=ul?ul.caixa:0;var mc=DB.config.metaCaixa||7062;
   if(caixa>=(mc*.5)&&caixa<mc)marcos.push('Caixa PJ atingiu 50% da meta');
@@ -1807,7 +1828,7 @@ function salvarEstrategias(){
 function salvarInvestimento(){
   var desc=document.getElementById('inv-desc').value.trim();if(!desc){notif('Informe o investimento.');return;}
   var val=parseBRL(document.getElementById('inv-val').value)||0;
-  var ul=DB.meses.length?DB.meses[DB.meses.length-1]:null;
+  var ul=(DB.meses&&DB.meses.length)?DB.meses[(DB.meses&&DB.meses.length)-1]:null;
   var caixa=ul?ul.caixa:0;
   var fat=DB.clientes.filter(function(c){return c.status!=='Encerrado';}).reduce(function(a,c){return a+c.val;},0);
   var gasto=DB.config.custo||0;var sobra=fat-gasto;var mc=DB.config.metaCaixa||7062;
@@ -1998,7 +2019,7 @@ function registrarSnapshotReservas(){
   if(jaExiste){if(!confirm('Já existe registro para '+mesAno+'. Substituir?'))return;DB.reservas_historico=DB.reservas_historico.filter(function(h){return h.key!==mesKey;});}
   var total=DB.reservas.reduce(function(a,r){return a+r.val;},0);
   var rendMensal=DB.reservas.reduce(function(a,r){return a+(r.val*(r.rent||0)/100);},0);
-  DB.reservas_historico.push({key:mesKey,mes:mesAno,data:hoje.toISOString(),total:Math.round(total*100)/100,rendMensal:Math.round(rendMensal*100)/100,qtd:DB.reservas.length,aplicacoes:DB.reservas.map(function(r){return{desc:r.desc,val:r.val,tipo:r.tipo,inst:r.inst||'',rent:r.rent||0};})});
+  DB.reservas_historico.push({key:mesKey,mes:mesAno,data:hoje.toISOString(),total:Math.round(total*100)/100,rendMensal:Math.round(rendMensal*100)/100,qtd:(DB.reservas&&DB.reservas.length),aplicacoes:DB.reservas.map(function(r){return{desc:r.desc,val:r.val,tipo:r.tipo,inst:r.inst||'',rent:r.rent||0};})});
   DB.reservas_historico.sort(function(a,b){return a.key.localeCompare(b.key);});
   saveDB();renderHistoricoReservas();notif('Snapshot registrado!');
 }
@@ -2117,7 +2138,7 @@ async function ativarClara(){
   out.style.display='none';loading.style.display='block';
   var ativos=DB.clientes.filter(function(c){return c.status!=='Encerrado';});
   var fat=ativos.reduce(function(a,c){return a+c.val;},0);
-  var ul=DB.meses.length?DB.meses[DB.meses.length-1]:null;
+  var ul=(DB.meses&&DB.meses.length)?DB.meses[(DB.meses&&DB.meses.length)-1]:null;
   var caixa=ul?ul.caixa:0;var gasto=DB.config.custo||0;var sobra=fat-gasto;
   var mc=DB.macros;
   var ctx='Você é Clara, mentora e consultora de gestão de negócios.\nAnalise os dados e faça um raio-x honesto, acolhedor e provocador.\nNunca decida por ela — provoque ela a pensar e a agir.\nResponda em português do Brasil. Sem bullet points excessivos. Sem asteriscos.\nUse estas seções em ordem: Financeiro, Comercial, Operacional, Processos, Pergunta Provocadora\nMáximo 350 palavras.\n\nDADOS:\n- Faturamento: R$ '+fat.toLocaleString('pt-BR')+'\n- Clientes ativas: '+ativos.length+(ativos.length?' ('+ativos.map(function(c){return c.nome+' R$'+c.val;}).join(', ')+')\n':'\n')+'- Custo mensal: R$ '+gasto.toLocaleString('pt-BR')+'\n- Sobra: R$ '+sobra.toLocaleString('pt-BR')+'\n- Caixa PJ: R$ '+caixa.toLocaleString('pt-BR')+'\n- Score Financeiro: '+(mc.fin.score!==null?mc.fin.score:'não avaliado')+'\n- Score Comercial: '+(mc.com.score!==null?mc.com.score:'não avaliado')+'\nTermine com UMA pergunta provocadora.';
@@ -2320,15 +2341,57 @@ async function login(){
   storageSet('raizv2-session',JSON.stringify({nome:users[email].nome,email:email}));
   loadDB();openApp();
 }
-function resetSenha(){
-  var email=document.getElementById('log-email').value.trim().toLowerCase();
-  if(!email){document.getElementById('log-err').textContent='Informe seu e-mail primeiro.';return;}
-  var users=getUsers();if(!users[email]){document.getElementById('log-err').textContent='E-mail não encontrado.';return;}
-  var nova=prompt('Digite sua nova senha (mínimo 6 caracteres):');
-  if(!nova||nova.length<6){document.getElementById('log-err').textContent='Senha muito curta.';return;}
-  users[email].senha=nova;saveUsers(users);
-  document.getElementById('log-err').style.color='var(--green)';document.getElementById('log-err').textContent='Senha redefinida! Faça login.';
+async function resetSenha(){
+  var emailEl=document.getElementById('reset-email');
+  var novaEl=document.getElementById('reset-nova');
+  var confirmaEl=document.getElementById('reset-confirma');
+  var errEl=document.getElementById('reset-err');
+  if(!emailEl||!novaEl||!confirmaEl||!errEl)return;
+  var email=emailEl.value.trim().toLowerCase();
+  var nova=novaEl.value;
+  var confirma=confirmaEl.value;
+  if(!email){errEl.style.color='var(--red)';errEl.textContent='Informe o e-mail.';return;}
+  if(!nova||nova.length<6){errEl.style.color='var(--red)';errEl.textContent='Senha muito curta (mínimo 6 caracteres).';return;}
+  if(nova!==confirma){errEl.style.color='var(--red)';errEl.textContent='As senhas não coincidem.';return;}
+  errEl.style.color='var(--muted)';errEl.textContent='Aguarde...';
+  // Load Supabase config from localStorage
+  loadSupaConfig();
+  var ok=false;
+  if(supaReady()){
+    try{
+      var baseUrl=SUPA_URL.replace(/\/+$/,'');
+      var h={'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY};
+      var res=await fetch(baseUrl+'/rest/v1/raiz_usuarios?email=eq.'+encodeURIComponent(email),{method:'GET',headers:h});
+      var data=await res.json();
+      if(data&&data.length){
+        var ph={'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=minimal'};
+        var pres=await fetch(baseUrl+'/rest/v1/raiz_usuarios?email=eq.'+encodeURIComponent(email),{
+          method:'PATCH',headers:ph,body:JSON.stringify({senha:nova})
+        });
+        ok=pres.ok||pres.status===204||pres.status===200;
+        if(!ok){errEl.style.color='var(--red)';errEl.textContent='Erro ao atualizar. Tente novamente.';return;}
+      } else {
+        errEl.style.color='var(--red)';errEl.textContent='E-mail não encontrado no sistema.';return;
+      }
+    }catch(err){
+      errEl.style.color='var(--red)';errEl.textContent='Erro de conexão. Verifique sua internet.';return;
+    }
+  } else {
+    // Local only
+    var users=getUsers();
+    if(users[email]){users[email].senha=nova;saveUsers(users);ok=true;}
+    else{errEl.style.color='var(--red)';errEl.textContent='Configure o Supabase em Config para redefinir a senha.';return;}
+  }
+  // Update local too
+  var lu=getUsers();if(lu[email]){lu[email].senha=nova;saveUsers(lu);}
+  if(ok){
+    errEl.style.color='var(--green)';
+    errEl.textContent='✅ Senha redefinida! Faça login.';
+    novaEl.value='';confirmaEl.value='';
+    setTimeout(function(){toggleResetForm();},2000);
+  }
 }
+
 function logout(){
   if(!confirm('Deseja sair?'))return;
   CU=null;DB=null;storageRemove('raizv2-session');
@@ -2411,8 +2474,27 @@ function migrarDB(){
   if(!DB.investimentos)DB.investimentos=[];if(!DB.clientes)DB.clientes=[];
   if(!DB.contas)DB.contas=[];if(!DB.config)DB.config=def.config;
   if(!DB.crm)DB.crm=def.crm;if(!DB.macros)DB.macros=def.macros;if(!DB.meses)DB.meses=[];
+  if(!DB.outras_receitas)DB.outras_receitas=[];
+  if(!DB.reservas)DB.reservas=[];if(!DB.reservas_historico)DB.reservas_historico=[];
+  if(!DB.produtividade)DB.produtividade={sessoes:[],demandas:[],meta_horas:{}};
+  if(!DB.produtividade.sessoes)DB.produtividade.sessoes=[];
+  if(!DB.produtividade.demandas)DB.produtividade.demandas=[];
+  if(!DB.produtividade.meta_horas)DB.produtividade.meta_horas={};
+  if(!DB.reunioes)DB.reunioes=[];
+  if(!DB.projetos)DB.projetos=[];
+  if(!DB.servicos)DB.servicos=[];
+  if(!DB.meses_fin)DB.meses_fin={};
+  if(!DB.contas_fixas)DB.contas_fixas=[];
+  if(!DB.empresa_links)DB.empresa_links=[];
+  if(!DB.entregas)DB.entregas=[];
+  if(!DB.propostas)DB.propostas=[];
+  if(!DB.hist_cli)DB.hist_cli=[];
+  if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.empresa)DB.empresa={};
+  if(!DB.crm.etapas)DB.crm.etapas=['Lead','Contato Feito','Proposta Enviada','Fechado','Perdido'];
+  if(!DB.crm.cards)DB.crm.cards=[];
   // Auto-fix wrongly stored decimal values
-  DB.contas.forEach(function(c){if(c.val&&c.val<10&&String(c.val).indexOf('.')>-1){var fixed=parseFloat(String(c.val).replace('.',''));if(fixed>10)c.val=fixed;}});
+  if(DB.contas&&DB.contas.length)DB.contas.forEach(function(c){if(c.val&&c.val<10&&String(c.val).indexOf('.')>-1){var fixed=parseFloat(String(c.val).replace('.',''));if(fixed>10)c.val=fixed;}});
 }
 function saveDB(){
   if(!CU)return;
@@ -3365,7 +3447,7 @@ function renderEntregas(){
   var e1=document.getElementById('ent-mes');if(e1)e1.textContent=mesAtual;
   var doMes=DB.entregas.filter(function(e){return e.mes===mesAtual;});
   var e2=document.getElementById('ent-count');if(e2)e2.textContent=doMes.length||'—';
-  var e3=document.getElementById('ent-total');if(e3)e3.textContent=DB.entregas.length||'—';
+  var e3=document.getElementById('ent-total');if(e3)e3.textContent=(DB.entregas&&DB.entregas.length)||'—';
   var el=document.getElementById('lista-entregas');if(!el)return;
   if(!DB.entregas.length){el.innerHTML='<div class="ev"><div class="eicon">📊</div><div class="etitle">Nenhuma entrega registrada</div><div class="edesc">Registre o que foi entregue a cada cliente mês a mês.</div></div>';return;}
   var sorted=DB.entregas.slice().sort(function(a,b){return (b.criado||'').localeCompare(a.criado||'');});
@@ -3527,7 +3609,7 @@ function renderAlertasFull(){
     else if(diff<=5)alertas.push({tipo:'proposta',urgencia:'o',titulo:'Proposta expira em '+diff+'d',desc:p.nome,acao:'Fazer follow-up'});
   });
   // Meta de caixa em risco
-  var ul=DB.meses.length?DB.meses[DB.meses.length-1]:null;
+  var ul=(DB.meses&&DB.meses.length)?DB.meses[(DB.meses&&DB.meses.length)-1]:null;
   var caixa=ul?ul.caixa:0;var mc=DB.config.metaCaixa||0;
   if(mc&&caixa<mc*0.3)alertas.push({tipo:'meta',urgencia:'r',titulo:'Caixa PJ abaixo de 30% da meta',desc:'R$ '+caixa.toLocaleString('pt-BR')+' de R$ '+mc.toLocaleString('pt-BR'),acao:'Revisar financeiro'});
   // Pagamentos atrasados
@@ -3619,7 +3701,7 @@ function remHistCli(id){
 function renderCrescimento(){
   if(!DB)return;
   var el=document.getElementById('cresc-painel');if(!el)return;
-  if(!DB.meses||DB.meses.length<2){el.innerHTML='<div class="ev"><div class="eicon">📈</div><div class="etitle">Dados insuficientes</div><div class="edesc">Registre ao menos 2 meses em Finanças para ver a evolução.</div></div>';return;}
+  if(!DB.meses||(DB.meses&&DB.meses.length)<2){el.innerHTML='<div class="ev"><div class="eicon">📈</div><div class="etitle">Dados insuficientes</div><div class="edesc">Registre ao menos 2 meses em Finanças para ver a evolução.</div></div>';return;}
   var meses=DB.meses.slice().sort(function(a,b){return (a.mes||'').localeCompare(b.mes||'');});
   var h='';
   // Summary cards
@@ -3980,6 +4062,7 @@ function renderFinReceitas(mes, key){
     } else {
       h += '<button class="bg" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="desfazerBaixaReceita(this.dataset.id,this.dataset.key)">Desfazer</button>';
     }
+    h += '<button class="be" style="font-size:.6rem;padding:4px 9px" data-id="'+r.id+'" data-key="'+key+'" onclick="editarReceita(this.dataset.id,this.dataset.key)">✏️</button>';
     h += '</div></div></div>';
   });
 
@@ -4033,7 +4116,9 @@ function renderFinDespesas(mes, key){
   sorted.forEach(function(d){
     var cor = d.pago ? 'var(--green)' : 'var(--red)';
     var icon = d.pago ? '✅' : '🔴';
-    var tipoLabel = d.tipo==='PF'?'PF (pessoal)':d.tipo==='PJ'?'PJ (empresa)':'—';
+    var tipoLabel = d.tipo==='PF'?'PF':d.tipo==='PJ'?'PJ':'—';
+    var natIcon={fixa:'🔄',variavel:'📊',unica:'1️⃣'};
+    var natLabel={fixa:'Fixa',variavel:'Variável',unica:'Única vez'};
     h += '<div style="background:var(--s2);border:1px solid var(--border);border-left:3px solid '+cor+';border-radius:9px;padding:12px;margin-bottom:8px">';
     h += '<div style="display:flex;justify-content:space-between;align-items:center">';
     h += '<div><div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+icon+' '+d.desc+(d.variavel?' <span class="bdg n" style="font-size:.5rem">variável</span>':'')+'</div>';
@@ -4045,9 +4130,8 @@ function renderFinDespesas(mes, key){
     } else {
       h += '<button class="bg" style="font-size:.6rem;padding:4px 10px" data-id="'+d.id+'" data-key="'+key+'" onclick="desfazerPagamento(this.dataset.id,this.dataset.key)">Desfazer</button>';
     }
-    if(!d.contaFixaId){
-      h += '<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+d.id+'" data-key="'+key+'" onclick="remDespesaMes(this.dataset.id,this.dataset.key)">✕</button>';
-    }
+    h += '<button class="be" style="font-size:.6rem;padding:4px 9px" data-id="'+d.id+'" data-key="'+key+'" onclick="editarDespesa(this.dataset.id,this.dataset.key)">✏️</button>';
+    h += '<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+d.id+'" data-key="'+key+'" onclick="remDespesaMes(this.dataset.id,this.dataset.key)">✕</button>';
     h += '</div></div></div>';
   });
 
@@ -4089,29 +4173,47 @@ function remDespesaMes(id, key){
 }
 
 function salvarDespesaMes(){
-  var desc = document.getElementById('dm-desc').value.trim();
-  if(!desc){ notif('Informe a descrição.'); return; }
-  var valor = parseFloat(document.getElementById('dm-valor').value);
-  if(!valor){ notif('Informe o valor.'); return; }
-  var key = finMesKey(_finMesIdx);
-  var mes = getOrCreateMesFin(key);
+  var desc=document.getElementById('dm-desc').value.trim();
+  if(!desc){notif('Informe a descrição.');return;}
+  var valor=parseFloat(document.getElementById('dm-valor').value);
+  if(!valor){notif('Informe o valor.');return;}
+  var natureza=document.getElementById('dm-natureza').value;
+  var tipo=document.getElementById('dm-tipo').value;
+  var cat=document.getElementById('dm-cat').value;
+  var dia=document.getElementById('dm-dia').value;
+  var pago=document.getElementById('dm-pago').checked;
+  var mediaEl=document.getElementById('dm-media');
+  var media=mediaEl&&natureza==='variavel'?parseFloat(mediaEl.value)||0:0;
+
+  // Se fixa: salva em contas_fixas para migrar automaticamente
+  if(natureza==='fixa'){
+    if(!DB.contas_fixas)DB.contas_fixas=[];
+    var jaExiste=DB.contas_fixas.find(function(c){return c.desc.toLowerCase()===desc.toLowerCase();});
+    if(!jaExiste)DB.contas_fixas.push({id:uid(),desc:desc,valor:valor,tipo:tipo,cat:cat,variavel:false,dia:dia});
+  }
+  // Se variavel: salva em contas_fixas com flag variavel e media
+  if(natureza==='variavel'){
+    if(!DB.contas_fixas)DB.contas_fixas=[];
+    var jaExisteV=DB.contas_fixas.find(function(c){return c.desc.toLowerCase()===desc.toLowerCase();});
+    if(!jaExisteV)DB.contas_fixas.push({id:uid(),desc:desc,valor:media||valor,tipo:tipo,cat:cat,variavel:true,media:media,dia:dia});
+  }
+
+  var key=finMesKey(_finMesIdx);
+  var mes=getOrCreateMesFin(key);
   mes.despesas.push({
-    id: uid(),
-    desc: desc,
-    valor: valor,
-    cat: document.getElementById('dm-cat').value,
-    tipo: document.getElementById('dm-tipo').value,
-    variavel: document.getElementById('dm-variavel').checked,
-    dia: document.getElementById('dm-dia').value,
-    pago: document.getElementById('dm-pago').checked,
-    dataPago: document.getElementById('dm-pago').checked ? new Date().toISOString().slice(0,10) : null
+    id:uid(),desc:desc,valor:valor,cat:cat,tipo:tipo,
+    natureza:natureza,variavel:natureza==='variavel',
+    media:media,dia:dia,pago:pago,
+    dataPago:pago?new Date().toISOString().slice(0,10):null,
+    contaFixaId:natureza!=='unica'?'manual':null
   });
   saveDB();
-  ['dm-desc','dm-valor','dm-dia'].forEach(function(id){ document.getElementById(id).value=''; });
-  document.getElementById('dm-pago').checked = false;
+  ['dm-desc','dm-valor','dm-dia','dm-media'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  var pagoEl=document.getElementById('dm-pago');if(pagoEl)pagoEl.checked=false;
   closeModal('modal-add-despesa-mes');
   renderFinanceiro();
-  notif('Despesa adicionada!');
+  var msgs={fixa:'Despesa fixa adicionada — vai aparecer todo mês automaticamente 🔄',variavel:'Despesa variável adicionada — media registrada 📊',unica:'Despesa única adicionada!'};
+  notif(msgs[natureza]||'Adicionada!');
 }
 
 function renderFinOutras(mes, key){
@@ -4135,6 +4237,7 @@ function renderFinOutras(mes, key){
     } else {
       h += '<button class="bg" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="desfazerOutra(this.dataset.id,this.dataset.key)">Desfazer</button>';
     }
+    h += '<button class="be" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="editarOutraReceita(this.dataset.id,this.dataset.key)">✏️</button>';
     h += '<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+r.id+'" data-key="'+key+'" onclick="remOutra(this.dataset.id,this.dataset.key)">✕</button>';
     h += '</div></div></div>';
   });
@@ -4383,7 +4486,7 @@ function renderLinksEmp(){
   var items=DB.empresa_links.slice();
   if(_empLinkFiltro)items=items.filter(function(l){return l.cat===_empLinkFiltro;});
   if(!items.length){
-    el.innerHTML='<div class="ev"><div class="eicon">🔗</div><div class="etitle">Nenhum link'+(DB.empresa_links.length?' nesta categoria':'')+'</div><div class="edesc">Adicione links do Drive, redes, ferramentas e tudo que precisa acessar rápido.</div></div>';
+    el.innerHTML='<div class="ev"><div class="eicon">🔗</div><div class="etitle">Nenhum link'+((DB.empresa_links&&DB.empresa_links.length)?' nesta categoria':'')+'</div><div class="edesc">Adicione links do Drive, redes, ferramentas e tudo que precisa acessar rápido.</div></div>';
     return;
   }
   var catIcon={drive:'📁',rede:'📱',ferramenta:'🛠',cliente:'🌸',outro:'📌'};
@@ -4495,6 +4598,90 @@ function imprimirRecibo(){
   w.document.write('<html><head><title>Recibo</title><style>body{font-family:sans-serif;padding:30px;max-width:500px;margin:auto}</style></head><body>'+el.innerHTML+'</body></html>');
   w.document.close();w.print();
 }
+
+// ── EDITAR CLIENTES ──
+function editarCliente(id){
+  var c=DB.clientes.find(function(x){return x.id===id;});if(!c)return;
+  document.getElementById('mcli-title').textContent='Editar Cliente';
+  document.getElementById('cli-edit-id').value=c.id;
+  document.getElementById('cli-nome').value=c.nome||'';
+  document.getElementById('cli-val').value=c.val||'';
+  document.getElementById('cli-dia').value=c.dia||'';
+  document.getElementById('cli-meio').value=c.meio||'PIX';
+  document.getElementById('cli-inicio').value=c.inicio||'';
+  document.getElementById('cli-primeiro-pag').value=c.primeiro_pag||'';
+  document.getElementById('cli-fim').value=c.fim||'';
+  document.getElementById('cli-status').value=c.status||'Ativo';
+  document.getElementById('cli-canal').value=c.canal||'';
+  document.getElementById('cli-servico').value=c.servico||'';
+  document.getElementById('cli-reajuste').value=c.reajuste||'';
+  document.getElementById('cli-origem').value=c.origem||'';
+  document.getElementById('cli-nps').value=c.nps!==null&&c.nps!==undefined?c.nps:'';
+  document.getElementById('cli-resumo').value=c.resumo||'';
+  document.getElementById('cli-notas').value=c.notas||'';
+  var mrEl=document.getElementById('cli-modelo-rec');if(mrEl)mrEl.value=c.modelo_rec||'fixo';
+  var vvEl=document.getElementById('cli-val-variavel');if(vvEl)vvEl.value=c.val_variavel||'';
+  var vdEl=document.getElementById('cli-variavel-desc');if(vdEl)vdEl.value=c.variavel_desc||'';
+  if(typeof toggleCliVariavel==='function')toggleCliVariavel();
+  var csEl=document.getElementById('cli-contrato-status');if(csEl)csEl.value=c.contrato_status||'ativo';
+  var coEl=document.getElementById('cli-contrato-obs');if(coEl)coEl.value=c.contrato_obs||'';
+  if(typeof toggleContratoObs==='function')toggleContratoObs();
+  openModal('modal-add-cli');
+}
+
+// ── EDITAR FINANCEIRO — DESPESAS ──
+function editarDespesa(id, key){
+  var mes=DB.meses_fin&&DB.meses_fin[key];if(!mes)return;
+  var d=mes.despesas.find(function(x){return x.id===id;});if(!d)return;
+  document.getElementById('dm-desc').value=d.desc||'';
+  document.getElementById('dm-valor').value=d.valor||'';
+  document.getElementById('dm-tipo').value=d.tipo||'PF';
+  document.getElementById('dm-cat').value=d.cat||'';
+  document.getElementById('dm-dia').value=d.dia||'';
+  var natEl=document.getElementById('dm-natureza');
+  if(natEl)natEl.value=d.natureza||(d.variavel?'variavel':'fixa');
+  var mediaEl=document.getElementById('dm-media');
+  if(mediaEl)mediaEl.value=d.media||'';
+  if(typeof toggleDMNatureza==='function')toggleDMNatureza();
+  window._editingDespesaId=id;
+  window._editingDespesaKey=key;
+  openModal('modal-add-despesa-mes');
+  var mt=document.querySelector('#modal-add-despesa-mes .mt');if(mt)mt.textContent='Editar Despesa';
+}
+
+// ── EDITAR FINANCEIRO — OUTRAS RECEITAS ──
+function editarOutraReceita(id, key){
+  var mes=DB.meses_fin&&DB.meses_fin[key];if(!mes)return;
+  var r=mes.outras_receitas.find(function(x){return x.id===id;});if(!r)return;
+  document.getElementById('or-desc').value=r.desc||'';
+  document.getElementById('or-valor').value=r.valor||'';
+  document.getElementById('or-tipo').value=r.tipo||'Outro';
+  document.getElementById('or-recebido').checked=r.recebido||false;
+  window._editingOutraId=id;
+  window._editingOutraKey=key;
+  openModal('modal-add-outra-rec');
+  var mt=document.querySelector('#modal-add-outra-rec .mt');if(mt)mt.textContent='Editar Receita';
+}
+
+// ── EDITAR METAS ──
+function editarMeta(id){
+  var m=DB.metas.find(function(x){return x.id===id;});if(!m)return;
+  var novoTitulo=prompt('Editar meta:',m.titulo);if(novoTitulo===null)return;
+  var novoValor=prompt('Valor alvo (R$):',m.alvo||'');
+  m.titulo=novoTitulo.trim();
+  if(novoValor!==null)m.alvo=parseFloat(novoValor)||0;
+  saveDB();renderMetas();notif('Meta atualizada! ✅');
+}
+
+// ── EDITAR INVESTIMENTOS ──
+function editarInvestimento(id){
+  var inv=DB.investimentos.find(function(x){return x.id===id;});if(!inv)return;
+  var novoNome=prompt('Nome do investimento:',inv.nome);if(novoNome===null)return;
+  var novoValor=prompt('Valor (R$):',inv.valor||'');
+  inv.nome=novoNome.trim();
+  if(novoValor!==null)inv.valor=parseFloat(novoValor)||0;
+  saveDB();renderInvestir();notif('Investimento atualizado! ✅');
+}
 </script>
 <div class="mo" id="modal-add-entrega"><div class="md">
   <div class="mt" id="ment-title">Nova Entrega</div>
@@ -4579,22 +4766,90 @@ function imprimirRecibo(){
   <div class="ma"><button class="bg" onclick="closeModal('modal-add-bib')">Cancelar</button><button class="bp" onclick="salvarBib()">Salvar</button></div>
 </div></div>
 
-<div class="mo" id="modal-add-despesa-mes"><div class="md">
+<div cl<div class="mo" id="modal-add-despesa-mes"><div class="md">
   <div class="mt">Nova Despesa</div>
   <div class="fr">
-    <div class="fi"><label>Descrição</label><input type="text" id="dm-desc" placeholder="ex: Mercado, Luz..."></div>
+    <div class="fi"><label>Descrição</label><input type="text" id="dm-desc" placeholder="ex: Internet, Mercado, Curso..."></div>
     <div class="fi"><label>Valor (R$)</label><input type="number" id="dm-valor" step="0.01"></div>
   </div>
   <div class="fr">
-    <div class="fi"><label>Tipo</label><select id="dm-tipo"><option value="PF">PF (pessoal)</option><option value="PJ">PJ (empresa)</option></select></div>
-    <div class="fi"><label>Categoria</label><input type="text" id="dm-cat" placeholder="ex: Alimentação, Moradia..."></div>
+    <div class="fi"><label>Tipo PF / PJ</label>
+      <select id="dm-tipo">
+        <option value="PF">PF (pessoal)</option>
+        <option value="PJ">PJ (empresa)</option>
+      </select>
+    </div>
+    <div class="fi"><label>Categoria</label>
+      <select id="dm-cat">
+        <optgroup label="Pessoal (PF)">
+          <option value="Moradia / Aluguel">🏠 Moradia / Aluguel</option>
+          <option value="Água / Luz / Gás">💡 Água / Luz / Gás</option>
+          <option value="Internet / Telefone">📡 Internet / Telefone</option>
+          <option value="Mercado / Alimentação">🛒 Mercado / Alimentação</option>
+          <option value="Transporte">🚗 Transporte</option>
+          <option value="Saúde / Plano">❤️ Saúde / Plano</option>
+          <option value="Educação">📚 Educação</option>
+          <option value="Vestuário">👗 Vestuário</option>
+          <option value="Beleza / Autocuidado">✨ Beleza / Autocuidado</option>
+          <option value="Lazer / Entretenimento">🎉 Lazer / Entretenimento</option>
+          <option value="Filhos / Família">👶 Filhos / Família</option>
+          <option value="Empréstimo / Parcela">💳 Empréstimo / Parcela</option>
+          <option value="Cartão de crédito PF">💳 Cartão de crédito</option>
+          <option value="Outros PF">📌 Outros PF</option>
+        </optgroup>
+        <optgroup label="Empresa (PJ)">
+          <option value="MEI / Impostos">🏛 MEI / Impostos</option>
+          <option value="Contador / Assessoria">📊 Contador / Assessoria</option>
+          <option value="Ferramentas / Apps">🛠 Ferramentas / Apps</option>
+          <option value="Cursos / Capacitação PJ">📚 Cursos / Capacitação</option>
+          <option value="Marketing / Tráfego">📣 Marketing / Tráfego</option>
+          <option value="Assinaturas PJ">🔄 Assinaturas</option>
+          <option value="Equipamentos">💻 Equipamentos</option>
+          <option value="Fornecedores / Serviços">🤝 Fornecedores / Serviços</option>
+          <option value="Empréstimo PJ">💳 Empréstimo PJ</option>
+          <option value="Cartão de crédito PJ">💳 Cartão de crédito PJ</option>
+          <option value="Outros PJ">📌 Outros PJ</option>
+        </optgroup>
+      </select>
+    </div>
   </div>
-  <div class="fr">
-    <div class="fi"><label>Dia do vencimento</label><input type="number" id="dm-dia" min="1" max="31" placeholder="ex: 10"></div>
-    <div class="fi" style="justify-content:flex-end;padding-top:20px"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="dm-variavel"> Valor variável</label></div>
+
+  <div class="fi"><label>Natureza da despesa</label>
+    <select id="dm-natureza" onchange="toggleDMNatureza()">
+      <option value="fixa">🔄 Fixa — repete todo mês com o mesmo valor</option>
+      <option value="variavel">📊 Variável — muda todo mês (água, mercado...)</option>
+      <option value="unica">1️⃣ Única vez — não se repete</option>
+    </select>
   </div>
-  <div class="fi"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="dm-pago"> Já pago</label></div>
-  <div class="ma"><button class="bg" onclick="closeModal('modal-add-despesa-mes')">Cancelar</button><button class="bp" onclick="salvarDespesaMes()">Adicionar</button></div>
+
+  <div id="dm-media-wrap" style="display:none">
+    <div style="background:var(--s1);border:1px solid var(--border);border-radius:9px;padding:10px;margin-bottom:10px">
+      <div style="font-size:.63rem;font-weight:700;color:var(--nude);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">📊 VALOR VARIÁVEL</div>
+      <div class="fi" style="margin-bottom:0"><label>Média que costuma gastar (R$)</label>
+        <input type="number" id="dm-media" step="0.01" placeholder="ex: 250 — para referência nos outros meses">
+      </div>
+    </div>
+  </div>
+
+  <div class="fi"><label>Dia do vencimento</label>
+    <input type="number" id="dm-dia" min="1" max="31" placeholder="ex: 10">
+  </div>
+  <div style="background:var(--green-dim);border:1px solid var(--green-b);border-radius:9px;padding:11px;margin-bottom:10px">
+    <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+      <input type="checkbox" id="dm-fixa">
+      <div>
+        <div style="font-size:.78rem;font-weight:600;color:var(--cafe)">🔄 Repete todo mês</div>
+        <div style="font-size:.63rem;color:var(--muted)">Aparece automaticamente nos próximos meses</div>
+      </div>
+    </label>
+  </div>
+  <div class="fi"><label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+    <input type="checkbox" id="dm-pago"> Já pago este mês
+  </label></div>
+  <div class="ma">
+    <button class="bg" onclick="closeModal('modal-add-despesa-mes')">Cancelar</button>
+    <button class="bp" onclick="salvarDespesaMes()">Adicionar</button>
+  </div>
 </div></div>
 
 <div class="mo" id="modal-add-outra-rec"><div class="md">
