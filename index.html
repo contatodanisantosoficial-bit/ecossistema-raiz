@@ -916,13 +916,28 @@ function renderHome(){
     ativos.push(c);
   }
   var fat=0;for(var fi=0;fi<ativos.length;fi++)fat+=ativos[fi].val;
-  var OR=DB.outras_receitas||[];var totalOR=0;for(var oi=0;oi<OR.length;oi++)totalOR+=OR[oi].val;
-  var fatTotal=Math.round((fat+totalOR)*100)/100;
-  var recebido=0;var nRec=0;var baixas=DB.baixas||[];
-  for(var bi=0;bi<baixas.length;bi++){
-    var b=baixas[bi];
-    if(b.tipo==='rec'&&b.key&&b.key.endsWith('-'+anoAtual+'-'+mesAtual)){recebido+=(b.val||0);nRec++;}
+  // Use new meses_fin structure if available
+  var mesKeyHome=finMesKey(0);
+  var mesFinHome=(DB.meses_fin&&DB.meses_fin[mesKeyHome])?DB.meses_fin[mesKeyHome]:null;
+  var totalOR=0,recebido=0,nRec=0,cliComDiaCount=0;
+  if(mesFinHome){
+    // Sync receitas_clientes if needed
+    if(!mesFinHome.receitas_clientes)mesFinHome.receitas_clientes=[];
+    ativos.forEach(function(c){
+      var ex=mesFinHome.receitas_clientes.find(function(r){return r.clienteId===c.id;});
+      if(!ex)mesFinHome.receitas_clientes.push({id:uid(),clienteId:c.id,nome:c.nome,valor:c.val||0,recebido:false,dataRecebido:null,meio:c.meio||'PIX',dia:c.dia});
+    });
+    mesFinHome.receitas_clientes.forEach(function(r){if(r.recebido){recebido+=parseFloat(r.valor||0);nRec++;}});
+    (mesFinHome.outras_receitas||[]).forEach(function(r){totalOR+=parseFloat(r.valor||0);if(r.recebido)recebido+=parseFloat(r.valor||0);});
+  } else {
+    var OR=DB.outras_receitas||[];for(var oi=0;oi<OR.length;oi++)totalOR+=OR[oi].val;
+    var baixas=DB.baixas||[];
+    for(var bi=0;bi<baixas.length;bi++){
+      var b=baixas[bi];
+      if(b.tipo==='rec'&&b.key&&b.key.endsWith('-'+anoAtual+'-'+mesAtual)){recebido+=(b.val||0);nRec++;}
+    }
   }
+  var fatTotal=Math.round((fat+totalOR)*100)/100;
   var ul=DB.meses.length?DB.meses[DB.meses.length-1]:null;
   var score=calcScore(ul);var st=getStage(score);
   var arc=document.getElementById('home-arc');var se=document.getElementById('home-score');
