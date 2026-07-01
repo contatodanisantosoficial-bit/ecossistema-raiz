@@ -557,7 +557,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 
     <div class="page" id="page-estrategia"><div class="ph"><div class="pe">Estratégia</div><div class="pt">O mapa do <em>seu futuro</em></div></div><div class="itabs"><button class="itab active" onclick="showItab('est','trimestre',this)">Metas Trimestrais</button><button class="itab" onclick="showItab('est','estrategias',this)">Estratégias</button><button class="itab" onclick="showItab('est','anual',this)">Visão Anual</button><button class="itab" onclick="showItab('est','pessoal',this)">Metas Pessoais</button><button class="itab" onclick="showItab('est','marcos',this)">Marcos</button></div><div class="itab-pane active" id="est-trimestre" style="display:block"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Metas trimestrais</span><button class="bp" onclick="openModal('modal-add-meta')">+ Nova Meta</button></div><div id="metas-trim"></div></div><div class="itab-pane" id="est-estrategias" style="display:none"><div id="estrategias-content"></div></div><div class="itab-pane" id="est-anual" style="display:none"><div class="card warm"><div class="cl">Visão Anual</div><div class="fi"><label>Onde quero estar em 12 meses</label><textarea id="vis-anual-txt" placeholder="Em dezembro de 2026, meu negócio vai..."></textarea></div><div class="fr"><div class="fi"><label>Meta Faturamento Anual (R$)</label><input type="number" id="vis-fat-anual"></div><div class="fi"><label>Nº de Clientes Alvo</label><input type="number" id="vis-cli-alvo"></div></div><button class="bp" onclick="salvarVisaoAnual()">Salvar Visão</button></div><div class="card" id="vis-anual-saved" style="display:none"><div class="cl">Sua Visão</div><div id="vis-anual-content"></div></div></div><div class="itab-pane" id="est-pessoal" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Objetivos pessoais</span><button class="bp" onclick="openModal('modal-add-meta-p')">+ Novo Objetivo</button></div><div id="metas-pessoais"></div></div><div class="itab-pane" id="est-marcos" style="display:none"><div class="card"><div class="cl">Marcos Conquistados</div><div id="marcos-list"></div></div></div></div>
   <div class="page" id="page-investir"><div class="ph"><div class="pe">Análise de Investimentos</div><div class="pt">Antes de <em>gastar</em>, entender</div></div><div style="display:flex;justify-content:flex-end;margin-bottom:13px"><button class="bp" onclick="openModal('modal-add-inv')">+ Analisar Investimento</button></div><div id="lista-inv"></div></div>
-  <div class="page" id="page-reservas"><div class="ph"><div class="pe">Reservas e Investimentos</div><div class="pt">Seu dinheiro <em>trabalhando por você</em></div></div><div id="reservas-edu" class="card warm" style="margin-bottom:13px"><div class="cl">Educação Financeira</div><div id="edu-content"></div></div><div class="g3" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Investido</div><div class="sv o" id="res-total">—</div></div><div class="sc"><div class="sl">Rentabilidade Média</div><div class="sv g" id="res-rent">—</div></div><div class="sc"><div class="sl">Rendimento Mensal Est.</div><div class="sv g" id="res-rend">—</div></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Meus Caixas e Reservas</div><div id="caixas-grid"></div><div style="margin-top:12px;display:flex;justify-content:flex-end"><button class="bp" onclick="openModal('modal-edit-caixas')">Atualizar Valores</button></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="cl" style="margin-bottom:0">Minhas Aplicações</div><button class="bp" onclick="openModal('modal-add-reserva')">+ Adicionar</button></div><div id="lista-reservas"></div></div><div class="card"><div class="cl">Distribuição das Reservas</div><div id="reservas-dist"></div></div>
+  <div class="page" id="page-reservas"><div class="ph"><div class="pe">Reservas e Investimentos</div><div class="pt">Seu dinheiro <em>trabalhando por você</em></div></div><div id="reservas-edu" class="card warm" style="margin-bottom:13px"><div class="cl">Educação Financeira</div><div id="edu-content"></div></div><div class="g3" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Investido</div><div class="sv o" id="res-total">—</div></div><div class="sc"><div class="sl">Rentabilidade Média</div><div class="sv g" id="res-rent">—</div></div><div class="sc"><div class="sl">Rendimento Mensal Est.</div><div class="sv g" id="res-rend">—</div></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Meus Caixas e Reservas</div><div id="caixas-grid"></div><div style="margin-top:12px;display:flex;justify-content:flex-end"><button class="bp" onclick="openModal('modal-edit-caixas')">Atualizar Valores</button></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Aporte Mensal</div><div style="font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Registre quanto você vai depositar este mês. O valor é somado ao saldo de cada objetivo, dividido pelo percentual que você definir.</div><div class="fr"><div class="fi"><label>Valor disponível para aportar (R$)</label><input type="number" id="ap-valor" oninput="calcAportePreview()"></div><div class="fi"><label>&nbsp;</label><button class="bg" style="width:100%" onclick="openModal('modal-aporte-config')">⚙️ Definir % por objetivo</button></div></div><div id="ap-preview" style="display:none;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;margin-bottom:12px"><div id="ap-preview-list"></div></div><div style="display:flex;justify-content:flex-end"><button class="bp" onclick="registrarAporte()">Registrar Aporte</button></div><div id="ap-historico" style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px"></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="cl" style="margin-bottom:0">Minhas Aplicações</div><button class="bp" onclick="openModal('modal-add-reserva')">+ Adicionar</button></div><div id="lista-reservas"></div></div><div class="card"><div class="cl">Distribuição das Reservas</div><div id="reservas-dist"></div></div>
 <div class="card" style="margin-top:13px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
         <div><div class="cl" style="margin-bottom:2px;">Evolução Mensal</div>
@@ -1028,7 +1028,15 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   </div>
   <div class="ma"><button class="bg" onclick="closeModal('modal-edit-caixas')">Cancelar</button><button class="bp" onclick="salvarCaixas()">Salvar</button></div>
 </div></div>
-<div class="mo" id="modal-add-reserva"><div class="md"><div class="mt" id="mres-title">Adicionar Aplicação</div><input type="hidden" id="res-edit-id"><div class="fi"><label>Nome / Descrição</label><input type="text" id="res-desc"></div><div class="fi"><label>Banco / Instituição</label><input type="text" id="res-inst"></div><div class="fi"><label>Tipo de Investimento</label><select id="res-tipo" onchange="atualizarDicaTipo()"><option value="CDB">CDB</option><option value="Poupança">Poupança</option><option value="Tesouro Direto">Tesouro Direto</option><option value="LCI/LCA">LCI / LCA</option><option value="Fundo de Investimento">Fundo de Investimento</option><option value="Ações">Ações</option><option value="Criptomoedas">Criptomoedas</option><option value="Renda Fixa">Renda Fixa</option><option value="Outro">Outro</option></select></div><div id="dica-tipo-modal" style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;font-size:.72rem;line-height:1.55;margin-bottom:10px;display:none"></div><div class="fr"><div class="fi"><label>Valor Atual (R$)</label><input type="number" id="res-val" oninput="calcRentModal()"></div><div class="fi"><label>Rentabilidade (% ao mês)</label><input type="number" id="res-rent" step="0.01" oninput="calcRentModal()"></div></div><div id="rent-preview" style="display:none;background:var(--green-dim);border:1px solid var(--green-b);border-radius:8px;padding:10px;margin-bottom:10px"><div class="g3"><div><div style="font-size:.58rem;color:var(--muted)">Rende/mês</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-mes">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rende/ano</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-ano">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rent. anual</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-pct">—</div></div></div></div><div class="fr"><div class="fi"><label>Objetivo</label><select id="res-obj"><option value="Emergência">Reserva de Emergência</option><option value="Reserva PF">Reserva Pessoal</option><option value="Caixa Empresa">Caixa da Empresa</option><option value="Crescimento">Crescimento</option><option value="Aposentadoria">Aposentadoria</option><option value="Sonho">Sonho</option><option value="Livre">Livre</option></select></div><div class="fi"><label>Liquidez</label><select id="res-liq"><option value="Diária">Diária</option><option value="Mensal">Mensal</option><option value="No vencimento">No vencimento</option><option value="Longo prazo">Longo prazo</option></select></div></div><div class="fi"><label>Notas</label><input type="text" id="res-nota"></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-reserva')">Cancelar</button><button class="bp" onclick="salvarReserva()">Salvar</button></div></div></div>
+<div class="mo" id="modal-aporte-config"><div class="md"><div class="mt">Percentual do Aporte por Objetivo</div>
+  <div style="font-size:.7rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Defina quanto (%) de cada aporte mensal vai para cada objetivo. A soma precisa ser 100%.</div>
+  <div class="fi"><label>🌸 Reserva Paz (%)</label><input type="number" id="apc-paz" min="0" max="100" oninput="checkApcSoma()"></div>
+  <div class="fi"><label>🏢 Caixa da Empresa (%)</label><input type="number" id="apc-emp" min="0" max="100" oninput="checkApcSoma()"></div>
+  <div class="fi"><label>✨ Projetos Pontuais (%)</label><input type="number" id="apc-proj" min="0" max="100" oninput="checkApcSoma()"></div>
+  <div id="apc-soma-aviso" style="font-size:.68rem;color:var(--red);display:none;margin-bottom:8px">A soma dos percentuais precisa ser 100%. Ajuste antes de salvar.</div>
+  <div class="ma"><button class="bg" onclick="closeModal('modal-aporte-config')">Cancelar</button><button class="bp" onclick="salvarAporteConfig()">Salvar</button></div>
+</div></div>
+<div class="mo" id="modal-add-reserva"><div class="md"><div class="mt" id="mres-title">Adicionar Aplicação</div><input type="hidden" id="res-edit-id"><div class="fi"><label>Nome / Descrição</label><input type="text" id="res-desc"></div><div class="fi"><label>Banco / Instituição</label><input type="text" id="res-inst"></div><div class="fi"><label>Tipo de Investimento</label><select id="res-tipo" onchange="atualizarDicaTipo()"><option value="CDB">CDB</option><option value="Poupança">Poupança</option><option value="Tesouro Direto">Tesouro Direto</option><option value="LCI/LCA">LCI / LCA</option><option value="Fundo de Investimento">Fundo de Investimento</option><option value="Ações">Ações</option><option value="Criptomoedas">Criptomoedas</option><option value="Renda Fixa">Renda Fixa</option><option value="Outro">Outro</option></select></div><div id="dica-tipo-modal" style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;font-size:.72rem;line-height:1.55;margin-bottom:10px;display:none"></div><div class="fr"><div class="fi"><label>Valor Atual (R$)</label><input type="number" id="res-val" oninput="calcRentModal()"></div><div class="fi"><label>Rentabilidade (% ao mês) *</label><input type="number" id="res-rent" step="0.01" oninput="calcRentModal()" placeholder="ex: 0.85"></div></div><div id="rent-preview" style="display:none;background:var(--green-dim);border:1px solid var(--green-b);border-radius:8px;padding:10px;margin-bottom:10px"><div class="g3"><div><div style="font-size:.58rem;color:var(--muted)">Rende/mês</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-mes">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rende/ano</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-ano">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rent. anual</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-pct">—</div></div></div></div><div class="fr"><div class="fi"><label>Objetivo</label><select id="res-obj"><option value="Emergência">Reserva de Emergência</option><option value="Reserva PF">Reserva Pessoal</option><option value="Caixa Empresa">Caixa da Empresa</option><option value="Crescimento">Crescimento</option><option value="Aposentadoria">Aposentadoria</option><option value="Sonho">Sonho</option><option value="Livre">Livre</option></select></div><div class="fi"><label>Liquidez</label><select id="res-liq"><option value="Diária">Diária</option><option value="Mensal">Mensal</option><option value="No vencimento">No vencimento</option><option value="Longo prazo">Longo prazo</option></select></div></div><div class="fi"><label>Notas</label><input type="text" id="res-nota"></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-reserva')">Cancelar</button><button class="bp" onclick="salvarReserva()">Salvar</button></div></div></div>
 <div class="mo" id="modal-add-projeto"><div class="md">
   <div class="mt" id="mproj-title">Novo Projeto / Comissão</div>
   <input type="hidden" id="proj-edit-id">
@@ -1890,6 +1898,118 @@ function renderCaixasGrid(){
   h.push('</div>');el.innerHTML=h.join('');
 }
 
+var CAIXA_ITEMS_AP=[
+  {k:'reserva_paz',icon:'🌸',label:'Reserva Paz',color:'var(--nude)'},
+  {k:'caixa_empresa',icon:'🏢',label:'Caixa da Empresa',color:'var(--ouro)'},
+  {k:'projetos',icon:'✨',label:'Projetos Pontuais',color:'var(--green)'}
+];
+function getSaldoMesAtualFin(){
+  try{
+    if(!DB.meses_fin)return 0;
+    var key=finMesKey(0);
+    var mes=DB.meses_fin[key];
+    if(!mes)return 0;
+    var totalReceitas=0,totalSaiu=0;
+    (mes.receitas_clientes||[]).forEach(function(r){if(r.recebido)totalReceitas+=parseFloat(r.valor||0);});
+    (mes.outras_receitas||[]).forEach(function(r){if(r.recebido)totalReceitas+=parseFloat(r.valor||0);});
+    (mes.despesas||[]).forEach(function(d){if(d.pago)totalSaiu+=parseFloat(d.valor||0);});
+    return totalReceitas-totalSaiu;
+  }catch(e){return 0;}
+}
+function checkApcSoma(){
+  var p=parseFloat(document.getElementById('apc-paz').value)||0;
+  var e=parseFloat(document.getElementById('apc-emp').value)||0;
+  var pr=parseFloat(document.getElementById('apc-proj').value)||0;
+  var soma=p+e+pr;
+  var aviso=document.getElementById('apc-soma-aviso');
+  if(aviso)aviso.style.display=(soma!==100)?'block':'none';
+  return soma;
+}
+function salvarAporteConfig(){
+  var p=parseFloat(document.getElementById('apc-paz').value)||0;
+  var e=parseFloat(document.getElementById('apc-emp').value)||0;
+  var pr=parseFloat(document.getElementById('apc-proj').value)||0;
+  if(p+e+pr!==100){notif('A soma dos percentuais precisa ser 100%.');return;}
+  DB.aporteConfig={reserva_paz:p,caixa_empresa:e,projetos:pr};
+  saveDB();closeModal('modal-aporte-config');calcAportePreview();notif('Percentuais salvos!');
+}
+function calcAportePreview(){
+  var val=parseBRL(document.getElementById('ap-valor').value)||0;
+  var prev=document.getElementById('ap-preview');
+  var list=document.getElementById('ap-preview-list');
+  if(val<=0){prev.style.display='none';return;}
+  var cfg=DB.aporteConfig||{reserva_paz:50,caixa_empresa:30,projetos:20};
+  var h=[];
+  CAIXA_ITEMS_AP.forEach(function(item){
+    var pct=cfg[item.k]||0;
+    var valorItem=val*pct/100;
+    h.push('<div style="display:flex;justify-content:space-between;font-size:.74rem;padding:3px 0"><span>'+item.icon+' '+item.label+' ('+pct+'%)</span><span style="font-weight:600;color:'+item.color+'">R$ '+valorItem.toFixed(2)+'</span></div>');
+  });
+  list.innerHTML=h.join('');
+  prev.style.display='block';
+}
+function registrarAporte(){
+  var val=parseBRL(document.getElementById('ap-valor').value)||0;
+  if(val<=0){notif('Informe o valor do aporte.');return;}
+  var cfg=DB.aporteConfig||{reserva_paz:50,caixa_empresa:30,projetos:20};
+  if(!DB.caixas)DB.caixas={reserva_paz:{valor:0,meta:0},caixa_empresa:{valor:0,meta:0},projetos:{valor:0,meta:0}};
+  if(!DB.aportes)DB.aportes=[];
+  var loteId=uid();var agora=new Date().toISOString();
+  CAIXA_ITEMS_AP.forEach(function(item){
+    var pct=cfg[item.k]||0;
+    var valorItem=Math.round((val*pct/100)*100)/100;
+    if(valorItem<=0)return;
+    if(!DB.caixas[item.k])DB.caixas[item.k]={valor:0,meta:0};
+    DB.caixas[item.k].valor=Math.round(((DB.caixas[item.k].valor||0)+valorItem)*100)/100;
+    DB.aportes.push({id:uid(),lote:loteId,data:agora,caixa:item.k,valor:valorItem});
+  });
+  saveDB();
+  document.getElementById('ap-valor').value='';
+  document.getElementById('ap-preview').style.display='none';
+  renderCaixasGrid();renderAporteSecao();
+  notif('Aporte de R$ '+val.toLocaleString('pt-BR',{minimumFractionDigits:2})+' registrado e dividido entre seus objetivos!');
+}
+function remAporte(id){
+  if(!DB.aportes)return;
+  var a=DB.aportes.find(function(x){return x.id===id;});if(!a)return;
+  if(!confirm('Remover este aporte? O valor será descontado do objetivo correspondente.'))return;
+  if(DB.caixas&&DB.caixas[a.caixa]){DB.caixas[a.caixa].valor=Math.max(0,Math.round(((DB.caixas[a.caixa].valor||0)-a.valor)*100)/100);}
+  DB.aportes=DB.aportes.filter(function(x){return x.id!==id;});
+  saveDB();renderCaixasGrid();renderAporteSecao();notif('Aporte removido.');
+}
+function renderAporteSecao(){
+  if(!DB)return;
+  if(!DB.aporteConfig)DB.aporteConfig={reserva_paz:50,caixa_empresa:30,projetos:20};
+  var cfg=DB.aporteConfig;
+  var ep=document.getElementById('apc-paz');if(ep)ep.value=cfg.reserva_paz;
+  var ee=document.getElementById('apc-emp');if(ee)ee.value=cfg.caixa_empresa;
+  var epr=document.getElementById('apc-proj');if(epr)epr.value=cfg.projetos;
+  var valEl=document.getElementById('ap-valor');
+  if(valEl&&!valEl.value){
+    var saldo=getSaldoMesAtualFin();
+    if(saldo>0)valEl.placeholder='sugestão: R$ '+saldo.toLocaleString('pt-BR',{minimumFractionDigits:2})+' (saldo do mês)';
+  }
+  var hist=DB.aportes||[];
+  var el=document.getElementById('ap-historico');if(!el)return;
+  if(!hist.length){el.innerHTML='<div style="font-size:.7rem;color:var(--muted)">Nenhum aporte registrado ainda.</div>';return;}
+  var totalGeral=hist.reduce(function(a,x){return a+x.valor;},0);
+  var agora=new Date();var mesAtualStr=agora.getFullYear()+'-'+String(agora.getMonth()+1).padStart(2,'0');
+  var totalMes=hist.filter(function(x){return (x.data||'').slice(0,7)===mesAtualStr;}).reduce(function(a,x){return a+x.valor;},0);
+  var h=[];
+  h.push('<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">');
+  h.push('<div style="background:var(--green-dim);border:1px solid var(--green-b);border-radius:7px;padding:5px 10px;font-size:.68rem;color:var(--green)">Este mês: R$ '+totalMes.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>');
+  h.push('<div style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:7px;padding:5px 10px;font-size:.68rem;color:var(--cafe)">Total aportado: R$ '+totalGeral.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>');
+  h.push('</div>');
+  var itemsByKey={};CAIXA_ITEMS_AP.forEach(function(i){itemsByKey[i.k]=i;});
+  var ordenado=hist.slice().sort(function(a,b){return new Date(b.data)-new Date(a.data);}).slice(0,15);
+  ordenado.forEach(function(a){
+    var item=itemsByKey[a.caixa]||{icon:'💰',label:a.caixa};
+    var dataFmt=a.data?new Date(a.data).toLocaleDateString('pt-BR'):'';
+    h.push('<div style="display:flex;justify-content:space-between;align-items:center;font-size:.7rem;padding:5px 0;border-bottom:1px solid var(--border)"><span>'+item.icon+' '+item.label+' <span style="color:var(--muted)">· '+dataFmt+'</span></span><span style="display:flex;align-items:center;gap:8px"><span style="font-weight:600;color:var(--cafe)">R$ '+a.valor.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</span><button class="bd" onclick="remAporte(\''+a.id+'\')" style="font-size:.55rem;padding:2px 6px">✕</button></span></div>');
+  });
+  el.innerHTML=h.join('');
+}
+
 var EDU_TYPES={
 'CDB':{nome:'CDB',cor:'var(--ouro)',risco:'🟢 Baixo',resumo:'Você empresta dinheiro ao banco e recebe juros. Garantido pelo FGC até R$250mil. Fintechs como Sofisa oferecem as melhores taxas.',dica:'✅ Ótima escolha! CDB com liquidez diária é ideal para reserva. Sofisa e PicPay pagam 100-105% do CDI.'},
 'Poupança':{nome:'Poupança',cor:'var(--muted)',risco:'🟢 Muito Baixo',resumo:'Rende 70% da Selic — menos que CDB com a mesma segurança.',dica:'Migre para CDB com liquidez diária — mais rentável e igualmente seguro.'},
@@ -1926,6 +2046,7 @@ function renderReservas(){
   var e2=document.getElementById('res-rent');if(e2)e2.textContent=rentMedia?rentMedia.toFixed(2)+'% a.m.':'—';
   var e3=document.getElementById('res-rend');if(e3)e3.textContent=rendMensal?'R$ '+rendMensal.toFixed(2):'—';
   renderCaixasGrid();
+  renderAporteSecao();
   renderHistoricoReservas();
   var el=document.getElementById('lista-reservas');if(!el)return;
   if(!reservas.length){el.innerHTML='<div class="ev"><div class="eicon">🏦</div><div class="etitle">Nenhuma aplicação ainda</div><div class="edesc">Adicione suas reservas e investimentos.</div></div>';
@@ -2072,9 +2193,11 @@ function atualizarDicaTipo(){
 }
 function salvarReserva(){
   var desc=document.getElementById('res-desc').value.trim();if(!desc){notif('Informe o nome da aplicação.');return;}
+  var rentRaw=document.getElementById('res-rent').value;
+  if(rentRaw===''||rentRaw===null){notif('Informe a rentabilidade (% ao mês) da aplicação. Se ela realmente rende 0%, digite 0.');return;}
   if(!DB.reservas)DB.reservas=[];
   var eid=document.getElementById('res-edit-id').value;
-  var obj={id:eid||uid(),desc:desc,val:Math.round((parseBRL(document.getElementById('res-val').value)||0)*100)/100,rent:parseFloat(document.getElementById('res-rent').value)||0,tipo:document.getElementById('res-tipo').value,obj:document.getElementById('res-obj').value,liq:document.getElementById('res-liq').value,inst:document.getElementById('res-inst').value,nota:document.getElementById('res-nota').value};
+  var obj={id:eid||uid(),desc:desc,val:Math.round((parseBRL(document.getElementById('res-val').value)||0)*100)/100,rent:parseFloat(rentRaw)||0,tipo:document.getElementById('res-tipo').value,obj:document.getElementById('res-obj').value,liq:document.getElementById('res-liq').value,inst:document.getElementById('res-inst').value,nota:document.getElementById('res-nota').value};
   if(eid){var idx=DB.reservas.findIndex(function(r){return r.id===eid;});if(idx>=0)DB.reservas[idx]=obj;else DB.reservas.push(obj);}else DB.reservas.push(obj);
   saveDB();['res-desc','res-val','res-rent','res-inst','res-nota'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('res-edit-id').value='';
@@ -2416,6 +2539,7 @@ function defaultDB(){return{
   estrategias:{receitas:{captacao:'',novos:'',upsell:'',reativacao:''},custos:{reducao:'',contratar:''},investimentos:{lista:''}},
   visao_anual:{texto:'',fat:'',cli:''},outras_receitas:[],reservas:[],reservas_historico:[],
   caixas:{reserva_paz:{valor:0,meta:0},caixa_empresa:{valor:0,meta:0},projetos:{valor:0,meta:0}},
+  aportes:[],aporteConfig:{reserva_paz:50,caixa_empresa:30,projetos:20},
   produtividade:{sessoes:[],demandas:[],meta_horas:{}},
   reunioes:[],
   projetos:[],
@@ -2450,6 +2574,8 @@ function loadDB(){
   if(!DB.outras_receitas)DB.outras_receitas=[];if(!DB.reservas)DB.reservas=[];
   if(!DB.reservas_historico)DB.reservas_historico=[];
   if(!DB.caixas)DB.caixas=def.caixas;
+  if(!DB.aportes)DB.aportes=[];
+  if(!DB.aporteConfig)DB.aporteConfig=def.aporteConfig;
   if(!DB.produtividade)DB.produtividade={sessoes:[],demandas:[],meta_horas:{}};
   if(!DB.reunioes)DB.reunioes=[];
   if(!DB.projetos)DB.projetos=[];
@@ -2490,6 +2616,8 @@ function migrarDB(){
   if(!DB.propostas)DB.propostas=[];
   if(!DB.hist_cli)DB.hist_cli=[];
   if(!DB.biblioteca)DB.biblioteca=[];
+  if(!DB.aportes)DB.aportes=[];
+  if(!DB.aporteConfig)DB.aporteConfig={reserva_paz:50,caixa_empresa:30,projetos:20};
   if(!DB.empresa)DB.empresa={};
   if(!DB.crm.etapas)DB.crm.etapas=['Lead','Contato Feito','Proposta Enviada','Fechado','Perdido'];
   if(!DB.crm.cards)DB.crm.cards=[];
