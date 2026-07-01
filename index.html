@@ -1047,7 +1047,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <div id="apc-soma-aviso" style="font-size:.68rem;color:var(--red);display:none;margin-bottom:8px">A soma dos percentuais precisa ser 100%. Ajuste antes de salvar.</div>
   <div class="ma"><button class="bg" onclick="closeModal('modal-aporte-config')">Cancelar</button><button class="bp" onclick="salvarAporteConfig()">Salvar</button></div>
 </div></div>
-<div class="mo" id="modal-add-reserva"><div class="md"><div class="mt" id="mres-title">Adicionar Aplicação</div><input type="hidden" id="res-edit-id"><div class="fi"><label>Nome / Descrição</label><input type="text" id="res-desc"></div><div class="fi"><label>Banco / Instituição</label><input type="text" id="res-inst"></div><div class="fi"><label>Tipo de Investimento</label><select id="res-tipo" onchange="atualizarDicaTipo()"><option value="CDB">CDB</option><option value="Poupança">Poupança</option><option value="Tesouro Direto">Tesouro Direto</option><option value="LCI/LCA">LCI / LCA</option><option value="Fundo de Investimento">Fundo de Investimento</option><option value="Ações">Ações</option><option value="Criptomoedas">Criptomoedas</option><option value="Renda Fixa">Renda Fixa</option><option value="Outro">Outro</option></select></div><div id="dica-tipo-modal" style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;font-size:.72rem;line-height:1.55;margin-bottom:10px;display:none"></div><div class="fr"><div class="fi"><label>Valor Atual (R$)</label><input type="text" inputmode="decimal" id="res-val" oninput="calcRentModal()"></div><div class="fi"><label>Rentabilidade (% ao mês) *</label><input type="text" inputmode="decimal" id="res-rent" oninput="calcRentModal()" placeholder="ex: 0,85"></div></div><div id="rent-preview" style="display:none;background:var(--green-dim);border:1px solid var(--green-b);border-radius:8px;padding:10px;margin-bottom:10px"><div class="g3"><div><div style="font-size:.58rem;color:var(--muted)">Rende/mês</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-mes">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rende/ano</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-ano">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rent. anual</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-pct">—</div></div></div></div><div class="fr"><div class="fi"><label>Objetivo</label><select id="res-obj"><option value="Emergência">Reserva de Emergência</option><option value="Reserva PF">Reserva Pessoal</option><option value="Caixa Empresa">Caixa da Empresa</option><option value="Crescimento">Crescimento</option><option value="Aposentadoria">Aposentadoria</option><option value="Sonho">Sonho</option><option value="Livre">Livre</option></select></div><div class="fi"><label>Liquidez</label><select id="res-liq"><option value="Diária">Diária</option><option value="Mensal">Mensal</option><option value="No vencimento">No vencimento</option><option value="Longo prazo">Longo prazo</option></select></div></div><div class="fi"><label>Notas</label><input type="text" id="res-nota"></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-reserva')">Cancelar</button><button class="bp" onclick="salvarReserva()">Salvar</button></div></div></div>
+<div class="mo" id="modal-add-reserva"><div class="md"><div class="mt" id="mres-title">Adicionar Aplicação</div><input type="hidden" id="res-edit-id"><div class="fi"><label>Nome / Descrição</label><input type="text" id="res-desc"></div><div class="fi"><label>Banco / Instituição</label><input type="text" id="res-inst"></div><div class="fi"><label>Tipo de Investimento</label><select id="res-tipo" onchange="atualizarDicaTipo()"><option value="CDB">CDB</option><option value="Poupança">Poupança</option><option value="Tesouro Direto">Tesouro Direto</option><option value="LCI/LCA">LCI / LCA</option><option value="Fundo de Investimento">Fundo de Investimento</option><option value="Ações">Ações</option><option value="Criptomoedas">Criptomoedas</option><option value="Renda Fixa">Renda Fixa</option><option value="Outro">Outro</option></select></div><div id="dica-tipo-modal" style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;font-size:.72rem;line-height:1.55;margin-bottom:10px;display:none"></div><div class="fr"><div class="fi"><label>Valor Atual (R$)</label><input type="text" inputmode="decimal" id="res-val" oninput="calcRentModal()"></div><div class="fi"><label>Rentabilidade (% ao mês) *</label><input type="text" inputmode="decimal" id="res-rent-input" oninput="calcRentModal()" placeholder="ex: 0,85"></div></div><div id="rent-preview" style="display:none;background:var(--green-dim);border:1px solid var(--green-b);border-radius:8px;padding:10px;margin-bottom:10px"><div class="g3"><div><div style="font-size:.58rem;color:var(--muted)">Rende/mês</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-mes">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rende/ano</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-ano">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rent. anual</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-pct">—</div></div></div></div><div class="fr"><div class="fi"><label>Objetivo</label><select id="res-obj"><option value="Emergência">Reserva de Emergência</option><option value="Reserva PF">Reserva Pessoal</option><option value="Caixa Empresa">Caixa da Empresa</option><option value="Crescimento">Crescimento</option><option value="Aposentadoria">Aposentadoria</option><option value="Sonho">Sonho</option><option value="Livre">Livre</option></select></div><div class="fi"><label>Liquidez</label><select id="res-liq"><option value="Diária">Diária</option><option value="Mensal">Mensal</option><option value="No vencimento">No vencimento</option><option value="Longo prazo">Longo prazo</option></select></div></div><div class="fi"><label>Notas</label><input type="text" id="res-nota"></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-reserva')">Cancelar</button><button class="bp" onclick="salvarReserva()">Salvar</button></div></div></div>
 <div class="mo" id="modal-add-projeto"><div class="md">
   <div class="mt" id="mproj-title">Novo Projeto / Comissão</div>
   <input type="hidden" id="proj-edit-id">
@@ -1301,8 +1301,6 @@ function renderHome(){
   var ativos=[];
   for(var ci=0;ci<(DB.clientes&&DB.clientes.length);ci++){
     var c=DB.clientes[ci];if(c.status==='Encerrado')continue;
-    if(c.inicio){var ini=new Date(c.inicio);if(ini>hoje)continue;}
-    if(c.primeiro_pag){var pp=new Date(c.primeiro_pag);pp.setHours(0,0,0,0);if(pp>hoje)continue;}
     ativos.push(c);
   }
   var fat=0;for(var fi=0;fi<ativos.length;fi++)fat+=ativos[fi].val;
@@ -2226,7 +2224,7 @@ function renderHistoricoReservas(){
 }
 function calcRentModal(){
   var val=parseBRL(document.getElementById('res-val').value)||0;
-  var rent=parseBRL(document.getElementById('res-rent').value)||0;
+  var rent=parseBRL(document.getElementById('res-rent-input').value)||0;
   var prev=document.getElementById('rent-preview');
   if(val>0&&rent>0){
     var mes=val*rent/100;var ano=(Math.pow(1+rent/100,12)-1)*100;var anoR=val*ano/100;
@@ -2245,13 +2243,13 @@ function atualizarDicaTipo(){
 }
 function salvarReserva(){
   var desc=document.getElementById('res-desc').value.trim();if(!desc){notif('Informe o nome da aplicação.');return;}
-  var rentRaw=document.getElementById('res-rent').value;
+  var rentRaw=document.getElementById('res-rent-input').value;
   if(rentRaw===''||rentRaw===null||rentRaw===undefined){notif('Informe a rentabilidade (% ao mês) da aplicação. Se ela realmente rende 0%, digite 0.');return;}
   if(!DB.reservas)DB.reservas=[];
   var eid=document.getElementById('res-edit-id').value;
   var obj={id:eid||uid(),desc:desc,val:Math.round((parseBRL(document.getElementById('res-val').value)||0)*100)/100,rent:parseBRL(rentRaw)||0,tipo:document.getElementById('res-tipo').value,obj:document.getElementById('res-obj').value,liq:document.getElementById('res-liq').value,inst:document.getElementById('res-inst').value,nota:document.getElementById('res-nota').value};
   if(eid){var idx=DB.reservas.findIndex(function(r){return r.id===eid;});if(idx>=0)DB.reservas[idx]=obj;else DB.reservas.push(obj);}else DB.reservas.push(obj);
-  saveDB();['res-desc','res-val','res-rent','res-inst','res-nota'].forEach(function(id){document.getElementById(id).value='';});
+  saveDB();['res-desc','res-val','res-rent-input','res-inst','res-nota'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('res-edit-id').value='';
   closeModal('modal-add-reserva');renderReservas();notif('Aplicação salva!');
 }
@@ -2260,7 +2258,7 @@ function editarReserva(id){
   document.getElementById('mres-title').textContent='Editar Aplicação';
   document.getElementById('res-edit-id').value=r.id;
   document.getElementById('res-desc').value=r.desc||'';document.getElementById('res-val').value=r.val||'';
-  document.getElementById('res-rent').value=r.rent||'';document.getElementById('res-tipo').value=r.tipo||'CDB';
+  document.getElementById('res-rent-input').value=r.rent||'';document.getElementById('res-tipo').value=r.tipo||'CDB';
   document.getElementById('res-obj').value=r.obj||'Emergência';document.getElementById('res-liq').value=r.liq||'Diária';
   document.getElementById('res-inst').value=r.inst||'';document.getElementById('res-nota').value=r.nota||'';
   openModal('modal-add-reserva');
