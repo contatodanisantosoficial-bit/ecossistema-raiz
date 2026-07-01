@@ -1310,6 +1310,7 @@ function renderHome(){
   var mesKeyHome=finMesKey(0);
   var mesFinHome=(DB.meses_fin&&DB.meses_fin[mesKeyHome])?DB.meses_fin[mesKeyHome]:null;
   var totalOR=0,recebido=0,nRec=0,cliComDiaCount=0;
+  var OR=DB.outras_receitas||[];
   if(mesFinHome){
     // Sync receitas_clientes if needed
     if(!mesFinHome.receitas_clientes)mesFinHome.receitas_clientes=[];
@@ -1318,9 +1319,10 @@ function renderHome(){
       if(!ex)mesFinHome.receitas_clientes.push({id:uid(),clienteId:c.id,nome:c.nome,valor:c.val||0,recebido:false,dataRecebido:null,meio:c.meio||'PIX',dia:c.dia});
     });
     mesFinHome.receitas_clientes.forEach(function(r){if(r.recebido){recebido+=parseFloat(r.valor||0);nRec++;}});
-    (mesFinHome.outras_receitas||[]).forEach(function(r){totalOR+=parseFloat(r.valor||0);if(r.recebido)recebido+=parseFloat(r.valor||0);});
+    OR=(mesFinHome.outras_receitas||[]).map(function(r){return{id:r.id,desc:r.desc,val:(r.valor!==undefined?r.valor:r.val)||0,recebido:r.recebido};});
+    OR.forEach(function(r){totalOR+=r.val;if(r.recebido)recebido+=r.val;});
   } else {
-    var OR=DB.outras_receitas||[];for(var oi=0;oi<OR.length;oi++)totalOR+=OR[oi].val;
+    for(var oi=0;oi<OR.length;oi++)totalOR+=OR[oi].val;
     var baixas=DB.baixas||[];
     for(var bi=0;bi<baixas.length;bi++){
       var b=baixas[bi];
@@ -2378,16 +2380,16 @@ async function _supaSalvarDoIt(email, dados){
   if(!supaReady())return false;
   try{
     var baseUrl=SUPA_URL.replace(/\/+$/,'');
-    // Use upsert via POST with Prefer: resolution=merge-duplicates (requires unique constraint on email)
+    // Use upsert via POST with on_conflict=email so Postgres knows which unique constraint to resolve against
     var h=supaHeaders();
     h['Prefer']='resolution=merge-duplicates,return=minimal';
-    var resp=await fetch(baseUrl+'/rest/v1/raiz_dados',{
+    var resp=await fetch(baseUrl+'/rest/v1/raiz_dados?on_conflict=email',{
       method:'POST',
       headers:h,
       body:JSON.stringify({email:email,dados:dados,atualizado:new Date().toISOString()})
     });
     if(resp.ok) return true;
-    // Fallback: try PATCH if upsert isn't supported (older table without unique constraint trigger)
+    // Fallback: try direct GET+PATCH/POST if upsert isn't supported (older table without unique constraint)
     var getH=Object.assign({},supaHeaders());delete getH['Prefer'];
     var res=await fetch(baseUrl+'/rest/v1/raiz_dados?email=eq.'+encodeURIComponent(email),{method:'GET',headers:getH});
     var existe=await res.json();
