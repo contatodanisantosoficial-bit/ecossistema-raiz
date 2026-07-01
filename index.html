@@ -213,6 +213,17 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
       <div style="margin-top:14px;text-align:center">
         <button onclick="toggleResetForm()" style="background:none;border:none;font-size:.72rem;color:var(--nude);cursor:pointer;text-decoration:underline;font-family:Outfit,sans-serif;">🔑 Esqueci minha senha</button>
       </div>
+      <div style="margin-top:8px;text-align:center">
+        <button onclick="toggleSupaReconnect()" style="background:none;border:none;font-size:.68rem;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:Outfit,sans-serif;">☁️ Limpou o cache e não consegue entrar?</button>
+      </div>
+      <div id="supa-reconnect-form" style="display:none;margin-top:12px;background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:14px">
+        <div style="font-size:.72rem;font-weight:600;color:var(--cafe);margin-bottom:6px">Reconectar à nuvem (Supabase)</div>
+        <div style="font-size:.66rem;color:var(--muted);margin-bottom:10px;line-height:1.5">Se você limpou o cache do navegador, a conexão com seus dados na nuvem foi apagada do celular — mas seus dados continuam salvos. Cole aqui a URL e a chave do seu projeto Supabase (as mesmas de sempre) pra reconectar.</div>
+        <div class="auth-field"><label>URL do Projeto</label><input type="text" id="login-supa-url" placeholder="https://xxxxx.supabase.co"></div>
+        <div class="auth-field"><label>Chave Pública (anon key)</label><input type="text" id="login-supa-key" placeholder="sua chave anon"></div>
+        <div class="auth-err" id="login-supa-err"></div>
+        <button class="bp" style="width:100%;padding:10px;margin-top:6px" onclick="reconectarSupaLogin()">Reconectar</button>
+      </div>
       <div id="reset-form" style="display:none;margin-top:12px;background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:14px">
         <div style="font-size:.72rem;font-weight:600;color:var(--cafe);margin-bottom:10px">Redefinir senha</div>
         <div class="auth-field"><label>E-mail</label><input type="email" id="reset-email" placeholder="seu@email.com"></div>
@@ -1142,6 +1153,20 @@ function toggleResetForm(){
     var resetEmail=document.getElementById('reset-email');
     if(loginEmail&&resetEmail&&loginEmail.value)resetEmail.value=loginEmail.value;
   }
+}
+function toggleSupaReconnect(){
+  var f=document.getElementById('supa-reconnect-form');
+  if(f)f.style.display=f.style.display==='none'?'block':'none';
+}
+function reconectarSupaLogin(){
+  var url=document.getElementById('login-supa-url').value.trim();
+  var key=document.getElementById('login-supa-key').value.trim();
+  var err=document.getElementById('login-supa-err');
+  if(!url||!key){err.style.color='var(--red)';err.textContent='Preencha a URL e a chave do Supabase.';return;}
+  storageSet('raizv2-supa-url',url);
+  storageSet('raizv2-supa-key',key);
+  SUPA_URL=url;SUPA_KEY=key;
+  err.style.color='var(--green)';err.textContent='✅ Reconectado! Agora preencha seu e-mail e senha acima e clique em Entrar.';
 }
 
 function toggleDMNatureza(){
