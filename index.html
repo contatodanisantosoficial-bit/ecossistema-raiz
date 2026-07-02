@@ -568,7 +568,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 
     <div class="page" id="page-estrategia"><div class="ph"><div class="pe">Estratégia</div><div class="pt">O mapa do <em>seu futuro</em></div></div><div class="itabs"><button class="itab active" onclick="showItab('est','trimestre',this)">Metas Trimestrais</button><button class="itab" onclick="showItab('est','estrategias',this)">Estratégias</button><button class="itab" onclick="showItab('est','anual',this)">Visão Anual</button><button class="itab" onclick="showItab('est','pessoal',this)">Metas Pessoais</button><button class="itab" onclick="showItab('est','marcos',this)">Marcos</button></div><div class="itab-pane active" id="est-trimestre" style="display:block"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Metas trimestrais</span><button class="bp" onclick="openModal('modal-add-meta')">+ Nova Meta</button></div><div id="metas-trim"></div></div><div class="itab-pane" id="est-estrategias" style="display:none"><div id="estrategias-content"></div></div><div class="itab-pane" id="est-anual" style="display:none"><div class="card warm"><div class="cl">Visão Anual</div><div class="fi"><label>Onde quero estar em 12 meses</label><textarea id="vis-anual-txt" placeholder="Em dezembro de 2026, meu negócio vai..."></textarea></div><div class="fr"><div class="fi"><label>Meta Faturamento Anual (R$)</label><input type="number" id="vis-fat-anual"></div><div class="fi"><label>Nº de Clientes Alvo</label><input type="number" id="vis-cli-alvo"></div></div><button class="bp" onclick="salvarVisaoAnual()">Salvar Visão</button></div><div class="card" id="vis-anual-saved" style="display:none"><div class="cl">Sua Visão</div><div id="vis-anual-content"></div></div></div><div class="itab-pane" id="est-pessoal" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Objetivos pessoais</span><button class="bp" onclick="openModal('modal-add-meta-p')">+ Novo Objetivo</button></div><div id="metas-pessoais"></div></div><div class="itab-pane" id="est-marcos" style="display:none"><div class="card"><div class="cl">Marcos Conquistados</div><div id="marcos-list"></div></div></div></div>
   <div class="page" id="page-investir"><div class="ph"><div class="pe">Análise de Investimentos</div><div class="pt">Antes de <em>gastar</em>, entender</div></div><div style="display:flex;justify-content:flex-end;margin-bottom:13px"><button class="bp" onclick="openModal('modal-add-inv')">+ Analisar Investimento</button></div><div id="lista-inv"></div></div>
-  <div class="page" id="page-reservas"><div class="ph"><div class="pe">Reservas e Investimentos</div><div class="pt">Seu dinheiro <em>trabalhando por você</em></div></div><div id="reservas-edu" class="card warm" style="margin-bottom:13px"><div class="cl">Educação Financeira</div><div id="edu-content"></div></div><div class="g3" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Investido</div><div class="sv o" id="res-total">—</div></div><div class="sc"><div class="sl">Rentabilidade Média</div><div class="sv g" id="res-rent">—</div></div><div class="sc"><div class="sl">Rendimento Mensal Est.</div><div class="sv g" id="res-rend">—</div></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Meus Caixas e Reservas</div><div id="caixas-grid"></div><div style="margin-top:12px;display:flex;justify-content:flex-end"><button class="bp" onclick="openModal('modal-edit-caixas')">Atualizar Valores</button></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Aporte Mensal</div><div style="font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Registre quanto você vai depositar este mês. O valor é somado ao saldo de cada objetivo, dividido pelo percentual que você definir.</div><div class="fr"><div class="fi"><label>Valor disponível para aportar (R$)</label><input type="number" id="ap-valor" oninput="calcAportePreview()"></div><div class="fi"><label>&nbsp;</label><button class="bg" style="width:100%" onclick="openModal('modal-aporte-config')">⚙️ Definir % por objetivo</button></div></div><div id="ap-preview" style="display:none;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;margin-bottom:12px"><div id="ap-preview-list"></div></div><div style="display:flex;justify-content:flex-end"><button class="bp" onclick="registrarAporte()">Registrar Aporte</button></div><div id="ap-historico" style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px"></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="cl" style="margin-bottom:0">Minhas Aplicações</div><button class="bp" onclick="openModal('modal-add-reserva')">+ Adicionar</button></div><div id="lista-reservas"></div></div><div class="card"><div class="cl">Distribuição das Reservas</div><div id="reservas-dist"></div></div>
+  <div class="page" id="page-reservas"><div class="ph"><div class="pe">Reservas e Investimentos</div><div class="pt">Seu dinheiro <em>trabalhando por você</em></div></div><div id="reservas-edu" class="card warm" style="margin-bottom:13px"><div class="cl">Educação Financeira</div><div id="edu-content"></div></div><div class="g3" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Investido</div><div class="sv o" id="res-total">—</div></div><div class="sc"><div class="sl">Rentabilidade Média</div><div class="sv g" id="res-rent">—</div></div><div class="sc"><div class="sl">Rendimento Mensal Est.</div><div class="sv g" id="res-rend">—</div></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Meus Caixas e Reservas</div><div id="caixas-grid"></div><div style="margin-top:12px;display:flex;justify-content:flex-end"><button class="bp" onclick="openModal('modal-edit-caixas')">Atualizar Valores</button></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Aporte Mensal</div><div style="font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Registre quanto você vai depositar este mês. O valor é somado ao saldo de cada objetivo, dividido pelo percentual que você definir.</div><div class="fr"><div class="fi"><label>Valor disponível para aportar (R$)</label><input type="text" inputmode="decimal" id="ap-valor" oninput="calcAportePreview()"></div><div class="fi"><label>&nbsp;</label><button class="bg" style="width:100%" onclick="openModal('modal-aporte-config')">⚙️ Definir % por objetivo</button></div></div><div id="ap-preview" style="display:none;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;margin-bottom:12px"><div id="ap-preview-list"></div></div><div style="display:flex;justify-content:flex-end"><button class="bp" onclick="registrarAporte()">Registrar Aporte</button></div><div id="ap-historico" style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px"></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="cl" style="margin-bottom:0">Minhas Aplicações</div><button class="bp" onclick="openModal('modal-add-reserva')">+ Adicionar</button></div><div id="lista-reservas"></div></div><div class="card"><div class="cl">Distribuição das Reservas</div><div id="reservas-dist"></div></div><div id="risco-painel" class="card" style="margin-bottom:13px"></div>
 <div class="card" style="margin-top:13px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
         <div><div class="cl" style="margin-bottom:2px;">Evolução Mensal</div>
@@ -939,6 +939,23 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <!-- CRESCIMENTO -->
   <div class="page" id="page-crescimento">
     <div class="ph"><div class="pe">Crescimento</div><div class="pt">A história do seu <em>negócio</em></div><div class="ps">Evolução mês a mês — faturamento, clientes, retenção</div></div>
+    <div class="card" style="margin-bottom:13px">
+      <div class="cl">⚙️ Configurar Saúde Financeira</div>
+      <div class="fr">
+        <div class="fi"><label>Meta de Faturamento Mensal (R$)</label><input type="text" inputmode="decimal" id="cfg-meta-fat" oninput="calcSaudeFinanceira()"></div>
+        <div class="fi"><label>Limite de Gastos (% do recebido)</label><input type="text" inputmode="decimal" id="cfg-limite-gasto" oninput="calcSaudeFinanceira()" placeholder="ex: 40"></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end"><button class="bp" onclick="salvarConfigSaude()">Salvar</button></div>
+    </div>
+    <div id="saude-fin-painel"></div>
+    <div class="card" style="margin-bottom:13px">
+      <div class="cl">🛒 Posso comprar ou contratar isso?</div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Digite o valor de uma compra ou contratação (pessoal ou profissional) e veja se cabe agora — ou quanto você precisaria faturar pra caber.</div>
+      <div class="fr"><div class="fi"><label>Valor (R$)</label><input type="text" inputmode="decimal" id="sim-valor" oninput="calcSimulador()"></div></div>
+      <label style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--cafe);margin:2px 0 10px"><input type="checkbox" id="sim-recorrente" onchange="calcSimulador()" style="width:auto"> É um gasto recorrente mensal (ex: contratação, assinatura)</label>
+      <div id="sim-resultado"></div>
+    </div>
+    <div id="precificacao-painel"></div>
     <div id="cresc-painel"></div>
   </div>
 
@@ -1268,6 +1285,17 @@ function getAlerts(){
     var cdiff=Math.round((cv-today)/86400000);
     if(cdiff<=dias)al.push({nome:cc.desc,val:cc.val,diff:cdiff,meio:cc.tipo,conta:true});
   }
+  var keyAtualCF=today.getFullYear()+'-'+(today.getMonth()+1);
+  var mesAtualCF=DB.meses_fin&&DB.meses_fin[keyAtualCF];
+  if(mesAtualCF&&mesAtualCF.despesas){
+    for(var fi=0;fi<mesAtualCF.despesas.length;fi++){
+      var fd=mesAtualCF.despesas[fi];if(fd.pago||!fd.dia)continue;
+      var fdDia=parseInt(fd.dia);var fv=new Date(today.getFullYear(),today.getMonth(),fdDia);
+      if(fv<today)fv.setMonth(fv.getMonth()+1);
+      var fdiff=Math.round((fv-today)/86400000);
+      if(fdiff<=dias)al.push({nome:fd.desc,val:fd.valor,diff:fdiff,meio:fd.tipo,conta:true});
+    }
+  }
   return al;
 }
 function getBK(tipo,id){
@@ -1372,8 +1400,17 @@ function renderHome(){
   if(recHTML){recHTML+='<div style="display:flex;justify-content:space-between;padding:8px 0"><span style="font-size:.7rem;color:var(--muted)">Total</span><span style="font-size:.82rem;font-weight:700;color:var(--ouro)">R$ '+fatTotal.toLocaleString('pt-BR')+'</span></div>';recListEl.innerHTML=recHTML;}
   else{recListEl.innerHTML='<div class="ev"><div class="eicon">💛</div><div class="edesc">Cadastre clientes com dia de vencimento.</div></div>';}
   var despEl=document.getElementById('home-desp-list');var despHTML='';var totalDesp=0;
-  for(var di=0;di<(DB.contas&&DB.contas.length);di++){var dc=DB.contas[di];totalDesp=Math.round((totalDesp+dc.val)*100)/100;var dbaixa=getBaixaInfo('pag',dc.id);
-    despHTML+='<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="font-size:.78rem;color:'+(dbaixa?'var(--muted)':'var(--cafe)')+'">'+dc.desc+(dbaixa?' <span class="bdg g" style="font-size:.5rem">ok</span>':'')+'</div><div style="font-size:.78rem;font-weight:600;color:'+(dbaixa?'var(--muted)':'var(--red)')+'">R$ '+dc.val.toLocaleString('pt-BR')+'</div></div>';
+  var despesasMes=(mesFinHome&&mesFinHome.despesas)?mesFinHome.despesas:[];
+  if(despesasMes.length){
+    var sortedDesp=despesasMes.slice().sort(function(a,b){return (a.pago?1:0)-(b.pago?1:0);});
+    sortedDesp.forEach(function(dc){
+      var v=parseFloat(dc.valor||0);totalDesp=Math.round((totalDesp+v)*100)/100;
+      despHTML+='<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="font-size:.78rem;color:'+(dc.pago?'var(--muted)':'var(--cafe)')+'">'+dc.desc+(dc.pago?' <span class="bdg g" style="font-size:.5rem">ok</span>':'')+'</div><div style="font-size:.78rem;font-weight:600;color:'+(dc.pago?'var(--muted)':'var(--red)')+'">R$ '+v.toLocaleString('pt-BR')+'</div></div>';
+    });
+  } else {
+    for(var di=0;di<(DB.contas&&DB.contas.length);di++){var dc=DB.contas[di];totalDesp=Math.round((totalDesp+dc.val)*100)/100;var dbaixa=getBaixaInfo('pag',dc.id);
+      despHTML+='<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="font-size:.78rem;color:'+(dbaixa?'var(--muted)':'var(--cafe)')+'">'+dc.desc+(dbaixa?' <span class="bdg g" style="font-size:.5rem">ok</span>':'')+'</div><div style="font-size:.78rem;font-weight:600;color:'+(dbaixa?'var(--muted)':'var(--red)')+'">R$ '+dc.val.toLocaleString('pt-BR')+'</div></div>';
+    }
   }
   if(despHTML){despHTML+='<div style="display:flex;justify-content:space-between;padding:8px 0"><span style="font-size:.7rem;color:var(--muted)">Total</span><span style="font-size:.82rem;font-weight:700;color:var(--red)">R$ '+totalDesp.toLocaleString('pt-BR')+'</span></div>';despEl.innerHTML=despHTML;}
   else{despEl.innerHTML='<div class="ev"><div class="eicon">🧾</div><div class="edesc">Cadastre suas contas em Finanças.</div></div>';}
@@ -1557,11 +1594,11 @@ function checarContratosVencidos(){
   DB.clientes.forEach(function(c){
     if(c.status==='Ativo'&&c.fim){
       var fim=new Date(c.fim);fim.setHours(0,0,0,0);
+      // Auto-mark as vencido_renovando FIRST if past end date and still active with no status yet
+      if(fim<hoje&&!c.contrato_status){c.contrato_status='vencido_renovando';mudou=true;}
       // Only auto-archive if NOT in "vencido mas seguindo" or "em renovacao"
       var excluir=c.contrato_status==='vencido_renovando'||c.contrato_status==='em_renovacao'||c.contrato_status==='sem_prazo';
       if(fim<hoje&&!excluir){c.status='Encerrado';mudou=true;}
-      // Auto-mark as vencido_renovando if past end date and still active
-      if(fim<hoje&&!c.contrato_status){c.contrato_status='vencido_renovando';mudou=true;}
     }
   });
   if(mudou)saveDB();
@@ -2035,6 +2072,45 @@ function renderAporteSecao(){
   el.innerHTML=h.join('');
 }
 
+function renderRisco(){
+  var el=document.getElementById('risco-painel');if(!el||!DB)return;
+  var res=DB.reservas||[];
+  if(!res.length){el.innerHTML='<div class="cl">🛡️ Análise de Risco</div><div style="font-size:.72rem;color:var(--muted)">Adicione aplicações pra ver essa análise.</div>';return;}
+  var total=res.reduce(function(a,r){return a+r.val;},0);
+  // Concentração por instituição
+  var porInst={};
+  res.forEach(function(r){var k=r.inst||'—';porInst[k]=(porInst[k]||0)+r.val;});
+  var maiorInst=Object.keys(porInst).reduce(function(a,k){return porInst[k]>(porInst[a]||0)?k:a;},Object.keys(porInst)[0]);
+  var pctMaior=total>0?Math.round((porInst[maiorInst]/total)*100):0;
+  // Liquidez
+  var pctDiaria=total>0?Math.round((res.filter(function(r){return r.liq==='Diária';}).reduce(function(a,r){return a+r.val;},0)/total)*100):0;
+  // Rentabilidade média ponderada vs inflação
+  var rentPonderada=total>0?res.reduce(function(a,r){return a+(r.val*(r.rent||0));},0)/total:0;
+  var ipcaAnoEl=document.getElementById('risco-ipca');
+  var ipcaAno=ipcaAnoEl&&ipcaAnoEl.value?parseBRL(ipcaAnoEl.value):4.5;
+  var ipcaMes=Math.round((Math.pow(1+ipcaAno/100,1/12)-1)*10000)/100;
+  var cobreInflacao=rentPonderada>=ipcaMes;
+
+  var h='<div class="cl">🛡️ Análise de Risco de Investimento</div>';
+  h+='<div class="fr" style="margin-bottom:12px"><div class="fi"><label>Inflação de referência (% ao ano)</label><input type="text" inputmode="decimal" id="risco-ipca" value="'+ipcaAno+'" oninput="renderRisco()"></div></div>';
+
+  h+='<div style="padding:10px 0;border-bottom:1px solid var(--border)">';
+  h+='<div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:.78rem;font-weight:600;color:var(--cafe)">Concentração</span><span style="font-size:.72rem;font-weight:600;color:'+(pctMaior>70?'var(--red)':pctMaior>50?'var(--ouro)':'var(--green)')+'">'+pctMaior+'% em '+maiorInst+'</span></div>';
+  h+='<div style="font-size:.68rem;color:var(--muted)">'+(pctMaior>70?'Risco alto — considere diversificar entre mais instituições (proteção do FGC é até R$250mil por CPF por banco)':pctMaior>50?'Concentração moderada — de olho, mas ainda ok':'Bem diversificado entre instituições')+'</div>';
+  h+='</div>';
+
+  h+='<div style="padding:10px 0;border-bottom:1px solid var(--border)">';
+  h+='<div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:.78rem;font-weight:600;color:var(--cafe)">Liquidez</span><span style="font-size:.72rem;font-weight:600;color:'+(pctDiaria>=70?'var(--green)':pctDiaria>=40?'var(--ouro)':'var(--red)')+'">'+pctDiaria+'% em liquidez diária</span></div>';
+  h+='<div style="font-size:.68rem;color:var(--muted)">'+(pctDiaria>=70?'Boa liquidez — dá pra acessar rápido em emergência':'Boa parte do seu dinheiro não é resgatável no mesmo dia — cheque se isso é compatível com seus objetivos de reserva')+'</div>';
+  h+='</div>';
+
+  h+='<div style="padding:10px 0">';
+  h+='<div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:.78rem;font-weight:600;color:var(--cafe)">Cobertura de Inflação</span><span style="font-size:.72rem;font-weight:600;color:'+(cobreInflacao?'var(--green)':'var(--red)')+'">'+rentPonderada.toFixed(2)+'% a.m. vs '+ipcaMes+'% a.m.</span></div>';
+  h+='<div style="font-size:.68rem;color:var(--muted)">'+(cobreInflacao?'Sua rentabilidade média está acima da inflação de referência — seu dinheiro está ganhando poder de compra':'Sua rentabilidade média está abaixo da inflação de referência — seu dinheiro está perdendo poder de compra com o tempo')+'</div>';
+  h+='</div>';
+  el.innerHTML=h;
+}
+
 var EDU_TYPES={
 'CDB':{nome:'CDB',cor:'var(--ouro)',risco:'🟢 Baixo',resumo:'Você empresta dinheiro ao banco e recebe juros. Garantido pelo FGC até R$250mil. Fintechs como Sofisa oferecem as melhores taxas.',dica:'✅ Ótima escolha! CDB com liquidez diária é ideal para reserva. Sofisa e PicPay pagam 100-105% do CDI.'},
 'Poupança':{nome:'Poupança',cor:'var(--muted)',risco:'🟢 Muito Baixo',resumo:'Rende 70% da Selic — menos que CDB com a mesma segurança.',dica:'Migre para CDB com liquidez diária — mais rentável e igualmente seguro.'},
@@ -2073,6 +2149,7 @@ function renderReservas(){
   renderCaixasGrid();
   renderAporteSecao();
   renderHistoricoReservas();
+  renderRisco();
   var el=document.getElementById('lista-reservas');if(!el)return;
   if(!reservas.length){el.innerHTML='<div class="ev"><div class="eicon">🏦</div><div class="etitle">Nenhuma aplicação ainda</div><div class="edesc">Adicione suas reservas e investimentos.</div></div>';
     var distEl=document.getElementById('reservas-dist');if(distEl)distEl.innerHTML='<div style="font-size:.74rem;color:var(--muted)">Adicione aplicações para ver a distribuição.</div>';
@@ -2581,7 +2658,7 @@ function openApp(){
 }
 
 function defaultDB(){return{
-  config:{dias:3,custo:0,metaCaixa:0},clientes:[],contas:[],
+  config:{dias:3,custo:0,metaCaixa:0,metaFat:0,limiteGastoPct:40},clientes:[],contas:[],
   crm:{etapas:['Lead','Contato Feito','Proposta Enviada','Fechado','Perdido'],cards:[]},
   meses:[],macros:{fin:{score:null,items:[]},com:{score:null,items:[]},ope:{score:null,items:[]},mkt:{score:null,items:[]}},
   empresa:{tipo:'',prop:'',dif:'',um_ano:'',pub:''},
@@ -2668,6 +2745,8 @@ function migrarDB(){
   if(!DB.biblioteca)DB.biblioteca=[];
   if(!DB.aportes)DB.aportes=[];
   if(!DB.aporteConfig)DB.aporteConfig={reserva_paz:50,caixa_empresa:30,projetos:20};
+  if(DB.config&&DB.config.metaFat===undefined)DB.config.metaFat=0;
+  if(DB.config&&DB.config.limiteGastoPct===undefined)DB.config.limiteGastoPct=40;
   if(!DB.empresa)DB.empresa={};
   if(!DB.crm.etapas)DB.crm.etapas=['Lead','Contato Feito','Proposta Enviada','Fechado','Perdido'];
   if(!DB.crm.cards)DB.crm.cards=[];
@@ -3879,26 +3958,47 @@ function remHistCli(id){
 function renderCrescimento(){
   if(!DB)return;
   var el=document.getElementById('cresc-painel');if(!el)return;
-  if(!DB.meses||(DB.meses&&DB.meses.length)<2){el.innerHTML='<div class="ev"><div class="eicon">📈</div><div class="etitle">Dados insuficientes</div><div class="edesc">Registre ao menos 2 meses em Finanças para ver a evolução.</div></div>';return;}
-  var meses=DB.meses.slice().sort(function(a,b){return (a.mes||'').localeCompare(b.mes||'');});
+  if(!DB.meses_fin)DB.meses_fin={};
+  var keys=Object.keys(DB.meses_fin).filter(function(k){
+    var m=DB.meses_fin[k];
+    return m&&((m.receitas_clientes&&m.receitas_clientes.length)||(m.despesas&&m.despesas.length)||(m.outras_receitas&&m.outras_receitas.length));
+  });
+  if(!keys.length){el.innerHTML='<div class="ev"><div class="eicon">📈</div><div class="etitle">Dados insuficientes</div><div class="edesc">Registre receitas ou despesas em Finanças para ver a evolução.</div></div>';return;}
+  // Sort chronologically (key format: "YYYY-M")
+  keys.sort(function(a,b){
+    var pa=a.split('-').map(Number),pb=b.split('-').map(Number);
+    return (pa[0]-pb[0])||(pa[1]-pb[1]);
+  });
+  var meses=keys.map(function(k){
+    var m=DB.meses_fin[k];
+    var recebido=0,pago=0;
+    (m.receitas_clientes||[]).forEach(function(r){if(r.recebido)recebido+=parseFloat(r.valor||0);});
+    (m.outras_receitas||[]).forEach(function(r){if(r.recebido)recebido+=parseFloat(r.valor||0);});
+    (m.despesas||[]).forEach(function(d){if(d.pago)pago+=parseFloat(d.valor||0);});
+    var parts=k.split('-');var dataRef=new Date(parseInt(parts[0]),parseInt(parts[1])-1,1);
+    var label=dataRef.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+    label=label.charAt(0).toUpperCase()+label.slice(1);
+    return{key:k,mes:label,fat:Math.round(recebido*100)/100,gasto:Math.round(pago*100)/100};
+  });
   var h='';
-  // Summary cards
   var primeiro=meses[0];var ultimo=meses[meses.length-1];
-  var crescFat=primeiro.fat?Math.round(((ultimo.fat-primeiro.fat)/primeiro.fat)*100):0;
+  var crescFat=(primeiro.fat&&meses.length>1)?Math.round(((ultimo.fat-primeiro.fat)/primeiro.fat)*100):null;
   var totalMeses=meses.length;
   var mediaFat=Math.round(meses.reduce(function(a,m){return a+(m.fat||0);},0)/totalMeses);
   var melhorMes=meses.reduce(function(a,m){return (m.fat||0)>(a.fat||0)?m:a;},meses[0]);
+  var ultimoLucro=Math.round((ultimo.fat-ultimo.gasto)*100)/100;
+  var statusTxt=ultimoLucro>0?'Lucro':ultimoLucro<0?'Prejuízo':'Equilíbrio';
+  var statusColor=ultimoLucro>0?'g':ultimoLucro<0?'r':'o';
   h+='<div class="g3" style="margin-bottom:13px">';
-  h+='<div class="sc"><div class="sl">Crescimento total</div><div class="sv '+(crescFat>=0?'g':'r')+'">'+(crescFat>=0?'+':'')+crescFat+'%</div><div class="ss">'+primeiro.mes+' → '+ultimo.mes+'</div></div>';
-  h+='<div class="sc"><div class="sl">Média mensal</div><div class="sv o">R$ '+mediaFat.toLocaleString('pt-BR')+'</div><div class="ss">'+totalMeses+' meses</div></div>';
+  h+='<div class="sc"><div class="sl">'+ultimo.mes+'</div><div class="sv '+statusColor+'">'+statusTxt+'</div><div class="ss">R$ '+Math.abs(ultimoLucro).toLocaleString('pt-BR')+(ultimoLucro<0?' negativo':'')+'</div></div>';
+  h+='<div class="sc"><div class="sl">Crescimento</div><div class="sv '+(crescFat===null?'':(crescFat>=0?'g':'r'))+'">'+(crescFat===null?'—':(crescFat>=0?'+':'')+crescFat+'%')+'</div><div class="ss">'+(meses.length>1?primeiro.mes+' → '+ultimo.mes:'registre mais meses')+'</div></div>';
   h+='<div class="sc"><div class="sl">Melhor mês</div><div class="sv g">'+melhorMes.mes+'</div><div class="ss">R$ '+(melhorMes.fat||0).toLocaleString('pt-BR')+'</div></div>';
   h+='</div>';
-  // Month by month table
-  h+='<div class="card"><div class="cl">Evolução Mês a Mês</div>';
-  var maxFat=Math.max.apply(null,meses.map(function(m){return m.fat||0;}));
+  h+='<div class="card"><div class="cl">Evolução Mês a Mês (recebido real vs. pago real)</div>';
+  var maxFat=Math.max.apply(null,meses.map(function(m){return m.fat||0;}))||1;
   meses.slice().reverse().forEach(function(m,i){
-    var pct=maxFat?Math.round(((m.fat||0)/maxFat)*100):0;
-    var sob=(m.fat||0)-(m.gasto||0);
+    var pct=Math.round(((m.fat||0)/maxFat)*100);
+    var sob=Math.round(((m.fat||0)-(m.gasto||0))*100)/100;
     var prev=meses[meses.length-2-i];
     var diff=prev&&prev.fat?Math.round(((m.fat-prev.fat)/prev.fat)*100):null;
     h+='<div style="padding:10px 0;border-bottom:1px solid var(--border)">';
@@ -3910,10 +4010,177 @@ function renderCrescimento(){
     h+='</div></div>';
     h+='<div class="pt3"><div class="pf o" style="width:'+pct+'%"></div></div>';
     h+='<div style="display:flex;gap:13px;margin-top:4px;font-size:.64rem;color:var(--muted)">';
-    h+='<span>Gasto: R$ '+(m.gasto||0).toLocaleString('pt-BR')+'</span>';
-    h+='<span style="color:'+(sob>=0?'var(--green)':'var(--red)')+'">Sobra: R$ '+sob.toLocaleString('pt-BR')+'</span>';
-    h+='<span>Caixa: R$ '+(m.caixa||0).toLocaleString('pt-BR')+'</span>';
+    h+='<span>Pago: R$ '+(m.gasto||0).toLocaleString('pt-BR')+'</span>';
+    h+='<span style="color:'+(sob>=0?'var(--green)':'var(--red)')+'">'+(sob>=0?'Lucro':'Prejuízo')+': R$ '+Math.abs(sob).toLocaleString('pt-BR')+'</span>';
     h+='</div></div>';
+  });
+  h+='</div>';
+  el.innerHTML=h;
+  calcSaudeFinanceira();
+  renderPrecificacao();
+}
+
+function salvarConfigSaude(){
+  if(!DB.config)DB.config={};
+  DB.config.metaFat=parseBRL(document.getElementById('cfg-meta-fat').value)||0;
+  DB.config.limiteGastoPct=parseBRL(document.getElementById('cfg-limite-gasto').value)||40;
+  saveDB();calcSaudeFinanceira();notif('Configuração salva!');
+}
+
+function calcSaudeFinanceira(){
+  var el=document.getElementById('saude-fin-painel');if(!el||!DB)return;
+  var metaEl=document.getElementById('cfg-meta-fat');var limEl=document.getElementById('cfg-limite-gasto');
+  if(metaEl&&!metaEl.value&&DB.config&&DB.config.metaFat)metaEl.value=DB.config.metaFat;
+  if(limEl&&!limEl.value)limEl.value=(DB.config&&DB.config.limiteGastoPct)||40;
+  var metaFat=(DB.config&&DB.config.metaFat)||0;
+  var limitePct=(DB.config&&DB.config.limiteGastoPct)||40;
+
+  // Mês atual: recebido, gasto, horas trabalhadas
+  var hoje=new Date();var keyAtual=hoje.getFullYear()+'-'+(hoje.getMonth()+1);
+  var mesAtual=DB.meses_fin&&DB.meses_fin[keyAtual];
+  var recebido=0,gasto=0;
+  if(mesAtual){
+    (mesAtual.receitas_clientes||[]).forEach(function(r){if(r.recebido)recebido+=parseFloat(r.valor||0);});
+    (mesAtual.outras_receitas||[]).forEach(function(r){if(r.recebido)recebido+=parseFloat(r.valor||0);});
+    (mesAtual.despesas||[]).forEach(function(d){if(d.pago)gasto+=parseFloat(d.valor||0);});
+  }
+  var horasMin=0;
+  (DB.produtividade&&DB.produtividade.sessoes||[]).forEach(function(s){
+    if(s.data&&s.data.slice(0,7)===(hoje.getFullYear()+'-'+String(hoje.getMonth()+1).padStart(2,'0')))horasMin+=(s.durMin||0);
+  });
+  var horas=Math.round((horasMin/60)*10)/10;
+  var valorHoraReal=horas>0?Math.round((recebido/horas)*100)/100:null;
+  var valorHoraMeta=(horas>0&&metaFat>0)?Math.round((metaFat/horas)*100)/100:null;
+
+  // Média histórica de % gasto
+  var keys=Object.keys(DB.meses_fin||{}).filter(function(k){return DB.meses_fin[k]&&((DB.meses_fin[k].receitas_clientes&&DB.meses_fin[k].receitas_clientes.length)||(DB.meses_fin[k].despesas&&DB.meses_fin[k].despesas.length));});
+  var pcts=[];
+  keys.forEach(function(k){
+    var m=DB.meses_fin[k];var r=0,g=0;
+    (m.receitas_clientes||[]).forEach(function(x){if(x.recebido)r+=parseFloat(x.valor||0);});
+    (m.outras_receitas||[]).forEach(function(x){if(x.recebido)r+=parseFloat(x.valor||0);});
+    (m.despesas||[]).forEach(function(x){if(x.pago)g+=parseFloat(x.valor||0);});
+    if(r>0)pcts.push((g/r)*100);
+  });
+  var mediaPct=pcts.length?Math.round(pcts.reduce(function(a,b){return a+b;},0)/pcts.length):null;
+  var pctAtual=recebido>0?Math.round((gasto/recebido)*100):0;
+  var statusGasto=pctAtual<=limitePct?'ok':pctAtual<=limitePct+15?'atencao':'alto';
+  var corGasto=statusGasto==='ok'?'g':statusGasto==='atencao'?'o':'r';
+  var txtGasto=statusGasto==='ok'?'Dentro do limite':statusGasto==='atencao'?'Atenção — perto do limite':'Acima do limite — reduzir gastos';
+
+  var h='<div class="g3" style="margin-bottom:13px">';
+  h+='<div class="sc"><div class="sl">Valor/Hora Real</div><div class="sv o">'+(valorHoraReal!==null?'R$ '+valorHoraReal.toLocaleString('pt-BR'):'—')+'</div><div class="ss">'+(horas>0?horas+'h registradas este mês':'registre horas em Tempo')+'</div></div>';
+  h+='<div class="sc"><div class="sl">Valor/Hora Meta</div><div class="sv g">'+(valorHoraMeta!==null?'R$ '+valorHoraMeta.toLocaleString('pt-BR'):'—')+'</div><div class="ss">'+(metaFat>0?'com base na sua meta':'defina sua meta acima')+'</div></div>';
+  h+='<div class="sc"><div class="sl">Gastos do Mês</div><div class="sv '+corGasto+'">'+pctAtual+'%</div><div class="ss">do recebido · limite '+limitePct+'%</div></div>';
+  h+='</div>';
+  h+='<div class="card" style="margin-bottom:13px">';
+  h+='<div class="cl">💛 Saúde dos Gastos</div>';
+  h+='<div style="font-size:.8rem;font-weight:600;color:var('+(corGasto==='g'?'--green':corGasto==='o'?'--ouro':'--red')+');margin-bottom:8px">'+txtGasto+'</div>';
+  h+='<div style="font-size:.72rem;color:var(--muted);line-height:1.7">Este mês: R$ '+gasto.toLocaleString('pt-BR')+' de R$ '+recebido.toLocaleString('pt-BR')+' recebido ('+pctAtual+'%)<br>';
+  h+='Sua média histórica: '+(mediaPct!==null?mediaPct+'% do recebido':'ainda sem dados suficientes')+'<br>';
+  h+='Seu limite definido: '+limitePct+'%</div>';
+  h+='</div>';
+  el.innerHTML=h;
+}
+
+function calcSimulador(){
+  var el=document.getElementById('sim-resultado');if(!el)return;
+  var valor=parseBRL(document.getElementById('sim-valor').value)||0;
+  if(valor<=0){el.innerHTML='';return;}
+  var recorrente=document.getElementById('sim-recorrente')&&document.getElementById('sim-recorrente').checked;
+  var limitePct=(DB.config&&DB.config.limiteGastoPct)||40;
+  var hoje=new Date();var keyAtual=hoje.getFullYear()+'-'+(hoje.getMonth()+1);
+  var mesAtual=DB.meses_fin&&DB.meses_fin[keyAtual];
+  var recebido=0,gasto=0;
+  if(mesAtual){
+    (mesAtual.receitas_clientes||[]).forEach(function(r){if(r.recebido)recebido+=parseFloat(r.valor||0);});
+    (mesAtual.outras_receitas||[]).forEach(function(r){if(r.recebido)recebido+=parseFloat(r.valor||0);});
+    (mesAtual.despesas||[]).forEach(function(d){if(d.pago)gasto+=parseFloat(d.valor||0);});
+  }
+  var sobra=recebido-gasto;
+  var pctFat=recebido>0?Math.round((valor/recebido)*100):null;
+  // Horas equivalentes
+  var horasMin=0;(DB.produtividade&&DB.produtividade.sessoes||[]).forEach(function(s){if(s.data&&s.data.slice(0,7)===(hoje.getFullYear()+'-'+String(hoje.getMonth()+1).padStart(2,'0')))horasMin+=(s.durMin||0);});
+  var horas=horasMin/60;var valorHora=(horas>0&&recebido>0)?recebido/horas:null;
+  var horasEquiv=valorHora?Math.round((valor/valorHora)*10)/10:null;
+  // Metas de reservas em dia?
+  var reservasOk=true;var reservasMsg='sem metas definidas';
+  if(DB.caixas){
+    var faltando=[];
+    Object.keys(DB.caixas).forEach(function(k){var c=DB.caixas[k];if(c.meta&&c.valor<c.meta*0.5)faltando.push(k);});
+    reservasOk=faltando.length===0;
+    reservasMsg=reservasOk?'reservas em dia (≥50% das metas)':'reservas abaixo de 50% da meta';
+  }
+  var cabeNaSobra=sobra>=valor;
+  var veredicto,cor,motivo;
+  if(cabeNaSobra&&reservasOk&&(pctFat===null||pctFat<=30)){veredicto='✅ Sim, cabe agora';cor='var(--green)';motivo='A sobra do mês cobre, e suas reservas estão em dia.';}
+  else if(!cabeNaSobra){veredicto='❌ Ainda não';cor='var(--red)';motivo='A sobra deste mês (R$ '+sobra.toLocaleString('pt-BR')+') não cobre esse valor.';}
+  else if(!reservasOk){veredicto='⏳ Espera um pouco';cor='var(--ouro)';motivo='Suas reservas estão abaixo de 50% da meta — priorize elas primeiro.';}
+  else{veredicto='⏳ Avalie com cuidado';cor='var(--ouro)';motivo='Esse valor representa uma fatia grande do seu faturamento ('+pctFat+'%).';}
+  var h='<div style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-top:8px">';
+  h+='<div style="font-family:Cormorant Garamond,serif;font-size:1.15rem;font-weight:600;color:'+cor+';margin-bottom:6px">'+veredicto+'</div>';
+  h+='<div style="font-size:.74rem;color:var(--muted);margin-bottom:8px">'+motivo+'</div>';
+  h+='<div style="font-size:.7rem;color:var(--cafe);line-height:1.8">';
+  if(pctFat!==null)h+='Representa <strong>'+pctFat+'%</strong> do seu recebido este mês<br>';
+  if(horasEquiv!==null)h+='Equivale a <strong>'+horasEquiv+'h</strong> de trabalho (no seu valor/hora atual)<br>';
+  h+='Sobra do mês: <strong>R$ '+sobra.toLocaleString('pt-BR')+'</strong><br>';
+  h+='Reservas: '+reservasMsg;
+  h+='</div></div>';
+  // Cálculo reverso: quanto preciso faturar
+  var fatNecessario;
+  if(recorrente){
+    fatNecessario=(gasto+valor)/(limitePct/100);
+  }else{
+    fatNecessario=valor/(1-limitePct/100);
+  }
+  fatNecessario=Math.round(fatNecessario*100)/100;
+  var faltaFat=Math.round((fatNecessario-recebido)*100)/100;
+  h+='<div style="background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:10px;padding:14px;margin-top:10px">';
+  h+='<div style="font-size:.72rem;color:var(--cafe);font-weight:600;margin-bottom:6px">💡 Quanto eu precisaria estar faturando</div>';
+  h+='<div style="font-family:Cormorant Garamond,serif;font-size:1.3rem;font-weight:600;color:var(--ouro)">R$ '+fatNecessario.toLocaleString('pt-BR')+'</div>';
+  h+='<div style="font-size:.7rem;color:var(--muted);margin-top:4px">'+(recorrente?'por mês, pra essa despesa fixa caber mantendo seu limite de '+limitePct+'% de gastos':'de faturamento pra essa compra caber com folga, mantendo seu padrão de '+limitePct+'% de gastos')+'</div>';
+  if(faltaFat>0)h+='<div style="font-size:.7rem;color:var(--red);margin-top:6px">Faltam <strong>R$ '+faltaFat.toLocaleString('pt-BR')+'</strong> em relação ao que você recebeu este mês</div>';
+  else h+='<div style="font-size:.7rem;color:var(--green);margin-top:6px">Seu faturamento atual já cobre isso ✅</div>';
+  h+='</div>';
+  el.innerHTML=h;
+}
+
+function renderPrecificacao(){
+  var el=document.getElementById('precificacao-painel');if(!el||!DB)return;
+  var metaFat=(DB.config&&DB.config.metaFat)||0;
+  var hoje=new Date();var mesStr=hoje.getFullYear()+'-'+String(hoje.getMonth()+1).padStart(2,'0');
+  var horasPorCliente={};
+  (DB.produtividade&&DB.produtividade.sessoes||[]).forEach(function(s){
+    if(s.data&&s.data.slice(0,7)===mesStr&&s.clienteId){horasPorCliente[s.clienteId]=(horasPorCliente[s.clienteId]||0)+(s.durMin||0);}
+  });
+  var horasMin=0;(DB.produtividade&&DB.produtividade.sessoes||[]).forEach(function(s){if(s.data&&s.data.slice(0,7)===mesStr)horasMin+=(s.durMin||0);});
+  var mesAtual=DB.meses_fin&&DB.meses_fin[hoje.getFullYear()+'-'+(hoje.getMonth()+1)];
+  var recebido=0;
+  if(mesAtual){(mesAtual.receitas_clientes||[]).forEach(function(r){if(r.recebido)recebido+=parseFloat(r.valor||0);});}
+  var horasTotais=horasMin/60;
+  var valorHoraMeta=(horasTotais>0&&metaFat>0)?metaFat/horasTotais:null;
+  var valorHoraReal=(horasTotais>0&&recebido>0)?recebido/horasTotais:null;
+  var ativos=(DB.clientes||[]).filter(function(c){return c.status!=='Encerrado';});
+  var comHoras=ativos.filter(function(c){return horasPorCliente[c.id]>0;});
+  if(!comHoras.length||(!valorHoraMeta&&!valorHoraReal)){
+    el.innerHTML='<div class="card" style="margin-bottom:13px"><div class="cl">📊 Precificação por Cliente</div><div style="font-size:.72rem;color:var(--muted)">Registre horas por cliente em Tempo e defina sua meta de faturamento acima pra ver essa análise.</div></div>';
+    return;
+  }
+  var vRef=valorHoraMeta||valorHoraReal;
+  var h='<div class="card" style="margin-bottom:13px"><div class="cl">📊 Precificação por Cliente</div>';
+  h+='<div style="font-size:.7rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Comparando o que cada cliente paga com o valor sugerido (horas dela × seu valor/hora'+(valorHoraMeta?' meta':' real')+' de R$ '+vRef.toFixed(2)+')</div>';
+  comHoras.forEach(function(c){
+    var h_c=Math.round((horasPorCliente[c.id]/60)*10)/10;
+    var sugerido=Math.round(h_c*vRef*100)/100;
+    var atual=c.val||0;
+    var gap=sugerido>0?Math.round(((atual-sugerido)/sugerido)*100):0;
+    var status=gap>=-10?'ok':gap>=-30?'atencao':'baixo';
+    var cor=status==='ok'?'var(--green)':status==='atencao'?'var(--ouro)':'var(--red)';
+    var txt=status==='ok'?'Preço adequado':status==='atencao'?'Um pouco abaixo do ideal':'Bem abaixo do que deveria cobrar';
+    h+='<div style="padding:10px 0;border-bottom:1px solid var(--border)">';
+    h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><span style="font-size:.8rem;font-weight:600;color:var(--cafe)">'+c.nome+'</span><span style="font-size:.72rem;font-weight:600;color:'+cor+'">'+txt+'</span></div>';
+    h+='<div style="font-size:.68rem;color:var(--muted)">Cobra R$ '+atual.toLocaleString('pt-BR')+' · '+h_c+'h este mês · sugerido: R$ '+sugerido.toLocaleString('pt-BR')+'</div>';
+    h+='</div>';
   });
   h+='</div>';
   el.innerHTML=h;
