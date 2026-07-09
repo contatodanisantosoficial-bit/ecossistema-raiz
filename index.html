@@ -427,7 +427,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <div id="fin-tab-despesas" style="display:none">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
       <div style="font-size:.72rem;color:var(--muted)">Gastos deste mês</div>
-      <button class="bp" onclick="openModal('modal-add-despesa-mes')" style="font-size:.7rem;padding:6px 12px">+ Despesa</button>
+      <button class="bp" onclick="abrirNovaDespesaMes()" style="font-size:.7rem;padding:6px 12px">+ Despesa</button>
     </div>
     <div id="fin-lista-despesas"></div>
   </div>
@@ -436,7 +436,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <div id="fin-tab-outras" style="display:none">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
       <div style="font-size:.72rem;color:var(--muted)">Receitas fora dos clientes</div>
-      <button class="bp" onclick="openModal('modal-add-outra-rec')" style="font-size:.7rem;padding:6px 12px">+ Receita</button>
+      <button class="bp" onclick="abrirNovaOutraReceita()" style="font-size:.7rem;padding:6px 12px">+ Receita</button>
     </div>
     <div id="fin-lista-outras"></div>
   </div>
@@ -568,7 +568,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 
     <div class="page" id="page-estrategia"><div class="ph"><div class="pe">Estratégia</div><div class="pt">O mapa do <em>seu futuro</em></div></div><div class="itabs"><button class="itab active" onclick="showItab('est','trimestre',this)">Metas Trimestrais</button><button class="itab" onclick="showItab('est','estrategias',this)">Estratégias</button><button class="itab" onclick="showItab('est','anual',this)">Visão Anual</button><button class="itab" onclick="showItab('est','pessoal',this)">Metas Pessoais</button><button class="itab" onclick="showItab('est','marcos',this)">Marcos</button></div><div class="itab-pane active" id="est-trimestre" style="display:block"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Metas trimestrais</span><button class="bp" onclick="openModal('modal-add-meta')">+ Nova Meta</button></div><div id="metas-trim"></div></div><div class="itab-pane" id="est-estrategias" style="display:none"><div id="estrategias-content"></div></div><div class="itab-pane" id="est-anual" style="display:none"><div class="card warm"><div class="cl">Visão Anual</div><div class="fi"><label>Onde quero estar em 12 meses</label><textarea id="vis-anual-txt" placeholder="Em dezembro de 2026, meu negócio vai..."></textarea></div><div class="fr"><div class="fi"><label>Meta Faturamento Anual (R$)</label><input type="number" id="vis-fat-anual"></div><div class="fi"><label>Nº de Clientes Alvo</label><input type="number" id="vis-cli-alvo"></div></div><button class="bp" onclick="salvarVisaoAnual()">Salvar Visão</button></div><div class="card" id="vis-anual-saved" style="display:none"><div class="cl">Sua Visão</div><div id="vis-anual-content"></div></div></div><div class="itab-pane" id="est-pessoal" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Objetivos pessoais</span><button class="bp" onclick="openModal('modal-add-meta-p')">+ Novo Objetivo</button></div><div id="metas-pessoais"></div></div><div class="itab-pane" id="est-marcos" style="display:none"><div class="card"><div class="cl">Marcos Conquistados</div><div id="marcos-list"></div></div></div></div>
   <div class="page" id="page-investir"><div class="ph"><div class="pe">Análise de Investimentos</div><div class="pt">Antes de <em>gastar</em>, entender</div></div><div style="display:flex;justify-content:flex-end;margin-bottom:13px"><button class="bp" onclick="openModal('modal-add-inv')">+ Analisar Investimento</button></div><div id="lista-inv"></div></div>
-  <div class="page" id="page-reservas"><div class="ph"><div class="pe">Reservas e Investimentos</div><div class="pt">Seu dinheiro <em>trabalhando por você</em></div></div><div id="reservas-edu" class="card warm" style="margin-bottom:13px"><div class="cl">Educação Financeira</div><div id="edu-content"></div></div><div class="g3" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Investido</div><div class="sv o" id="res-total">—</div></div><div class="sc"><div class="sl">Rentabilidade Média</div><div class="sv g" id="res-rent">—</div></div><div class="sc"><div class="sl">Rendimento Mensal Est.</div><div class="sv g" id="res-rend">—</div></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Meus Caixas e Reservas</div><div id="caixas-grid"></div><div style="margin-top:12px;display:flex;justify-content:flex-end"><button class="bp" onclick="openModal('modal-edit-caixas')">Atualizar Valores</button></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Aporte Mensal</div><div style="font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Registre quanto você vai depositar este mês. O valor é somado ao saldo de cada objetivo, dividido pelo percentual que você definir.</div><div class="fr"><div class="fi"><label>Valor disponível para aportar (R$)</label><input type="text" inputmode="decimal" id="ap-valor" oninput="calcAportePreview()"></div><div class="fi"><label>&nbsp;</label><button class="bg" style="width:100%" onclick="openModal('modal-aporte-config')">⚙️ Definir % por objetivo</button></div></div><div id="ap-preview" style="display:none;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;margin-bottom:12px"><div id="ap-preview-list"></div></div><div style="display:flex;justify-content:flex-end"><button class="bp" onclick="registrarAporte()">Registrar Aporte</button></div><div id="ap-historico" style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px"></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="cl" style="margin-bottom:0">Minhas Aplicações</div><button class="bp" onclick="openModal('modal-add-reserva')">+ Adicionar</button></div><div id="lista-reservas"></div></div><div class="card"><div class="cl">Distribuição das Reservas</div><div id="reservas-dist"></div></div><div id="risco-painel" class="card" style="margin-bottom:13px"></div>
+  <div class="page" id="page-reservas"><div class="ph"><div class="pe">Reservas e Investimentos</div><div class="pt">Seu dinheiro <em>trabalhando por você</em></div></div><div id="reservas-edu" class="card warm" style="margin-bottom:13px"><div class="cl">Educação Financeira</div><div id="edu-content"></div></div><div class="g3" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Investido</div><div class="sv o" id="res-total">—</div></div><div class="sc"><div class="sl">Rentabilidade Média</div><div class="sv g" id="res-rent">—</div></div><div class="sc"><div class="sl">Rendimento Mensal Est.</div><div class="sv g" id="res-rend">—</div></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Meus Caixas e Reservas</div><div id="caixas-grid"></div><div style="margin-top:12px;display:flex;justify-content:flex-end"><button class="bp" onclick="openModal('modal-edit-caixas')">Atualizar Valores</button></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Aporte Mensal</div><div style="font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Registre quanto você vai depositar este mês. O valor é somado ao saldo de cada objetivo, dividido pelo percentual que você definir.</div><div class="fr"><div class="fi"><label>Valor disponível para aportar (R$)</label><input type="text" inputmode="decimal" id="ap-valor" oninput="calcAportePreview()"></div><div class="fi"><label>&nbsp;</label><button class="bg" style="width:100%" onclick="openModal('modal-aporte-config')">⚙️ Definir % por objetivo</button></div></div><div id="ap-preview" style="display:none;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;margin-bottom:12px"><div id="ap-preview-list"></div></div><div style="display:flex;justify-content:flex-end"><button class="bp" onclick="registrarAporte()">Registrar Aporte</button></div><div id="ap-historico" style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px"></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="cl" style="margin-bottom:0">Minhas Aplicações</div><button class="bp" onclick="abrirNovaReserva()">+ Adicionar</button></div><div id="lista-reservas"></div></div><div class="card"><div class="cl">Distribuição das Reservas</div><div id="reservas-dist"></div></div><div id="risco-painel" class="card" style="margin-bottom:13px"></div>
 <div class="card" style="margin-top:13px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
         <div><div class="cl" style="margin-bottom:2px;">Evolução Mensal</div>
@@ -1064,7 +1064,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <div id="apc-soma-aviso" style="font-size:.68rem;color:var(--red);display:none;margin-bottom:8px">A soma dos percentuais precisa ser 100%. Ajuste antes de salvar.</div>
   <div class="ma"><button class="bg" onclick="closeModal('modal-aporte-config')">Cancelar</button><button class="bp" onclick="salvarAporteConfig()">Salvar</button></div>
 </div></div>
-<div class="mo" id="modal-add-reserva"><div class="md"><div class="mt" id="mres-title">Adicionar Aplicação</div><input type="hidden" id="res-edit-id"><div class="fi"><label>Nome / Descrição</label><input type="text" id="res-desc"></div><div class="fi"><label>Banco / Instituição</label><input type="text" id="res-inst"></div><div class="fi"><label>Tipo de Investimento</label><select id="res-tipo" onchange="atualizarDicaTipo()"><option value="CDB">CDB</option><option value="Poupança">Poupança</option><option value="Tesouro Direto">Tesouro Direto</option><option value="LCI/LCA">LCI / LCA</option><option value="Fundo de Investimento">Fundo de Investimento</option><option value="Ações">Ações</option><option value="Criptomoedas">Criptomoedas</option><option value="Renda Fixa">Renda Fixa</option><option value="Outro">Outro</option></select></div><div id="dica-tipo-modal" style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;font-size:.72rem;line-height:1.55;margin-bottom:10px;display:none"></div><div class="fr"><div class="fi"><label>Valor Atual (R$)</label><input type="text" inputmode="decimal" id="res-val" oninput="calcRentModal()"></div><div class="fi"><label>Rentabilidade (% ao mês) *</label><input type="text" inputmode="decimal" id="res-rent-input" oninput="calcRentModal()" placeholder="ex: 0,85"></div></div><div id="rent-preview" style="display:none;background:var(--green-dim);border:1px solid var(--green-b);border-radius:8px;padding:10px;margin-bottom:10px"><div class="g3"><div><div style="font-size:.58rem;color:var(--muted)">Rende/mês</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-mes">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rende/ano</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-ano">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rent. anual</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-pct">—</div></div></div></div><div class="fr"><div class="fi"><label>Objetivo</label><select id="res-obj"><option value="Emergência">Reserva de Emergência</option><option value="Reserva PF">Reserva Pessoal</option><option value="Caixa Empresa">Caixa da Empresa</option><option value="Crescimento">Crescimento</option><option value="Aposentadoria">Aposentadoria</option><option value="Sonho">Sonho</option><option value="Livre">Livre</option></select></div><div class="fi"><label>Liquidez</label><select id="res-liq"><option value="Diária">Diária</option><option value="Mensal">Mensal</option><option value="No vencimento">No vencimento</option><option value="Longo prazo">Longo prazo</option></select></div></div><div class="fi"><label>Notas</label><input type="text" id="res-nota"></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-reserva')">Cancelar</button><button class="bp" onclick="salvarReserva()">Salvar</button></div></div></div>
+<div class="mo" id="modal-add-reserva"><div class="md"><div class="mt" id="mres-title">Adicionar Aplicação</div><input type="hidden" id="res-edit-id"><div class="fi"><label>Nome / Descrição</label><input type="text" id="res-desc"></div><div class="fi"><label>Banco / Instituição</label><input type="text" id="res-inst"></div><div class="fi"><label>Tipo de Investimento</label><select id="res-tipo" onchange="atualizarDicaTipo()"><option value="CDB">CDB</option><option value="Poupança">Poupança</option><option value="Tesouro Direto">Tesouro Direto</option><option value="LCI/LCA">LCI / LCA</option><option value="Fundo de Investimento">Fundo de Investimento</option><option value="Ações">Ações</option><option value="Criptomoedas">Criptomoedas</option><option value="Renda Fixa">Renda Fixa</option><option value="Outro">Outro</option></select></div><div id="dica-tipo-modal" style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;font-size:.72rem;line-height:1.55;margin-bottom:10px;display:none"></div><div class="fr"><div class="fi"><label>Valor Atual (R$)</label><input type="text" inputmode="decimal" id="res-val" oninput="calcRentModal()"></div><div class="fi"><label>Rentabilidade (% ao mês) *</label><input type="text" inputmode="decimal" id="res-rent-input" oninput="calcRentModal()" placeholder="ex: 0,85"></div></div><div class="fi" id="res-aporte-wrap" style="display:none"><label>Aporte deste mês (R$) — será somado ao Valor Atual acima</label><input type="text" inputmode="decimal" id="res-aporte" placeholder="ex: 200"></div><div id="rent-preview" style="display:none;background:var(--green-dim);border:1px solid var(--green-b);border-radius:8px;padding:10px;margin-bottom:10px"><div class="g3"><div><div style="font-size:.58rem;color:var(--muted)">Rende/mês</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-mes">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rende/ano</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-ano">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rent. anual</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-pct">—</div></div></div></div><div class="fr"><div class="fi"><label>Objetivo</label><select id="res-obj"><option value="Emergência">Reserva de Emergência</option><option value="Reserva PF">Reserva Pessoal</option><option value="Caixa Empresa">Caixa da Empresa</option><option value="Crescimento">Crescimento</option><option value="Aposentadoria">Aposentadoria</option><option value="Sonho">Sonho</option><option value="Livre">Livre</option></select></div><div class="fi"><label>Liquidez</label><select id="res-liq"><option value="Diária">Diária</option><option value="Mensal">Mensal</option><option value="No vencimento">No vencimento</option><option value="Longo prazo">Longo prazo</option></select></div></div><div class="fi"><label>Notas</label><input type="text" id="res-nota"></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-reserva')">Cancelar</button><button class="bp" onclick="salvarReserva()">Salvar</button></div></div></div>
 <div class="mo" id="modal-add-projeto"><div class="md">
   <div class="mt" id="mproj-title">Novo Projeto / Comissão</div>
   <input type="hidden" id="proj-edit-id">
@@ -1267,7 +1267,7 @@ function getStage(score){
 function getAlerts(){
   if(!DB)return[];
   var today=new Date();today.setHours(0,0,0,0);
-  var dias=parseInt(DB.config.dias)||3;var al=[];
+  var dias=parseInt(DB.config&&DB.config.dias)||3;var al=[];
   for(var gi=0;gi<(DB.clientes&&DB.clientes.length);gi++){
     var gc=DB.clientes[gi];
     if(gc.status==='Encerrado'||!gc.dia)continue;
@@ -1276,14 +1276,14 @@ function getAlerts(){
     var gd=parseInt(gc.dia);var gv=new Date(today.getFullYear(),today.getMonth(),gd);
     if(gv<today)gv.setMonth(gv.getMonth()+1);
     var gdiff=Math.round((gv-today)/86400000);
-    if(gdiff<=dias)al.push({nome:gc.nome,val:gc.val,diff:gdiff,meio:gc.meio});
+    if(gdiff<=dias)al.push({nome:gc.nome,val:gc.val||0,diff:gdiff,meio:gc.meio});
   }
   for(var ci=0;ci<(DB.contas&&DB.contas.length);ci++){
     var cc=DB.contas[ci];if(!cc.dia)continue;
     var cd=parseInt(cc.dia);var cv=new Date(today.getFullYear(),today.getMonth(),cd);
     if(cv<today)cv.setMonth(cv.getMonth()+1);
     var cdiff=Math.round((cv-today)/86400000);
-    if(cdiff<=dias)al.push({nome:cc.desc,val:cc.val,diff:cdiff,meio:cc.tipo,conta:true});
+    if(cdiff<=dias)al.push({nome:cc.desc,val:cc.val||0,diff:cdiff,meio:cc.tipo,conta:true});
   }
   var keyAtualCF=today.getFullYear()+'-'+(today.getMonth()+1);
   var mesAtualCF=DB.meses_fin&&DB.meses_fin[keyAtualCF];
@@ -1293,7 +1293,7 @@ function getAlerts(){
       var fdDia=parseInt(fd.dia);var fv=new Date(today.getFullYear(),today.getMonth(),fdDia);
       if(fv<today)fv.setMonth(fv.getMonth()+1);
       var fdiff=Math.round((fv-today)/86400000);
-      if(fdiff<=dias)al.push({nome:fd.desc,val:fd.valor,diff:fdiff,meio:fd.tipo,conta:true});
+      if(fdiff<=dias)al.push({nome:fd.desc,val:fd.valor||0,diff:fdiff,meio:fd.tipo,conta:true});
     }
   }
   return al;
@@ -1322,7 +1322,7 @@ function renderHome(){
     for(var ai=0;ai<al.length;ai++){
       var a=al[ai];var cls=a.diff===0?'urg':a.diff<=2?'sn':'ok';
       var msg=a.diff===0?'HOJE':a.diff<0?'Vencido há '+(-a.diff)+'d':'Em '+a.diff+'d';
-      pHTML+='<div class="pa '+cls+'">'+(cls==='urg'?'🔴':cls==='sn'?'🟡':'🟢')+' <strong>'+a.nome+'</strong> — R$ '+a.val.toLocaleString('pt-BR')+' · '+msg+(a.meio?' · '+a.meio:'')+'</div>';
+      pHTML+='<div class="pa '+cls+'">'+(cls==='urg'?'🔴':cls==='sn'?'🟡':'🟢')+' <strong>'+a.nome+'</strong> — R$ '+(a.val||0).toLocaleString('pt-BR')+' · '+msg+(a.meio?' · '+a.meio:'')+'</div>';
     }
     paysEl.innerHTML=pHTML;
   }else{paysEl.innerHTML='<div style="font-size:.74rem;color:var(--muted)">Tudo em dia.</div>';}
@@ -1369,7 +1369,7 @@ function renderHome(){
   var cliComDia=0;for(var ci2=0;ci2<ativos.length;ci2++)if(ativos[ci2].dia)cliComDia++;
   document.getElementById('hrecebido-sub').textContent=nRec+' de '+cliComDia+' confirmados este mês';
   if(ul){var sob=Math.round(((ul.fat||0)-(ul.gasto||0))*100)/100;var sobEl=document.getElementById('hsobra');sobEl.textContent='R$ '+Math.abs(sob).toLocaleString('pt-BR')+(sob<0?' (negativo)':'');sobEl.className='sv '+(sob>=0?'g':'r');}
-  var caixa=ul?ul.caixa:0;var metaCaixa=DB.config.metaCaixa||0;
+  var caixa=ul?ul.caixa:0;var metaCaixa=(DB.config&&DB.config.metaCaixa)||0;
   var cp=caixa&&metaCaixa?Math.min(Math.round((caixa/metaCaixa)*100),100):0;
   document.getElementById('hcaixa').textContent=caixa?'R$ '+caixa.toLocaleString('pt-BR'):'—';
   document.getElementById('hcaixa-sub').textContent=caixa&&metaCaixa?cp+'% da meta':'registre um mês em Finanças';
@@ -1394,9 +1394,9 @@ function renderHome(){
   }else{pilEl.innerHTML='<div style="font-size:.74rem;color:var(--muted);padding:8px 0">Avalie cada pilar na aba Processos para ver aqui.</div>';}
   var recListEl=document.getElementById('home-rec-list');var recHTML='';
   for(var ri=0;ri<ativos.length;ri++){var rc=ativos[ri];if(!rc.dia)continue;var rbaixa=getBaixaInfo('rec',rc.id);
-    recHTML+='<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="font-size:.78rem;color:'+(rbaixa?'var(--muted)':'var(--cafe)')+'">'+rc.nome+(rbaixa?' <span class="bdg g" style="font-size:.5rem">ok</span>':'')+'</div><div style="font-size:.78rem;font-weight:600;color:'+(rbaixa?'var(--green)':'var(--ouro)')+'">R$ '+rc.val.toLocaleString('pt-BR')+'</div></div>';
+    recHTML+='<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="font-size:.78rem;color:'+(rbaixa?'var(--muted)':'var(--cafe)')+'">'+rc.nome+(rbaixa?' <span class="bdg g" style="font-size:.5rem">ok</span>':'')+'</div><div style="font-size:.78rem;font-weight:600;color:'+(rbaixa?'var(--green)':'var(--ouro)')+'">R$ '+(rc.val||0).toLocaleString('pt-BR')+'</div></div>';
   }
-  for(var oi2=0;oi2<OR.length;oi2++){var orec=OR[oi2];recHTML+='<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="font-size:.78rem;color:var(--cafe)">'+orec.desc+' <span class="bdg g" style="font-size:.5rem">extra</span></div><div style="font-size:.78rem;font-weight:600;color:var(--green)">R$ '+orec.val.toLocaleString('pt-BR')+'</div></div>';}
+  for(var oi2=0;oi2<OR.length;oi2++){var orec=OR[oi2];recHTML+='<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="font-size:.78rem;color:var(--cafe)">'+orec.desc+' <span class="bdg g" style="font-size:.5rem">extra</span></div><div style="font-size:.78rem;font-weight:600;color:var(--green)">R$ '+(orec.val||0).toLocaleString('pt-BR')+'</div></div>';}
   if(recHTML){recHTML+='<div style="display:flex;justify-content:space-between;padding:8px 0"><span style="font-size:.7rem;color:var(--muted)">Total</span><span style="font-size:.82rem;font-weight:700;color:var(--ouro)">R$ '+fatTotal.toLocaleString('pt-BR')+'</span></div>';recListEl.innerHTML=recHTML;}
   else{recListEl.innerHTML='<div class="ev"><div class="eicon">💛</div><div class="edesc">Cadastre clientes com dia de vencimento.</div></div>';}
   var despEl=document.getElementById('home-desp-list');var despHTML='';var totalDesp=0;
@@ -1408,8 +1408,8 @@ function renderHome(){
       despHTML+='<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="font-size:.78rem;color:'+(dc.pago?'var(--muted)':'var(--cafe)')+'">'+dc.desc+(dc.pago?' <span class="bdg g" style="font-size:.5rem">ok</span>':'')+'</div><div style="font-size:.78rem;font-weight:600;color:'+(dc.pago?'var(--muted)':'var(--red)')+'">R$ '+v.toLocaleString('pt-BR')+'</div></div>';
     });
   } else {
-    for(var di=0;di<(DB.contas&&DB.contas.length);di++){var dc=DB.contas[di];totalDesp=Math.round((totalDesp+dc.val)*100)/100;var dbaixa=getBaixaInfo('pag',dc.id);
-      despHTML+='<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="font-size:.78rem;color:'+(dbaixa?'var(--muted)':'var(--cafe)')+'">'+dc.desc+(dbaixa?' <span class="bdg g" style="font-size:.5rem">ok</span>':'')+'</div><div style="font-size:.78rem;font-weight:600;color:'+(dbaixa?'var(--muted)':'var(--red)')+'">R$ '+dc.val.toLocaleString('pt-BR')+'</div></div>';
+    for(var di=0;di<(DB.contas&&DB.contas.length);di++){var dc=DB.contas[di];totalDesp=Math.round((totalDesp+(dc.val||0))*100)/100;var dbaixa=getBaixaInfo('pag',dc.id);
+      despHTML+='<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="font-size:.78rem;color:'+(dbaixa?'var(--muted)':'var(--cafe)')+'">'+dc.desc+(dbaixa?' <span class="bdg g" style="font-size:.5rem">ok</span>':'')+'</div><div style="font-size:.78rem;font-weight:600;color:'+(dbaixa?'var(--muted)':'var(--red)')+'">R$ '+(dc.val||0).toLocaleString('pt-BR')+'</div></div>';
     }
   }
   if(despHTML){despHTML+='<div style="display:flex;justify-content:space-between;padding:8px 0"><span style="font-size:.7rem;color:var(--muted)">Total</span><span style="font-size:.82rem;font-weight:700;color:var(--red)">R$ '+totalDesp.toLocaleString('pt-BR')+'</span></div>';despEl.innerHTML=despHTML;}
@@ -2324,11 +2324,30 @@ function salvarReserva(){
   if(rentRaw===''||rentRaw===null||rentRaw===undefined){notif('Informe a rentabilidade (% ao mês) da aplicação. Se ela realmente rende 0%, digite 0.');return;}
   if(!DB.reservas)DB.reservas=[];
   var eid=document.getElementById('res-edit-id').value;
-  var obj={id:eid||uid(),desc:desc,val:Math.round((parseBRL(document.getElementById('res-val').value)||0)*100)/100,rent:parseBRL(rentRaw)||0,tipo:document.getElementById('res-tipo').value,obj:document.getElementById('res-obj').value,liq:document.getElementById('res-liq').value,inst:document.getElementById('res-inst').value,nota:document.getElementById('res-nota').value};
-  if(eid){var idx=DB.reservas.findIndex(function(r){return r.id===eid;});if(idx>=0)DB.reservas[idx]=obj;else DB.reservas.push(obj);}else DB.reservas.push(obj);
+  var aporteEl=document.getElementById('res-aporte');
+  var aporte=aporteEl?(parseBRL(aporteEl.value)||0):0;
+  var valBase=parseBRL(document.getElementById('res-val').value)||0;
+  var valFinal=Math.round((valBase+aporte)*100)/100;
+  var obj={id:eid||uid(),desc:desc,val:valFinal,rent:parseBRL(rentRaw)||0,tipo:document.getElementById('res-tipo').value,obj:document.getElementById('res-obj').value,liq:document.getElementById('res-liq').value,inst:document.getElementById('res-inst').value,nota:document.getElementById('res-nota').value};
+  if(eid){
+    var idx=DB.reservas.findIndex(function(r){return r.id===eid;});
+    if(idx>=0){
+      // preserva histórico de aportes já registrados na aplicação
+      obj.aportes=DB.reservas[idx].aportes||[];
+      if(aporte>0)obj.aportes.push({data:new Date().toISOString().slice(0,10),valor:aporte});
+      DB.reservas[idx]=obj;
+    } else {
+      DB.reservas.push(obj);
+    }
+  } else {
+    DB.reservas.push(obj);
+  }
   saveDB();['res-desc','res-val','res-rent-input','res-inst','res-nota'].forEach(function(id){document.getElementById(id).value='';});
+  if(aporteEl)aporteEl.value='';
+  var apWrap=document.getElementById('res-aporte-wrap');if(apWrap)apWrap.style.display='none';
   document.getElementById('res-edit-id').value='';
-  closeModal('modal-add-reserva');renderReservas();notif('Aplicação salva!');
+  closeModal('modal-add-reserva');renderReservas();
+  notif(aporte>0?('Aporte de R$ '+aporte.toLocaleString('pt-BR')+' registrado! Total agora: R$ '+valFinal.toLocaleString('pt-BR')):'Aplicação salva!');
 }
 function editarReserva(id){
   if(!DB.reservas)return;var r=DB.reservas.find(function(x){return x.id===id;});if(!r)return;
@@ -2338,6 +2357,16 @@ function editarReserva(id){
   document.getElementById('res-rent-input').value=r.rent||'';document.getElementById('res-tipo').value=r.tipo||'CDB';
   document.getElementById('res-obj').value=r.obj||'Emergência';document.getElementById('res-liq').value=r.liq||'Diária';
   document.getElementById('res-inst').value=r.inst||'';document.getElementById('res-nota').value=r.nota||'';
+  var apWrap=document.getElementById('res-aporte-wrap');if(apWrap)apWrap.style.display='';
+  var apEl=document.getElementById('res-aporte');if(apEl)apEl.value='';
+  openModal('modal-add-reserva');
+}
+function abrirNovaReserva(){
+  document.getElementById('mres-title').textContent='Adicionar Aplicação';
+  document.getElementById('res-edit-id').value='';
+  ['res-desc','res-val','res-rent-input','res-inst','res-nota'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  var apWrap=document.getElementById('res-aporte-wrap');if(apWrap)apWrap.style.display='none';
+  var apEl=document.getElementById('res-aporte');if(apEl)apEl.value='';
   openModal('modal-add-reserva');
 }
 function remReserva(id){if(!confirm('Remover aplicação?'))return;DB.reservas=DB.reservas.filter(function(r){return r.id!==id;});saveDB();renderReservas();notif('Aplicação removida.');}
@@ -4617,6 +4646,14 @@ function remDespesaMes(id, key){
   notif('Despesa removida.');
 }
 
+function abrirNovaDespesaMes(){
+  window._editingDespesaId=null;
+  window._editingDespesaKey=null;
+  ['dm-desc','dm-valor','dm-dia','dm-media'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  var pagoEl=document.getElementById('dm-pago');if(pagoEl)pagoEl.checked=false;
+  var mt=document.querySelector('#modal-add-despesa-mes .mt');if(mt)mt.textContent='Nova Despesa';
+  openModal('modal-add-despesa-mes');
+}
 function salvarDespesaMes(){
   var desc=document.getElementById('dm-desc').value.trim();
   if(!desc){notif('Informe a descrição.');return;}
@@ -4645,20 +4682,41 @@ function salvarDespesaMes(){
 
   var key=finMesKey(_finMesIdx);
   var mes=getOrCreateMesFin(key);
-  mes.despesas.push({
-    id:uid(),desc:desc,valor:valor,cat:cat,tipo:tipo,
-    natureza:natureza,variavel:natureza==='variavel',
-    media:media,dia:dia,pago:pago,
-    dataPago:pago?new Date().toISOString().slice(0,10):null,
-    contaFixaId:natureza!=='unica'?'manual':null
-  });
+  var editId=window._editingDespesaId;
+  var editKey=window._editingDespesaKey;
+  if(editId){
+    // MODO EDIÇÃO: localiza a despesa existente (no mês em que ela foi criada) e atualiza no lugar
+    var mesAlvo=(editKey&&DB.meses_fin&&DB.meses_fin[editKey])?DB.meses_fin[editKey]:mes;
+    var idx=mesAlvo.despesas.findIndex(function(x){return x.id===editId;});
+    if(idx>=0){
+      var antiga=mesAlvo.despesas[idx];
+      mesAlvo.despesas[idx]={
+        id:editId,desc:desc,valor:valor,cat:cat,tipo:tipo,
+        natureza:natureza,variavel:natureza==='variavel',
+        media:media,dia:dia,pago:antiga.pago,
+        dataPago:antiga.dataPago,
+        contaFixaId:antiga.contaFixaId
+      };
+    }
+  } else {
+    // MODO CRIAÇÃO: adiciona uma despesa nova
+    mes.despesas.push({
+      id:uid(),desc:desc,valor:valor,cat:cat,tipo:tipo,
+      natureza:natureza,variavel:natureza==='variavel',
+      media:media,dia:dia,pago:pago,
+      dataPago:pago?new Date().toISOString().slice(0,10):null,
+      contaFixaId:natureza!=='unica'?'manual':null
+    });
+  }
   saveDB();
   ['dm-desc','dm-valor','dm-dia','dm-media'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
   var pagoEl=document.getElementById('dm-pago');if(pagoEl)pagoEl.checked=false;
+  window._editingDespesaId=null;
+  window._editingDespesaKey=null;
   closeModal('modal-add-despesa-mes');
   renderFinanceiro();
-  var msgs={fixa:'Despesa fixa adicionada — vai aparecer todo mês automaticamente 🔄',variavel:'Despesa variável adicionada — media registrada 📊',unica:'Despesa única adicionada!'};
-  notif(msgs[natureza]||'Adicionada!');
+  if(editId){notif('Despesa atualizada! ✅');}
+  else{var msgs={fixa:'Despesa fixa adicionada — vai aparecer todo mês automaticamente 🔄',variavel:'Despesa variável adicionada — media registrada 📊',unica:'Despesa única adicionada!'};notif(msgs[natureza]||'Adicionada!');}
 }
 
 function renderFinOutras(mes, key){
@@ -4689,6 +4747,14 @@ function renderFinOutras(mes, key){
   el.innerHTML = h;
 }
 
+function abrirNovaOutraReceita(){
+  window._editingOutraId=null;
+  window._editingOutraKey=null;
+  ['or-desc','or-valor'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  var recEl=document.getElementById('or-recebido');if(recEl)recEl.checked=false;
+  var mt=document.querySelector('#modal-add-outra-rec .mt');if(mt)mt.textContent='Nova Receita';
+  openModal('modal-add-outra-rec');
+}
 function salvarOutraReceita(){
   var desc = document.getElementById('or-desc').value.trim();
   if(!desc){ notif('Informe a descrição.'); return; }
@@ -4696,20 +4762,40 @@ function salvarOutraReceita(){
   if(!valor){ notif('Informe o valor.'); return; }
   var key = finMesKey(_finMesIdx);
   var mes = getOrCreateMesFin(key);
-  mes.outras_receitas.push({
-    id: uid(),
-    desc: desc,
-    valor: valor,
-    tipo: document.getElementById('or-tipo').value,
-    recebido: document.getElementById('or-recebido').checked,
-    dataRecebido: document.getElementById('or-recebido').checked ? new Date().toISOString().slice(0,10) : null
-  });
+  var editId = window._editingOutraId;
+  var editKey = window._editingOutraKey;
+  if(editId){
+    var mesAlvo=(editKey&&DB.meses_fin&&DB.meses_fin[editKey])?DB.meses_fin[editKey]:mes;
+    var idx=mesAlvo.outras_receitas.findIndex(function(x){return x.id===editId;});
+    if(idx>=0){
+      var antiga=mesAlvo.outras_receitas[idx];
+      mesAlvo.outras_receitas[idx]={
+        id: editId,
+        desc: desc,
+        valor: valor,
+        tipo: document.getElementById('or-tipo').value,
+        recebido: antiga.recebido,
+        dataRecebido: antiga.dataRecebido
+      };
+    }
+  } else {
+    mes.outras_receitas.push({
+      id: uid(),
+      desc: desc,
+      valor: valor,
+      tipo: document.getElementById('or-tipo').value,
+      recebido: document.getElementById('or-recebido').checked,
+      dataRecebido: document.getElementById('or-recebido').checked ? new Date().toISOString().slice(0,10) : null
+    });
+  }
   saveDB();
   ['or-desc','or-valor'].forEach(function(id){ document.getElementById(id).value=''; });
   document.getElementById('or-recebido').checked = false;
+  window._editingOutraId=null;
+  window._editingOutraKey=null;
   closeModal('modal-add-outra-rec');
   renderFinanceiro();
-  notif('Receita adicionada!');
+  notif(editId?'Receita atualizada! ✅':'Receita adicionada!');
 }
 
 function receberOutra(id,key){
@@ -5292,7 +5378,7 @@ function editarInvestimento(id){
     <input type="checkbox" id="dm-pago"> Já pago este mês
   </label></div>
   <div class="ma">
-    <button class="bg" onclick="closeModal('modal-add-despesa-mes')">Cancelar</button>
+    <button class="bg" onclick="window._editingDespesaId=null;window._editingDespesaKey=null;closeModal('modal-add-despesa-mes')">Cancelar</button>
     <button class="bp" onclick="salvarDespesaMes()">Adicionar</button>
   </div>
 </div></div>
@@ -5312,7 +5398,7 @@ function editarInvestimento(id){
     </select>
   </div>
   <div class="fi"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="or-recebido"> Já recebido</label></div>
-  <div class="ma"><button class="bg" onclick="closeModal('modal-add-outra-rec')">Cancelar</button><button class="bp" onclick="salvarOutraReceita()">Adicionar</button></div>
+  <div class="ma"><button class="bg" onclick="window._editingOutraId=null;window._editingOutraKey=null;closeModal('modal-add-outra-rec')">Cancelar</button><button class="bp" onclick="salvarOutraReceita()">Adicionar</button></div>
 </div></div>
 
 <div class="mo" id="modal-add-conta-fixa"><div class="md">
