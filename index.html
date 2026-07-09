@@ -404,6 +404,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <div class="g4" style="margin-bottom:13px">
     <div class="sc"><div class="sl">💰 Entrou</div><div class="sv g" id="fin-total-entrou">R$ —</div></div>
     <div class="sc"><div class="sl">💸 Saiu</div><div class="sv r" id="fin-total-saiu">R$ —</div></div>
+    <div class="sc"><div class="sl">📦 Investido</div><div class="sv" id="fin-total-investido" style="color:var(--nude)">R$ —</div></div>
     <div class="sc"><div class="sl">📊 Saldo</div><div class="sv n" id="fin-saldo">R$ —</div></div>
     <div class="sc"><div class="sl">🏦 Caixa PJ</div><div class="sv o" id="fin-caixa-pj">R$ —</div></div>
   </div>
@@ -1064,7 +1065,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <div id="apc-soma-aviso" style="font-size:.68rem;color:var(--red);display:none;margin-bottom:8px">A soma dos percentuais precisa ser 100%. Ajuste antes de salvar.</div>
   <div class="ma"><button class="bg" onclick="closeModal('modal-aporte-config')">Cancelar</button><button class="bp" onclick="salvarAporteConfig()">Salvar</button></div>
 </div></div>
-<div class="mo" id="modal-add-reserva"><div class="md"><div class="mt" id="mres-title">Adicionar Aplicação</div><input type="hidden" id="res-edit-id"><div class="fi"><label>Nome / Descrição</label><input type="text" id="res-desc"></div><div class="fi"><label>Banco / Instituição</label><input type="text" id="res-inst"></div><div class="fi"><label>Tipo de Investimento</label><select id="res-tipo" onchange="atualizarDicaTipo()"><option value="CDB">CDB</option><option value="Poupança">Poupança</option><option value="Tesouro Direto">Tesouro Direto</option><option value="LCI/LCA">LCI / LCA</option><option value="Fundo de Investimento">Fundo de Investimento</option><option value="Ações">Ações</option><option value="Criptomoedas">Criptomoedas</option><option value="Renda Fixa">Renda Fixa</option><option value="Outro">Outro</option></select></div><div id="dica-tipo-modal" style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;font-size:.72rem;line-height:1.55;margin-bottom:10px;display:none"></div><div class="fr"><div class="fi"><label>Valor Atual (R$)</label><input type="text" inputmode="decimal" id="res-val" oninput="calcRentModal()"></div><div class="fi"><label>Rentabilidade (% ao mês) *</label><input type="text" inputmode="decimal" id="res-rent-input" oninput="calcRentModal()" placeholder="ex: 0,85"></div></div><div class="fi" id="res-aporte-wrap" style="display:none"><label>Aporte deste mês (R$) — soma ao Valor Atual e é lançado como despesa paga no mês, abatendo do Saldo do faturamento (em Finanças)</label><input type="text" inputmode="decimal" id="res-aporte" placeholder="ex: 200"></div><div id="rent-preview" style="display:none;background:var(--green-dim);border:1px solid var(--green-b);border-radius:8px;padding:10px;margin-bottom:10px"><div class="g3"><div><div style="font-size:.58rem;color:var(--muted)">Rende/mês</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-mes">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rende/ano</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-ano">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rent. anual</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-pct">—</div></div></div></div><div class="fr"><div class="fi"><label>Objetivo</label><select id="res-obj"><option value="Emergência">Reserva de Emergência</option><option value="Reserva PF">Reserva Pessoal</option><option value="Caixa Empresa">Caixa da Empresa</option><option value="Crescimento">Crescimento</option><option value="Aposentadoria">Aposentadoria</option><option value="Sonho">Sonho</option><option value="Livre">Livre</option></select></div><div class="fi"><label>Liquidez</label><select id="res-liq"><option value="Diária">Diária</option><option value="Mensal">Mensal</option><option value="No vencimento">No vencimento</option><option value="Longo prazo">Longo prazo</option></select></div></div><div class="fi"><label>Notas</label><input type="text" id="res-nota"></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-reserva')">Cancelar</button><button class="bp" onclick="salvarReserva()">Salvar</button></div></div></div>
+<div class="mo" id="modal-add-reserva"><div class="md"><div class="mt" id="mres-title">Adicionar Aplicação</div><input type="hidden" id="res-edit-id"><div class="fi"><label>Nome / Descrição</label><input type="text" id="res-desc"></div><div class="fi"><label>Banco / Instituição</label><input type="text" id="res-inst"></div><div class="fi"><label>Tipo de Investimento</label><select id="res-tipo" onchange="atualizarDicaTipo()"><option value="CDB">CDB</option><option value="Poupança">Poupança</option><option value="Tesouro Direto">Tesouro Direto</option><option value="LCI/LCA">LCI / LCA</option><option value="Fundo de Investimento">Fundo de Investimento</option><option value="Ações">Ações</option><option value="Criptomoedas">Criptomoedas</option><option value="Renda Fixa">Renda Fixa</option><option value="Outro">Outro</option></select></div><div id="dica-tipo-modal" style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;font-size:.72rem;line-height:1.55;margin-bottom:10px;display:none"></div><div class="fr"><div class="fi"><label>Valor Atual (R$)</label><input type="text" inputmode="decimal" id="res-val" oninput="calcRentModal()"></div><div class="fi"><label>Rentabilidade (% ao mês) *</label><input type="text" inputmode="decimal" id="res-rent-input" oninput="calcRentModal()" placeholder="ex: 0,85"></div></div><div class="fi" id="res-aporte-wrap" style="display:none"><label>Aporte deste mês (R$) — soma ao Valor Atual e abate do Saldo do mês como Investido (não entra como despesa)</label><input type="text" inputmode="decimal" id="res-aporte" placeholder="ex: 200"></div><div id="rent-preview" style="display:none;background:var(--green-dim);border:1px solid var(--green-b);border-radius:8px;padding:10px;margin-bottom:10px"><div class="g3"><div><div style="font-size:.58rem;color:var(--muted)">Rende/mês</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-mes">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rende/ano</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-ano">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rent. anual</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-pct">—</div></div></div></div><div class="fr"><div class="fi"><label>Objetivo</label><select id="res-obj"><option value="Emergência">Reserva de Emergência</option><option value="Reserva PF">Reserva Pessoal</option><option value="Caixa Empresa">Caixa da Empresa</option><option value="Crescimento">Crescimento</option><option value="Aposentadoria">Aposentadoria</option><option value="Sonho">Sonho</option><option value="Livre">Livre</option></select></div><div class="fi"><label>Liquidez</label><select id="res-liq"><option value="Diária">Diária</option><option value="Mensal">Mensal</option><option value="No vencimento">No vencimento</option><option value="Longo prazo">Longo prazo</option></select></div></div><div class="fi"><label>Notas</label><input type="text" id="res-nota"></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-reserva')">Cancelar</button><button class="bp" onclick="salvarReserva()">Salvar</button></div></div></div>
 <div class="mo" id="modal-add-projeto"><div class="md">
   <div class="mt" id="mproj-title">Novo Projeto / Comissão</div>
   <input type="hidden" id="proj-edit-id">
@@ -1971,11 +1972,12 @@ function getSaldoMesAtualFin(){
     var key=finMesKey(0);
     var mes=DB.meses_fin[key];
     if(!mes)return 0;
-    var totalReceitas=0,totalSaiu=0;
+    var totalReceitas=0,totalSaiu=0,totalInvestido=0;
     (mes.receitas_clientes||[]).forEach(function(r){if(r.recebido)totalReceitas+=parseFloat(r.valor||0);});
     (mes.outras_receitas||[]).forEach(function(r){if(r.recebido)totalReceitas+=parseFloat(r.valor||0);});
     (mes.despesas||[]).forEach(function(d){if(d.pago)totalSaiu+=parseFloat(d.valor||0);});
-    return totalReceitas-totalSaiu;
+    (mes.investido||[]).forEach(function(i){totalInvestido+=parseFloat(i.valor||0);});
+    return totalReceitas-totalSaiu-totalInvestido;
   }catch(e){return 0;}
 }
 function checkApcSoma(){
@@ -2027,15 +2029,15 @@ function registrarAporte(){
     DB.aportes.push({id:uid(),lote:loteId,data:agora,caixa:item.k,valor:valorItem});
     totalDistribuido+=valorItem;
   });
-  // Lança o aporte como despesa paga no mês atual — abate do Saldo do faturamento (Entrou - Saiu em Finanças)
+  // Registra o aporte como investimento do mês — abate do Saldo, mas NÃO entra na lista de despesas
   if(totalDistribuido>0){
     var keyMesAtual=finMesKey(0);
     var mesAtualFin=getOrCreateMesFin(keyMesAtual);
     var hoje=new Date();
-    mesAtualFin.despesas.push({
-      id:uid(),desc:'Aporte mensal (dividido entre objetivos)',valor:totalDistribuido,cat:'Investimentos',tipo:'PF',
-      natureza:'unica',variavel:false,media:0,dia:hoje.getDate(),pago:true,
-      dataPago:hoje.toISOString().slice(0,10),contaFixaId:null,origemAporteLote:loteId
+    if(!mesAtualFin.investido)mesAtualFin.investido=[];
+    mesAtualFin.investido.push({
+      id:uid(),desc:'Aporte mensal (dividido entre objetivos)',valor:totalDistribuido,
+      data:hoje.toISOString().slice(0,10),origemAporteLote:loteId
     });
   }
   saveDB();
@@ -2052,12 +2054,12 @@ function remAporte(id){
   if(!confirm('Remover este aporte? O valor será descontado do objetivo correspondente e a despesa relacionada no mês também será removida.'))return;
   if(DB.caixas&&DB.caixas[a.caixa]){DB.caixas[a.caixa].valor=Math.max(0,Math.round(((DB.caixas[a.caixa].valor||0)-a.valor)*100)/100);}
   DB.aportes=DB.aportes.filter(function(x){return x.id!==id;});
-  // Remove a despesa correspondente lançada no mês (mesmo lote), se ainda houver alguma parte desse lote
+  // Remove o registro de investido correspondente (mesmo lote), se ainda houver alguma parte desse lote
   var loteAindaExiste=DB.aportes.some(function(x){return x.lote===a.lote;});
   if(!loteAindaExiste&&DB.meses_fin){
     Object.keys(DB.meses_fin).forEach(function(k){
       var m=DB.meses_fin[k];
-      if(m&&m.despesas)m.despesas=m.despesas.filter(function(d){return d.origemAporteLote!==a.lote;});
+      if(m&&m.investido)m.investido=m.investido.filter(function(i){return i.origemAporteLote!==a.lote;});
     });
   }
   saveDB();renderCaixasGrid();renderAporteSecao();
@@ -2363,13 +2365,13 @@ function salvarReserva(){
       if(aporte>0){
         var hoje=new Date();
         obj.aportes.push({data:hoje.toISOString().slice(0,10),valor:aporte});
-        // Lança o aporte como despesa já paga no mês atual — abate do Saldo do faturamento (Entrou - Saiu em Finanças), não mexe no campo Caixa
+        // Lança o aporte como investimento do mês — abate do Saldo, sem entrar na lista de despesas
         var keyMesAtual=finMesKey(0);
         var mesAtualFin=getOrCreateMesFin(keyMesAtual);
-        mesAtualFin.despesas.push({
-          id:uid(),desc:'Aporte — '+desc,valor:aporte,cat:'Investimentos',tipo:'PF',
-          natureza:'unica',variavel:false,media:0,dia:hoje.getDate(),pago:true,
-          dataPago:hoje.toISOString().slice(0,10),contaFixaId:null,origemAporteReservaId:obj.id
+        if(!mesAtualFin.investido)mesAtualFin.investido=[];
+        mesAtualFin.investido.push({
+          id:uid(),desc:'Aporte — '+desc,valor:aporte,
+          data:hoje.toISOString().slice(0,10),origemAporteReservaId:obj.id
         });
       }
       DB.reservas[idx]=obj;
@@ -2388,7 +2390,7 @@ function salvarReserva(){
     if(typeof renderFinanceiro==='function')renderFinanceiro();
     if(typeof renderHome==='function')renderHome();
   }
-  notif(aporte>0?('Aporte de R$ '+aporte.toLocaleString('pt-BR')+' lançado como despesa paga, abatendo do Saldo do faturamento deste mês. Total da aplicação agora: R$ '+valFinal.toLocaleString('pt-BR')):'Aplicação salva!');
+  notif(aporte>0?('Aporte de R$ '+aporte.toLocaleString('pt-BR')+' registrado como Investido, abatendo do Saldo do mês. Total da aplicação agora: R$ '+valFinal.toLocaleString('pt-BR')):'Aplicação salva!');
 }
 function editarReserva(id){
   if(!DB.reservas)return;var r=DB.reservas.find(function(x){return x.id===id;});if(!r)return;
@@ -4408,6 +4410,7 @@ function getOrCreateMesFin(key){
       receitas_clientes: [],
       despesas: [],
       outras_receitas: [],
+      investido: [],
       caixa_pj: 0
     };
     migrarContasFixas(key);
@@ -4417,6 +4420,7 @@ function getOrCreateMesFin(key){
   if(!m.receitas_clientes) m.receitas_clientes = [];
   if(!m.despesas) m.despesas = [];
   if(!m.outras_receitas) m.outras_receitas = [];
+  if(!m.investido) m.investido = [];
   return m;
 }
 
@@ -4477,6 +4481,7 @@ function renderFinanceiro(){
   // Calculate totals
   var totalReceitas = 0;
   var totalSaiu = 0;
+  var totalInvestido = 0;
 
   // Receitas de clientes recebidas
   mes.receitas_clientes.forEach(function(r){
@@ -4486,19 +4491,25 @@ function renderFinanceiro(){
   mes.outras_receitas.forEach(function(r){
     if(r.recebido) totalReceitas += parseFloat(r.valor||0);
   });
-  // Despesas pagas
+  // Despesas pagas (gastos que saíram de verdade da empresa)
   mes.despesas.forEach(function(d){
     if(d.pago) totalSaiu += parseFloat(d.valor||0);
   });
+  // Investido (dinheiro que mudou de lugar — reservas/aportes — não é despesa)
+  (mes.investido||[]).forEach(function(i){
+    totalInvestido += parseFloat(i.valor||0);
+  });
 
-  var saldo = totalReceitas - totalSaiu;
+  var saldo = totalReceitas - totalSaiu - totalInvestido;
 
   var e1 = document.getElementById('fin-total-entrou');
   var e2 = document.getElementById('fin-total-saiu');
+  var e5 = document.getElementById('fin-total-investido');
   var e3 = document.getElementById('fin-saldo');
   var e4 = document.getElementById('fin-caixa-pj');
   if(e1) e1.textContent = 'R$ '+totalReceitas.toLocaleString('pt-BR',{minimumFractionDigits:2});
   if(e2) e2.textContent = 'R$ '+totalSaiu.toLocaleString('pt-BR',{minimumFractionDigits:2});
+  if(e5) e5.textContent = 'R$ '+totalInvestido.toLocaleString('pt-BR',{minimumFractionDigits:2});
   if(e3){
     e3.textContent = 'R$ '+Math.abs(saldo).toLocaleString('pt-BR',{minimumFractionDigits:2})+(saldo<0?' (déficit)':'');
     e3.style.color = saldo >= 0 ? 'var(--green)' : 'var(--red)';
