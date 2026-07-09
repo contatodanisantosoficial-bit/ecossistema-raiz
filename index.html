@@ -2017,6 +2017,7 @@ function registrarAporte(){
   if(!DB.caixas)DB.caixas={reserva_paz:{valor:0,meta:0},caixa_empresa:{valor:0,meta:0},projetos:{valor:0,meta:0}};
   if(!DB.aportes)DB.aportes=[];
   var loteId=uid();var agora=new Date().toISOString();
+  var totalDistribuido=0;
   CAIXA_ITEMS_AP.forEach(function(item){
     var pct=cfg[item.k]||0;
     var valorItem=Math.round((val*pct/100)*100)/100;
@@ -2024,20 +2025,45 @@ function registrarAporte(){
     if(!DB.caixas[item.k])DB.caixas[item.k]={valor:0,meta:0};
     DB.caixas[item.k].valor=Math.round(((DB.caixas[item.k].valor||0)+valorItem)*100)/100;
     DB.aportes.push({id:uid(),lote:loteId,data:agora,caixa:item.k,valor:valorItem});
+    totalDistribuido+=valorItem;
   });
+  // Lança o aporte como despesa paga no mês atual — abate do Saldo do faturamento (Entrou - Saiu em Finanças)
+  if(totalDistribuido>0){
+    var keyMesAtual=finMesKey(0);
+    var mesAtualFin=getOrCreateMesFin(keyMesAtual);
+    var hoje=new Date();
+    mesAtualFin.despesas.push({
+      id:uid(),desc:'Aporte mensal (dividido entre objetivos)',valor:totalDistribuido,cat:'Investimentos',tipo:'PF',
+      natureza:'unica',variavel:false,media:0,dia:hoje.getDate(),pago:true,
+      dataPago:hoje.toISOString().slice(0,10),contaFixaId:null,origemAporteLote:loteId
+    });
+  }
   saveDB();
   document.getElementById('ap-valor').value='';
   document.getElementById('ap-preview').style.display='none';
   renderCaixasGrid();renderAporteSecao();
-  notif('Aporte de R$ '+val.toLocaleString('pt-BR',{minimumFractionDigits:2})+' registrado e dividido entre seus objetivos!');
+  if(typeof renderFinanceiro==='function')renderFinanceiro();
+  if(typeof renderHome==='function')renderHome();
+  notif('Aporte de R$ '+val.toLocaleString('pt-BR',{minimumFractionDigits:2})+' registrado, dividido entre seus objetivos e abatido do Saldo do faturamento deste mês!');
 }
 function remAporte(id){
   if(!DB.aportes)return;
   var a=DB.aportes.find(function(x){return x.id===id;});if(!a)return;
-  if(!confirm('Remover este aporte? O valor será descontado do objetivo correspondente.'))return;
+  if(!confirm('Remover este aporte? O valor será descontado do objetivo correspondente e a despesa relacionada no mês também será removida.'))return;
   if(DB.caixas&&DB.caixas[a.caixa]){DB.caixas[a.caixa].valor=Math.max(0,Math.round(((DB.caixas[a.caixa].valor||0)-a.valor)*100)/100);}
   DB.aportes=DB.aportes.filter(function(x){return x.id!==id;});
-  saveDB();renderCaixasGrid();renderAporteSecao();notif('Aporte removido.');
+  // Remove a despesa correspondente lançada no mês (mesmo lote), se ainda houver alguma parte desse lote
+  var loteAindaExiste=DB.aportes.some(function(x){return x.lote===a.lote;});
+  if(!loteAindaExiste&&DB.meses_fin){
+    Object.keys(DB.meses_fin).forEach(function(k){
+      var m=DB.meses_fin[k];
+      if(m&&m.despesas)m.despesas=m.despesas.filter(function(d){return d.origemAporteLote!==a.lote;});
+    });
+  }
+  saveDB();renderCaixasGrid();renderAporteSecao();
+  if(typeof renderFinanceiro==='function')renderFinanceiro();
+  if(typeof renderHome==='function')renderHome();
+  notif('Aporte removido.');
 }
 function renderAporteSecao(){
   if(!DB)return;
