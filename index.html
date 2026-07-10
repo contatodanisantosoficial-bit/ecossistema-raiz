@@ -604,6 +604,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
     <button class="itab" onclick="showItab('emp','dados',this)">📄 Dados</button>
     <button class="itab" onclick="showItab('emp','links',this)">🔗 Links</button>
     <button class="itab" onclick="showItab('emp','recibo',this)">🧾 Recibo</button>
+    <button class="itab" onclick="showItab('emp','respostas',this);carregarRespostasExperiencia();">📋 Respostas</button>
   </div>
 
   <!-- ABA IDENTIDADE -->
@@ -868,6 +869,19 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
       </div>
     </div>
   </div>
+
+  <!-- ABA RESPOSTAS -->
+  <div class="itab-pane" id="emp-respostas" style="display:none">
+    <div class="card" style="margin-bottom:13px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div class="cl" style="margin-bottom:0">📋 Respostas dos Clientes</div>
+        <button class="bg" style="font-size:.6rem;padding:5px 10px" onclick="carregarRespostasExperiencia()">🔄 Atualizar</button>
+      </div>
+      <div style="font-size:.7rem;color:var(--muted);margin-bottom:13px;line-height:1.6">Respostas do formulário de experiência do cliente (durante o contrato e no encerramento).</div>
+      <div class="g3" style="margin-bottom:13px" id="resp-exp-stats"></div>
+      <div id="resp-exp-lista"><div class="ev"><div class="eicon">📋</div><div class="etitle">Clique em "Atualizar" pra carregar</div><div class="edesc">As respostas vêm direto do Supabase.</div></div></div>
+    </div>
+  </div>
 </div>
 
 
@@ -957,10 +971,13 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
     <div class="card" style="margin-bottom:13px">
       <div class="cl">⚙️ Configurar Saúde Financeira</div>
       <div class="fr">
-        <div class="fi"><label>Meta de Faturamento Mensal (R$)</label><input type="text" inputmode="decimal" id="cfg-meta-fat" oninput="calcSaudeFinanceira()"></div>
-        <div class="fi"><label>Limite de Gastos (% do recebido)</label><input type="text" inputmode="decimal" id="cfg-limite-gasto" oninput="calcSaudeFinanceira()" placeholder="ex: 40"></div>
+        <div class="fi"><label>Meta de Faturamento Mensal (R$)</label><input type="text" inputmode="decimal" id="cfg-meta-fat" oninput="calcSaudeFinanceira();marcarConfigNaoSalva()"></div>
+        <div class="fi"><label>Limite de Gastos (% do recebido)</label><input type="text" inputmode="decimal" id="cfg-limite-gasto" oninput="calcSaudeFinanceira();marcarConfigNaoSalva()" placeholder="ex: 40"></div>
       </div>
-      <div style="display:flex;justify-content:flex-end"><button class="bp" onclick="salvarConfigSaude()">Salvar</button></div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div id="cfg-saude-status" style="font-size:.66rem;color:var(--muted)"></div>
+        <button class="bp" id="btn-salvar-config-saude" onclick="salvarConfigSaude()">Salvar</button>
+      </div>
     </div>
     <div id="saude-fin-painel"></div>
     <div class="card" style="margin-bottom:13px">
@@ -4208,7 +4225,11 @@ function renderCrescimento(){
   if(!DB.meses_fin)DB.meses_fin={};
   var keys=Object.keys(DB.meses_fin).filter(function(k){
     var m=DB.meses_fin[k];
-    return m&&((m.receitas_clientes&&m.receitas_clientes.length)||(m.despesas&&m.despesas.length)||(m.outras_receitas&&m.outras_receitas.length));
+    if(!m)return false;
+    var temReceita=(m.receitas_clientes||[]).some(function(r){return r.recebido;});
+    var temOutra=(m.outras_receitas||[]).some(function(r){return r.recebido;});
+    var temDespesa=(m.despesas||[]).some(function(d){return d.pago;});
+    return temReceita||temOutra||temDespesa;
   });
   if(!keys.length){el.innerHTML='<div class="ev"><div class="eicon">📈</div><div class="etitle">Dados insuficientes</div><div class="edesc">Registre receitas ou despesas em Finanças para ver a evolução.</div></div>';return;}
   // Sort chronologically (key format: "YYYY-M")
@@ -4268,11 +4289,22 @@ function renderCrescimento(){
   renderPrecificacao();
 }
 
+function marcarConfigNaoSalva(){
+  var st=document.getElementById('cfg-saude-status');
+  if(st)st.innerHTML='⚠️ Alteração não salva — clique em Salvar';
+  var btn=document.getElementById('btn-salvar-config-saude');
+  if(btn)btn.style.background='var(--red)';
+}
+
 function salvarConfigSaude(){
   if(!DB.config)DB.config={};
   DB.config.metaFat=parseBRL(document.getElementById('cfg-meta-fat').value)||0;
   DB.config.limiteGastoPct=parseBRL(document.getElementById('cfg-limite-gasto').value)||40;
   saveDB();calcSaudeFinanceira();notif('Configuração salva!');
+  var st=document.getElementById('cfg-saude-status');
+  if(st)st.innerHTML='✅ Salvo';
+  var btn=document.getElementById('btn-salvar-config-saude');
+  if(btn)btn.style.background='';
 }
 
 function calcSaudeFinanceira(){
@@ -5228,6 +5260,60 @@ function renderEmpresa(){
   // Set today as default recibo date
   var recData=document.getElementById('rec-data');
   if(recData&&!recData.value)recData.value=new Date().toISOString().slice(0,10);
+}
+
+// ── RESPOSTAS DO FORMULÁRIO DE EXPERIÊNCIA (via API segura no Vercel) ──
+var RESPOSTAS_API_URL='https://formulario-experiencia.vercel.app/api/respostas';
+function carregarRespostasExperiencia(){
+  var el=document.getElementById('resp-exp-lista');
+  if(!el)return;
+  el.innerHTML='<div style="font-size:.74rem;color:var(--muted)">Carregando...</div>';
+  fetch(RESPOSTAS_API_URL)
+    .then(function(r){ if(!r.ok)throw new Error('Erro '+r.status); return r.json(); })
+    .then(function(data){ renderRespostasExperiencia(data); })
+    .catch(function(err){
+      el.innerHTML='<div class="ev"><div class="eicon">⚠️</div><div class="etitle">Não consegui carregar</div><div class="edesc">'+err.message+'</div></div>';
+    });
+}
+function renderRespostasExperiencia(items){
+  var el=document.getElementById('resp-exp-lista');
+  var statsEl=document.getElementById('resp-exp-stats');
+  if(!el)return;
+  if(!items||!items.length){
+    el.innerHTML='<div class="ev"><div class="eicon">📋</div><div class="etitle">Nenhuma resposta ainda</div><div class="edesc">Assim que alguém responder o formulário, aparece aqui.</div></div>';
+    if(statsEl)statsEl.innerHTML='';
+    return;
+  }
+  var avgAval=(items.reduce(function(s,i){return s+(i.avaliacao_geral||0);},0)/items.length).toFixed(1);
+  var avgNps=(items.reduce(function(s,i){return s+(i.nps||0);},0)/items.length).toFixed(1);
+  if(statsEl){
+    statsEl.innerHTML=
+      '<div class="sc"><div class="sl">Respostas</div><div class="sv o">'+items.length+'</div></div>'
+      +'<div class="sc"><div class="sl">Avaliação Média</div><div class="sv g">'+avgAval+'</div></div>'
+      +'<div class="sc"><div class="sl">NPS Médio</div><div class="sv n">'+avgNps+'</div></div>';
+  }
+  el.innerHTML='';
+  items.forEach(function(r){
+    var data=r.criado_em?new Date(r.criado_em).toLocaleDateString('pt-BR'):'—';
+    var badgeCls=(r.momento==='Encerramento')?'r':'g';
+    var indicHtml=(r.indicacoes&&r.indicacoes.length)?r.indicacoes.map(function(x){return x.nome+' ('+x.whatsapp+')';}).join(', '):'—';
+    var card=document.createElement('div');
+    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-left:3px solid var(--nude);border-radius:8px;padding:12px;margin-bottom:9px';
+    card.innerHTML=
+      '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">'
+      +'<div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap"><span style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+(r.cliente_nome||'—')+'</span><span class="bdg '+badgeCls+'">'+(r.momento||'—')+'</span></div>'
+      +'<span style="font-size:.62rem;color:var(--muted)">'+data+'</span></div>'
+      +'<div class="g3" style="margin-bottom:8px">'
+        +'<div class="sc"><div class="sl">Avaliação</div><div class="sv o">'+(r.avaliacao_geral!=null?r.avaliacao_geral:'—')+'/5</div></div>'
+        +'<div class="sc"><div class="sl">NPS</div><div class="sv n">'+(r.nps!=null?r.nps:'—')+'/10</div></div>'
+        +'<div class="sc"><div class="sl">Contrataria</div><div class="sv g" style="font-size:.85rem">'+(r.contrataria_novamente||'—')+'</div></div>'
+      +'</div>'
+      +(r.motivo_encerramento?'<div style="font-size:.7rem;margin-bottom:5px"><strong>Motivo:</strong> '+r.motivo_encerramento+(r.motivo_porque?' — '+r.motivo_porque:'')+'</div>':'')
+      +(r.depoimento?'<div style="font-size:.76rem;line-height:1.6;font-style:italic;margin-bottom:5px">"'+r.depoimento+'"</div>':'')
+      +(r.melhorias?'<div style="font-size:.72rem;margin-bottom:5px"><strong>Melhorias:</strong> '+r.melhorias+'</div>':'')
+      +'<div style="font-size:.68rem;color:var(--muted)"><strong>Indicações:</strong> '+indicHtml+(r.indicacoes_extra?(' · '+r.indicacoes_extra):'')+'</div>';
+    el.appendChild(card);
+  });
 }
 
 // ── LINKS ──
