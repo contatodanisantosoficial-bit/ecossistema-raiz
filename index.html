@@ -323,15 +323,10 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
         <div style="width:36px;height:36px;border-radius:50%;background:var(--cafe);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🌿</div>
         <div><div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--cafe);">Clara</div><div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Mentora de Negócio</div></div>
-        <button class="bd" style="margin-left:auto;font-size:.58rem;padding:6px 10px;" onclick="claraNovaConversa()" title="Começar uma nova conversa">Nova conversa</button>
+        <button class="bp" style="margin-left:auto;font-size:.6rem;padding:7px 12px;" onclick="ativarClara()">Analisar agora</button>
       </div>
-      <div id="clara-chat" style="max-height:360px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:12px;padding-right:2px;"></div>
-      <div id="clara-loading" style="display:none;padding:2px 0 10px;font-size:.74rem;color:var(--muted);">🌿 Clara está pensando...</div>
-      <div style="display:flex;gap:8px;align-items:flex-end;">
-        <button class="bd" style="font-size:.62rem;padding:9px 12px;white-space:nowrap;flex-shrink:0;" onclick="claraAnalise()">Fazer o raio-x</button>
-        <textarea id="clara-input" rows="1" placeholder="Escreva pra Clara..." style="flex:1;resize:none;border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:.8rem;font-family:inherit;background:var(--s1);color:var(--text);outline:none;" onkeydown="claraKeydown(event)"></textarea>
-        <button class="bp" style="font-size:.62rem;padding:9px 14px;flex-shrink:0;" onclick="claraSend()">Enviar</button>
-      </div>
+      <div id="clara-output"><div style="font-size:.78rem;color:var(--muted);font-style:italic;line-height:1.7;">Alimente o sistema e clique em Analisar agora. A Clara fará o raio-x do seu negócio e provocará você a pensar.</div></div>
+      <div id="clara-loading" style="display:none;text-align:center;padding:14px;font-size:.76rem;color:var(--muted);">🌿 Clara está analisando seu negócio...</div>
     </div>
     <div class="manifesto"><p>"Aqui, o negócio não é apenas gerido, ele é vivido, observado e reorganizado como um organismo vivo em evolução consciente."</p></div>
   </div>
@@ -1311,8 +1306,6 @@ function getBK(tipo,id){
 
 function renderHome(){
   if(!DB)return;
-  if(!DB.claraChat)DB.claraChat=[];
-  renderClaraChat();
   if(!DB.clientes)DB.clientes=[];
   if(!DB.contas)DB.contas=[];
   if(!DB.meses)DB.meses=[];
@@ -1339,7 +1332,7 @@ function renderHome(){
     var c=DB.clientes[ci];if(c.status==='Encerrado')continue;
     ativos.push(c);
   }
-  var fat=0;for(var fi=0;fi<ativos.length;fi++)fat+=ativos[fi].val;
+  var fat=0;for(var fi=0;fi<ativos.length;fi++)fat+=(ativos[fi].val||0);
   // Use new meses_fin structure if available
   var mesKeyHome=finMesKey(0);
   var mesFinHome=(DB.meses_fin&&DB.meses_fin[mesKeyHome])?DB.meses_fin[mesKeyHome]:null;
@@ -1390,7 +1383,6 @@ function renderHome(){
   else if(fatTotal>=4000&&caixa>=(metaCaixa||7062)){escEl.innerHTML='<span style="color:var(--green);font-weight:600">Sim — pronta para escalar!</span>';}
   else if(fatTotal>=3500){escEl.innerHTML='<span style="color:var(--ouro);font-weight:600">Quase — mais 1 passo.</span>';}
   else{escEl.innerHTML='<span style="color:var(--nude)">Ainda não — construa a base primeiro.</span>';}
-  if(!DB.macros)DB.macros={fin:{score:null,items:[]},com:{score:null,items:[]},ope:{score:null,items:[]},mkt:{score:null,items:[]}};
   var mc2=DB.macros;var pilares=[{k:'fin',icon:'💛',name:'Financeiro',color:'var(--ouro)'},{k:'com',icon:'🌸',name:'Comercial',color:'var(--nude)'},{k:'ope',icon:'🌱',name:'Operacional',color:'var(--green)'},{k:'mkt',icon:'✨',name:'Marketing',color:'var(--cafe)'}];
   var temP=false;for(var pi=0;pi<pilares.length;pi++){if(mc2[pilares[pi].k].score!==null||mc2[pilares[pi].k].items.length>0){temP=true;break;}}
   var pilEl=document.getElementById('home-pilares');
@@ -1647,11 +1639,11 @@ function renderClientes(){
     if(c.contrato_status==='vencido_renovando')h.push('<span class="bdg o" style="font-size:.5rem">⚠️ Renovar</span>');
     if(c.contrato_status==='em_renovacao')h.push('<span class="bdg n" style="font-size:.5rem">📝 Renovando</span>');
     h.push('</div></div>');
-    var totalCli=c.val+(c.val_variavel&&c.modelo_rec==='hibrido'?c.val_variavel:0);
+    var totalCli=(c.val||0)+(c.val_variavel&&c.modelo_rec==='hibrido'?c.val_variavel:0);
     h.push('<div style="text-align:right">');
     h.push('<div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+(c.val||0).toLocaleString('pt-BR')+'</div>');
     if(c.val_variavel&&c.modelo_rec==='hibrido'){
-      h.push('<div style="font-size:.65rem;color:var(--green);margin-top:2px">+R$ '+c.val_variavel.toLocaleString('pt-BR')+(c.variavel_desc?' ('+c.variavel_desc+')':'')+'</div>');
+      h.push('<div style="font-size:.65rem;color:var(--green);margin-top:2px">+R$ '+(c.val_variavel||0).toLocaleString('pt-BR')+(c.variavel_desc?' ('+c.variavel_desc+')':'')+'</div>');
       h.push('<div style="font-size:.6rem;color:var(--muted)">Total: R$ '+totalCli.toLocaleString('pt-BR')+'</div>');
     }
     if(c.modelo_rec&&c.modelo_rec!=='fixo'){
@@ -1853,7 +1845,7 @@ function salvarMetaPessoal(){
 function renderMetasPessoais(){
   if(!DB)return;var el=document.getElementById('metas-pessoais');if(!el)return;
   if(!DB.metas_pessoais.length){el.innerHTML='<div class="ev"><div class="eicon">🌸</div><div class="etitle">Nenhum objetivo ainda</div></div>';return;}
-  el.innerHTML=DB.metas_pessoais.map(function(m,i){return '<div class="meta-item" style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+m.titulo+'</div><div style="font-size:.64rem;color:var(--muted);margin-top:2px">'+(m.prazo||'Sem prazo')+(m.val?' · R$ '+(m.val||0).toLocaleString('pt-BR'):'')+' · '+m.status+'</div></div><button class="bd" onclick="remMetaP('+i+')" style="font-size:.6rem;padding:3px 7px">✕</button></div>';}).join('');
+  el.innerHTML=DB.metas_pessoais.map(function(m,i){return '<div class="meta-item" style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+m.titulo+'</div><div style="font-size:.64rem;color:var(--muted);margin-top:2px">'+(m.prazo||'Sem prazo')+(m.val?' · R$ '+m.val.toLocaleString('pt-BR'):'')+' · '+m.status+'</div></div><button class="bd" onclick="remMetaP('+i+')" style="font-size:.6rem;padding:3px 7px">✕</button></div>';}).join('');
 }
 function remMetaP(i){if(!confirm('Remover?'))return;DB.metas_pessoais.splice(i,1);saveDB();renderMetasPessoais();}
 function salvarVisaoAnual(){
@@ -1924,7 +1916,7 @@ function renderInvestir(){
   if(!DB)return;var el=document.getElementById('lista-inv');if(!el)return;
   var inv=DB.investimentos||[];
   if(!inv.length){el.innerHTML='<div class="ev"><div class="eicon">🔍</div><div class="etitle">Nenhuma análise ainda</div><div class="edesc">Antes de qualquer gasto, traga aqui primeiro.</div></div>';return;}
-  el.innerHTML=inv.map(function(item,i){return '<div class="inv-item"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:7px"><div><div style="font-size:.83rem;font-weight:600;color:var(--cafe)">'+item.desc+'</div><div style="font-size:.66rem;color:var(--muted);margin-top:2px">'+item.tipo+' · R$ '+(item.val||0).toLocaleString('pt-BR')+'</div></div><div style="display:flex;gap:6px;align-items:center"><span class="inv-status '+item.veredicto+'">'+(item.veredicto==='sim'?'Pode fazer':item.veredicto==='nao'?'Ainda não':'Aguardar')+'</span><button class="bd" onclick="remInv('+i+')" style="font-size:.58rem;padding:2px 6px">✕</button></div></div><div style="font-size:.75rem;line-height:1.55;color:var(--text)">'+item.msg+'</div>'+(item.retorno?'<div style="font-size:.68rem;color:var(--muted);margin-top:5px">Retorno esperado: '+item.retorno+'</div>':'')+'</div>';}).join('');
+  el.innerHTML=inv.map(function(item,i){return '<div class="inv-item"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:7px"><div><div style="font-size:.83rem;font-weight:600;color:var(--cafe)">'+item.desc+'</div><div style="font-size:.66rem;color:var(--muted);margin-top:2px">'+item.tipo+' · R$ '+item.val.toLocaleString('pt-BR')+'</div></div><div style="display:flex;gap:6px;align-items:center"><span class="inv-status '+item.veredicto+'">'+(item.veredicto==='sim'?'Pode fazer':item.veredicto==='nao'?'Ainda não':'Aguardar')+'</span><button class="bd" onclick="remInv('+i+')" style="font-size:.58rem;padding:2px 6px">✕</button></div></div><div style="font-size:.75rem;line-height:1.55;color:var(--text)">'+item.msg+'</div>'+(item.retorno?'<div style="font-size:.68rem;color:var(--muted);margin-top:5px">Retorno esperado: '+item.retorno+'</div>':'')+'</div>';}).join('');
 }
 function remInv(i){if(!confirm('Remover?'))return;DB.investimentos.splice(i,1);saveDB();renderInvestir();}
 
@@ -2103,7 +2095,7 @@ function renderAporteSecao(){
   ordenado.forEach(function(a){
     var item=itemsByKey[a.caixa]||{icon:'💰',label:a.caixa};
     var dataFmt=a.data?new Date(a.data).toLocaleDateString('pt-BR'):'';
-    h.push('<div style="display:flex;justify-content:space-between;align-items:center;font-size:.7rem;padding:5px 0;border-bottom:1px solid var(--border)"><span>'+item.icon+' '+item.label+' <span style="color:var(--muted)">· '+dataFmt+'</span></span><span style="display:flex;align-items:center;gap:8px"><span style="font-weight:600;color:var(--cafe)">R$ '+(a.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</span><button class="bd" onclick="remAporte(\''+a.id+'\')" style="font-size:.55rem;padding:2px 6px">✕</button></span></div>');
+    h.push('<div style="display:flex;justify-content:space-between;align-items:center;font-size:.7rem;padding:5px 0;border-bottom:1px solid var(--border)"><span>'+item.icon+' '+item.label+' <span style="color:var(--muted)">· '+dataFmt+'</span></span><span style="display:flex;align-items:center;gap:8px"><span style="font-weight:600;color:var(--cafe)">R$ '+a.valor.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</span><button class="bd" onclick="remAporte(\''+a.id+'\')" style="font-size:.55rem;padding:2px 6px">✕</button></span></div>');
   });
   el.innerHTML=h.join('');
 }
@@ -2176,9 +2168,9 @@ function renderReservas(){
     eduEl.innerHTML='';eduEl.appendChild(tabsDiv);eduEl.appendChild(bodyDiv);
     showEduContent(mainTipo);
   }
-  var total=reservas.reduce(function(a,r){return a+(r.val||0);},0);
+  var total=reservas.reduce(function(a,r){return a+r.val;},0);
   var rentMedia=reservas.length?reservas.reduce(function(a,r){return a+(r.rent||0);},0)/reservas.length:0;
-  var rendMensal=reservas.reduce(function(a,r){return a+((r.val||0)*(r.rent||0)/100);},0);
+  var rendMensal=reservas.reduce(function(a,r){return a+(r.val*(r.rent||0)/100);},0);
   var e1=document.getElementById('res-total');if(e1)e1.textContent=total?'R$ '+total.toLocaleString('pt-BR'):'—';
   var e2=document.getElementById('res-rent');if(e2)e2.textContent=rentMedia?rentMedia.toFixed(2)+'% a.m.':'—';
   var e3=document.getElementById('res-rend');if(e3)e3.textContent=rendMensal?'R$ '+rendMensal.toFixed(2):'—';
@@ -2194,11 +2186,11 @@ function renderReservas(){
   var frag=document.createDocumentFragment();
   reservas.forEach(function(r){
     var edu=EDU_TYPES[r.tipo]||EDU_TYPES['Outro'];
-    var rentMensal=(r.val||0)*(r.rent||0)/100;
+    var rentMensal=r.val*(r.rent||0)/100;
     var rentAnual=(Math.pow(1+(r.rent||0)/100,12)-1)*100;
-    var pct=total?Math.round(((r.val||0)/total)*100):0;
-    var vsPoup=rentMensal-((r.val||0)*0.5/100);
-    var vsCDI=rentMensal-((r.val||0)*1.0/100);
+    var pct=total?Math.round((r.val/total)*100):0;
+    var vsPoup=rentMensal-(r.val*0.5/100);
+    var vsCDI=rentMensal-(r.val*1.0/100);
     var isSofisa=r.inst&&r.inst.toLowerCase().indexOf('sofisa')>-1;
     var smartTip='';
     if(r.tipo==='Poupança'){smartTip='⚠️ Poupança rende menos que CDB com a mesma segurança. Sofisa, Nubank e PicPay oferecem CDB com liquidez diária a 100-105% do CDI.';}
@@ -2219,7 +2211,7 @@ function renderReservas(){
     h.push('<span class="bdg m">'+r.liq+'</span>');
     if(r.inst)h.push('<span class="bdg m">'+r.inst+'</span>');
     h.push('</div></div>');
-    h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+(r.val||0).toLocaleString('pt-BR')+'</div>');
+    h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+r.val.toLocaleString('pt-BR')+'</div>');
     h.push('<div style="font-size:.62rem;color:var(--muted)">'+pct+'% da carteira</div></div></div>');
     h.push('<div style="background:var(--s1);border-radius:8px;padding:11px;margin-bottom:9px">');
     h.push('<div class="g4"><div><div class="sl">Rent./mês</div><div style="font-size:.88rem;font-weight:600;color:var(--green)">'+(r.rent||0).toFixed(2)+'%</div></div>');
@@ -2315,16 +2307,16 @@ function renderHistoricoReservas(){
     h.push('<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px">');
     h.push('<div><div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+snap.mes+'</div>');
     h.push('<div style="font-size:.63rem;color:var(--muted);margin-top:2px">'+snap.qtd+' aplicação'+(snap.qtd>1?'ões':'')+'</div></div>');
-    h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+(snap.total||0).toLocaleString('pt-BR')+'</div>');
+    h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+snap.total.toLocaleString('pt-BR')+'</div>');
     if(growth!==null){var gc=growth>=0?'var(--green)':'var(--red)';h.push('<div style="font-size:.66rem;color:'+gc+'">'+(growth>=0?'▲ +':'▼ ')+growth+'% vs mês anterior</div>');}
     h.push('</div></div>');
     h.push('<div style="display:flex;gap:8px;flex-wrap:wrap">');
-    h.push('<div style="background:var(--green-dim);border:1px solid var(--green-b);border-radius:7px;padding:5px 10px;font-size:.7rem;color:var(--green)">Rende R$ '+(snap.rendMensal||0).toFixed(2)+'/mês</div>');
+    h.push('<div style="background:var(--green-dim);border:1px solid var(--green-b);border-radius:7px;padding:5px 10px;font-size:.7rem;color:var(--green)">Rende R$ '+snap.rendMensal.toFixed(2)+'/mês</div>');
     if(snap.total>0)h.push('<div style="background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:7px;padding:5px 10px;font-size:.7rem;color:var(--ouro)">'+((snap.rendMensal/snap.total)*100).toFixed(2)+'% a.m.</div>');
     h.push('</div>');
     if(snap.aplicacoes&&snap.aplicacoes.length){
       h.push('<div style="margin-top:9px;border-top:1px solid var(--border);padding-top:9px">');
-      snap.aplicacoes.forEach(function(a){h.push('<div style="display:flex;justify-content:space-between;font-size:.7rem;padding:2px 0;color:var(--muted)"><span>'+a.desc+(a.inst?' · '+a.inst:'')+'</span><span style="color:var(--cafe)">R$ '+(a.val||0).toLocaleString('pt-BR')+'</span></div>');});
+      snap.aplicacoes.forEach(function(a){h.push('<div style="display:flex;justify-content:space-between;font-size:.7rem;padding:2px 0;color:var(--muted)"><span>'+a.desc+(a.inst?' · '+a.inst:'')+'</span><span style="color:var(--cafe)">R$ '+a.val.toLocaleString('pt-BR')+'</span></div>');});
       h.push('</div>');
     }
     h.push('<div style="display:flex;gap:8px;margin-top:10px;justify-content:flex-end">');
@@ -2461,130 +2453,51 @@ function salvarApiKey(){
 function getApiKey(){return storageGet('raizv2-apikey')||'';}
 function irConfig(){var btn=document.querySelector('.nb:last-child');if(btn)goPage('config',btn);}
 
-function claraContextoDados(){
-  var ativos=(DB.clientes||[]).filter(function(c){return c.status!=='Encerrado';});
-  var fat=ativos.reduce(function(a,c){return a+(c.val||0);},0);
-  var ul=(DB.meses&&DB.meses.length)?DB.meses[DB.meses.length-1]:null;
-  var caixa=ul?(ul.caixa||0):0;var gasto=(DB.config&&DB.config.custo)||0;var sobra=fat-gasto;
-  var mc=DB.macros||{};var mcFin=mc.fin||{score:null};var mcCom=mc.com||{score:null};
-  return 'Você é Clara, mentora e consultora de gestão de negócios da Dani. Vocês têm uma conversa de verdade, via de mão dupla: você pode fazer perguntas de volta antes de opinar, discordar com respeito, pedir mais contexto, e construir uma conclusão junto com ela — isso não é um relatório de mão única, é um debate.\n'
-    +'Seja honesta, acolhedora e direta. Provoque-a a pensar, mas ouça de verdade o que ela responde e construa a partir disso, em vez de só repetir seu diagnóstico inicial.\n'
-    +'Responda em português do Brasil, em tom de conversa natural — não force seções fixas nem listas toda hora. Sem asteriscos. O tamanho da resposta deve combinar com o tamanho da pergunta: perguntas simples merecem respostas curtas.\n\n'
-    +'DADOS ATUAIS DO NEGÓCIO (use quando for relevante para a conversa):\n'
-    +'- Faturamento: R$ '+fat.toLocaleString('pt-BR')+'\n'
-    +'- Clientes ativas: '+ativos.length+(ativos.length?' ('+ativos.map(function(c){return c.nome+' R$'+(c.val||0);}).join(', ')+')':'')+'\n'
-    +'- Custo mensal: R$ '+gasto.toLocaleString('pt-BR')+'\n'
-    +'- Sobra: R$ '+sobra.toLocaleString('pt-BR')+'\n'
-    +'- Caixa PJ: R$ '+caixa.toLocaleString('pt-BR')+'\n'
-    +'- Score Financeiro: '+(mcFin.score!==null&&mcFin.score!==undefined?mcFin.score:'não avaliado')+'\n'
-    +'- Score Comercial: '+(mcCom.score!==null&&mcCom.score!==undefined?mcCom.score:'não avaliado')+'\n';
-}
-
-function claraFmt(texto){
-  var esc=(texto||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return esc.split('\n').join('<br>');
-}
-
-function renderClaraChat(){
-  var chatEl=document.getElementById('clara-chat');if(!chatEl)return;
-  var hist=(DB&&DB.claraChat)||[];
-  if(!hist.length){
-    chatEl.innerHTML='<div style="font-size:.78rem;color:var(--muted);font-style:italic;line-height:1.7;">Clique em "Fazer o raio-x" para a Clara analisar seu negócio, ou já escreva sua pergunta abaixo — vocês podem conversar e trocar ideia à vontade.</div>';
-    return;
-  }
-  var html='';
-  hist.forEach(function(m){
-    if(m.role==='user'){
-      html+='<div style="align-self:flex-end;max-width:85%;background:var(--cafe);color:var(--ouro);border-radius:12px 12px 3px 12px;padding:9px 13px;font-size:.8rem;line-height:1.6;">'+claraFmt(m.content)+'</div>';
-    }else{
-      html+='<div style="align-self:flex-start;max-width:88%;background:var(--s2);color:var(--text);border-radius:12px 12px 12px 3px;padding:10px 13px;font-size:.8rem;line-height:1.65;">'+claraFmt(m.content)+'</div>';
-    }
-  });
-  chatEl.innerHTML=html;
-  chatEl.scrollTop=chatEl.scrollHeight;
-}
-
-function claraErro(msg){
-  var chatEl=document.getElementById('clara-chat');if(!chatEl)return;
-  var apiKey=getApiKey();
-  var div=document.createElement('div');
-  div.style.cssText='align-self:flex-start;max-width:90%;background:var(--s2);border-radius:12px;padding:12px 14px;font-size:.78rem;line-height:1.65;color:var(--text);';
-  if(!apiKey){
-    var p1=document.createElement('div');p1.style.cssText='color:var(--cafe);font-weight:600;margin-bottom:6px;';p1.textContent='A Clara precisa de uma chave de API para rodar fora do Claude.ai.';
-    var p2=document.createElement('div');p2.style.cssText='color:var(--muted);margin-bottom:9px;';p2.textContent='Vá em ⚙️ Config → Clara — Chave de API e cadastre sua chave da Anthropic.';
-    var btn=document.createElement('button');btn.className='bp';btn.style.cssText='font-size:.65rem;padding:7px 13px';btn.textContent='Ir para Configurações →';
-    btn.onclick=function(){irConfig();};
-    div.appendChild(p1);div.appendChild(p2);div.appendChild(btn);
-  } else {
-    div.textContent=msg?('Erro: '+msg):'Não foi possível conectar. Verifique sua conexão e se a chave está correta.';
-  }
-  chatEl.appendChild(div);
-  chatEl.scrollTop=chatEl.scrollHeight;
-}
-
-async function claraChamarAPI(){
+async function ativarClara(){
+  if(!DB){notif('Faça login primeiro.');return;}
+  var out=document.getElementById('clara-output');
   var loading=document.getElementById('clara-loading');
-  if(loading)loading.style.display='block';
+  out.style.display='none';loading.style.display='block';
+  var ativos=DB.clientes.filter(function(c){return c.status!=='Encerrado';});
+  var fat=ativos.reduce(function(a,c){return a+c.val;},0);
+  var ul=(DB.meses&&DB.meses.length)?DB.meses[(DB.meses&&DB.meses.length)-1]:null;
+  var caixa=ul?ul.caixa:0;var gasto=DB.config.custo||0;var sobra=fat-gasto;
+  var mc=DB.macros;
+  var ctx='Você é Clara, mentora e consultora de gestão de negócios.\nAnalise os dados e faça um raio-x honesto, acolhedor e provocador.\nNunca decida por ela — provoque ela a pensar e a agir.\nResponda em português do Brasil. Sem bullet points excessivos. Sem asteriscos.\nUse estas seções em ordem: Financeiro, Comercial, Operacional, Processos, Pergunta Provocadora\nMáximo 350 palavras.\n\nDADOS:\n- Faturamento: R$ '+fat.toLocaleString('pt-BR')+'\n- Clientes ativas: '+ativos.length+(ativos.length?' ('+ativos.map(function(c){return c.nome+' R$'+c.val;}).join(', ')+')\n':'\n')+'- Custo mensal: R$ '+gasto.toLocaleString('pt-BR')+'\n- Sobra: R$ '+sobra.toLocaleString('pt-BR')+'\n- Caixa PJ: R$ '+caixa.toLocaleString('pt-BR')+'\n- Score Financeiro: '+(mc.fin.score!==null?mc.fin.score:'não avaliado')+'\n- Score Comercial: '+(mc.com.score!==null?mc.com.score:'não avaliado')+'\nTermine com UMA pergunta provocadora.';
   try{
     var fetchHeaders={'Content-Type':'application/json'};
     var apiKey=getApiKey();
     if(apiKey){fetchHeaders['x-api-key']=apiKey;fetchHeaders['anthropic-version']='2023-06-01';fetchHeaders['anthropic-dangerous-direct-browser-access']='true';}
-    var msgs=DB.claraChat.map(function(m){return {role:m.role,content:m.content};});
-    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:fetchHeaders,body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:claraContextoDados(),messages:msgs})});
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:fetchHeaders,body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:ctx}]})});
     var data=await resp.json();
-    var texto=data.content&&data.content[0]?data.content[0].text:null;
-    if(loading)loading.style.display='none';
-    if(!texto){
-      var errMsg=(data.error&&data.error.message)?data.error.message:null;
-      claraErro(errMsg);
-      return;
+    var texto=data.content&&data.content[0]?data.content[0].text:'Não foi possível gerar a análise.';
+    var secNames=['Financeiro','Comercial','Operacional','Processos','Pergunta Provocadora'];
+    var html='';
+    for(var si=0;si<secNames.length;si++){
+      var sec=secNames[si];var nextSec=secNames[si+1];var idxS=texto.indexOf(sec);if(idxS===-1)continue;
+      var startB=idxS+sec.length;var idxE=nextSec?texto.indexOf(nextSec,startB):-1;var endB=idxE>-1?idxE:texto.length;
+      var body=texto.slice(startB,endB).trim();if(body.length>0&&(body[0]===':'||body[0]==='-'))body=body.slice(1).trim();
+      if(sec==='Pergunta Provocadora'){html+='<div class="clara-provoca"><p>'+body+'</p></div>';}
+      else{html+='<div class="clara-section"><div class="clara-section-title">'+sec+'</div><div class="clara-msg">'+body+'</div></div>';}
     }
-    DB.claraChat.push({role:'assistant',content:texto});
-    saveDB();
-    renderClaraChat();
+    if(!html){html='<div class="clara-msg">'+texto.split('\n').join('<br>')+'</div>';}
+    loading.style.display='none';out.style.display='block';out.innerHTML=html;
   }catch(e){
-    if(loading)loading.style.display='none';
-    claraErro(null);
+    loading.style.display='none';out.style.display='block';
+    var apiKey2=getApiKey();
+    if(!apiKey2){
+      var div2=document.createElement('div');div2.style.cssText='font-size:.78rem;line-height:1.65';
+      var p3=document.createElement('p');p3.style.cssText='color:var(--cafe);font-weight:600;margin-bottom:7px';p3.textContent='A Clara precisa de uma chave de API para rodar fora do Claude.ai.';
+      var p4=document.createElement('p');p4.style.cssText='color:var(--muted);margin-bottom:10px';p4.textContent='Vá em ⚙️ Config → Clara — Chave de API e cadastre sua chave da Anthropic.';
+      var btn2=document.createElement('button');btn2.className='bp';btn2.style.cssText='font-size:.65rem;padding:7px 13px';btn2.textContent='Ir para Configurações →';
+      btn2.onclick=function(){irConfig();};
+      div2.appendChild(p3);div2.appendChild(p4);div2.appendChild(btn2);
+      out.innerHTML='';out.appendChild(div2);
+    } else {
+      out.innerHTML='<div style="font-size:.76rem;color:var(--muted)">Não foi possível conectar. Verifique sua conexão e se a chave está correta.</div>';
+    }
   }
 }
-
-function claraAnalise(){
-  if(!DB){notif('Faça login primeiro.');return;}
-  DB.claraChat.push({role:'user',content:'Faça o raio-x completo do meu negócio agora, com os dados atuais, e termine com uma pergunta provocadora pra eu pensar.'});
-  saveDB();
-  renderClaraChat();
-  claraChamarAPI();
-}
-
-function claraSend(){
-  if(!DB){notif('Faça login primeiro.');return;}
-  var inputEl=document.getElementById('clara-input');
-  if(!inputEl)return;
-  var texto=inputEl.value.trim();
-  if(!texto)return;
-  DB.claraChat.push({role:'user',content:texto});
-  inputEl.value='';
-  saveDB();
-  renderClaraChat();
-  claraChamarAPI();
-}
-
-function claraKeydown(ev){
-  if(ev.key==='Enter'&&!ev.shiftKey){
-    ev.preventDefault();
-    claraSend();
-  }
-}
-
-function claraNovaConversa(){
-  if(!DB)return;
-  if(DB.claraChat.length&&!confirm('Começar uma nova conversa? O histórico atual será apagado.'))return;
-  DB.claraChat=[];
-  saveDB();
-  renderClaraChat();
-}
-
-
 
 // ══ SUPABASE CONFIG ══
 // Preencha com seus dados do Supabase após criar o projeto
@@ -2836,8 +2749,7 @@ function defaultDB(){return{
   entregas:[],
   propostas:[],
   hist_cli:[],
-  biblioteca:[],
-  claraChat:[]
+  biblioteca:[]
 };}
 function initDB(){DB=defaultDB();saveDB();}
 async function loadDBAsync(){
@@ -2874,8 +2786,8 @@ function loadDB(){
   if(!DB.empresa_links)DB.empresa_links=[];
   migrarDB();}
 function migrarDB(){
-  // Migrate and enforce 3-caixa structure
   var def=defaultDB();
+  // Migrate and enforce 3-caixa structure
   if(!DB.caixas)DB.caixas={reserva_paz:{valor:0,meta:0},caixa_empresa:{valor:0,meta:0},projetos:{valor:0,meta:0}};
   var cx=DB.caixas;
   if(!cx.reserva_paz){cx.reserva_paz=cx.reserva_pf||{valor:0,meta:0};}
@@ -2906,7 +2818,6 @@ function migrarDB(){
   if(!DB.biblioteca)DB.biblioteca=[];
   if(!DB.aportes)DB.aportes=[];
   if(!DB.aporteConfig)DB.aporteConfig={reserva_paz:50,caixa_empresa:30,projetos:20};
-  if(!DB.claraChat)DB.claraChat=[];
   if(DB.config&&DB.config.metaFat===undefined)DB.config.metaFat=0;
   if(DB.config&&DB.config.limiteGastoPct===undefined)DB.config.limiteGastoPct=40;
   if(!DB.empresa)DB.empresa={};
@@ -3270,7 +3181,7 @@ function prodRenderRentabilidade(){
     var top=document.createElement('div');top.style.cssText='display:flex;justify-content:space-between;align-items:center;margin-bottom:7px';
     var left=document.createElement('div');
     left.innerHTML='<div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+r.nome+'</div>'
-      +'<div style="font-size:.64rem;color:var(--muted);margin-top:2px">'+horasStr+' · R$ '+(r.val||0).toLocaleString('pt-BR')+'/mês</div>';
+      +'<div style="font-size:.64rem;color:var(--muted);margin-top:2px">'+horasStr+' · R$ '+r.val.toLocaleString('pt-BR')+'/mês</div>';
     var right=document.createElement('div');right.style.textAlign='right';
     right.innerHTML='<div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;font-weight:600;color:var(--'+r.cls+')">R$ '+r.rh.toLocaleString('pt-BR')+'/h</div>'
       +'<span class="bdg '+r.cls+'" style="font-size:.5rem">'+(r.rh>=60?'Ótimo':r.rh>=30?'Regular':'Atenção')+'</span>';
