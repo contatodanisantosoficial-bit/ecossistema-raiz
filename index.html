@@ -2,8 +2,17 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Ecossistema Raiz</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#5A4034">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Raiz">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -323,10 +332,15 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
         <div style="width:36px;height:36px;border-radius:50%;background:var(--cafe);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🌿</div>
         <div><div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--cafe);">Clara</div><div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Mentora de Negócio</div></div>
-        <button class="bp" style="margin-left:auto;font-size:.6rem;padding:7px 12px;" onclick="ativarClara()">Analisar agora</button>
+        <button class="bd" style="margin-left:auto;font-size:.58rem;padding:6px 10px;" onclick="claraNovaConversa()" title="Começar uma nova conversa">Nova conversa</button>
       </div>
-      <div id="clara-output"><div style="font-size:.78rem;color:var(--muted);font-style:italic;line-height:1.7;">Alimente o sistema e clique em Analisar agora. A Clara fará o raio-x do seu negócio e provocará você a pensar.</div></div>
-      <div id="clara-loading" style="display:none;text-align:center;padding:14px;font-size:.76rem;color:var(--muted);">🌿 Clara está analisando seu negócio...</div>
+      <div id="clara-chat" style="max-height:360px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:12px;padding-right:2px;"></div>
+      <div id="clara-loading" style="display:none;padding:2px 0 10px;font-size:.74rem;color:var(--muted);">🌿 Clara está pensando...</div>
+      <div style="display:flex;gap:8px;align-items:flex-end;">
+        <button class="bd" style="font-size:.62rem;padding:9px 12px;white-space:nowrap;flex-shrink:0;" onclick="claraAnalise()">Fazer o raio-x</button>
+        <textarea id="clara-input" rows="1" placeholder="Escreva pra Clara..." style="flex:1;resize:none;border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:.8rem;font-family:inherit;background:var(--s1);color:var(--text);outline:none;" onkeydown="claraKeydown(event)"></textarea>
+        <button class="bp" style="font-size:.62rem;padding:9px 14px;flex-shrink:0;" onclick="claraSend()">Enviar</button>
+      </div>
     </div>
     <div class="manifesto"><p>"Aqui, o negócio não é apenas gerido, ele é vivido, observado e reorganizado como um organismo vivo em evolução consciente."</p></div>
   </div>
@@ -453,7 +467,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 </div>
 
 
-  <div class="page" id="page-crm"><div class="ph"><div class="pe">CRM</div><div class="pt">De <em>lead</em> a cliente fiel</div></div><div class="g4" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Leads</div><div class="sv o" id="crm-total">—</div></div><div class="sc"><div class="sl">Conversão</div><div class="sv g" id="crm-conv">—</div></div><div class="sc"><div class="sl">Via WhatsApp</div><div class="sv n" id="crm-wpp">—</div></div><div class="sc"><div class="sl">Precisou Reunião</div><div class="sv o" id="crm-reu">—</div></div></div><div style="display:flex;gap:8px;margin-bottom:13px;flex-wrap:wrap"><button class="bp" onclick="openModal('modal-add-crm')">+ Novo Lead</button><button class="bg" onclick="openModal('modal-crm-stages')">Editar Etapas</button><div style="font-size:.7rem;color:var(--muted);margin-left:auto" id="crm-sum"></div></div><div class="crm-b" id="crm-board"></div></div>
+  <div class="page" id="page-crm"><div class="ph"><div class="pe">CRM</div><div class="pt">De <em>lead</em> a cliente fiel</div></div><div class="g4" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Leads</div><div class="sv o" id="crm-total">—</div></div><div class="sc"><div class="sl">Conversão</div><div class="sv g" id="crm-conv">—</div></div><div class="sc"><div class="sl">Via WhatsApp</div><div class="sv n" id="crm-wpp">—</div></div><div class="sc"><div class="sl">Precisou Reunião</div><div class="sv o" id="crm-reu">—</div></div></div><div style="display:flex;gap:8px;margin-bottom:13px;flex-wrap:wrap;align-items:center"><button class="bp" onclick="openModal('modal-add-crm')">+ Novo Lead</button><button class="bg" onclick="openModal('modal-crm-stages')">Editar Etapas</button><button id="crm-ganhos-btn" onclick="abrirGanhosCRM()" style="margin-left:auto;background:var(--green-dim,#e5f3ea);border:1px solid var(--green-b,#b9dcc4);color:var(--green);border-radius:20px;padding:7px 14px;font-size:.7rem;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;display:flex;align-items:center;gap:5px">🏆 <span id="crm-ganhos-count">0</span> Ganhos</button><div style="font-size:.7rem;color:var(--muted)" id="crm-sum"></div></div><div class="crm-b" id="crm-board"></div></div>
   <div class="page" id="page-macros"><div class="ph"><div class="pe">Processos Internos</div><div class="pt">Construindo cada <em>pilar</em></div></div><div id="macros-content"></div></div>
   <div class="page" id="page-produtividade">
   <div class="ph">
@@ -1035,6 +1049,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <div class="ma"><button class="bg" onclick="closeModal('modal-add-crm')">Cancelar</button><button class="bp" onclick="adicionarCRM()">Salvar</button></div>
 </div></div>
 <div class="mo" id="modal-crm-stages"><div class="md"><div class="mt">Editar Etapas do Pipeline</div><div class="fi"><textarea id="crm-stages-txt" style="min-height:120px"></textarea></div><div class="ma"><button class="bg" onclick="closeModal('modal-crm-stages')">Cancelar</button><button class="bp" onclick="salvarEtapas()">Salvar</button></div></div></div>
+<div class="mo" id="modal-crm-ganhos"><div class="md"><div class="mt">🏆 Seus Ganhos</div><div id="crm-ganhos-lista" style="max-height:340px;overflow-y:auto"></div><div class="ma"><button class="bg" onclick="closeModal('modal-crm-ganhos')">Fechar</button></div></div></div>
 <div class="mo" id="modal-macro-item"><div class="md"><div class="mt" id="mmi-title">Adicionar Processo</div><input type="hidden" id="mmi-key"><input type="hidden" id="mmi-idx" value="-1"><div class="fi"><label>Título</label><input type="text" id="mmi-titulo"></div><div class="fi"><label>Como fazer</label><textarea id="mmi-desc"></textarea></div><div class="fr"><div class="fi"><label>Status</label><select id="mmi-status"><option>A fazer</option><option>Em andamento</option><option>Concluído</option></select></div><div class="fi"><label>Prioridade</label><select id="mmi-prior"><option>Alta</option><option>Média</option><option>Baixa</option></select></div></div><div class="ma"><button class="bg" onclick="closeModal('modal-macro-item')">Cancelar</button><button class="bp" onclick="salvarMacroItem()">Salvar</button></div></div></div>
 <div class="mo" id="modal-add-meta"><div class="md"><div class="mt">Meta Trimestral</div><div class="fr"><div class="fi"><label>Meta</label><input type="text" id="mt-titulo"></div><div class="fi"><label>Trimestre</label><select id="mt-trim"><option>Q2 2026</option><option>Q3 2026</option><option>Q4 2026</option><option>Q1 2027</option></select></div></div><div class="fr"><div class="fi"><label>Progresso (%)</label><input type="number" id="mt-prog" min="0" max="100"></div><div class="fi"><label>Status</label><select id="mt-status"><option>Em progresso</option><option>Concluída</option><option>Não iniciada</option></select></div></div><div class="fi"><label>Notas</label><textarea id="mt-nota"></textarea></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-meta')">Cancelar</button><button class="bp" onclick="salvarMeta()">Salvar</button></div></div></div>
 <div class="mo" id="modal-add-meta-p"><div class="md"><div class="mt">Objetivo Pessoal</div><div class="fi"><label>Objetivo</label><input type="text" id="mtp-titulo"></div><div class="fr"><div class="fi"><label>Valor (R$)</label><input type="number" id="mtp-val"></div><div class="fi"><label>Prazo</label><input type="text" id="mtp-prazo"></div></div><div class="fi"><label>Status</label><select id="mtp-status"><option>Sonhando</option><option>Planejando</option><option>Em andamento</option><option>Realizado</option></select></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-meta-p')">Cancelar</button><button class="bp" onclick="salvarMetaPessoal()">Salvar</button></div></div></div>
@@ -1306,6 +1321,8 @@ function getBK(tipo,id){
 
 function renderHome(){
   if(!DB)return;
+  if(!DB.claraChat)DB.claraChat=[];
+  renderClaraChat();
   if(!DB.clientes)DB.clientes=[];
   if(!DB.contas)DB.contas=[];
   if(!DB.meses)DB.meses=[];
@@ -1332,7 +1349,7 @@ function renderHome(){
     var c=DB.clientes[ci];if(c.status==='Encerrado')continue;
     ativos.push(c);
   }
-  var fat=0;for(var fi=0;fi<ativos.length;fi++)fat+=(ativos[fi].val||0);
+  var fat=0;for(var fi=0;fi<ativos.length;fi++)fat+=ativos[fi].val;
   // Use new meses_fin structure if available
   var mesKeyHome=finMesKey(0);
   var mesFinHome=(DB.meses_fin&&DB.meses_fin[mesKeyHome])?DB.meses_fin[mesKeyHome]:null;
@@ -1383,6 +1400,7 @@ function renderHome(){
   else if(fatTotal>=4000&&caixa>=(metaCaixa||7062)){escEl.innerHTML='<span style="color:var(--green);font-weight:600">Sim — pronta para escalar!</span>';}
   else if(fatTotal>=3500){escEl.innerHTML='<span style="color:var(--ouro);font-weight:600">Quase — mais 1 passo.</span>';}
   else{escEl.innerHTML='<span style="color:var(--nude)">Ainda não — construa a base primeiro.</span>';}
+  if(!DB.macros)DB.macros={fin:{score:null,items:[]},com:{score:null,items:[]},ope:{score:null,items:[]},mkt:{score:null,items:[]}};
   var mc2=DB.macros;var pilares=[{k:'fin',icon:'💛',name:'Financeiro',color:'var(--ouro)'},{k:'com',icon:'🌸',name:'Comercial',color:'var(--nude)'},{k:'ope',icon:'🌱',name:'Operacional',color:'var(--green)'},{k:'mkt',icon:'✨',name:'Marketing',color:'var(--cafe)'}];
   var temP=false;for(var pi=0;pi<pilares.length;pi++){if(mc2[pilares[pi].k].score!==null||mc2[pilares[pi].k].items.length>0){temP=true;break;}}
   var pilEl=document.getElementById('home-pilares');
@@ -1630,7 +1648,9 @@ function renderClientes(){
     h.push("<div class='cli-card'><div data-id='"+c.id+"' onclick=\"toggleCli(this.dataset.id)\" style='cursor:pointer'>");
     h.push('<div style="display:flex;justify-content:space-between;align-items:flex-start">');
     h.push('<div><div style="font-size:.9rem;font-weight:600;color:var(--cafe)">'+c.nome+'</div>');
-    h.push('<div style="font-size:.68rem;color:var(--muted);margin-top:2px">'+(c.servico||'Consultoria')+'</div>');
+    var servicoTxt=c.servico||'Consultoria';
+    if(servicoTxt.length>60)servicoTxt=servicoTxt.slice(0,60).trim()+'…';
+    h.push('<div style="font-size:.68rem;color:var(--muted);margin-top:2px">'+servicoTxt+'</div>');
     h.push('<div style="display:flex;gap:4px;margin-top:5px">');
     h.push('<span class="bdg '+sc+'">'+c.status+'</span>');
     if(c.meio)h.push('<span class="bdg m">'+c.meio+'</span>');
@@ -1639,11 +1659,11 @@ function renderClientes(){
     if(c.contrato_status==='vencido_renovando')h.push('<span class="bdg o" style="font-size:.5rem">⚠️ Renovar</span>');
     if(c.contrato_status==='em_renovacao')h.push('<span class="bdg n" style="font-size:.5rem">📝 Renovando</span>');
     h.push('</div></div>');
-    var totalCli=(c.val||0)+(c.val_variavel&&c.modelo_rec==='hibrido'?c.val_variavel:0);
+    var totalCli=c.val+(c.val_variavel&&c.modelo_rec==='hibrido'?c.val_variavel:0);
     h.push('<div style="text-align:right">');
     h.push('<div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+(c.val||0).toLocaleString('pt-BR')+'</div>');
     if(c.val_variavel&&c.modelo_rec==='hibrido'){
-      h.push('<div style="font-size:.65rem;color:var(--green);margin-top:2px">+R$ '+(c.val_variavel||0).toLocaleString('pt-BR')+(c.variavel_desc?' ('+c.variavel_desc+')':'')+'</div>');
+      h.push('<div style="font-size:.65rem;color:var(--green);margin-top:2px">+R$ '+c.val_variavel.toLocaleString('pt-BR')+(c.variavel_desc?' ('+c.variavel_desc+')':'')+'</div>');
       h.push('<div style="font-size:.6rem;color:var(--muted)">Total: R$ '+totalCli.toLocaleString('pt-BR')+'</div>');
     }
     if(c.modelo_rec&&c.modelo_rec!=='fixo'){
@@ -1679,9 +1699,12 @@ function moverCRM(id,et){
   if(c){
     var eraFechado=c.etapa==='Fechado';
     c.etapa=et;
+    if(et==='Fechado'&&!eraFechado)c.fechado_em=new Date().toISOString();
     saveDB();renderCRM();
     if(et==='Fechado'&&!eraFechado){
-      setTimeout(function(){promoverCRMParaCliente(c);},150);
+      var totalGanhos=DB.crm.cards.filter(function(x){return x.etapa==='Fechado';}).length;
+      notif('🏆 Ganho registrado! Você já tem '+totalGanhos+' '+(totalGanhos===1?'fechamento':'fechamentos')+' no pipeline.');
+      setTimeout(function(){promoverCRMParaCliente(c);},600);
     }
   }
 }
@@ -1731,8 +1754,10 @@ function renderCRM(){
   var e2=document.getElementById('crm-conv');if(e2)e2.textContent=total?Math.round((fechados/total)*100)+'%':'—';
   var e3=document.getElementById('crm-wpp');if(e3)e3.textContent=DB.crm.cards.filter(function(c){return c.canal==='WhatsApp';}).length||'—';
   var e4=document.getElementById('crm-reu');if(e4)e4.textContent=DB.crm.cards.filter(function(c){return c.canal==='Reunião';}).length||'—';
-  var pot=DB.crm.cards.reduce(function(a,c){return a+c.val;},0);
+  var pot=DB.crm.cards.reduce(function(a,c){return a+(c.val||0);},0);
   var e5=document.getElementById('crm-sum');if(e5)e5.textContent=total?total+' leads · R$ '+pot.toLocaleString('pt-BR')+' potencial':'';
+  var ganhosCount=fechados;
+  var ganhosEl=document.getElementById('crm-ganhos-count');if(ganhosEl)ganhosEl.textContent=ganhosCount;
   var ec={'Lead':'var(--nude)','Contato Feito':'var(--ouro)','Proposta Enviada':'var(--cafe)','Fechado':'var(--green)','Perdido':'var(--red)'};
   var h=[];
   DB.crm.etapas.forEach(function(et){
@@ -1753,6 +1778,28 @@ function renderCRM(){
     h.push('<button class="crm-add" onclick="selEtapaCRM(\''+et+'\')">+ Adicionar</button></div>');
   });
   var board=document.getElementById('crm-board');if(board)board.innerHTML=h.join('');
+}
+
+function abrirGanhosCRM(){
+  if(!DB||!DB.crm)return;
+  var ganhos=DB.crm.cards.filter(function(c){return c.etapa==='Fechado';});
+  var el=document.getElementById('crm-ganhos-lista');
+  if(!ganhos.length){
+    el.innerHTML='<div class="ev"><div class="eicon">🏆</div><div class="etitle">Nenhum ganho ainda</div><div class="edesc">Assim que um lead fechar, ele aparece aqui.</div></div>';
+  } else {
+    ganhos.sort(function(a,b){return (b.fechado_em||b.data||'').localeCompare(a.fechado_em||a.data||'');});
+    var total=ganhos.reduce(function(a,c){return a+(c.val||0);},0);
+    var h='<div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">'+ganhos.length+' '+(ganhos.length===1?'lead fechado':'leads fechados')+' · R$ '+total.toLocaleString('pt-BR')+' em valor mensal</div>';
+    ganhos.forEach(function(c){
+      var quando=c.fechado_em?new Date(c.fechado_em).toLocaleDateString('pt-BR'):'—';
+      h+='<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)">';
+      h+='<div><div style="font-size:.8rem;font-weight:600;color:var(--cafe)">🏆 '+c.nome+'</div><div style="font-size:.65rem;color:var(--muted)">Fechado em '+quando+(c.canal?' · '+c.canal:'')+'</div></div>';
+      h+='<div style="font-size:.8rem;font-weight:600;color:var(--green)">R$ '+(c.val||0).toLocaleString('pt-BR')+'</div>';
+      h+='</div>';
+    });
+    el.innerHTML=h;
+  }
+  openModal('modal-crm-ganhos');
 }
 
 var MDEF={
@@ -1845,7 +1892,7 @@ function salvarMetaPessoal(){
 function renderMetasPessoais(){
   if(!DB)return;var el=document.getElementById('metas-pessoais');if(!el)return;
   if(!DB.metas_pessoais.length){el.innerHTML='<div class="ev"><div class="eicon">🌸</div><div class="etitle">Nenhum objetivo ainda</div></div>';return;}
-  el.innerHTML=DB.metas_pessoais.map(function(m,i){return '<div class="meta-item" style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+m.titulo+'</div><div style="font-size:.64rem;color:var(--muted);margin-top:2px">'+(m.prazo||'Sem prazo')+(m.val?' · R$ '+m.val.toLocaleString('pt-BR'):'')+' · '+m.status+'</div></div><button class="bd" onclick="remMetaP('+i+')" style="font-size:.6rem;padding:3px 7px">✕</button></div>';}).join('');
+  el.innerHTML=DB.metas_pessoais.map(function(m,i){return '<div class="meta-item" style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+m.titulo+'</div><div style="font-size:.64rem;color:var(--muted);margin-top:2px">'+(m.prazo||'Sem prazo')+(m.val?' · R$ '+(m.val||0).toLocaleString('pt-BR'):'')+' · '+m.status+'</div></div><button class="bd" onclick="remMetaP('+i+')" style="font-size:.6rem;padding:3px 7px">✕</button></div>';}).join('');
 }
 function remMetaP(i){if(!confirm('Remover?'))return;DB.metas_pessoais.splice(i,1);saveDB();renderMetasPessoais();}
 function salvarVisaoAnual(){
@@ -1916,7 +1963,7 @@ function renderInvestir(){
   if(!DB)return;var el=document.getElementById('lista-inv');if(!el)return;
   var inv=DB.investimentos||[];
   if(!inv.length){el.innerHTML='<div class="ev"><div class="eicon">🔍</div><div class="etitle">Nenhuma análise ainda</div><div class="edesc">Antes de qualquer gasto, traga aqui primeiro.</div></div>';return;}
-  el.innerHTML=inv.map(function(item,i){return '<div class="inv-item"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:7px"><div><div style="font-size:.83rem;font-weight:600;color:var(--cafe)">'+item.desc+'</div><div style="font-size:.66rem;color:var(--muted);margin-top:2px">'+item.tipo+' · R$ '+item.val.toLocaleString('pt-BR')+'</div></div><div style="display:flex;gap:6px;align-items:center"><span class="inv-status '+item.veredicto+'">'+(item.veredicto==='sim'?'Pode fazer':item.veredicto==='nao'?'Ainda não':'Aguardar')+'</span><button class="bd" onclick="remInv('+i+')" style="font-size:.58rem;padding:2px 6px">✕</button></div></div><div style="font-size:.75rem;line-height:1.55;color:var(--text)">'+item.msg+'</div>'+(item.retorno?'<div style="font-size:.68rem;color:var(--muted);margin-top:5px">Retorno esperado: '+item.retorno+'</div>':'')+'</div>';}).join('');
+  el.innerHTML=inv.map(function(item,i){return '<div class="inv-item"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:7px"><div><div style="font-size:.83rem;font-weight:600;color:var(--cafe)">'+item.desc+'</div><div style="font-size:.66rem;color:var(--muted);margin-top:2px">'+item.tipo+' · R$ '+(item.val||0).toLocaleString('pt-BR')+'</div></div><div style="display:flex;gap:6px;align-items:center"><span class="inv-status '+item.veredicto+'">'+(item.veredicto==='sim'?'Pode fazer':item.veredicto==='nao'?'Ainda não':'Aguardar')+'</span><button class="bd" onclick="remInv('+i+')" style="font-size:.58rem;padding:2px 6px">✕</button></div></div><div style="font-size:.75rem;line-height:1.55;color:var(--text)">'+item.msg+'</div>'+(item.retorno?'<div style="font-size:.68rem;color:var(--muted);margin-top:5px">Retorno esperado: '+item.retorno+'</div>':'')+'</div>';}).join('');
 }
 function remInv(i){if(!confirm('Remover?'))return;DB.investimentos.splice(i,1);saveDB();renderInvestir();}
 
@@ -2095,7 +2142,7 @@ function renderAporteSecao(){
   ordenado.forEach(function(a){
     var item=itemsByKey[a.caixa]||{icon:'💰',label:a.caixa};
     var dataFmt=a.data?new Date(a.data).toLocaleDateString('pt-BR'):'';
-    h.push('<div style="display:flex;justify-content:space-between;align-items:center;font-size:.7rem;padding:5px 0;border-bottom:1px solid var(--border)"><span>'+item.icon+' '+item.label+' <span style="color:var(--muted)">· '+dataFmt+'</span></span><span style="display:flex;align-items:center;gap:8px"><span style="font-weight:600;color:var(--cafe)">R$ '+a.valor.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</span><button class="bd" onclick="remAporte(\''+a.id+'\')" style="font-size:.55rem;padding:2px 6px">✕</button></span></div>');
+    h.push('<div style="display:flex;justify-content:space-between;align-items:center;font-size:.7rem;padding:5px 0;border-bottom:1px solid var(--border)"><span>'+item.icon+' '+item.label+' <span style="color:var(--muted)">· '+dataFmt+'</span></span><span style="display:flex;align-items:center;gap:8px"><span style="font-weight:600;color:var(--cafe)">R$ '+(a.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</span><button class="bd" onclick="remAporte(\''+a.id+'\')" style="font-size:.55rem;padding:2px 6px">✕</button></span></div>');
   });
   el.innerHTML=h.join('');
 }
@@ -2104,16 +2151,16 @@ function renderRisco(){
   var el=document.getElementById('risco-painel');if(!el||!DB)return;
   var res=DB.reservas||[];
   if(!res.length){el.innerHTML='<div class="cl">🛡️ Análise de Risco</div><div style="font-size:.72rem;color:var(--muted)">Adicione aplicações pra ver essa análise.</div>';return;}
-  var total=res.reduce(function(a,r){return a+r.val;},0);
+  var total=res.reduce(function(a,r){return a+(r.val||0);},0);
   // Concentração por instituição
   var porInst={};
-  res.forEach(function(r){var k=r.inst||'—';porInst[k]=(porInst[k]||0)+r.val;});
+  res.forEach(function(r){var k=r.inst||'—';porInst[k]=(porInst[k]||0)+(r.val||0);});
   var maiorInst=Object.keys(porInst).reduce(function(a,k){return porInst[k]>(porInst[a]||0)?k:a;},Object.keys(porInst)[0]);
   var pctMaior=total>0?Math.round((porInst[maiorInst]/total)*100):0;
   // Liquidez
-  var pctDiaria=total>0?Math.round((res.filter(function(r){return r.liq==='Diária';}).reduce(function(a,r){return a+r.val;},0)/total)*100):0;
+  var pctDiaria=total>0?Math.round((res.filter(function(r){return r.liq==='Diária';}).reduce(function(a,r){return a+(r.val||0);},0)/total)*100):0;
   // Rentabilidade média ponderada vs inflação
-  var rentPonderada=total>0?res.reduce(function(a,r){return a+(r.val*(r.rent||0));},0)/total:0;
+  var rentPonderada=total>0?res.reduce(function(a,r){return a+((r.val||0)*(r.rent||0));},0)/total:0;
   var ipcaAnoEl=document.getElementById('risco-ipca');
   var ipcaAno=ipcaAnoEl&&ipcaAnoEl.value?parseBRL(ipcaAnoEl.value):4.5;
   var ipcaMes=Math.round((Math.pow(1+ipcaAno/100,1/12)-1)*10000)/100;
@@ -2136,7 +2183,36 @@ function renderRisco(){
   h+='<div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:.78rem;font-weight:600;color:var(--cafe)">Cobertura de Inflação</span><span style="font-size:.72rem;font-weight:600;color:'+(cobreInflacao?'var(--green)':'var(--red)')+'">'+rentPonderada.toFixed(2)+'% a.m. vs '+ipcaMes+'% a.m.</span></div>';
   h+='<div style="font-size:.68rem;color:var(--muted)">'+(cobreInflacao?'Sua rentabilidade média está acima da inflação de referência — seu dinheiro está ganhando poder de compra':'Sua rentabilidade média está abaixo da inflação de referência — seu dinheiro está perdendo poder de compra com o tempo')+'</div>';
   h+='</div>';
+
+  var sugestoes=sugestoesInvestimento(pctMaior,maiorInst,pctDiaria,cobreInflacao);
+  h+='<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">';
+  h+='<div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:10px">💡 Onde isso costuma se resolver</div>';
+  sugestoes.forEach(function(s){
+    h+='<div style="display:flex;gap:10px;background:var(--s2);border-radius:10px;padding:10px 12px;margin-bottom:8px;align-items:flex-start">';
+    h+='<div style="font-size:1.1rem;line-height:1">'+s.icone+'</div>';
+    h+='<div><div style="font-size:.76rem;font-weight:600;color:var(--cafe);margin-bottom:2px">'+s.titulo+'</div><div style="font-size:.7rem;color:var(--text);line-height:1.55">'+s.texto+'</div></div>';
+    h+='</div>';
+  });
+  h+='<div style="font-size:.6rem;color:var(--muted);font-style:italic;margin-top:2px">Isso é informação geral de mercado, não uma recomendação personalizada — compare taxas e condições antes de decidir.</div>';
+  h+='</div>';
   el.innerHTML=h;
+}
+
+function sugestoesInvestimento(pctMaior,maiorInst,pctDiaria,cobreInflacao){
+  var s=[];
+  if(pctMaior>60){
+    s.push({icone:'🏦',titulo:'Diversifique de banco',texto:'Boa parte da reserva está concentrada em '+maiorInst+'. Bancos digitais como Nubank, Banco Inter, PicPay e Sofisa Direto costumam oferecer CDB com liquidez diária perto de 100–105% do CDI — abrir conta em mais um banco e dividir o valor mantém a proteção do FGC (até R$250 mil por CPF, por instituição).'});
+  }
+  if(pctDiaria<70){
+    s.push({icone:'💧',titulo:'Aumente a liquidez do que puder',texto:'CDB com liquidez diária (resgata a qualquer momento, sem perder o rendimento) é o formato mais comum pra isso, e a maioria dos bancos digitais oferece sem taxa. Vale reservar pelo menos a parte destinada à emergência nesse formato.'});
+  }
+  if(!cobreInflacao){
+    s.push({icone:'📈',titulo:'Busque algo que renda acima da inflação',texto:'Tesouro IPCA+ (comprado direto no Tesouro Direto, sem intermediário, garantido pelo Governo Federal) trava um rendimento sempre acima da inflação. CDBs que pagam 100%+ do CDI também costumam superar o IPCA na maioria dos anos.'});
+  }
+  if(!s.length){
+    s.push({icone:'✅',titulo:'Sua carteira está equilibrada',texto:'Diversificação, liquidez e proteção contra inflação estão dentro do razoável pelos critérios acima. Vale só continuar acompanhando mês a mês.'});
+  }
+  return s;
 }
 
 var EDU_TYPES={
@@ -2168,9 +2244,9 @@ function renderReservas(){
     eduEl.innerHTML='';eduEl.appendChild(tabsDiv);eduEl.appendChild(bodyDiv);
     showEduContent(mainTipo);
   }
-  var total=reservas.reduce(function(a,r){return a+r.val;},0);
+  var total=reservas.reduce(function(a,r){return a+(r.val||0);},0);
   var rentMedia=reservas.length?reservas.reduce(function(a,r){return a+(r.rent||0);},0)/reservas.length:0;
-  var rendMensal=reservas.reduce(function(a,r){return a+(r.val*(r.rent||0)/100);},0);
+  var rendMensal=reservas.reduce(function(a,r){return a+((r.val||0)*(r.rent||0)/100);},0);
   var e1=document.getElementById('res-total');if(e1)e1.textContent=total?'R$ '+total.toLocaleString('pt-BR'):'—';
   var e2=document.getElementById('res-rent');if(e2)e2.textContent=rentMedia?rentMedia.toFixed(2)+'% a.m.':'—';
   var e3=document.getElementById('res-rend');if(e3)e3.textContent=rendMensal?'R$ '+rendMensal.toFixed(2):'—';
@@ -2186,11 +2262,11 @@ function renderReservas(){
   var frag=document.createDocumentFragment();
   reservas.forEach(function(r){
     var edu=EDU_TYPES[r.tipo]||EDU_TYPES['Outro'];
-    var rentMensal=r.val*(r.rent||0)/100;
+    var rentMensal=(r.val||0)*(r.rent||0)/100;
     var rentAnual=(Math.pow(1+(r.rent||0)/100,12)-1)*100;
-    var pct=total?Math.round((r.val/total)*100):0;
-    var vsPoup=rentMensal-(r.val*0.5/100);
-    var vsCDI=rentMensal-(r.val*1.0/100);
+    var pct=total?Math.round(((r.val||0)/total)*100):0;
+    var vsPoup=rentMensal-((r.val||0)*0.5/100);
+    var vsCDI=rentMensal-((r.val||0)*1.0/100);
     var isSofisa=r.inst&&r.inst.toLowerCase().indexOf('sofisa')>-1;
     var smartTip='';
     if(r.tipo==='Poupança'){smartTip='⚠️ Poupança rende menos que CDB com a mesma segurança. Sofisa, Nubank e PicPay oferecem CDB com liquidez diária a 100-105% do CDI.';}
@@ -2211,7 +2287,7 @@ function renderReservas(){
     h.push('<span class="bdg m">'+r.liq+'</span>');
     if(r.inst)h.push('<span class="bdg m">'+r.inst+'</span>');
     h.push('</div></div>');
-    h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+r.val.toLocaleString('pt-BR')+'</div>');
+    h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+(r.val||0).toLocaleString('pt-BR')+'</div>');
     h.push('<div style="font-size:.62rem;color:var(--muted)">'+pct+'% da carteira</div></div></div>');
     h.push('<div style="background:var(--s1);border-radius:8px;padding:11px;margin-bottom:9px">');
     h.push('<div class="g4"><div><div class="sl">Rent./mês</div><div style="font-size:.88rem;font-weight:600;color:var(--green)">'+(r.rent||0).toFixed(2)+'%</div></div>');
@@ -2307,16 +2383,16 @@ function renderHistoricoReservas(){
     h.push('<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px">');
     h.push('<div><div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+snap.mes+'</div>');
     h.push('<div style="font-size:.63rem;color:var(--muted);margin-top:2px">'+snap.qtd+' aplicação'+(snap.qtd>1?'ões':'')+'</div></div>');
-    h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+snap.total.toLocaleString('pt-BR')+'</div>');
+    h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+(snap.total||0).toLocaleString('pt-BR')+'</div>');
     if(growth!==null){var gc=growth>=0?'var(--green)':'var(--red)';h.push('<div style="font-size:.66rem;color:'+gc+'">'+(growth>=0?'▲ +':'▼ ')+growth+'% vs mês anterior</div>');}
     h.push('</div></div>');
     h.push('<div style="display:flex;gap:8px;flex-wrap:wrap">');
-    h.push('<div style="background:var(--green-dim);border:1px solid var(--green-b);border-radius:7px;padding:5px 10px;font-size:.7rem;color:var(--green)">Rende R$ '+snap.rendMensal.toFixed(2)+'/mês</div>');
+    h.push('<div style="background:var(--green-dim);border:1px solid var(--green-b);border-radius:7px;padding:5px 10px;font-size:.7rem;color:var(--green)">Rende R$ '+(snap.rendMensal||0).toFixed(2)+'/mês</div>');
     if(snap.total>0)h.push('<div style="background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:7px;padding:5px 10px;font-size:.7rem;color:var(--ouro)">'+((snap.rendMensal/snap.total)*100).toFixed(2)+'% a.m.</div>');
     h.push('</div>');
     if(snap.aplicacoes&&snap.aplicacoes.length){
       h.push('<div style="margin-top:9px;border-top:1px solid var(--border);padding-top:9px">');
-      snap.aplicacoes.forEach(function(a){h.push('<div style="display:flex;justify-content:space-between;font-size:.7rem;padding:2px 0;color:var(--muted)"><span>'+a.desc+(a.inst?' · '+a.inst:'')+'</span><span style="color:var(--cafe)">R$ '+a.val.toLocaleString('pt-BR')+'</span></div>');});
+      snap.aplicacoes.forEach(function(a){h.push('<div style="display:flex;justify-content:space-between;font-size:.7rem;padding:2px 0;color:var(--muted)"><span>'+a.desc+(a.inst?' · '+a.inst:'')+'</span><span style="color:var(--cafe)">R$ '+(a.val||0).toLocaleString('pt-BR')+'</span></div>');});
       h.push('</div>');
     }
     h.push('<div style="display:flex;gap:8px;margin-top:10px;justify-content:flex-end">');
@@ -2453,51 +2529,130 @@ function salvarApiKey(){
 function getApiKey(){return storageGet('raizv2-apikey')||'';}
 function irConfig(){var btn=document.querySelector('.nb:last-child');if(btn)goPage('config',btn);}
 
-async function ativarClara(){
-  if(!DB){notif('Faça login primeiro.');return;}
-  var out=document.getElementById('clara-output');
+function claraContextoDados(){
+  var ativos=(DB.clientes||[]).filter(function(c){return c.status!=='Encerrado';});
+  var fat=ativos.reduce(function(a,c){return a+(c.val||0);},0);
+  var ul=(DB.meses&&DB.meses.length)?DB.meses[DB.meses.length-1]:null;
+  var caixa=ul?(ul.caixa||0):0;var gasto=(DB.config&&DB.config.custo)||0;var sobra=fat-gasto;
+  var mc=DB.macros||{};var mcFin=mc.fin||{score:null};var mcCom=mc.com||{score:null};
+  return 'Você é Clara, mentora e consultora de gestão de negócios da Dani. Vocês têm uma conversa de verdade, via de mão dupla: você pode fazer perguntas de volta antes de opinar, discordar com respeito, pedir mais contexto, e construir uma conclusão junto com ela — isso não é um relatório de mão única, é um debate.\n'
+    +'Seja honesta, acolhedora e direta. Provoque-a a pensar, mas ouça de verdade o que ela responde e construa a partir disso, em vez de só repetir seu diagnóstico inicial.\n'
+    +'Responda em português do Brasil, em tom de conversa natural — não force seções fixas nem listas toda hora. Sem asteriscos. O tamanho da resposta deve combinar com o tamanho da pergunta: perguntas simples merecem respostas curtas.\n\n'
+    +'DADOS ATUAIS DO NEGÓCIO (use quando for relevante para a conversa):\n'
+    +'- Faturamento: R$ '+fat.toLocaleString('pt-BR')+'\n'
+    +'- Clientes ativas: '+ativos.length+(ativos.length?' ('+ativos.map(function(c){return c.nome+' R$'+(c.val||0);}).join(', ')+')':'')+'\n'
+    +'- Custo mensal: R$ '+gasto.toLocaleString('pt-BR')+'\n'
+    +'- Sobra: R$ '+sobra.toLocaleString('pt-BR')+'\n'
+    +'- Caixa PJ: R$ '+caixa.toLocaleString('pt-BR')+'\n'
+    +'- Score Financeiro: '+(mcFin.score!==null&&mcFin.score!==undefined?mcFin.score:'não avaliado')+'\n'
+    +'- Score Comercial: '+(mcCom.score!==null&&mcCom.score!==undefined?mcCom.score:'não avaliado')+'\n';
+}
+
+function claraFmt(texto){
+  var esc=(texto||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return esc.split('\n').join('<br>');
+}
+
+function renderClaraChat(){
+  var chatEl=document.getElementById('clara-chat');if(!chatEl)return;
+  var hist=(DB&&DB.claraChat)||[];
+  if(!hist.length){
+    chatEl.innerHTML='<div style="font-size:.78rem;color:var(--muted);font-style:italic;line-height:1.7;">Clique em "Fazer o raio-x" para a Clara analisar seu negócio, ou já escreva sua pergunta abaixo — vocês podem conversar e trocar ideia à vontade.</div>';
+    return;
+  }
+  var html='';
+  hist.forEach(function(m){
+    if(m.role==='user'){
+      html+='<div style="align-self:flex-end;max-width:85%;background:var(--cafe);color:var(--ouro);border-radius:12px 12px 3px 12px;padding:9px 13px;font-size:.8rem;line-height:1.6;">'+claraFmt(m.content)+'</div>';
+    }else{
+      html+='<div style="align-self:flex-start;max-width:88%;background:var(--s2);color:var(--text);border-radius:12px 12px 12px 3px;padding:10px 13px;font-size:.8rem;line-height:1.65;">'+claraFmt(m.content)+'</div>';
+    }
+  });
+  chatEl.innerHTML=html;
+  chatEl.scrollTop=chatEl.scrollHeight;
+}
+
+function claraErro(msg){
+  var chatEl=document.getElementById('clara-chat');if(!chatEl)return;
+  var apiKey=getApiKey();
+  var div=document.createElement('div');
+  div.style.cssText='align-self:flex-start;max-width:90%;background:var(--s2);border-radius:12px;padding:12px 14px;font-size:.78rem;line-height:1.65;color:var(--text);';
+  if(!apiKey){
+    var p1=document.createElement('div');p1.style.cssText='color:var(--cafe);font-weight:600;margin-bottom:6px;';p1.textContent='A Clara precisa de uma chave de API para rodar fora do Claude.ai.';
+    var p2=document.createElement('div');p2.style.cssText='color:var(--muted);margin-bottom:9px;';p2.textContent='Vá em ⚙️ Config → Clara — Chave de API e cadastre sua chave da Anthropic.';
+    var btn=document.createElement('button');btn.className='bp';btn.style.cssText='font-size:.65rem;padding:7px 13px';btn.textContent='Ir para Configurações →';
+    btn.onclick=function(){irConfig();};
+    div.appendChild(p1);div.appendChild(p2);div.appendChild(btn);
+  } else {
+    div.textContent=msg?('Erro: '+msg):'Não foi possível conectar. Verifique sua conexão e se a chave está correta.';
+  }
+  chatEl.appendChild(div);
+  chatEl.scrollTop=chatEl.scrollHeight;
+}
+
+async function claraChamarAPI(){
   var loading=document.getElementById('clara-loading');
-  out.style.display='none';loading.style.display='block';
-  var ativos=DB.clientes.filter(function(c){return c.status!=='Encerrado';});
-  var fat=ativos.reduce(function(a,c){return a+c.val;},0);
-  var ul=(DB.meses&&DB.meses.length)?DB.meses[(DB.meses&&DB.meses.length)-1]:null;
-  var caixa=ul?ul.caixa:0;var gasto=DB.config.custo||0;var sobra=fat-gasto;
-  var mc=DB.macros;
-  var ctx='Você é Clara, mentora e consultora de gestão de negócios.\nAnalise os dados e faça um raio-x honesto, acolhedor e provocador.\nNunca decida por ela — provoque ela a pensar e a agir.\nResponda em português do Brasil. Sem bullet points excessivos. Sem asteriscos.\nUse estas seções em ordem: Financeiro, Comercial, Operacional, Processos, Pergunta Provocadora\nMáximo 350 palavras.\n\nDADOS:\n- Faturamento: R$ '+fat.toLocaleString('pt-BR')+'\n- Clientes ativas: '+ativos.length+(ativos.length?' ('+ativos.map(function(c){return c.nome+' R$'+c.val;}).join(', ')+')\n':'\n')+'- Custo mensal: R$ '+gasto.toLocaleString('pt-BR')+'\n- Sobra: R$ '+sobra.toLocaleString('pt-BR')+'\n- Caixa PJ: R$ '+caixa.toLocaleString('pt-BR')+'\n- Score Financeiro: '+(mc.fin.score!==null?mc.fin.score:'não avaliado')+'\n- Score Comercial: '+(mc.com.score!==null?mc.com.score:'não avaliado')+'\nTermine com UMA pergunta provocadora.';
+  if(loading)loading.style.display='block';
   try{
     var fetchHeaders={'Content-Type':'application/json'};
     var apiKey=getApiKey();
     if(apiKey){fetchHeaders['x-api-key']=apiKey;fetchHeaders['anthropic-version']='2023-06-01';fetchHeaders['anthropic-dangerous-direct-browser-access']='true';}
-    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:fetchHeaders,body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:ctx}]})});
+    var msgs=DB.claraChat.map(function(m){return {role:m.role,content:m.content};});
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:fetchHeaders,body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:claraContextoDados(),messages:msgs})});
     var data=await resp.json();
-    var texto=data.content&&data.content[0]?data.content[0].text:'Não foi possível gerar a análise.';
-    var secNames=['Financeiro','Comercial','Operacional','Processos','Pergunta Provocadora'];
-    var html='';
-    for(var si=0;si<secNames.length;si++){
-      var sec=secNames[si];var nextSec=secNames[si+1];var idxS=texto.indexOf(sec);if(idxS===-1)continue;
-      var startB=idxS+sec.length;var idxE=nextSec?texto.indexOf(nextSec,startB):-1;var endB=idxE>-1?idxE:texto.length;
-      var body=texto.slice(startB,endB).trim();if(body.length>0&&(body[0]===':'||body[0]==='-'))body=body.slice(1).trim();
-      if(sec==='Pergunta Provocadora'){html+='<div class="clara-provoca"><p>'+body+'</p></div>';}
-      else{html+='<div class="clara-section"><div class="clara-section-title">'+sec+'</div><div class="clara-msg">'+body+'</div></div>';}
+    var texto=data.content&&data.content[0]?data.content[0].text:null;
+    if(loading)loading.style.display='none';
+    if(!texto){
+      var errMsg=(data.error&&data.error.message)?data.error.message:null;
+      claraErro(errMsg);
+      return;
     }
-    if(!html){html='<div class="clara-msg">'+texto.split('\n').join('<br>')+'</div>';}
-    loading.style.display='none';out.style.display='block';out.innerHTML=html;
+    DB.claraChat.push({role:'assistant',content:texto});
+    saveDB();
+    renderClaraChat();
   }catch(e){
-    loading.style.display='none';out.style.display='block';
-    var apiKey2=getApiKey();
-    if(!apiKey2){
-      var div2=document.createElement('div');div2.style.cssText='font-size:.78rem;line-height:1.65';
-      var p3=document.createElement('p');p3.style.cssText='color:var(--cafe);font-weight:600;margin-bottom:7px';p3.textContent='A Clara precisa de uma chave de API para rodar fora do Claude.ai.';
-      var p4=document.createElement('p');p4.style.cssText='color:var(--muted);margin-bottom:10px';p4.textContent='Vá em ⚙️ Config → Clara — Chave de API e cadastre sua chave da Anthropic.';
-      var btn2=document.createElement('button');btn2.className='bp';btn2.style.cssText='font-size:.65rem;padding:7px 13px';btn2.textContent='Ir para Configurações →';
-      btn2.onclick=function(){irConfig();};
-      div2.appendChild(p3);div2.appendChild(p4);div2.appendChild(btn2);
-      out.innerHTML='';out.appendChild(div2);
-    } else {
-      out.innerHTML='<div style="font-size:.76rem;color:var(--muted)">Não foi possível conectar. Verifique sua conexão e se a chave está correta.</div>';
-    }
+    if(loading)loading.style.display='none';
+    claraErro(null);
   }
 }
+
+function claraAnalise(){
+  if(!DB){notif('Faça login primeiro.');return;}
+  DB.claraChat.push({role:'user',content:'Faça o raio-x completo do meu negócio agora, com os dados atuais, e termine com uma pergunta provocadora pra eu pensar.'});
+  saveDB();
+  renderClaraChat();
+  claraChamarAPI();
+}
+
+function claraSend(){
+  if(!DB){notif('Faça login primeiro.');return;}
+  var inputEl=document.getElementById('clara-input');
+  if(!inputEl)return;
+  var texto=inputEl.value.trim();
+  if(!texto)return;
+  DB.claraChat.push({role:'user',content:texto});
+  inputEl.value='';
+  saveDB();
+  renderClaraChat();
+  claraChamarAPI();
+}
+
+function claraKeydown(ev){
+  if(ev.key==='Enter'&&!ev.shiftKey){
+    ev.preventDefault();
+    claraSend();
+  }
+}
+
+function claraNovaConversa(){
+  if(!DB)return;
+  if(DB.claraChat.length&&!confirm('Começar uma nova conversa? O histórico atual será apagado.'))return;
+  DB.claraChat=[];
+  saveDB();
+  renderClaraChat();
+}
+
+
 
 // ══ SUPABASE CONFIG ══
 // Preencha com seus dados do Supabase após criar o projeto
@@ -2749,7 +2904,8 @@ function defaultDB(){return{
   entregas:[],
   propostas:[],
   hist_cli:[],
-  biblioteca:[]
+  biblioteca:[],
+  claraChat:[]
 };}
 function initDB(){DB=defaultDB();saveDB();}
 async function loadDBAsync(){
@@ -2786,8 +2942,8 @@ function loadDB(){
   if(!DB.empresa_links)DB.empresa_links=[];
   migrarDB();}
 function migrarDB(){
-  var def=defaultDB();
   // Migrate and enforce 3-caixa structure
+  var def=defaultDB();
   if(!DB.caixas)DB.caixas={reserva_paz:{valor:0,meta:0},caixa_empresa:{valor:0,meta:0},projetos:{valor:0,meta:0}};
   var cx=DB.caixas;
   if(!cx.reserva_paz){cx.reserva_paz=cx.reserva_pf||{valor:0,meta:0};}
@@ -2818,6 +2974,24 @@ function migrarDB(){
   if(!DB.biblioteca)DB.biblioteca=[];
   if(!DB.aportes)DB.aportes=[];
   if(!DB.aporteConfig)DB.aporteConfig={reserva_paz:50,caixa_empresa:30,projetos:20};
+  if(!DB.claraChat)DB.claraChat=[];
+  // Migração: aportes antigos que ficaram lançados como despesa (versão anterior do sistema)
+  // precisam virar "investido" pra não aparecer mais na lista de Despesas nem contar em dobro no Saldo.
+  if(DB.meses_fin){
+    Object.keys(DB.meses_fin).forEach(function(k){
+      var m=DB.meses_fin[k];if(!m)return;
+      if(!m.despesas)m.despesas=[];if(!m.investido)m.investido=[];
+      var restantes=[];
+      m.despesas.forEach(function(d){
+        if(d&&d.desc&&/^Aporte/i.test(d.desc)){
+          m.investido.push({id:d.id||uid(),desc:d.desc,valor:d.valor,data:d.data||d.dataPagamento||''});
+        }else{
+          restantes.push(d);
+        }
+      });
+      m.despesas=restantes;
+    });
+  }
   if(DB.config&&DB.config.metaFat===undefined)DB.config.metaFat=0;
   if(DB.config&&DB.config.limiteGastoPct===undefined)DB.config.limiteGastoPct=40;
   if(!DB.empresa)DB.empresa={};
@@ -3181,7 +3355,7 @@ function prodRenderRentabilidade(){
     var top=document.createElement('div');top.style.cssText='display:flex;justify-content:space-between;align-items:center;margin-bottom:7px';
     var left=document.createElement('div');
     left.innerHTML='<div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+r.nome+'</div>'
-      +'<div style="font-size:.64rem;color:var(--muted);margin-top:2px">'+horasStr+' · R$ '+r.val.toLocaleString('pt-BR')+'/mês</div>';
+      +'<div style="font-size:.64rem;color:var(--muted);margin-top:2px">'+horasStr+' · R$ '+(r.val||0).toLocaleString('pt-BR')+'/mês</div>';
     var right=document.createElement('div');right.style.textAlign='right';
     right.innerHTML='<div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;font-weight:600;color:var(--'+r.cls+')">R$ '+r.rh.toLocaleString('pt-BR')+'/h</div>'
       +'<span class="bdg '+r.cls+'" style="font-size:.5rem">'+(r.rh>=60?'Ótimo':r.rh>=30?'Regular':'Atenção')+'</span>';
@@ -4044,14 +4218,15 @@ function renderCrescimento(){
   });
   var meses=keys.map(function(k){
     var m=DB.meses_fin[k];
-    var recebido=0,pago=0;
+    var recebido=0,pago=0,investido=0;
     (m.receitas_clientes||[]).forEach(function(r){if(r.recebido)recebido+=parseFloat(r.valor||0);});
     (m.outras_receitas||[]).forEach(function(r){if(r.recebido)recebido+=parseFloat(r.valor||0);});
     (m.despesas||[]).forEach(function(d){if(d.pago)pago+=parseFloat(d.valor||0);});
+    (m.investido||[]).forEach(function(i){investido+=parseFloat(i.valor||0);});
     var parts=k.split('-');var dataRef=new Date(parseInt(parts[0]),parseInt(parts[1])-1,1);
     var label=dataRef.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
     label=label.charAt(0).toUpperCase()+label.slice(1);
-    return{key:k,mes:label,fat:Math.round(recebido*100)/100,gasto:Math.round(pago*100)/100};
+    return{key:k,mes:label,fat:Math.round(recebido*100)/100,gasto:Math.round(pago*100)/100,investido:Math.round(investido*100)/100};
   });
   var h='';
   var primeiro=meses[0];var ultimo=meses[meses.length-1];
@@ -4059,7 +4234,7 @@ function renderCrescimento(){
   var totalMeses=meses.length;
   var mediaFat=Math.round(meses.reduce(function(a,m){return a+(m.fat||0);},0)/totalMeses);
   var melhorMes=meses.reduce(function(a,m){return (m.fat||0)>(a.fat||0)?m:a;},meses[0]);
-  var ultimoLucro=Math.round((ultimo.fat-ultimo.gasto)*100)/100;
+  var ultimoLucro=Math.round((ultimo.fat-ultimo.gasto-(ultimo.investido||0))*100)/100;
   var statusTxt=ultimoLucro>0?'Lucro':ultimoLucro<0?'Prejuízo':'Equilíbrio';
   var statusColor=ultimoLucro>0?'g':ultimoLucro<0?'r':'o';
   h+='<div class="g3" style="margin-bottom:13px">';
@@ -4071,7 +4246,7 @@ function renderCrescimento(){
   var maxFat=Math.max.apply(null,meses.map(function(m){return m.fat||0;}))||1;
   meses.slice().reverse().forEach(function(m,i){
     var pct=Math.round(((m.fat||0)/maxFat)*100);
-    var sob=Math.round(((m.fat||0)-(m.gasto||0))*100)/100;
+    var sob=Math.round(((m.fat||0)-(m.gasto||0)-(m.investido||0))*100)/100;
     var prev=meses[meses.length-2-i];
     var diff=prev&&prev.fat?Math.round(((m.fat-prev.fat)/prev.fat)*100):null;
     h+='<div style="padding:10px 0;border-bottom:1px solid var(--border)">';
@@ -5485,6 +5660,14 @@ function editarInvestimento(id){
   <div class="fi"><label>Descrição (opcional)</label><input type="text" id="lkemp-desc" placeholder="ex: Pasta com contrato e entregas da Lilian"></div>
   <div class="ma"><button class="bg" onclick="closeModal('modal-add-link-emp')">Cancelar</button><button class="bp" onclick="salvarLinkEmp()">Salvar</button></div>
 </div></div>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js').catch(function(e){console.log('SW não registrado:', e.message);});
+  });
+}
+</script>
 
 </body>
 </html>
