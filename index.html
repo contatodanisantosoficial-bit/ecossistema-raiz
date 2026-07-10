@@ -1318,7 +1318,7 @@ function getAlerts(){
     var cdiff=Math.round((cv-today)/86400000);
     if(cdiff<=dias)al.push({nome:cc.desc,val:cc.val||0,diff:cdiff,meio:cc.tipo,conta:true});
   }
-  var keyAtualCF=today.getFullYear()+'-'+(today.getMonth()+1);
+  var keyAtualCF=finMesKey(0);
   var mesAtualCF=DB.meses_fin&&DB.meses_fin[keyAtualCF];
   if(mesAtualCF&&mesAtualCF.despesas){
     for(var fi=0;fi<mesAtualCF.despesas.length;fi++){
@@ -2358,7 +2358,7 @@ function registrarSnapshotReservas(){
   var hoje=new Date();
   var mesAno=hoje.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
   mesAno=mesAno.charAt(0).toUpperCase()+mesAno.slice(1);
-  var mesKey=hoje.getFullYear()+'-'+(hoje.getMonth()+1);
+  var mesKey=finMesKey(0);
   var jaExiste=DB.reservas_historico.find(function(h){return h.key===mesKey;});
   if(jaExiste){if(!confirm('Já existe registro para '+mesAno+'. Substituir?'))return;DB.reservas_historico=DB.reservas_historico.filter(function(h){return h.key!==mesKey;});}
   var total=DB.reservas.reduce(function(a,r){return a+r.val;},0);
@@ -4219,6 +4219,13 @@ function remHistCli(id){
 // ══════════════════════════════════════════════
 // MÓDULO CRESCIMENTO
 // ══════════════════════════════════════════════
+function excluirMesCrescimento(key){
+  if(!confirm('Excluir todos os dados financeiros deste mês ('+key+')? Use isso só para remover meses de teste. Essa ação não pode ser desfeita.'))return;
+  if(DB.meses_fin)delete DB.meses_fin[key];
+  saveDB();
+  renderCrescimento();
+  notif('Mês removido.');
+}
 function renderCrescimento(){
   if(!DB)return;
   var el=document.getElementById('cresc-painel');if(!el)return;
@@ -4276,6 +4283,7 @@ function renderCrescimento(){
     h+='<div style="display:flex;align-items:center;gap:10px">';
     if(diff!==null)h+='<span style="font-size:.65rem;color:'+(diff>=0?'var(--green)':'var(--red)')+'">'+(diff>=0?'▲+':'▼')+diff+'%</span>';
     h+='<div style="font-family:Cormorant Garamond,serif;font-size:1rem;font-weight:600;color:var(--ouro)">R$ '+(m.fat||0).toLocaleString('pt-BR')+'</div>';
+    h+='<button class="bd" style="font-size:.56rem;padding:2px 6px" data-key="'+m.key+'" onclick="excluirMesCrescimento(this.dataset.key)" title="Excluir este mês (dado de teste)">✕</button>';
     h+='</div></div>';
     h+='<div class="pt3"><div class="pf o" style="width:'+pct+'%"></div></div>';
     h+='<div style="display:flex;gap:13px;margin-top:4px;font-size:.64rem;color:var(--muted)">';
@@ -4316,7 +4324,7 @@ function calcSaudeFinanceira(){
   var limitePct=(DB.config&&DB.config.limiteGastoPct)||40;
 
   // Mês atual: recebido, gasto, horas trabalhadas
-  var hoje=new Date();var keyAtual=hoje.getFullYear()+'-'+(hoje.getMonth()+1);
+  var hoje=new Date();var keyAtual=finMesKey(0);
   var mesAtual=DB.meses_fin&&DB.meses_fin[keyAtual];
   var recebido=0,gasto=0;
   if(mesAtual){
@@ -4369,7 +4377,7 @@ function calcSimulador(){
   if(valor<=0){el.innerHTML='';return;}
   var recorrente=document.getElementById('sim-recorrente')&&document.getElementById('sim-recorrente').checked;
   var limitePct=(DB.config&&DB.config.limiteGastoPct)||40;
-  var hoje=new Date();var keyAtual=hoje.getFullYear()+'-'+(hoje.getMonth()+1);
+  var hoje=new Date();var keyAtual=finMesKey(0);
   var mesAtual=DB.meses_fin&&DB.meses_fin[keyAtual];
   var recebido=0,gasto=0;
   if(mesAtual){
@@ -4434,7 +4442,7 @@ function renderPrecificacao(){
     if(s.data&&s.data.slice(0,7)===mesStr&&s.clienteId){horasPorCliente[s.clienteId]=(horasPorCliente[s.clienteId]||0)+(s.durMin||0);}
   });
   var horasMin=0;(DB.produtividade&&DB.produtividade.sessoes||[]).forEach(function(s){if(s.data&&s.data.slice(0,7)===mesStr)horasMin+=(s.durMin||0);});
-  var mesAtual=DB.meses_fin&&DB.meses_fin[hoje.getFullYear()+'-'+(hoje.getMonth()+1)];
+  var mesAtual=DB.meses_fin&&DB.meses_fin[finMesKey(0)];
   var recebido=0;
   if(mesAtual){(mesAtual.receitas_clientes||[]).forEach(function(r){if(r.recebido)recebido+=parseFloat(r.valor||0);});}
   var horasTotais=horasMin/60;
@@ -4769,20 +4777,31 @@ function renderFinReceitas(mes, key){
     }
   });
 
-  if(!mes.receitas_clientes.length){
+  // BUGFIX: cliente Encerrado não deve aparecer em meses futuros nem compor projeção.
+  // Meses atuais/passados continuam mostrando o histórico normalmente (mesmo não recebido).
+  var mesAtualKeyFR = finMesKey(0);
+  var ehMesFuturoFR = key > mesAtualKeyFR;
+  var listaVisivel = mes.receitas_clientes.filter(function(r){
+    if(!ehMesFuturoFR) return true;
+    var cliDoR = DB.clientes.find(function(c){ return c.id === r.clienteId; });
+    if(cliDoR && cliDoR.status === 'Encerrado') return false;
+    return true;
+  });
+
+  if(!listaVisivel.length){
     el.innerHTML = '<div class="ev"><div class="eicon">💰</div><div class="etitle">Nenhum cliente ativo</div><div class="edesc">Cadastre clientes para ver os recebimentos.</div></div>';
     return;
   }
 
   var totalRec = 0, totalPend = 0;
-  mes.receitas_clientes.forEach(function(r){ if(r.recebido) totalRec += parseFloat(r.valor||0); else totalPend += parseFloat(r.valor||0); });
+  listaVisivel.forEach(function(r){ if(r.recebido) totalRec += parseFloat(r.valor||0); else totalPend += parseFloat(r.valor||0); });
 
   var h = '<div style="display:flex;gap:10px;margin-bottom:12px">';
   h += '<div class="sc" style="flex:1"><div class="sl">✅ Recebido</div><div class="sv g">R$ '+totalRec.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div></div>';
   h += '<div class="sc" style="flex:1"><div class="sl">⏳ Pendente</div><div class="sv o">R$ '+totalPend.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div></div>';
   h += '</div>';
 
-  mes.receitas_clientes.forEach(function(r){
+  listaVisivel.forEach(function(r){
     var cor = r.recebido ? 'var(--green)' : 'var(--ouro)';
     var icon = r.recebido ? '✅' : '⏳';
     h += '<div style="background:var(--s2);border:1px solid var(--border);border-left:3px solid '+cor+';border-radius:9px;padding:12px;margin-bottom:8px">';
