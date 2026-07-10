@@ -5662,9 +5662,12 @@ function editarInvestimento(id){
 </div></div>
 
 <script>
+// O service worker só existe pra permitir instalar o app na tela inicial.
+// Se sw.js não estiver hospedado junto (ex: numa pré-visualização), ele
+// simplesmente não registra — isso não afeta em nada o funcionamento do app.
 if('serviceWorker' in navigator){
   window.addEventListener('load', function(){
-    navigator.serviceWorker.register('sw.js').catch(function(e){console.log('SW não registrado:', e.message);});
+    navigator.serviceWorker.register('sw.js').catch(function(){});
   });
 }
 </script>
