@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --nude:#C98C73;--nude-dim:rgba(201,140,115,.12);--nude-b:rgba(201,140,115,.28);
@@ -26,23 +26,23 @@
   --s1:#FFFBF8;--s2:#F7EFE9;--s3:#EEE2D8;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;}
+body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
 .auth-overlay{position:fixed;inset:0;background:var(--cafe);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;}
 .auth-box{background:var(--offwhite);border-radius:20px;padding:36px 28px;max-width:380px;width:100%;text-align:center;}
-.auth-logo{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--cafe);margin-bottom:2px;}
+.auth-logo{font-family:'Plus Jakarta Sans',serif;font-size:2rem;font-weight:600;color:var(--cafe);margin-bottom:2px;}
 .auth-logo em{color:var(--nude);font-style:italic;}
 .auth-tag{font-size:.54rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:20px;}
 .auth-tabs{display:flex;border:1px solid var(--muted2);border-radius:10px;overflow:hidden;margin-bottom:20px;}
-.auth-tab{flex:1;padding:9px;font-size:.7rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:'Outfit',sans-serif;transition:all .2s;}
+.auth-tab{flex:1;padding:9px;font-size:.7rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:Plus Jakarta Sans,sans-serif;transition:all .2s;}
 .auth-tab.active{background:var(--cafe);color:var(--ouro);}
 .auth-field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;text-align:left;}
 .auth-field label{font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;}
-.auth-field input{background:var(--s2);border:1px solid var(--muted2);border-radius:9px;padding:11px 13px;color:var(--text);font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;transition:border-color .2s;}
+.auth-field input{background:var(--s2);border:1px solid var(--muted2);border-radius:9px;padding:11px 13px;color:var(--text);font-family:'Inter',sans-serif;font-size:.88rem;outline:none;width:100%;transition:border-color .2s;}
 .auth-field input:focus{border-color:var(--nude);}
 .auth-field input::placeholder{color:var(--muted);}
 .auth-nome-wrap{display:flex;align-items:center;border:1px solid var(--muted2);border-radius:9px;overflow:hidden;background:var(--s2);}
 .auth-nome-wrap:focus-within{border-color:var(--nude);}
-.auth-nome-prefix{padding:11px 12px;font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:600;color:var(--cafe);background:var(--s3);white-space:nowrap;border-right:1px solid var(--muted2);}
+.auth-nome-prefix{padding:11px 12px;font-family:'Plus Jakarta Sans',serif;font-size:.95rem;font-weight:600;color:var(--cafe);background:var(--s3);white-space:nowrap;border-right:1px solid var(--muted2);}
 .auth-nome-wrap input{border:none;border-radius:0;background:transparent;padding:11px 12px;}
 .auth-nome-wrap input:focus{border:none;}
 .auth-err{font-size:.72rem;color:var(--red);margin-bottom:10px;min-height:18px;}
@@ -52,6 +52,13 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 .nb-scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:6px 0;}
 .nb-scroll::-webkit-scrollbar{display:none;}
 .nb-group-label{font-size:.48rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:700;padding:10px 16px 4px;}
+.sb-group-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 4px;cursor:pointer;user-select:none;}
+.sb-group-header .chev{font-size:.5rem;color:rgba(255,255,255,.35);transition:transform .25s ease;}
+.sb-group-header.open .chev{transform:rotate(90deg);}
+.sb-group-body{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+.sb-group-body.open{max-height:400px;}
+.section-hdr{font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--nude);font-weight:700;margin:22px 0 10px;font-family:'Plus Jakarta Sans',sans-serif;}
+.section-hdr:first-of-type{margin-top:0;}
 .nb{display:flex;flex-direction:row;align-items:center;gap:9px;padding:9px 16px;cursor:pointer;border:none;background:transparent;color:rgba(255,255,255,.7);width:100%;text-align:left;transition:all .15s;position:relative;}
 .nb:hover,.nb.active{background:rgba(255,255,255,.13);color:#fff;}
 .ni{font-size:1rem;flex-shrink:0;width:20px;text-align:center;}
@@ -61,34 +68,36 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 .sb-bot{border-top:1px solid rgba(255,255,255,.1);padding:4px 0;flex-shrink:0;}
 .main{margin-left:200px;min-height:100vh;}
 .topbar{padding:13px 22px;border-bottom:1px solid var(--border);background:rgba(250,248,246,.95);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
-.tb-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--cafe);}
+.tb-title{font-family:'Plus Jakarta Sans',serif;font-size:1.1rem;font-weight:600;color:var(--cafe);}
 .tb-title em{color:var(--nude);font-style:italic;}
 .tb-date{font-size:.63rem;color:var(--muted);margin-top:1px;}
 .tb-r{display:flex;gap:8px;align-items:center;}
 .ab{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;font-size:.6rem;font-weight:600;border:1px solid;cursor:pointer;}
 .ab.w{background:var(--red-dim);color:var(--red);border-color:var(--red-b);}
-.logout-btn{font-size:.6rem;color:var(--muted);background:none;border:1px solid var(--muted2);border-radius:99px;padding:4px 10px;cursor:pointer;font-family:'Outfit',sans-serif;}
+.logout-btn{font-size:.6rem;color:var(--muted);background:none;border:1px solid var(--muted2);border-radius:99px;padding:4px 10px;cursor:pointer;font-family:Plus Jakarta Sans,sans-serif;font-weight:600;}
 .logout-btn:hover{color:var(--red);border-color:var(--red-b);}
 .page{display:none;padding:22px;max-width:880px;}
 .page.active{display:block;animation:fi .28s ease;}
 @keyframes fi{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:translateY(0);}}
 .ph{margin-bottom:20px;}
 .pe{font-size:.56rem;letter-spacing:3px;text-transform:uppercase;color:var(--nude);font-weight:700;margin-bottom:5px;}
-.pt{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,4vw,1.9rem);font-weight:600;line-height:1.1;color:var(--cafe);}
+.pt{font-family:'Plus Jakarta Sans',serif;font-size:clamp(1.3rem,4vw,1.9rem);font-weight:600;line-height:1.1;color:var(--cafe);}
 .pt em{font-style:italic;color:var(--nude);}
 .ps{font-size:.72rem;color:var(--muted);margin-top:4px;line-height:1.5;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
 @media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr;}.sb{width:50px;}.main{margin-left:50px;}.page{padding:13px;}}
-.card{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:17px;margin-bottom:13px;}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:15px;box-shadow:0 1px 3px rgba(58,40,32,.05),0 1px 2px rgba(58,40,32,.04);transition:box-shadow .2s,transform .15s;}
+.card:hover{box-shadow:0 4px 12px rgba(58,40,32,.07),0 2px 4px rgba(58,40,32,.05);}
 .card.warm{border-color:var(--nude-b);background:linear-gradient(135deg,rgba(201,140,115,.04),var(--s1));}
 .cl{font-size:.54rem;letter-spacing:3px;text-transform:uppercase;color:var(--nude);font-weight:700;margin-bottom:10px;}
-.sv{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,3vw,1.8rem);font-weight:600;line-height:1;}
+.sv{font-family:'Plus Jakarta Sans',serif;font-size:clamp(1.2rem,3vw,1.8rem);font-weight:600;line-height:1;}
 .sv.o{color:var(--ouro);}.sv.g{color:var(--green);}.sv.r{color:var(--red);}.sv.n{color:var(--nude);}
 .sl{font-size:.58rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
 .ss{font-size:.64rem;color:var(--muted);margin-top:3px;}
-.sc{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:12px;}
+.sc{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:14px;transition:box-shadow .2s,transform .15s;}
+.sc:hover{box-shadow:0 3px 10px rgba(58,40,32,.06);transform:translateY(-1px);}
 .pr{margin-bottom:11px;}.pr:last-child{margin-bottom:0;}
 .pt2{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
 .pn{font-size:.7rem;color:var(--text);}
@@ -106,28 +115,28 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 .bdg.m{background:var(--s2);color:var(--muted);border-color:var(--muted2);}
 .fi{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
 .fi label{font-size:.54rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;}
-.fi input,.fi select,.fi textarea{background:var(--s2);border:1px solid var(--muted2);border-radius:8px;padding:9px 11px;color:var(--text);font-family:'Outfit',sans-serif;font-size:.82rem;outline:none;transition:border-color .2s;width:100%;}
+.fi input,.fi select,.fi textarea{background:var(--s2);border:1px solid var(--muted2);border-radius:8px;padding:9px 11px;color:var(--text);font-family:'Inter',sans-serif;font-size:.82rem;outline:none;transition:border-color .2s;width:100%;}
 .fi input:focus,.fi select:focus,.fi textarea:focus{border-color:var(--nude);}
 .fi input::placeholder,.fi textarea::placeholder{color:var(--muted);}
 .fi select option{background:var(--s1);}
 .fi textarea{resize:vertical;min-height:68px;}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.bp{background:var(--cafe);color:var(--ouro);border:none;border-radius:9px;padding:10px 18px;font-family:'Outfit',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:opacity .2s,transform .1s;}
+.bp{background:var(--cafe);color:var(--ouro);border:none;border-radius:9px;padding:10px 18px;font-family:Plus Jakarta Sans,sans-serif;font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:opacity .2s,transform .1s;}
 .bp:hover{opacity:.84;}.bp:active{transform:scale(.97);}
 .bp.nude{background:var(--nude);color:white;}
-.bg{background:transparent;border:1px solid var(--muted2);border-radius:8px;padding:8px 13px;color:var(--muted);font-family:'Outfit',sans-serif;font-size:.68rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.bg{background:transparent;border:1px solid var(--muted2);border-radius:8px;padding:8px 13px;color:var(--muted);font-family:Plus Jakarta Sans,sans-serif;font-size:.68rem;font-weight:600;cursor:pointer;transition:all .2s;}
 .bg:hover{border-color:var(--nude);color:var(--nude);}
-.bd{background:var(--red-dim);border:1px solid var(--red-b);border-radius:7px;padding:5px 10px;color:var(--red);font-family:'Outfit',sans-serif;font-size:.66rem;font-weight:600;cursor:pointer;}
-.be{background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:7px;padding:5px 10px;color:var(--ouro);font-family:'Outfit',sans-serif;font-size:.66rem;font-weight:600;cursor:pointer;}
+.bd{background:var(--red-dim);border:1px solid var(--red-b);border-radius:7px;padding:5px 10px;color:var(--red);font-family:Plus Jakarta Sans,sans-serif;font-size:.66rem;font-weight:600;cursor:pointer;}
+.be{background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:7px;padding:5px 10px;color:var(--ouro);font-family:Plus Jakarta Sans,sans-serif;font-size:.66rem;font-weight:600;cursor:pointer;}
 .itabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:15px;overflow-x:auto;}
-.itab{padding:8px 13px;font-size:.6rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;font-family:'Outfit',sans-serif;}
+.itab{padding:8px 13px;font-size:.6rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;font-family:Plus Jakarta Sans,sans-serif;}
 .itab.active{color:var(--nude);border-bottom-color:var(--nude);}
 .itab-pane{display:none;}.itab-pane.active{display:block;}
 .cc{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:9px;transition:border-color .2s;cursor:pointer;}
 .cc:hover,.cc.exp{border-color:var(--nude-b);}
 .ch2{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
-.cn{font-family:'Cormorant Garamond',serif;font-size:.96rem;font-weight:600;color:var(--cafe);}
-.cv{font-family:'Cormorant Garamond',serif;font-size:.96rem;font-weight:600;color:var(--ouro);white-space:nowrap;}
+.cn{font-family:'Plus Jakarta Sans',serif;font-size:.96rem;font-weight:600;color:var(--cafe);}
+.cv{font-family:'Plus Jakarta Sans',serif;font-size:.96rem;font-weight:600;color:var(--ouro);white-space:nowrap;}
 .cd{display:none;margin-top:11px;border-top:1px solid var(--border);padding-top:11px;}
 .cd.open{display:block;}
 .dg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
@@ -145,7 +154,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 .crm-card{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:9px;margin-bottom:7px;font-size:.74rem;}
 .crm-cn{font-weight:600;margin-bottom:3px;color:var(--cafe);}
 .crm-cv{font-size:.65rem;color:var(--ouro);}
-.crm-add{width:100%;padding:7px;background:transparent;border:1px dashed var(--muted2);border-radius:7px;color:var(--muted);font-size:.67rem;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;}
+.crm-add{width:100%;padding:7px;background:transparent;border:1px dashed var(--muted2);border-radius:7px;color:var(--muted);font-size:.67rem;cursor:pointer;transition:all .2s;font-family:Plus Jakarta Sans,sans-serif;font-weight:600;}
 .crm-add:hover{border-color:var(--nude);color:var(--nude);}
 .mac{border-radius:14px;padding:16px;border:1px solid var(--border);margin-bottom:12px;background:var(--s1);}
 .mac-item{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:7px;}
@@ -157,15 +166,15 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 .rw{position:relative;width:96px;height:96px;}
 .rw svg{transform:rotate(-90deg);}
 .rl{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.rs{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:600;}
+.rs{font-family:'Plus Jakarta Sans',serif;font-size:1.65rem;font-weight:600;}
 .rb{font-size:.44rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
 .mo{position:fixed;inset:0;background:rgba(90,64,52,.38);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;padding:16px;}
 .mo.open{display:flex;}
-.md{background:var(--offwhite);border:1px solid var(--nude-b);border-radius:16px;padding:22px;width:100%;max-width:490px;max-height:90vh;overflow-y:auto;animation:fi .22s ease;}
-.mt{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;margin-bottom:14px;color:var(--cafe);}
+.md{background:var(--offwhite);border:1px solid var(--nude-b);border-radius:16px;padding:22px;width:100%;max-width:490px;max-height:90vh;overflow-y:auto;animation:fi .22s ease;box-shadow:0 12px 32px rgba(58,40,32,.14),0 4px 10px rgba(58,40,32,.08);}
+.mt{font-family:'Plus Jakarta Sans',serif;font-size:1.1rem;font-weight:600;margin-bottom:14px;color:var(--cafe);}
 .ma{display:flex;gap:8px;justify-content:flex-end;margin-top:13px;}
 .manifesto{background:var(--cafe);border-radius:14px;padding:20px;text-align:center;margin-bottom:14px;}
-.manifesto p{font-family:'Cormorant Garamond',serif;font-size:clamp(.82rem,2.5vw,.98rem);font-style:italic;font-weight:300;color:var(--ouro);line-height:1.75;}
+.manifesto p{font-family:'Plus Jakarta Sans',serif;font-size:clamp(.82rem,2.5vw,.98rem);font-style:italic;font-weight:300;color:var(--ouro);line-height:1.75;}
 .inv-item{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:13px;margin-bottom:8px;}
 .inv-status{display:inline-block;padding:2px 8px;border-radius:99px;font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;}
 .inv-status.sim{background:var(--green-dim);color:var(--green);border:1px solid var(--green-b);}
@@ -177,7 +186,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 .clara-section-title{font-size:.56rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--nude);font-weight:700;margin-bottom:7px;}
 .clara-msg{font-size:.8rem;line-height:1.75;color:var(--text);}
 .clara-provoca{background:var(--cafe);border-radius:10px;padding:14px;margin-top:12px;}
-.clara-provoca p{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:var(--ouro);line-height:1.65;}
+.clara-provoca p{font-family:'Plus Jakarta Sans',serif;font-size:.95rem;font-style:italic;color:var(--ouro);line-height:1.65;}
 .notif{position:fixed;bottom:18px;right:18px;background:var(--cafe);border:1px solid var(--ouro-b);border-radius:10px;padding:11px 15px;font-size:.76rem;color:var(--ouro);z-index:300;animation:su .3s ease;max-width:255px;}
 @keyframes su{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .empty{text-align:center;padding:24px 16px;color:var(--muted);}
@@ -185,10 +194,17 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 .et{font-size:.74rem;line-height:1.6;}
 .ev{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 16px;text-align:center;gap:7px;}
 .ev .eicon{font-size:1.8rem;}
-.ev .etitle{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--cafe);}
+.ev .etitle{font-family:'Plus Jakarta Sans',serif;font-size:1rem;font-weight:600;color:var(--cafe);}
 .ev .edesc{font-size:.73rem;color:var(--muted);line-height:1.6;max-width:240px;}
 
 .sb::-webkit-scrollbar{display:none;}
+.help-box{background:var(--s2);border:1px solid var(--border);border-radius:12px;margin-bottom:13px;overflow:hidden;}
+.help-box summary{padding:10px 14px;cursor:pointer;font-size:.72rem;font-weight:600;color:var(--nude);list-style:none;display:flex;align-items:center;gap:6px;user-select:none;}
+.help-box summary::-webkit-details-marker{display:none;}
+.help-box summary::before{content:'▸';font-size:.6rem;transition:transform .2s;}
+.help-box[open] summary::before{transform:rotate(90deg);}
+.help-box-body{padding:0 14px 13px;font-size:.72rem;line-height:1.7;color:var(--text);}
+.help-box-body b{color:var(--cafe);}
 </style>
 </head>
 <body>
@@ -220,10 +236,10 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
       <div class="auth-err" id="log-err"></div>
       <button class="bp" style="width:100%;padding:13px;" onclick="login()">Entrar →</button>
       <div style="margin-top:14px;text-align:center">
-        <button onclick="toggleResetForm()" style="background:none;border:none;font-size:.72rem;color:var(--nude);cursor:pointer;text-decoration:underline;font-family:Outfit,sans-serif;">🔑 Esqueci minha senha</button>
+        <button onclick="toggleResetForm()" style="background:none;border:none;font-size:.72rem;color:var(--nude);cursor:pointer;text-decoration:underline;font-family:Inter,sans-serif;">🔑 Esqueci minha senha</button>
       </div>
       <div style="margin-top:8px;text-align:center">
-        <button onclick="toggleSupaReconnect()" style="background:none;border:none;font-size:.68rem;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:Outfit,sans-serif;">☁️ Limpou o cache e não consegue entrar?</button>
+        <button onclick="toggleSupaReconnect()" style="background:none;border:none;font-size:.68rem;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:Inter,sans-serif;">☁️ Limpou o cache e não consegue entrar?</button>
       </div>
       <div id="supa-reconnect-form" style="display:none;margin-top:12px;background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:14px">
         <div style="font-size:.72rem;font-weight:600;color:var(--cafe);margin-bottom:6px">Reconectar à nuvem (Supabase)</div>
@@ -247,20 +263,25 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 
 <!-- SIDEBAR -->
 <nav class="sb" id="sidebar" style="display:none;">
-  <div class="sb-logo">🌿 <span style="font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:600;color:rgba(255,255,255,.9)">Raiz</span></div>
+  <div class="sb-logo">🌿 <span style="font-family:'Plus Jakarta Sans',serif;font-size:.9rem;font-weight:600;color:rgba(255,255,255,.9)">Raiz</span></div>
   <div class="nb-scroll">
-    <div class="nb-group-label">Principal</div>
+    <div class="sb-group-header open" data-group="principal" onclick="toggleSidebarGroup('principal')"><span class="nb-group-label" style="padding:0">Principal</span><span class="chev">▸</span></div>
+    <div class="sb-group-body open" id="sbgroup-principal">
     <button class="nb active" onclick="goPage('home',this)"><span class="ni">🏠</span><span class="nl">Início</span></button>
     <button class="nb" id="nav-btn-clientes" onclick="goPage('clientes',this)"><span class="ni">🌸</span><span class="nl">Clientes</span><span class="ndot" id="dot-cli"></span></button>
     <button class="nb" onclick="goPage('financeiro',this)"><span class="ni">💛</span><span class="nl">Finanças</span></button>
     <button class="nb" onclick="goPage('crm',this)"><span class="ni">🎯</span><span class="nl">CRM</span></button>
-    <div class="nb-group-label">Gestão</div>
+    </div>
+    <div class="sb-group-header" data-group="gestao" onclick="toggleSidebarGroup('gestao')"><span class="nb-group-label" style="padding:0">Gestão</span><span class="chev">▸</span></div>
+    <div class="sb-group-body" id="sbgroup-gestao">
     <button class="nb" onclick="goPage('entregas',this)"><span class="ni">📊</span><span class="nl">Entregas</span></button>
     <button class="nb" onclick="goPage('propostas',this)"><span class="ni">📝</span><span class="nl">Propostas</span></button>
     <button class="nb" onclick="goPage('alertas',this)"><span class="ni">🔔</span><span class="nl">Alertas</span></button>
     <button class="nb" onclick="goPage('historico-cli',this)"><span class="ni">💬</span><span class="nl">Histórico</span></button>
     <button class="nb" onclick="goPage('crescimento',this)"><span class="ni">📈</span><span class="nl">Crescimento</span></button>
-    <div class="nb-group-label">Negócio</div>
+    </div>
+    <div class="sb-group-header" data-group="negocio" onclick="toggleSidebarGroup('negocio')"><span class="nb-group-label" style="padding:0">Negócio</span><span class="chev">▸</span></div>
+    <div class="sb-group-body" id="sbgroup-negocio">
     <button class="nb" onclick="goPage('macros',this)"><span class="ni">🌿</span><span class="nl">Processos</span></button>
     <button class="nb" onclick="goPage('produtividade',this)"><span class="ni">⏱️</span><span class="nl">Tempo</span></button>
     <button class="nb" onclick="goPage('estrategia',this)"><span class="ni">🗺</span><span class="nl">Estratégia</span></button>
@@ -268,6 +289,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
     <button class="nb" onclick="goPage('reservas',this)"><span class="ni">🏦</span><span class="nl">Reservas</span></button>
     <button class="nb" onclick="goPage('empresa',this)"><span class="ni">✨</span><span class="nl">Empresa</span></button>
     <button class="nb" onclick="goPage('biblioteca',this)"><span class="ni">📚</span><span class="nl">Biblioteca</span></button>
+    </div>
   </div>
   <div class="sb-bot"><button class="nb" onclick="goPage('config',this)"><span class="ni">⚙️</span><span class="nl">Config</span></button></div>
 </nav>
@@ -283,6 +305,8 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
     <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:6px;">
       <div><div class="pe">Início</div><div class="pt" id="home-title">Olá</div></div>
     </div>
+
+    <div class="section-hdr">📊 Visão Geral</div>
     <div class="g2" style="margin-bottom:13px;">
       <div class="card warm" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;">
         <div class="cl">Saúde do Negócio</div>
@@ -290,26 +314,29 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
           <svg width="96" height="96" viewBox="0 0 96 96"><circle cx="48" cy="48" r="40" fill="none" stroke="#EEE2D8" stroke-width="7"/><circle cx="48" cy="48" r="40" fill="none" stroke="var(--nude)" stroke-width="7" stroke-linecap="round" stroke-dasharray="251.33" stroke-dashoffset="251.33" id="home-arc" style="transition:stroke-dashoffset 1s ease,stroke .5s;"/></svg>
           <div class="rl"><span class="rs" id="home-score" style="color:var(--nude);">—</span><span class="rb">Score</span></div>
         </div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:600;color:var(--cafe);margin-top:8px;text-align:center;" id="home-stage">Nenhum dado ainda</div>
+        <div style="font-family:'Plus Jakarta Sans',serif;font-size:.9rem;font-weight:600;color:var(--cafe);margin-top:8px;text-align:center;" id="home-stage">Nenhum dado ainda</div>
         <div style="font-size:.67rem;color:var(--muted);text-align:center;max-width:190px;margin-top:3px;line-height:1.5;" id="home-desc">Alimente o sistema para ver a saúde do seu negócio.</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="sc"><div class="sl">Faturamento Mensal</div><div class="sv o" id="hfat">—</div><div class="ss" id="hfat-sub">nenhuma cliente cadastrada</div></div>
-        <div class="sc"><div class="sl">Recebido no Mês</div><div class="sv g" id="hrecebido">—</div><div class="ss" id="hrecebido-sub">confirme os recebimentos</div></div>
-        <div class="sc"><div class="sl">Sobra Mensal</div><div class="sv" id="hsobra" style="color:var(--muted);">—</div><div class="ss">registre um mês para calcular</div></div>
+        <div class="sc"><div class="sl">Caixa PJ</div><div class="sv o" id="hcaixa">—</div><div class="ss" id="hcaixa-sub">registre o primeiro mês</div><div class="pr" style="margin-top:8px;margin-bottom:0;"><div class="pt3"><div class="pf o" id="hbar-caixa" style="width:0%"></div></div></div></div>
+        <div class="sc"><div class="sl">A Receber Ainda</div><div class="sv o" id="ha-receber">—</div><div class="ss" id="ha-receber-sub">pendentes este mês</div></div>
+        <div class="sc"><div class="sl">Pronta para Escalar?</div><div id="hescalar-mini" style="font-size:.76rem;color:var(--muted);margin-top:4px;line-height:1.5;">Alimente os dados para ver o diagnóstico.</div></div>
       </div>
     </div>
+    <div class="card"><div class="cl">Lembretes</div><div id="home-pays"><div style="font-size:.74rem;color:var(--muted);">Nenhuma data de vencimento cadastrada.</div></div></div>
+
+    <div class="section-hdr">💰 Financeiro</div>
     <div class="g3" style="margin-bottom:13px;">
-      <div class="sc"><div class="sl">Caixa PJ</div><div class="sv o" id="hcaixa">—</div><div class="ss" id="hcaixa-sub">registre o primeiro mês</div><div class="pr" style="margin-top:8px;margin-bottom:0;"><div class="pt3"><div class="pf o" id="hbar-caixa" style="width:0%"></div></div></div></div>
-      <div class="sc"><div class="sl">A Receber Ainda</div><div class="sv o" id="ha-receber">—</div><div class="ss" id="ha-receber-sub">pendentes este mês</div></div>
-      <div class="sc"><div class="sl">Pronta para Escalar?</div><div id="hescalar-mini" style="font-size:.76rem;color:var(--muted);margin-top:4px;line-height:1.5;">Alimente os dados para ver o diagnóstico.</div></div>
+      <div class="sc"><div class="sl">Faturamento Mensal</div><div class="sv o" id="hfat">—</div><div class="ss" id="hfat-sub">nenhuma cliente cadastrada</div></div>
+      <div class="sc"><div class="sl">Recebido no Mês</div><div class="sv g" id="hrecebido">—</div><div class="ss" id="hrecebido-sub">confirme os recebimentos</div></div>
+      <div class="sc"><div class="sl">Sobra Mensal</div><div class="sv" id="hsobra" style="color:var(--muted);">—</div><div class="ss">registre um mês para calcular</div></div>
     </div>
-    <div class="card"><div class="cl">Lembretes de Pagamento</div><div id="home-pays"><div style="font-size:.74rem;color:var(--muted);">Nenhuma data de vencimento cadastrada.</div></div></div>
-    <div class="card"><div class="cl">4 Pilares do Negócio</div><div id="home-pilares"><div style="font-size:.74rem;color:var(--muted);padding:8px 0;">Avalie cada pilar na aba Processos para ver o painel aqui.</div></div></div>
     <div class="g2" style="margin-bottom:13px;">
       <div class="card" style="margin-bottom:0;"><div class="cl">Receitas do Mês</div><div id="home-rec-list"><div class="ev"><div class="eicon">💛</div><div class="edesc">Cadastre suas clientes na aba Clientes.</div></div></div></div>
       <div class="card" style="margin-bottom:0;"><div class="cl">Despesas do Mês</div><div id="home-desp-list"><div class="ev"><div class="eicon">🧾</div><div class="edesc">Cadastre suas contas em Finanças.</div></div></div></div>
     </div>
+
+    <div class="section-hdr">🤝 Comercial</div>
     <div class="card"><div class="cl">Carteira de Clientes</div>
       <div class="g4" style="margin-bottom:10px;">
         <div class="sc" style="text-align:center;"><div class="sl">Ativas</div><div class="sv o" id="hcli-ativas">—</div></div>
@@ -327,11 +354,15 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
         <div class="sc" style="text-align:center;"><div class="sl">Potencial</div><div class="sv o" id="hcrm-pot">—</div></div>
       </div>
     </div>
+
+    <div class="section-hdr">🚀 Estratégia</div>
+    <div class="card"><div class="cl">4 Pilares do Negócio</div><div id="home-pilares"><div style="font-size:.74rem;color:var(--muted);padding:8px 0;">Avalie cada pilar na aba Processos para ver o painel aqui.</div></div></div>
+
     <!-- CLARA -->
     <div class="card warm" style="margin-bottom:13px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
         <div style="width:36px;height:36px;border-radius:50%;background:var(--cafe);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🌿</div>
-        <div><div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--cafe);">Clara</div><div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Mentora de Negócio</div></div>
+        <div><div style="font-family:'Plus Jakarta Sans',serif;font-size:1rem;font-weight:600;color:var(--cafe);">Clara</div><div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Mentora de Negócio</div></div>
         <button class="bd" style="margin-left:auto;font-size:.58rem;padding:6px 10px;" onclick="claraNovaConversa()" title="Começar uma nova conversa">Nova conversa</button>
       </div>
       <div id="clara-chat" style="max-height:360px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:12px;padding-right:2px;"></div>
@@ -348,13 +379,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <!-- CLIENTES -->
   <div class="page" id="page-clientes">
     <div class="ph"><div class="pe">Clientes</div><div class="pt">Cada cliente, <em>uma história</em></div><div class="ps">Contrato, perfil comportamental e saúde da relação</div></div>
-    <div class="itabs">
-      <button class="itab active" onclick="showItab('cli','carteira',this)">🌸 Carteira</button>
-      <button class="itab" onclick="showItab('cli','reunioes',this)">📅 Reuniões</button>
-      <button class="itab" onclick="showItab('cli','projetos',this)">✨ Projetos</button>
-    </div>
-    <div class="itab-pane active" id="cli-carteira" style="display:block">
-      <div class="g3" style="margin-bottom:13px;">
+    <div class="g3" style="margin-bottom:13px;">
         <div class="sc"><div class="sl">Recorrência</div><div class="sv o" id="taxa-rec">—</div><div class="ss">ativas / total</div></div>
         <div class="sc"><div class="sl">NPS Médio</div><div class="sv g" id="taxa-nps">—</div></div>
         <div class="sc"><div class="sl">Ticket Médio</div><div class="sv n" id="ticket-medio">—</div></div>
@@ -369,35 +394,6 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
         <button class="itab" id="cli-filtro-todas" onclick="filtrarCliStatus('todas',this)">Todas</button>
       </div>
       <div id="lista-clientes"></div>
-    </div>
-<div class="itab-pane" id="cli-reunioes" style="display:none">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <div style="font-size:.74rem;color:var(--muted)">Reuniões e contratos com suas clientes ativas</div>
-        <button class="bp" onclick="openModal('modal-add-reuniao')">+ Nova Reunião</button>
-      </div>
-      <div class="g3" style="margin-bottom:13px">
-        <div class="sc"><div class="sl">Agendadas</div><div class="sv o" id="reu-count-agendadas">—</div></div>
-        <div class="sc"><div class="sl">Realizadas</div><div class="sv g" id="reu-count-realizadas">—</div></div>
-        <div class="sc"><div class="sl">Contratos fechados</div><div class="sv g" id="reu-count-contratos">—</div></div>
-      </div>
-      <div id="lista-reunioes"><div class="ev"><div class="eicon">📅</div><div class="etitle">Nenhuma reunião registrada ainda</div><div class="edesc">Registre reuniões de alinhamento, renovação e fechamento de contrato.</div></div></div>
-    </div><!-- end cli-reunioes -->
-
-    <div class="itab-pane" id="cli-projetos" style="display:none">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <div>
-          <div style="font-size:.74rem;color:var(--muted);line-height:1.5">Projetos pontuais e comissões por resultado</div>
-          <div style="font-size:.68rem;color:var(--muted);margin-top:2px">Reunião agendada · Fechamento · Projeto pontual</div>
-        </div>
-        <button class="bp" onclick="openModal('modal-add-projeto')">+ Novo Projeto</button>
-      </div>
-      <div class="g3" style="margin-bottom:13px">
-        <div class="sc"><div class="sl">Em andamento</div><div class="sv o" id="proj-count-andamento">—</div></div>
-        <div class="sc"><div class="sl">Recebido (comissões)</div><div class="sv g" id="proj-total-recebido">—</div></div>
-        <div class="sc"><div class="sl">A receber</div><div class="sv n" id="proj-total-pendente">—</div></div>
-      </div>
-      <div id="lista-projetos"><div class="ev"><div class="eicon">✨</div><div class="etitle">Nenhum projeto ainda</div><div class="edesc">Registre projetos pontuais e comissões por resultado.</div></div></div>
-    </div><!-- end cli-projetos -->
   </div>
 
   <!-- FINANCEIRO -->
@@ -408,7 +404,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;background:var(--s2);border:1px solid var(--border);border-radius:11px;padding:12px 16px">
     <button class="be" onclick="navMes(-1)" style="font-size:1.1rem;padding:4px 12px">‹</button>
     <div style="text-align:center">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--cafe)" id="fin-mes-titulo">—</div>
+      <div style="font-family:'Plus Jakarta Sans',serif;font-size:1.3rem;font-weight:600;color:var(--cafe)" id="fin-mes-titulo">—</div>
       <div style="font-size:.65rem;color:var(--muted);margin-top:2px" id="fin-mes-sub">Selecione um mês</div>
     </div>
     <button class="be" onclick="navMes(1)" style="font-size:1.1rem;padding:4px 12px">›</button>
@@ -467,7 +463,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 </div>
 
 
-  <div class="page" id="page-crm"><div class="ph"><div class="pe">CRM</div><div class="pt">De <em>lead</em> a cliente fiel</div></div><div class="g4" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Leads</div><div class="sv o" id="crm-total">—</div></div><div class="sc"><div class="sl">Conversão</div><div class="sv g" id="crm-conv">—</div></div><div class="sc"><div class="sl">Via WhatsApp</div><div class="sv n" id="crm-wpp">—</div></div><div class="sc"><div class="sl">Precisou Reunião</div><div class="sv o" id="crm-reu">—</div></div></div><div style="display:flex;gap:8px;margin-bottom:13px;flex-wrap:wrap;align-items:center"><button class="bp" onclick="openModal('modal-add-crm')">+ Novo Lead</button><button class="bg" onclick="openModal('modal-crm-stages')">Editar Etapas</button><button id="crm-ganhos-btn" onclick="abrirGanhosCRM()" style="margin-left:auto;background:var(--green-dim,#e5f3ea);border:1px solid var(--green-b,#b9dcc4);color:var(--green);border-radius:20px;padding:7px 14px;font-size:.7rem;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;display:flex;align-items:center;gap:5px">🏆 <span id="crm-ganhos-count">0</span> Ganhos</button><div style="font-size:.7rem;color:var(--muted)" id="crm-sum"></div></div><div class="crm-b" id="crm-board"></div></div>
+  <div class="page" id="page-crm"><div class="ph"><div class="pe">CRM</div><div class="pt">De <em>lead</em> a cliente fiel</div></div><div class="g4" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Leads</div><div class="sv o" id="crm-total">—</div></div><div class="sc"><div class="sl">Conversão</div><div class="sv g" id="crm-conv">—</div></div><div class="sc"><div class="sl">Via WhatsApp</div><div class="sv n" id="crm-wpp">—</div></div><div class="sc"><div class="sl">Precisou Reunião</div><div class="sv o" id="crm-reu">—</div></div></div><div style="display:flex;gap:8px;margin-bottom:13px;flex-wrap:wrap;align-items:center"><button class="bp" onclick="openModal('modal-add-crm')">+ Novo Lead</button><button class="bg" onclick="openModal('modal-crm-stages')">Editar Etapas</button><button id="crm-ganhos-btn" onclick="abrirGanhosCRM()" style="margin-left:auto;background:var(--green-dim,#e5f3ea);border:1px solid var(--green-b,#b9dcc4);color:var(--green);border-radius:20px;padding:7px 14px;font-size:.7rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:5px">🏆 <span id="crm-ganhos-count">0</span> Ganhos</button><div style="font-size:.7rem;color:var(--muted)" id="crm-sum"></div></div><div class="crm-b" id="crm-board"></div></div>
   <div class="page" id="page-macros"><div class="ph"><div class="pe">Processos Internos</div><div class="pt">Construindo cada <em>pilar</em></div></div><div id="macros-content"></div></div>
   <div class="page" id="page-produtividade">
   <div class="ph">
@@ -500,7 +496,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
       </div>
       <div class="fi"><label>Descrição rápida</label><input type="text" id="prod-desc-sessao" placeholder="ex: alinhamento semanal, ajuste de planilha..."></div>
       <div id="prod-timer-box" style="text-align:center;padding:24px 0">
-        <div id="prod-timer-display" style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;color:var(--cafe);letter-spacing:2px">00:00:00</div>
+        <div id="prod-timer-display" style="font-family:'Plus Jakarta Sans',serif;font-size:3rem;font-weight:600;color:var(--cafe);letter-spacing:2px">00:00:00</div>
         <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px" id="prod-timer-status">Pronta para começar</div>
         <div style="display:flex;gap:10px;justify-content:center;margin-top:16px">
           <button class="bp" id="prod-btn-iniciar" onclick="prodIniciarTimer()">▶ Iniciar</button>
@@ -555,7 +551,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
         <div style="width:36px;height:36px;border-radius:50%;background:var(--cafe);display:flex;align-items:center;justify-content:center;font-size:1rem">🌿</div>
         <div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--cafe)">Análise Estratégica</div>
+          <div style="font-family:'Plus Jakarta Sans',serif;font-size:1rem;font-weight:600;color:var(--cafe)">Análise Estratégica</div>
           <div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)">O que vale, o que otimizar, o que encerrar</div>
         </div>
         <button class="bp" style="margin-left:auto;font-size:.6rem;padding:7px 12px" onclick="prodAnalisarEstrategia()">Analisar agora</button>
@@ -581,8 +577,14 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <div class="ma"><button class="bg" onclick="closeModal('modal-add-demanda')">Cancelar</button><button class="bp" onclick="prodSalvarDemanda()">Salvar</button></div>
 </div></div>
 
-    <div class="page" id="page-estrategia"><div class="ph"><div class="pe">Estratégia</div><div class="pt">O mapa do <em>seu futuro</em></div></div><div class="itabs"><button class="itab active" onclick="showItab('est','trimestre',this)">Metas Trimestrais</button><button class="itab" onclick="showItab('est','estrategias',this)">Estratégias</button><button class="itab" onclick="showItab('est','anual',this)">Visão Anual</button><button class="itab" onclick="showItab('est','pessoal',this)">Metas Pessoais</button><button class="itab" onclick="showItab('est','marcos',this)">Marcos</button></div><div class="itab-pane active" id="est-trimestre" style="display:block"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Metas trimestrais</span><button class="bp" onclick="openModal('modal-add-meta')">+ Nova Meta</button></div><div id="metas-trim"></div></div><div class="itab-pane" id="est-estrategias" style="display:none"><div id="estrategias-content"></div></div><div class="itab-pane" id="est-anual" style="display:none"><div class="card warm"><div class="cl">Visão Anual</div><div class="fi"><label>Onde quero estar em 12 meses</label><textarea id="vis-anual-txt" placeholder="Em dezembro de 2026, meu negócio vai..."></textarea></div><div class="fr"><div class="fi"><label>Meta Faturamento Anual (R$)</label><input type="number" id="vis-fat-anual"></div><div class="fi"><label>Nº de Clientes Alvo</label><input type="number" id="vis-cli-alvo"></div></div><button class="bp" onclick="salvarVisaoAnual()">Salvar Visão</button></div><div class="card" id="vis-anual-saved" style="display:none"><div class="cl">Sua Visão</div><div id="vis-anual-content"></div></div></div><div class="itab-pane" id="est-pessoal" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Objetivos pessoais</span><button class="bp" onclick="openModal('modal-add-meta-p')">+ Novo Objetivo</button></div><div id="metas-pessoais"></div></div><div class="itab-pane" id="est-marcos" style="display:none"><div class="card"><div class="cl">Marcos Conquistados</div><div id="marcos-list"></div></div></div></div>
-  <div class="page" id="page-investir"><div class="ph"><div class="pe">Análise de Investimentos</div><div class="pt">Antes de <em>gastar</em>, entender</div></div><div style="display:flex;justify-content:flex-end;margin-bottom:13px"><button class="bp" onclick="openModal('modal-add-inv')">+ Analisar Investimento</button></div><div id="lista-inv"></div></div>
+    <div class="page" id="page-estrategia"><div class="ph"><div class="pe">Estratégia</div><div class="pt">O mapa do <em>seu futuro</em></div></div><details class="help-box"><summary>❓ Como usar essa aba</summary><div class="help-box-body"><b>Metas Trimestrais:</b> definidas uma vez por trimestre (ex: Q3 2026) — você mesma atualiza o progresso (%) conforme avança. Pra excluir uma meta, use o "✕" ao lado dela. <b>Estratégias:</b> espaço livre pra registrar planos e decisões maiores. <b>Visão Anual:</b> onde você quer chegar em 12 meses — preenchida uma vez, revisitada quando quiser. <b>Metas Pessoais:</b> objetivos fora do negócio (viagem, curso, etc.). <b>Marcos:</b> conquistas que você quer guardar registradas.</div></details><div class="itabs"><button class="itab active" onclick="showItab('est','trimestre',this)">Metas Trimestrais</button><button class="itab" onclick="showItab('est','estrategias',this)">Estratégias</button><button class="itab" onclick="showItab('est','anual',this)">Visão Anual</button><button class="itab" onclick="showItab('est','pessoal',this)">Metas Pessoais</button><button class="itab" onclick="showItab('est','marcos',this)">Marcos</button></div><div class="itab-pane active" id="est-trimestre" style="display:block"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Metas trimestrais</span><button class="bp" onclick="openModal('modal-add-meta')">+ Nova Meta</button></div><div id="metas-trim"></div></div><div class="itab-pane" id="est-estrategias" style="display:none"><div id="estrategias-content"></div></div><div class="itab-pane" id="est-anual" style="display:none"><div class="card warm"><div class="cl">Visão Anual</div><div class="fi"><label>Onde quero estar em 12 meses</label><textarea id="vis-anual-txt" placeholder="Em dezembro de 2026, meu negócio vai..."></textarea></div><div class="fr"><div class="fi"><label>Meta Faturamento Anual (R$)</label><input type="number" id="vis-fat-anual"></div><div class="fi"><label>Nº de Clientes Alvo</label><input type="number" id="vis-cli-alvo"></div></div><button class="bp" onclick="salvarVisaoAnual()">Salvar Visão</button></div><div class="card" id="vis-anual-saved" style="display:none"><div class="cl">Sua Visão</div><div id="vis-anual-content"></div></div></div><div class="itab-pane" id="est-pessoal" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:.74rem;color:var(--muted)">Objetivos pessoais</span><button class="bp" onclick="openModal('modal-add-meta-p')">+ Novo Objetivo</button></div><div id="metas-pessoais"></div></div><div class="itab-pane" id="est-marcos" style="display:none"><div class="card"><div class="cl">Marcos Conquistados</div><div id="marcos-list"></div></div></div></div>
+  <div class="page" id="page-investir"><div class="ph"><div class="pe">Análise de Investimentos</div><div class="pt">Antes de <em>gastar</em>, entender</div></div><details class="help-box"><summary>❓ Como usar essa aba</summary><div class="help-box-body"><b>Simulador rápido:</b> digite um valor e veja na hora se cabe no seu momento financeiro atual (ou quanto você precisaria faturar pra caber). <b>Análise de Investimento:</b> pra decisões mais importantes — registre o que é, por que quer, e o resultado esperado, criando um histórico de decisões pra consultar depois.</div></details><div class="card" style="margin-bottom:13px">
+      <div class="cl">🛒 Posso comprar ou contratar isso?</div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Digite o valor de uma compra ou contratação (pessoal ou profissional) e veja se cabe agora — ou quanto você precisaria faturar pra caber.</div>
+      <div class="fr"><div class="fi"><label>Valor (R$)</label><input type="text" inputmode="decimal" id="sim-valor" oninput="calcSimulador()"></div></div>
+      <label style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--cafe);margin:2px 0 10px"><input type="checkbox" id="sim-recorrente" onchange="calcSimulador()" style="width:auto"> É um gasto recorrente mensal (ex: contratação, assinatura)</label>
+      <div id="sim-resultado"></div>
+    </div><div style="display:flex;justify-content:flex-end;margin-bottom:13px"><button class="bp" onclick="openModal('modal-add-inv')">+ Analisar Investimento</button></div><div id="lista-inv"></div></div>
   <div class="page" id="page-reservas"><div class="ph"><div class="pe">Reservas e Investimentos</div><div class="pt">Seu dinheiro <em>trabalhando por você</em></div></div><div id="reservas-edu" class="card warm" style="margin-bottom:13px"><div class="cl">Educação Financeira</div><div id="edu-content"></div></div><div class="g3" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Investido</div><div class="sv o" id="res-total">—</div></div><div class="sc"><div class="sl">Rentabilidade Média</div><div class="sv g" id="res-rent">—</div></div><div class="sc"><div class="sl">Rendimento Mensal Est.</div><div class="sv g" id="res-rend">—</div></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Meus Caixas e Reservas</div><div id="caixas-grid"></div><div style="margin-top:12px;display:flex;justify-content:flex-end"><button class="bp" onclick="openModal('modal-edit-caixas')">Atualizar Valores</button></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Aporte Mensal</div><div style="font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Registre quanto você vai depositar este mês. O valor é somado ao saldo de cada objetivo, dividido pelo percentual que você definir.</div><div class="fr"><div class="fi"><label>Valor disponível para aportar (R$)</label><input type="text" inputmode="decimal" id="ap-valor" oninput="calcAportePreview()"></div><div class="fi"><label>&nbsp;</label><button class="bg" style="width:100%" onclick="openModal('modal-aporte-config')">⚙️ Definir % por objetivo</button></div></div><div id="ap-preview" style="display:none;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;margin-bottom:12px"><div id="ap-preview-list"></div></div><div style="display:flex;justify-content:flex-end"><button class="bp" onclick="registrarAporte()">Registrar Aporte</button></div><div id="ap-historico" style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px"></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="cl" style="margin-bottom:0">Minhas Aplicações</div><button class="bp" onclick="abrirNovaReserva()">+ Adicionar</button></div><div id="lista-reservas"></div></div><div class="card"><div class="cl">Distribuição das Reservas</div><div id="reservas-dist"></div></div><div id="risco-painel" class="card" style="margin-bottom:13px"></div>
 <div class="card" style="margin-top:13px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
@@ -677,7 +679,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
         <input type="text" id="emp-cores" placeholder="ex: #4A3428 (café), #D9C2A3 (areia), #B76A4A (terracota)">
       </div>
       <div class="fi"><label>Fontes</label>
-        <input type="text" id="emp-fontes" placeholder="ex: Cormorant Garamond (títulos), Outfit (corpo)">
+        <input type="text" id="emp-fontes" placeholder="ex: Plus Jakarta Sans (títulos), Inter (corpo)">
       </div>
     </div>
 
@@ -859,7 +861,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
     <div id="recibo-preview" style="display:none">
       <div class="card" style="border:2px solid var(--nude);margin-bottom:13px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--cafe)">RECIBO DE PAGAMENTO</div>
+          <div style="font-family:'Plus Jakarta Sans',serif;font-size:1.4rem;font-weight:600;color:var(--cafe)">RECIBO DE PAGAMENTO</div>
           <div style="display:flex;gap:8px">
             <button class="be" onclick="imprimirRecibo()">🖨️ Imprimir</button>
             <button class="bp" onclick="copiarRecibo()">📋 Copiar</button>
@@ -917,16 +919,50 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
 </div>
   <!-- ENTREGAS -->
   <div class="page" id="page-entregas">
-    <div class="ph"><div class="pe">Entregas</div><div class="pt">O que você <em>entregou</em> este mês</div><div class="ps">Relatório mensal por cliente — memória do trabalho, argumento de reajuste</div></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px">
-      <div class="g3" style="flex:1;margin-right:13px">
-        <div class="sc"><div class="sl">Clientes com relatório</div><div class="sv g" id="ent-count">—</div></div>
-        <div class="sc"><div class="sl">Mês atual</div><div class="sv o" id="ent-mes">—</div></div>
-        <div class="sc"><div class="sl">Total de entregas</div><div class="sv n" id="ent-total">—</div></div>
-      </div>
-      <button class="bp" onclick="openModal('modal-add-entrega')">+ Nova Entrega</button>
+    <div class="ph"><div class="pe">Entregas</div><div class="pt">O que você <em>entregou</em> este mês</div><div class="ps">Relatórios, reuniões e projetos — o acompanhamento do trabalho com cada cliente</div></div>
+    <div class="itabs" style="margin-bottom:13px">
+      <button class="itab active" onclick="showItab('ent','relatorios',this)">📊 Relatórios</button>
+      <button class="itab" onclick="showItab('ent','reunioes',this)">📅 Reuniões</button>
+      <button class="itab" onclick="showItab('ent','projetos',this)">✨ Projetos</button>
     </div>
-    <div id="lista-entregas"><div class="ev"><div class="eicon">📊</div><div class="etitle">Nenhuma entrega registrada</div><div class="edesc">Registre o que foi entregue a cada cliente mês a mês.</div></div></div>
+    <div class="itab-pane active" id="ent-relatorios" style="display:block">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px">
+        <div class="g3" style="flex:1;margin-right:13px">
+          <div class="sc"><div class="sl">Clientes com relatório</div><div class="sv g" id="ent-count">—</div></div>
+          <div class="sc"><div class="sl">Mês atual</div><div class="sv o" id="ent-mes">—</div></div>
+          <div class="sc"><div class="sl">Total de entregas</div><div class="sv n" id="ent-total">—</div></div>
+        </div>
+        <button class="bp" onclick="openModal('modal-add-entrega')">+ Nova Entrega</button>
+      </div>
+      <div id="lista-entregas"><div class="ev"><div class="eicon">📊</div><div class="etitle">Nenhuma entrega registrada</div><div class="edesc">Registre o que foi entregue a cada cliente mês a mês.</div></div></div>
+    </div><!-- end ent-relatorios -->
+    <div class="itab-pane" id="ent-reunioes" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="font-size:.74rem;color:var(--muted)">Reuniões e contratos com suas clientes ativas</div>
+        <button class="bp" onclick="openModal('modal-add-reuniao')">+ Nova Reunião</button>
+      </div>
+      <div class="g3" style="margin-bottom:13px">
+        <div class="sc"><div class="sl">Agendadas</div><div class="sv o" id="reu-count-agendadas">—</div></div>
+        <div class="sc"><div class="sl">Realizadas</div><div class="sv g" id="reu-count-realizadas">—</div></div>
+        <div class="sc"><div class="sl">Contratos fechados</div><div class="sv g" id="reu-count-contratos">—</div></div>
+      </div>
+      <div id="lista-reunioes"><div class="ev"><div class="eicon">📅</div><div class="etitle">Nenhuma reunião registrada ainda</div><div class="edesc">Registre reuniões de alinhamento, renovação e fechamento de contrato.</div></div></div>
+    </div><!-- end ent-reunioes -->
+    <div class="itab-pane" id="ent-projetos" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div>
+          <div style="font-size:.74rem;color:var(--muted);line-height:1.5">Projetos pontuais e comissões por resultado</div>
+          <div style="font-size:.68rem;color:var(--muted);margin-top:2px">Reunião agendada · Fechamento · Projeto pontual</div>
+        </div>
+        <button class="bp" onclick="openModal('modal-add-projeto')">+ Novo Projeto</button>
+      </div>
+      <div class="g3" style="margin-bottom:13px">
+        <div class="sc"><div class="sl">Em andamento</div><div class="sv o" id="proj-count-andamento">—</div></div>
+        <div class="sc"><div class="sl">Recebido (comissões)</div><div class="sv g" id="proj-total-recebido">—</div></div>
+        <div class="sc"><div class="sl">A receber</div><div class="sv n" id="proj-total-pendente">—</div></div>
+      </div>
+      <div id="lista-projetos"><div class="ev"><div class="eicon">✨</div><div class="etitle">Nenhum projeto ainda</div><div class="edesc">Registre projetos pontuais e comissões por resultado.</div></div></div>
+    </div><!-- end ent-projetos -->
   </div>
 
   <!-- PROPOSTAS -->
@@ -968,10 +1004,17 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
   <!-- CRESCIMENTO -->
   <div class="page" id="page-crescimento">
     <div class="ph"><div class="pe">Crescimento</div><div class="pt">A história do seu <em>negócio</em></div><div class="ps">Evolução mês a mês — faturamento, clientes, retenção</div></div>
+    <details class="help-box"><summary>❓ Como usar essa aba (e o que significa cada número)</summary><div class="help-box-body">
+      <b>Valor/Hora Real e Meta:</b> ficam em "—" até você registrar horas de trabalho na aba <b>Tempo</b> neste mês. Real = quanto você recebeu ÷ horas trabalhadas. Meta = sua Meta Padrão de Faturamento ÷ horas trabalhadas.<br><br>
+      <b>Gastos do Mês:</b> mostra quanto das suas despesas já foi efetivamente <b>pago</b> (não basta cadastrar a despesa — precisa dar baixa nela em Financeiro) dividido pelo faturamento contratado dos clientes ativos. Por isso pode aparecer 0% mesmo com despesas cadastradas: elas só entram nesse cálculo quando marcadas como pagas.<br><br>
+      <b>Precificação por Cliente:</b> só aparece depois que você registrar horas trabalhadas <b>vinculadas a um cliente específico</b> em Tempo, e tiver uma Meta Padrão de Faturamento ou faturamento recebido no mês.<br><br>
+      <b>Crescimento (%):</b> compara o primeiro com o último mês registrado — só aparece a partir do 2º mês com movimentação real.<br><br>
+      <b>Faturamento planejado / Meta de lucro do mês:</b> são metas que <b>você define livremente</b> pra cada mês, não são calculadas uma a partir da outra. A meta de lucro pode até ser maior que o faturamento planejado se você quiser um valor de referência sem vínculo matemático direto — é só um alvo.
+    </div></details>
     <div class="card" style="margin-bottom:13px">
       <div class="cl">⚙️ Configurar Saúde Financeira</div>
       <div class="fr">
-        <div class="fi"><label>Meta de Faturamento Mensal (R$)</label><input type="text" inputmode="decimal" id="cfg-meta-fat" oninput="calcSaudeFinanceira();marcarConfigNaoSalva()"></div>
+        <div class="fi"><label>Meta Padrão de Faturamento (R$)</label><input type="text" inputmode="decimal" id="cfg-meta-fat" oninput="calcSaudeFinanceira();marcarConfigNaoSalva()"></div>
         <div class="fi"><label>Limite de Gastos (% do recebido)</label><input type="text" inputmode="decimal" id="cfg-limite-gasto" oninput="calcSaudeFinanceira();marcarConfigNaoSalva()" placeholder="ex: 40"></div>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -980,13 +1023,6 @@ body{background:var(--offwhite);color:var(--text);font-family:'Outfit',sans-seri
       </div>
     </div>
     <div id="saude-fin-painel"></div>
-    <div class="card" style="margin-bottom:13px">
-      <div class="cl">🛒 Posso comprar ou contratar isso?</div>
-      <div style="font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Digite o valor de uma compra ou contratação (pessoal ou profissional) e veja se cabe agora — ou quanto você precisaria faturar pra caber.</div>
-      <div class="fr"><div class="fi"><label>Valor (R$)</label><input type="text" inputmode="decimal" id="sim-valor" oninput="calcSimulador()"></div></div>
-      <label style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--cafe);margin:2px 0 10px"><input type="checkbox" id="sim-recorrente" onchange="calcSimulador()" style="width:auto"> É um gasto recorrente mensal (ex: contratação, assinatura)</label>
-      <div id="sim-resultado"></div>
-    </div>
     <div id="precificacao-painel"></div>
     <div id="cresc-painel"></div>
   </div>
@@ -1331,6 +1367,39 @@ function getAlerts(){
   }
   return al;
 }
+function getAlertasNF(){
+  if(!DB)return[];
+  var today=new Date();today.setHours(0,0,0,0);
+  var al=[];
+  var keyAtual=finMesKey(0);
+  var mesAtual=DB.meses_fin&&DB.meses_fin[keyAtual];
+  (DB.clientes||[]).forEach(function(c){
+    if(c.status==='Encerrado'||!c.dia)return;
+    if(c.inicio){var ini=new Date(c.inicio);ini.setHours(0,0,0,0);if(ini>today)return;}
+    var r=mesAtual&&mesAtual.receitas_clientes?mesAtual.receitas_clientes.find(function(x){return x.clienteId===c.id;}):null;
+    if(r&&r.nfEmitida)return; // já emitida este mês — não gera lembrete
+    var d=parseInt(c.dia);var v=new Date(today.getFullYear(),today.getMonth(),d);
+    if(v<today)v.setMonth(v.getMonth()+1);
+    var diff=Math.round((v-today)/86400000);
+    if(diff<=3)al.push({nome:c.nome,diff:diff,clienteId:c.id,mesKey:keyAtual,nf:true});
+  });
+  return al;
+}
+function marcarNFEmitida(clienteId,mesKey){
+  if(!DB.meses_fin)DB.meses_fin={};
+  var mes=getOrCreateMesFin(mesKey);
+  var r=mes.receitas_clientes.find(function(x){return x.clienteId===clienteId;});
+  if(!r){
+    var c=DB.clientes.find(function(cc){return cc.id===clienteId;});
+    r={id:uid(),clienteId:clienteId,nome:c?c.nome:'',valor:c?(c.val||0):0,recebido:false,dataRecebido:null,meio:c?(c.meio||'PIX'):'PIX',dia:c?c.dia:null};
+    mes.receitas_clientes.push(r);
+  }
+  r.nfEmitida=true;
+  r.nfDataEmissao=new Date().toISOString().slice(0,10);
+  saveDB();
+  renderHome();
+  notif('Nota Fiscal marcada como emitida! ✅');
+}
 function getBK(tipo,id){
   var hoje=new Date();return tipo+'-'+id+'-'+hoje.getFullYear()+'-'+hoje.getMonth();
 }
@@ -1348,16 +1417,26 @@ function renderHome(){
   var hoje=new Date();hoje.setHours(0,0,0,0);
   var mesAtual=hoje.getMonth();var anoAtual=hoje.getFullYear();
   var al=getAlerts();
-  document.getElementById('dot-cli').className='ndot'+(al.length?' on':'');
+  var alNF=getAlertasNF();
+  document.getElementById('dot-cli').className='ndot'+((al.length+alNF.length)?' on':'');
   var tbr=document.getElementById('tbright');
-  tbr.innerHTML=(al.length?'<div class="ab w">'+al.length+' lembrete'+(al.length>1?'s':'')+'</div>':'')+'<button class="logout-btn" onclick="logout()">Sair</button>';
+  var totalLembretes=al.length+alNF.length;
+  tbr.innerHTML=(totalLembretes?'<div class="ab w">'+totalLembretes+' lembrete'+(totalLembretes>1?'s':'')+'</div>':'')+'<button class="logout-btn" onclick="logout()">Sair</button>';
   var paysEl=document.getElementById('home-pays');
-  if(al.length){
+  if(al.length||alNF.length){
     var pHTML='';
     for(var ai=0;ai<al.length;ai++){
       var a=al[ai];var cls=a.diff===0?'urg':a.diff<=2?'sn':'ok';
       var msg=a.diff===0?'HOJE':a.diff<0?'Vencido há '+(-a.diff)+'d':'Em '+a.diff+'d';
       pHTML+='<div class="pa '+cls+'">'+(cls==='urg'?'🔴':cls==='sn'?'🟡':'🟢')+' <strong>'+a.nome+'</strong> — R$ '+(a.val||0).toLocaleString('pt-BR')+' · '+msg+(a.meio?' · '+a.meio:'')+'</div>';
+    }
+    for(var ni=0;ni<alNF.length;ni++){
+      var n=alNF[ni];var ncls=n.diff<0?'urg':n.diff<=1?'sn':'ok';
+      var nmsg=n.diff===0?'HOJE':n.diff<0?'Pagamento há '+(-n.diff)+'d':'Pagamento em '+n.diff+'d';
+      pHTML+='<div class="pa '+ncls+'" style="display:flex;justify-content:space-between;align-items:center;gap:8px">'
+        +'<span>🧾 <strong>Emitir NF — '+n.nome+'</strong> · '+nmsg+'</span>'
+        +'<button class="be" style="font-size:.58rem;padding:3px 8px;flex-shrink:0" data-cid="'+n.clienteId+'" data-mk="'+n.mesKey+'" onclick="marcarNFEmitida(this.dataset.cid,this.dataset.mk)">✅ Nota emitida</button>'
+        +'</div>';
     }
     paysEl.innerHTML=pHTML;
   }else{paysEl.innerHTML='<div style="font-size:.74rem;color:var(--muted)">Tudo em dia.</div>';}
@@ -1552,7 +1631,7 @@ function renderHistorico(){
     return '<div style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:9px">'
       +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">'
       +'<div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+m.mes+'</div>'
-      +'<div style="font-family:Cormorant Garamond,serif;font-size:1rem;font-weight:600;color:var(--ouro)">R$ '+m.fat.toLocaleString('pt-BR')+'</div></div>'
+      +'<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1rem;font-weight:600;color:var(--ouro)">R$ '+m.fat.toLocaleString('pt-BR')+'</div></div>'
       +'<div class="g3" style="margin-bottom:7px">'
       +'<div><div style="font-size:.6rem;color:var(--muted)">Gasto PJ</div><div style="font-size:.72rem;color:var(--red)">R$ '+(m.gastoPJ||m.gasto||0).toLocaleString('pt-BR')+'</div></div>'
       +'<div><div style="font-size:.6rem;color:var(--muted)">Gasto PF</div><div style="font-size:.72rem;color:var(--red)">R$ '+(m.gastoPF||0).toLocaleString('pt-BR')+'</div></div>'
@@ -1678,7 +1757,7 @@ function renderClientes(){
     h.push('</div></div>');
     var totalCli=c.val+(c.val_variavel&&c.modelo_rec==='hibrido'?c.val_variavel:0);
     h.push('<div style="text-align:right">');
-    h.push('<div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+(c.val||0).toLocaleString('pt-BR')+'</div>');
+    h.push('<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+(c.val||0).toLocaleString('pt-BR')+'</div>');
     if(c.val_variavel&&c.modelo_rec==='hibrido'){
       h.push('<div style="font-size:.65rem;color:var(--green);margin-top:2px">+R$ '+c.val_variavel.toLocaleString('pt-BR')+(c.variavel_desc?' ('+c.variavel_desc+')':'')+'</div>');
       h.push('<div style="font-size:.6rem;color:var(--muted)">Total: R$ '+totalCli.toLocaleString('pt-BR')+'</div>');
@@ -1839,7 +1918,7 @@ function renderMacros(){
     h.push('<div style="display:flex;align-items:center;gap:9px"><span style="font-size:1.1rem">'+d.icon+'</span>');
     h.push('<div><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:'+d.color+'">'+d.name+'</div>');
     h.push('<div style="font-size:.63rem;color:var(--muted)">'+done+'/'+items.length+' processos</div></div></div>');
-    h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.5rem;font-weight:600;color:'+d.color+';line-height:1">'+(score!==null?score:'—')+'</div><div style="font-size:.55rem;color:var(--muted)">/ 100</div></div></div>');
+    h.push('<div style="text-align:right"><div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.5rem;font-weight:600;color:'+d.color+';line-height:1">'+(score!==null?score:'—')+'</div><div style="font-size:.55rem;color:var(--muted)">/ 100</div></div></div>');
     h.push('<div class="pr" style="margin-bottom:11px"><div class="pt2"><span class="pn" style="font-size:.65rem">Concluídos</span><span class="pp" style="color:'+d.color+'">'+pct+'%</span></div><div class="pt3"><div class="pf '+d.cc+'" style="width:'+pct+'%"></div></div></div>');
     h.push('<div style="display:flex;gap:7px;margin-bottom:11px;flex-wrap:wrap;align-items:center">');
     h.push('<button class="bp" style="font-size:.6rem;padding:7px 11px" onclick="abrirMI(\''+k+'\',-1)">+ Processo</button>');
@@ -1921,7 +2000,7 @@ function renderVisaoAnual(){
   if(v&&(v.texto||v.fat)){
     el.style.display='block';
     var h=[];
-    if(v.texto)h.push('<div style="font-family:Cormorant Garamond,serif;font-size:1.05rem;font-style:italic;color:var(--cafe);line-height:1.6;margin-bottom:12px">"'+v.texto+'"</div>');
+    if(v.texto)h.push('<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.05rem;font-style:italic;color:var(--cafe);line-height:1.6;margin-bottom:12px">"'+v.texto+'"</div>');
     h.push('<div class="g2">');
     if(v.fat)h.push('<div class="sc"><div class="sl">Meta Anual</div><div class="sv o">R$ '+parseInt(v.fat).toLocaleString('pt-BR')+'</div></div>');
     if(v.cli)h.push('<div class="sc"><div class="sl">Clientes Alvo</div><div class="sv o">'+v.cli+'</div></div>');
@@ -2009,7 +2088,7 @@ function renderCaixasGrid(){
     var falta=c.meta>0?Math.max(0,c.meta-c.valor):0;
     h.push('<div class="sc" style="border-left:3px solid '+item.color+'">');
     h.push('<div style="display:flex;align-items:center;gap:7px;margin-bottom:5px"><span style="font-size:1.1rem">'+item.icon+'</span><div><div style="font-size:.72rem;font-weight:600;color:var(--cafe)">'+item.label+'</div><div style="font-size:.6rem;color:var(--muted)">'+item.sub+'</div></div></div>');
-    h.push('<div style="font-family:Cormorant Garamond,serif;font-size:1.3rem;font-weight:600;color:'+item.color+'">R$ '+c.valor.toLocaleString('pt-BR')+'</div>');
+    h.push('<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.3rem;font-weight:600;color:'+item.color+'">R$ '+c.valor.toLocaleString('pt-BR')+'</div>');
     if(c.meta>0){
       h.push('<div style="font-size:.62rem;color:var(--muted);margin-top:2px">Meta: R$ '+c.meta.toLocaleString('pt-BR')+'</div>');
       h.push('<div class="pr" style="margin:7px 0 3px"><div class="pt2"><span style="font-size:.62rem;color:var(--muted)">Progresso</span><span style="font-size:.62rem;font-weight:600;color:'+item.color+'">'+pct+'%</span></div><div class="pt3"><div class="pf" style="width:'+pct+'%;background:'+item.color+'"></div></div></div>');
@@ -2304,7 +2383,7 @@ function renderReservas(){
     h.push('<span class="bdg m">'+r.liq+'</span>');
     if(r.inst)h.push('<span class="bdg m">'+r.inst+'</span>');
     h.push('</div></div>');
-    h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+(r.val||0).toLocaleString('pt-BR')+'</div>');
+    h.push('<div style="text-align:right"><div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+(r.val||0).toLocaleString('pt-BR')+'</div>');
     h.push('<div style="font-size:.62rem;color:var(--muted)">'+pct+'% da carteira</div></div></div>');
     h.push('<div style="background:var(--s1);border-radius:8px;padding:11px;margin-bottom:9px">');
     h.push('<div class="g4"><div><div class="sl">Rent./mês</div><div style="font-size:.88rem;font-weight:600;color:var(--green)">'+(r.rent||0).toFixed(2)+'%</div></div>');
@@ -2400,7 +2479,7 @@ function renderHistoricoReservas(){
     h.push('<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px">');
     h.push('<div><div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+snap.mes+'</div>');
     h.push('<div style="font-size:.63rem;color:var(--muted);margin-top:2px">'+snap.qtd+' aplicação'+(snap.qtd>1?'ões':'')+'</div></div>');
-    h.push('<div style="text-align:right"><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+(snap.total||0).toLocaleString('pt-BR')+'</div>');
+    h.push('<div style="text-align:right"><div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+(snap.total||0).toLocaleString('pt-BR')+'</div>');
     if(growth!==null){var gc=growth>=0?'var(--green)':'var(--red)';h.push('<div style="font-size:.66rem;color:'+gc+'">'+(growth>=0?'▲ +':'▼ ')+growth+'% vs mês anterior</div>');}
     h.push('</div></div>');
     h.push('<div style="display:flex;gap:8px;flex-wrap:wrap">');
@@ -3027,10 +3106,30 @@ function saveDB(){
 function limparDados(){DB=defaultDB();saveDB();try{storageRemove('raizv2-session');}catch(e){}location.reload();}
 function uid(){return Math.random().toString(36).slice(2,9);}
 
+var SB_GROUP_MAP={home:'principal',clientes:'principal',financeiro:'principal',crm:'principal',entregas:'gestao',propostas:'gestao',alertas:'gestao','historico-cli':'gestao',crescimento:'gestao',macros:'negocio',produtividade:'negocio',estrategia:'negocio',investir:'negocio',reservas:'negocio',empresa:'negocio',biblioteca:'negocio'};
+function toggleSidebarGroup(name){
+  var header=document.querySelector('.sb-group-header[data-group="'+name+'"]');
+  var body=document.getElementById('sbgroup-'+name);
+  if(!header||!body)return;
+  var isOpen=body.classList.contains('open');
+  header.classList.toggle('open',!isOpen);
+  body.classList.toggle('open',!isOpen);
+}
+function abrirGrupoSidebarDaPagina(id){
+  var grupo=SB_GROUP_MAP[id];
+  if(!grupo)return;
+  var header=document.querySelector('.sb-group-header[data-group="'+grupo+'"]');
+  var body=document.getElementById('sbgroup-'+grupo);
+  if(header&&body&&!body.classList.contains('open')){
+    header.classList.add('open');
+    body.classList.add('open');
+  }
+}
 function goPage(id,btn){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('active');});
   document.getElementById('page-'+id).classList.add('active');btn.classList.add('active');
+  abrirGrupoSidebarDaPagina(id);
   var r={home:renderHome,clientes:renderClientes,financeiro:renderFinanceiro,crm:renderCRM,macros:renderMacros,estrategia:renderEstrategia,empresa:renderEmpresa,investir:renderInvestir,reservas:renderReservas,produtividade:prodInit,'historico-cli':renderHistCli,entregas:renderEntregas,propostas:renderPropostas,alertas:renderAlertasFull,crescimento:renderCrescimento,biblioteca:renderBiblioteca};
   if(r[id])r[id]();
 }
@@ -3057,7 +3156,8 @@ function showItab(g,id,btn){
   btn.classList.add('active');
   // Render content
   if(g==='emp'){renderEmpresa();}
-  if(g==='cli'){if(id==='carteira')renderClientes();else if(id==='reunioes')renderReunioes();else if(id==='projetos')renderProjetos();}
+  if(g==='cli'){if(id==='carteira')renderClientes();}
+  if(g==='ent'){if(id==='relatorios')renderEntregas();else if(id==='reunioes')renderReunioes();else if(id==='projetos')renderProjetos();}
   if(g==='fin'){renderFinanceiro();}
   if(g==='est'){if(id==='trimestre')renderMetas();else if(id==='pessoal')renderMetasPessoais();else if(id==='marcos')renderMarcos();else if(id==='anual')renderVisaoAnual();else if(id==='estrategias')renderEstrategias();}
   if(g==='prod'){if(id==='timer')prodRenderSessoes();else if(id==='demandas')prodRenderDemandas();else if(id==='rentabilidade')prodRenderRentabilidade();else if(id==='historico')prodRenderHistorico();else if(id==='estrategia')prodRenderDiagnostico();}
@@ -3273,7 +3373,7 @@ function prodRenderSessoes(){
       +'<div style="font-size:.64rem;color:var(--muted);margin-top:2px">'+s.tipo+(s.descricao?' · '+s.descricao:'')+'</div>'
       +'<div style="font-size:.62rem;color:var(--muted);margin-top:1px">'+(s.data||'—')+(s.manual?' · manual':'')+'</div>';
     var right=document.createElement('div');right.style.textAlign='right';
-    var dur=document.createElement('div');dur.style.cssText='font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)';
+    var dur=document.createElement('div');dur.style.cssText='font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:var(--ouro)';
     dur.textContent=prodDurStr(s.durMin);
     var btn=document.createElement('button');btn.className='bd';btn.style.cssText='font-size:.58rem;padding:2px 6px;margin-top:4px';btn.textContent='✕';
     (function(sid){btn.onclick=function(){prodRemSessao(sid);};})(s.id);
@@ -3319,7 +3419,7 @@ function prodRenderDemandas(){
   Object.keys(agrupado).forEach(function(nome){
     var grp=document.createElement('div');grp.style.marginBottom='13px';
     var title=document.createElement('div');
-    title.style.cssText='font-family:Cormorant Garamond,serif;font-size:.95rem;font-weight:600;color:var(--cafe);margin-bottom:7px';
+    title.style.cssText='font-family:Plus Jakarta Sans,sans-serif;font-size:.95rem;font-weight:600;color:var(--cafe);margin-bottom:7px';
     title.textContent=nome;grp.appendChild(title);
     agrupado[nome].forEach(function(d){
       var card=document.createElement('div');
@@ -3374,7 +3474,7 @@ function prodRenderRentabilidade(){
     left.innerHTML='<div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+r.nome+'</div>'
       +'<div style="font-size:.64rem;color:var(--muted);margin-top:2px">'+horasStr+' · R$ '+(r.val||0).toLocaleString('pt-BR')+'/mês</div>';
     var right=document.createElement('div');right.style.textAlign='right';
-    right.innerHTML='<div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;font-weight:600;color:var(--'+r.cls+')">R$ '+r.rh.toLocaleString('pt-BR')+'/h</div>'
+    right.innerHTML='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.2rem;font-weight:600;color:var(--'+r.cls+')">R$ '+r.rh.toLocaleString('pt-BR')+'/h</div>'
       +'<span class="bdg '+r.cls+'" style="font-size:.5rem">'+(r.rh>=60?'Ótimo':r.rh>=30?'Regular':'Atenção')+'</span>';
     top.appendChild(left);top.appendChild(right);row.appendChild(top);
     if(r.meta){
@@ -3451,7 +3551,7 @@ function prodRenderHistorico(){
       var left=document.createElement('div');
       left.innerHTML='<div style="font-size:.78rem;font-weight:600;color:var(--cafe)">'+s.clienteNome+'</div>'
         +'<div style="font-size:.63rem;color:var(--muted);margin-top:2px">'+s.tipo+(s.descricao?' · '+s.descricao:'')+'</div>';
-      var dur=document.createElement('div');dur.style.cssText='font-family:Cormorant Garamond,serif;font-size:1rem;font-weight:600;color:var(--ouro)';
+      var dur=document.createElement('div');dur.style.cssText='font-family:Plus Jakarta Sans,sans-serif;font-size:1rem;font-weight:600;color:var(--ouro)';
       dur.textContent=prodDurStr(s.durMin);
       card.appendChild(left);card.appendChild(dur);grp.appendChild(card);
     });
@@ -3736,7 +3836,7 @@ function renderProjetos(){
     h+='</div></div>';
     // Value + buttons
     h+='<div style="text-align:right;flex-shrink:0">';
-    h+='<div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+val.toLocaleString('pt-BR')+'</div>';
+    h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+val.toLocaleString('pt-BR')+'</div>';
     if(p.recebido==='sim'&&valRec!==val)h+='<div style="font-size:.62rem;color:var(--green)">Rec: R$ '+valRec.toLocaleString('pt-BR')+'</div>';
     h+='<div style="display:flex;gap:5px;margin-top:6px;justify-content:flex-end">';
     h+='<button class="be" style="font-size:.6rem;padding:3px 8px" data-id="'+p.id+'" onclick="editarProjeto(this.dataset.id)">Editar</button>';
@@ -3982,7 +4082,7 @@ function renderEntregas(){
     h+='<div><div style="font-size:.9rem;font-weight:600;color:var(--cafe)">'+(cli?cli.nome:ent.clienteNome||'—')+'</div>';
     h+='<div style="font-size:.68rem;color:var(--muted);margin-top:2px">'+ent.mes+(ent.horas?' · '+ent.horas+'h dedicadas':'')+'</div></div>';
     h+='<div style="display:flex;gap:6px;align-items:center">';
-    if(ent.nps)h+='<div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:'+npsColor+'">NPS '+ent.nps+'</div>';
+    if(ent.nps)h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:'+npsColor+'">NPS '+ent.nps+'</div>';
     h+='<button class="be" style="font-size:.6rem;padding:3px 8px" data-id="'+ent.id+'" onclick="editarEntrega(this.dataset.id)">Editar</button>';
     h+='<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+ent.id+'" onclick="remEntrega(this.dataset.id)">✕</button>';
     h+='</div></div>';
@@ -4055,7 +4155,7 @@ function renderPropostas(){
     h+='<div style="font-size:.68rem;color:var(--muted);margin-top:2px">'+(p.data||'—')+(p.validade?' · válida até '+p.validade:'')+'</div>';
     h+='<span class="bdg '+sc+'" style="margin-top:5px;display:inline-block">'+(statusIcon[p.status]||'')+(statusLabel[p.status]||p.status)+'</span></div>';
     h+='<div style="text-align:right;flex-shrink:0">';
-    h+='<div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+parseBRL(String(p.valor||0)).toLocaleString('pt-BR')+'</div>';
+    h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+parseBRL(String(p.valor||0)).toLocaleString('pt-BR')+'</div>';
     h+='<div style="display:flex;gap:5px;margin-top:5px;justify-content:flex-end">';
     h+='<button class="be" style="font-size:.6rem;padding:3px 8px" data-id="'+p.id+'" onclick="editarProposta(this.dataset.id)">Editar</button>';
     h+='<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+p.id+'" onclick="remProposta(this.dataset.id)">✕</button>';
@@ -4267,34 +4367,57 @@ function renderCrescimento(){
   var statusColor=ultimoLucro>0?'g':ultimoLucro<0?'r':'o';
   h+='<div class="g3" style="margin-bottom:13px">';
   h+='<div class="sc"><div class="sl">'+ultimo.mes+'</div><div class="sv '+statusColor+'">'+statusTxt+'</div><div class="ss">R$ '+Math.abs(ultimoLucro).toLocaleString('pt-BR')+(ultimoLucro<0?' negativo':'')+'</div></div>';
-  h+='<div class="sc"><div class="sl">Crescimento</div><div class="sv '+(crescFat===null?'':(crescFat>=0?'g':'r'))+'">'+(crescFat===null?'—':(crescFat>=0?'+':'')+crescFat+'%')+'</div><div class="ss">'+(meses.length>1?primeiro.mes+' → '+ultimo.mes:'registre mais meses')+'</div></div>';
+  h+='<div class="sc"><div class="sl">Crescimento</div><div class="sv '+(crescFat===null?'':(crescFat>=0?'g':'r'))+'">'+(crescFat===null?'—':(crescFat>=0?'+':'')+crescFat+'%')+'</div><div class="ss">'+(meses.length>1?primeiro.mes+' → '+ultimo.mes:'aparece a partir do 2º mês com dados')+'</div></div>';
   h+='<div class="sc"><div class="sl">Melhor mês</div><div class="sv g">'+melhorMes.mes+'</div><div class="ss">R$ '+(melhorMes.fat||0).toLocaleString('pt-BR')+'</div></div>';
   h+='</div>';
-  h+='<div class="card"><div class="cl">Evolução Mês a Mês (recebido real vs. pago real)</div>';
+  h+='<div class="card"><div class="cl">Evolução Mês a Mês (planejado vs. realizado)</div>';
   var maxFat=Math.max.apply(null,meses.map(function(m){return m.fat||0;}))||1;
   meses.slice().reverse().forEach(function(m,i){
     var pct=Math.round(((m.fat||0)/maxFat)*100);
     var sob=Math.round(((m.fat||0)-(m.gasto||0)-(m.investido||0))*100)/100;
     var prev=meses[meses.length-2-i];
     var diff=prev&&prev.fat?Math.round(((m.fat-prev.fat)/prev.fat)*100):null;
+    var metaM=(DB.metas_mensais&&DB.metas_mensais[m.key])||{};
+    var planFat=metaM.fat!=null?metaM.fat:'';
+    var planLucro=metaM.lucro!=null?metaM.lucro:'';
+    var diffFatPct=(planFat!==''&&planFat>0)?Math.round(((m.fat-planFat)/planFat)*100):null;
+    var diffLucroPct=(planLucro!==''&&planLucro!==0)?Math.round(((sob-planLucro)/Math.abs(planLucro))*100):null;
     h+='<div style="padding:10px 0;border-bottom:1px solid var(--border)">';
     h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">';
     h+='<div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+m.mes+'</div>';
     h+='<div style="display:flex;align-items:center;gap:10px">';
     if(diff!==null)h+='<span style="font-size:.65rem;color:'+(diff>=0?'var(--green)':'var(--red)')+'">'+(diff>=0?'▲+':'▼')+diff+'%</span>';
-    h+='<div style="font-family:Cormorant Garamond,serif;font-size:1rem;font-weight:600;color:var(--ouro)">R$ '+(m.fat||0).toLocaleString('pt-BR')+'</div>';
+    h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1rem;font-weight:600;color:var(--ouro)">R$ '+(m.fat||0).toLocaleString('pt-BR')+'</div>';
     h+='<button class="bd" style="font-size:.56rem;padding:2px 6px" data-key="'+m.key+'" onclick="excluirMesCrescimento(this.dataset.key)" title="Excluir este mês (dado de teste)">✕</button>';
     h+='</div></div>';
     h+='<div class="pt3"><div class="pf o" style="width:'+pct+'%"></div></div>';
     h+='<div style="display:flex;gap:13px;margin-top:4px;font-size:.64rem;color:var(--muted)">';
     h+='<span>Pago: R$ '+(m.gasto||0).toLocaleString('pt-BR')+'</span>';
     h+='<span style="color:'+(sob>=0?'var(--green)':'var(--red)')+'">'+(sob>=0?'Lucro':'Prejuízo')+': R$ '+Math.abs(sob).toLocaleString('pt-BR')+'</span>';
+    h+='</div>';
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px;padding-top:9px;border-top:1px dashed var(--border)">';
+    h+='<div><div style="font-size:.58rem;color:var(--muted);margin-bottom:3px;letter-spacing:.5px;text-transform:uppercase">Faturamento planejado</div>';
+    h+='<input type="text" inputmode="decimal" value="'+planFat+'" placeholder="ex: 2200" style="width:100%;font-size:.72rem;padding:6px 8px;border-radius:7px;border:1px solid var(--muted2);background:#fff;font-family:Inter,sans-serif" data-key="'+m.key+'" onchange="salvarMetaMensal(this.dataset.key,\'fat\',this.value)">';
+    h+=diffFatPct!==null?'<div style="font-size:.6rem;margin-top:3px;color:'+(diffFatPct>=0?'var(--green)':'var(--red)')+'">'+(diffFatPct>=0?'+':'')+diffFatPct+'% vs. planejado</div>':'<div style="font-size:.58rem;margin-top:3px;color:var(--muted)">defina uma meta pra comparar</div>';
+    h+='</div>';
+    h+='<div><div style="font-size:.58rem;color:var(--muted);margin-bottom:3px;letter-spacing:.5px;text-transform:uppercase" title="Meta livre — não é calculada automaticamente a partir do faturamento planejado">Meta de lucro do mês ℹ️</div>';
+    h+='<input type="text" inputmode="decimal" value="'+planLucro+'" placeholder="ex: 800" style="width:100%;font-size:.72rem;padding:6px 8px;border-radius:7px;border:1px solid var(--muted2);background:#fff;font-family:Inter,sans-serif" data-key="'+m.key+'" onchange="salvarMetaMensal(this.dataset.key,\'lucro\',this.value)">';
+    h+=diffLucroPct!==null?'<div style="font-size:.6rem;margin-top:3px;color:'+(diffLucroPct>=0?'var(--green)':'var(--red)')+'">'+(diffLucroPct>=0?'+':'')+diffLucroPct+'% vs. planejado</div>':'<div style="font-size:.58rem;margin-top:3px;color:var(--muted)">defina uma meta pra comparar</div>';
     h+='</div></div>';
+    h+='</div>';
   });
   h+='</div>';
   el.innerHTML=h;
   calcSaudeFinanceira();
   renderPrecificacao();
+}
+
+function salvarMetaMensal(key,campo,valor){
+  if(!DB.metas_mensais)DB.metas_mensais={};
+  if(!DB.metas_mensais[key])DB.metas_mensais[key]={};
+  DB.metas_mensais[key][campo]=parseBRL(valor)||0;
+  saveDB();
+  renderCrescimento();
 }
 
 function marcarConfigNaoSalva(){
@@ -4326,11 +4449,11 @@ function calcSaudeFinanceira(){
   // Mês atual: recebido, gasto, horas trabalhadas
   var hoje=new Date();var keyAtual=finMesKey(0);
   var mesAtual=DB.meses_fin&&DB.meses_fin[keyAtual];
-  var recebido=0,gasto=0;
+  var recebido=0,gasto=0,despesasNaoPagas=0;
   if(mesAtual){
     (mesAtual.receitas_clientes||[]).forEach(function(r){if(r.recebido)recebido+=parseFloat(r.valor||0);});
     (mesAtual.outras_receitas||[]).forEach(function(r){if(r.recebido)recebido+=parseFloat(r.valor||0);});
-    (mesAtual.despesas||[]).forEach(function(d){if(d.pago)gasto+=parseFloat(d.valor||0);});
+    (mesAtual.despesas||[]).forEach(function(d){if(d.pago)gasto+=parseFloat(d.valor||0);else despesasNaoPagas+=parseFloat(d.valor||0);});
   }
   var horasMin=0;
   (DB.produtividade&&DB.produtividade.sessoes||[]).forEach(function(s){
@@ -4351,7 +4474,11 @@ function calcSaudeFinanceira(){
     if(r>0)pcts.push((g/r)*100);
   });
   var mediaPct=pcts.length?Math.round(pcts.reduce(function(a,b){return a+b;},0)/pcts.length):null;
-  var pctAtual=recebido>0?Math.round((gasto/recebido)*100):0;
+  // BUGFIX/AJUSTE: percentual de gastos agora é calculado sobre o faturamento contratado
+  // (soma do valor mensal dos clientes ativos) em vez do "recebido" do mês, que varia
+  // dia a dia conforme os pagamentos entram — deixando o percentual mais estável e coerente.
+  var fatContratadoSaude=DB.clientes.filter(function(c){return c.status!=='Encerrado';}).reduce(function(a,c){return a+(c.val||0);},0);
+  var pctAtual=fatContratadoSaude>0?Math.round((gasto/fatContratadoSaude)*100):0;
   var statusGasto=pctAtual<=limitePct?'ok':pctAtual<=limitePct+15?'atencao':'alto';
   var corGasto=statusGasto==='ok'?'g':statusGasto==='atencao'?'o':'r';
   var txtGasto=statusGasto==='ok'?'Dentro do limite':statusGasto==='atencao'?'Atenção — perto do limite':'Acima do limite — reduzir gastos';
@@ -4359,12 +4486,13 @@ function calcSaudeFinanceira(){
   var h='<div class="g3" style="margin-bottom:13px">';
   h+='<div class="sc"><div class="sl">Valor/Hora Real</div><div class="sv o">'+(valorHoraReal!==null?'R$ '+valorHoraReal.toLocaleString('pt-BR'):'—')+'</div><div class="ss">'+(horas>0?horas+'h registradas este mês':'registre horas em Tempo')+'</div></div>';
   h+='<div class="sc"><div class="sl">Valor/Hora Meta</div><div class="sv g">'+(valorHoraMeta!==null?'R$ '+valorHoraMeta.toLocaleString('pt-BR'):'—')+'</div><div class="ss">'+(metaFat>0?'com base na sua meta':'defina sua meta acima')+'</div></div>';
-  h+='<div class="sc"><div class="sl">Gastos do Mês</div><div class="sv '+corGasto+'">'+pctAtual+'%</div><div class="ss">do recebido · limite '+limitePct+'%</div></div>';
+  h+='<div class="sc"><div class="sl">Gastos do Mês</div><div class="sv '+corGasto+'">'+pctAtual+'%</div><div class="ss">do faturamento · limite '+limitePct+'%</div></div>';
   h+='</div>';
   h+='<div class="card" style="margin-bottom:13px">';
   h+='<div class="cl">💛 Saúde dos Gastos</div>';
   h+='<div style="font-size:.8rem;font-weight:600;color:var('+(corGasto==='g'?'--green':corGasto==='o'?'--ouro':'--red')+');margin-bottom:8px">'+txtGasto+'</div>';
-  h+='<div style="font-size:.72rem;color:var(--muted);line-height:1.7">Este mês: R$ '+gasto.toLocaleString('pt-BR')+' de R$ '+recebido.toLocaleString('pt-BR')+' recebido ('+pctAtual+'%)<br>';
+  h+='<div style="font-size:.72rem;color:var(--muted);line-height:1.7">Este mês: R$ '+gasto.toLocaleString('pt-BR')+' pagos de R$ '+fatContratadoSaude.toLocaleString('pt-BR')+' de faturamento contratado ('+pctAtual+'%)<br>';
+  if(despesasNaoPagas>0)h+='<span style="color:var(--ouro)">⏳ R$ '+despesasNaoPagas.toLocaleString('pt-BR')+' em despesas cadastradas mas ainda não marcadas como pagas — dê baixa nelas em Financeiro pra entrarem nesse cálculo.</span><br>';
   h+='Sua média histórica: '+(mediaPct!==null?mediaPct+'% do recebido':'ainda sem dados suficientes')+'<br>';
   h+='Seu limite definido: '+limitePct+'%</div>';
   h+='</div>';
@@ -4406,7 +4534,7 @@ function calcSimulador(){
   else if(!reservasOk){veredicto='⏳ Espera um pouco';cor='var(--ouro)';motivo='Suas reservas estão abaixo de 50% da meta — priorize elas primeiro.';}
   else{veredicto='⏳ Avalie com cuidado';cor='var(--ouro)';motivo='Esse valor representa uma fatia grande do seu faturamento ('+pctFat+'%).';}
   var h='<div style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-top:8px">';
-  h+='<div style="font-family:Cormorant Garamond,serif;font-size:1.15rem;font-weight:600;color:'+cor+';margin-bottom:6px">'+veredicto+'</div>';
+  h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.15rem;font-weight:600;color:'+cor+';margin-bottom:6px">'+veredicto+'</div>';
   h+='<div style="font-size:.74rem;color:var(--muted);margin-bottom:8px">'+motivo+'</div>';
   h+='<div style="font-size:.7rem;color:var(--cafe);line-height:1.8">';
   if(pctFat!==null)h+='Representa <strong>'+pctFat+'%</strong> do seu recebido este mês<br>';
@@ -4425,7 +4553,7 @@ function calcSimulador(){
   var faltaFat=Math.round((fatNecessario-recebido)*100)/100;
   h+='<div style="background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:10px;padding:14px;margin-top:10px">';
   h+='<div style="font-size:.72rem;color:var(--cafe);font-weight:600;margin-bottom:6px">💡 Quanto eu precisaria estar faturando</div>';
-  h+='<div style="font-family:Cormorant Garamond,serif;font-size:1.3rem;font-weight:600;color:var(--ouro)">R$ '+fatNecessario.toLocaleString('pt-BR')+'</div>';
+  h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.3rem;font-weight:600;color:var(--ouro)">R$ '+fatNecessario.toLocaleString('pt-BR')+'</div>';
   h+='<div style="font-size:.7rem;color:var(--muted);margin-top:4px">'+(recorrente?'por mês, pra essa despesa fixa caber mantendo seu limite de '+limitePct+'% de gastos':'de faturamento pra essa compra caber com folga, mantendo seu padrão de '+limitePct+'% de gastos')+'</div>';
   if(faltaFat>0)h+='<div style="font-size:.7rem;color:var(--red);margin-top:6px">Faltam <strong>R$ '+faltaFat.toLocaleString('pt-BR')+'</strong> em relação ao que você recebeu este mês</div>';
   else h+='<div style="font-size:.7rem;color:var(--green);margin-top:6px">Seu faturamento atual já cobre isso ✅</div>';
@@ -4809,7 +4937,7 @@ function renderFinReceitas(mes, key){
     h += '<div><div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+icon+' '+r.nome+'</div>';
     h += '<div style="font-size:.65rem;color:var(--muted);margin-top:2px">'+(r.dia?'Dia '+r.dia+' · ':'')+r.meio+(r.dataRecebido?' · Recebido em '+r.dataRecebido:'')+'</div></div>';
     h += '<div style="display:flex;align-items:center;gap:8px">';
-    h += '<div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+parseFloat(r.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
+    h += '<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+parseFloat(r.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
     if(!r.recebido){
       h += '<button class="bp" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="darBaixaReceita(this.dataset.id,this.dataset.key)">✓ Receber</button>';
     } else {
@@ -4877,7 +5005,7 @@ function renderFinDespesas(mes, key){
     h += '<div><div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+icon+' '+d.desc+(d.variavel?' <span class="bdg n" style="font-size:.5rem">variável</span>':'')+'</div>';
     h += '<div style="font-size:.65rem;color:var(--muted);margin-top:2px">'+tipoLabel+(d.dia?' · Dia '+d.dia:'')+(d.dataPago?' · Pago em '+d.dataPago:'')+'</div></div>';
     h += '<div style="display:flex;align-items:center;gap:8px">';
-    h += '<div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--red)">R$ '+parseFloat(d.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
+    h += '<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:var(--red)">R$ '+parseFloat(d.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
     if(!d.pago){
       h += '<button class="bp" style="font-size:.6rem;padding:4px 10px" data-id="'+d.id+'" data-key="'+key+'" onclick="pagarDespesa(this.dataset.id,this.dataset.key)">✓ Pagar</button>';
     } else {
@@ -5013,7 +5141,7 @@ function renderFinOutras(mes, key){
     h += '<div><div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+(r.recebido?'✅':'⏳')+' '+r.desc+'</div>';
     h += '<div style="font-size:.65rem;color:var(--muted);margin-top:2px">'+r.tipo+(r.dataRecebido?' · Recebido em '+r.dataRecebido:'')+'</div></div>';
     h += '<div style="display:flex;align-items:center;gap:8px">';
-    h += '<div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+parseFloat(r.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
+    h += '<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+parseFloat(r.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
     if(!r.recebido){
       h += '<button class="bp" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="receberOutra(this.dataset.id,this.dataset.key)">✓ Receber</button>';
     } else {
@@ -5109,7 +5237,7 @@ function renderFinContasFixas(){
     h += '<div><div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+c.desc+(c.variavel?' <span class="bdg n" style="font-size:.5rem">variável</span>':'')+'</div>';
     h += '<div style="font-size:.63rem;color:var(--muted);margin-top:2px">'+c.tipo+(c.dia?' · Dia '+c.dia:'')+'</div></div>';
     h += '<div style="display:flex;align-items:center;gap:8px">';
-    h += '<div style="font-family:Cormorant Garamond,serif;font-size:1rem;font-weight:600;color:var(--cafe)">R$ '+parseFloat(c.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
+    h += '<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1rem;font-weight:600;color:var(--cafe)">R$ '+parseFloat(c.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
     h += '<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+c.id+'" onclick="remContaFixa(this.dataset.id)">✕</button>';
     h += '</div></div>';
   });
@@ -5429,7 +5557,7 @@ function gerarRecibo(){
 
   var recibo=
     '<div style="border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:12px">'
-    +'<strong style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:var(--cafe)">'+(e.fantasia||e.razao||'Daniela Santos')+'</strong>'
+    +'<strong style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;color:var(--cafe)">'+(e.fantasia||e.razao||'Daniela Santos')+'</strong>'
     +(e.cnpj?'<div style="font-size:.7rem;color:var(--muted)">CNPJ: '+e.cnpj+'</div>':'')
     +(e.cidade?'<div style="font-size:.7rem;color:var(--muted)">'+e.cidade+'</div>':'')
     +'</div>'
@@ -5440,7 +5568,7 @@ function gerarRecibo(){
     +'<div style="font-size:.72rem;color:var(--muted)">Referência: '+mes+'</div></div>'
     +'<div style="background:var(--green-dim);border:1px solid var(--green-b);border-radius:8px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center">'
     +'<div><div style="font-size:.6rem;font-weight:700;color:var(--green);letter-spacing:1.5px;text-transform:uppercase">VALOR RECEBIDO</div>'
-    +'<div style="font-family:Cormorant Garamond,serif;font-size:1.5rem;font-weight:600;color:var(--green)">'+valorFmt+'</div></div>'
+    +'<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.5rem;font-weight:600;color:var(--green)">'+valorFmt+'</div></div>'
     +'<div style="text-align:right"><div style="font-size:.7rem;color:var(--muted)">Via '+forma+'</div>'
     +'<div style="font-size:.7rem;color:var(--muted)">'+data+'</div></div></div>'
     +(e.pix?'<div style="font-size:.7rem;color:var(--muted);margin-bottom:8px">PIX: '+e.pix+(e.nome_pix?' — '+e.nome_pix:'')+'</div>':'')
