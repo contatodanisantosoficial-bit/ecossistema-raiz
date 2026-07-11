@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --nude:#C98C73;--nude-dim:rgba(201,140,115,.12);--nude-b:rgba(201,140,115,.28);
@@ -29,25 +29,25 @@
 body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
 .auth-overlay{position:fixed;inset:0;background:var(--cafe);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;}
 .auth-box{background:var(--offwhite);border-radius:20px;padding:36px 28px;max-width:380px;width:100%;text-align:center;}
-.auth-logo{font-family:'Plus Jakarta Sans',serif;font-size:2rem;font-weight:600;color:var(--cafe);margin-bottom:2px;}
+.auth-logo{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--cafe);margin-bottom:2px;}
 .auth-logo em{color:var(--nude);font-style:italic;}
 .auth-tag{font-size:.54rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:20px;}
 .auth-tabs{display:flex;border:1px solid var(--muted2);border-radius:10px;overflow:hidden;margin-bottom:20px;}
-.auth-tab{flex:1;padding:9px;font-size:.7rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:Plus Jakarta Sans,sans-serif;transition:all .2s;}
+.auth-tab{flex:1;padding:9px;font-size:.7rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:'Inter',sans-serif;transition:all .2s;}
 .auth-tab.active{background:var(--cafe);color:var(--ouro);}
 .auth-field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;text-align:left;}
 .auth-field label{font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;}
-.auth-field input{background:var(--s2);border:1px solid var(--muted2);border-radius:9px;padding:11px 13px;color:var(--text);font-family:'Inter',sans-serif;font-size:.88rem;outline:none;width:100%;transition:border-color .2s;}
+.auth-field input{background:var(--s2);border:1px solid var(--muted2);border-radius:12px;padding:11px 13px;color:var(--text);font-family:'Inter',sans-serif;font-size:.88rem;outline:none;width:100%;transition:border-color .2s;}
 .auth-field input:focus{border-color:var(--nude);}
 .auth-field input::placeholder{color:var(--muted);}
-.auth-nome-wrap{display:flex;align-items:center;border:1px solid var(--muted2);border-radius:9px;overflow:hidden;background:var(--s2);}
+.auth-nome-wrap{display:flex;align-items:center;border:1px solid var(--muted2);border-radius:12px;overflow:hidden;background:var(--s2);}
 .auth-nome-wrap:focus-within{border-color:var(--nude);}
-.auth-nome-prefix{padding:11px 12px;font-family:'Plus Jakarta Sans',serif;font-size:.95rem;font-weight:600;color:var(--cafe);background:var(--s3);white-space:nowrap;border-right:1px solid var(--muted2);}
+.auth-nome-prefix{padding:11px 12px;font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:600;color:var(--cafe);background:var(--s3);white-space:nowrap;border-right:1px solid var(--muted2);}
 .auth-nome-wrap input{border:none;border-radius:0;background:transparent;padding:11px 12px;}
 .auth-nome-wrap input:focus{border:none;}
 .auth-err{font-size:.72rem;color:var(--red);margin-bottom:10px;min-height:18px;}
 .auth-form{display:none;}.auth-form.active{display:block;}
-.sb{position:fixed;top:0;left:0;bottom:0;width:200px;background:var(--cafe);display:flex;flex-direction:column;z-index:100;}
+.sb{position:fixed;top:0;left:0;bottom:0;width:280px;background:var(--cafe);display:flex;flex-direction:column;z-index:100;}
 .sb-logo{padding:18px 16px 12px;border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0;display:flex;align-items:center;gap:7px;font-size:1.1rem;}
 .nb-scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:6px 0;}
 .nb-scroll::-webkit-scrollbar{display:none;}
@@ -57,7 +57,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
 .sb-group-header.open .chev{transform:rotate(90deg);}
 .sb-group-body{max-height:0;overflow:hidden;transition:max-height .25s ease;}
 .sb-group-body.open{max-height:400px;}
-.section-hdr{font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--nude);font-weight:700;margin:22px 0 10px;font-family:'Plus Jakarta Sans',sans-serif;}
+.section-hdr{font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--nude);font-weight:700;margin:22px 0 10px;font-family:'Inter',sans-serif;}
 .section-hdr:first-of-type{margin-top:0;}
 .nb{display:flex;flex-direction:row;align-items:center;gap:9px;padding:9px 16px;cursor:pointer;border:none;background:transparent;color:rgba(255,255,255,.7);width:100%;text-align:left;transition:all .15s;position:relative;}
 .nb:hover,.nb.active{background:rgba(255,255,255,.13);color:#fff;}
@@ -66,37 +66,52 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
 .ndot{width:6px;height:6px;border-radius:50%;background:var(--ouro);margin-left:auto;display:none;}
 .ndot.on{display:block;}
 .sb-bot{border-top:1px solid rgba(255,255,255,.1);padding:4px 0;flex-shrink:0;}
-.main{margin-left:200px;min-height:100vh;}
+.main{margin-left:280px;min-height:100vh;}
 .topbar{padding:13px 22px;border-bottom:1px solid var(--border);background:rgba(250,248,246,.95);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
-.tb-title{font-family:'Plus Jakarta Sans',serif;font-size:1.1rem;font-weight:600;color:var(--cafe);}
+.tb-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--cafe);}
 .tb-title em{color:var(--nude);font-style:italic;}
 .tb-date{font-size:.63rem;color:var(--muted);margin-top:1px;}
+.tb-breadcrumb{font-size:.62rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+.tb-breadcrumb .tb-bc-sep{margin:0 4px;color:var(--muted2);}
+.tb-breadcrumb .tb-bc-current{color:var(--nude);font-weight:600;}
+.tb-search-wrap{position:relative;flex:1;max-width:340px;margin:0 16px;}
+.tb-search{width:100%;background:var(--s2);border:1px solid var(--muted2);border-radius:12px;padding:9px 13px;color:var(--text);font-family:'Inter',sans-serif;font-size:.76rem;outline:none;transition:border-color .2s;}
+.tb-search:focus{border-color:var(--nude);}
+.tb-search-results{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--s1);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 24px rgba(58,40,32,.14),0 2px 8px rgba(58,40,32,.08);max-height:360px;overflow-y:auto;z-index:150;display:none;}
+.tb-search-results.show{display:block;}
+.tb-sr-group{padding:8px 14px 4px;font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.tb-sr-item{display:block;width:100%;text-align:left;padding:9px 14px;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;color:var(--text);transition:background .15s;}
+.tb-sr-item:hover{background:var(--nude-dim);}
+.tb-sr-item .tb-sr-name{font-size:.8rem;font-weight:600;color:var(--cafe);}
+.tb-sr-item .tb-sr-snippet{font-size:.68rem;color:var(--muted);margin-top:2px;line-height:1.4;}
+.tb-sr-empty{padding:14px;font-size:.72rem;color:var(--muted);text-align:center;}
+@media(max-width:900px){.tb-search-wrap{display:none;}}
 .tb-r{display:flex;gap:8px;align-items:center;}
 .ab{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;font-size:.6rem;font-weight:600;border:1px solid;cursor:pointer;}
 .ab.w{background:var(--red-dim);color:var(--red);border-color:var(--red-b);}
-.logout-btn{font-size:.6rem;color:var(--muted);background:none;border:1px solid var(--muted2);border-radius:99px;padding:4px 10px;cursor:pointer;font-family:Plus Jakarta Sans,sans-serif;font-weight:600;}
+.logout-btn{font-size:.6rem;color:var(--muted);background:none;border:1px solid var(--muted2);border-radius:99px;padding:4px 10px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;}
 .logout-btn:hover{color:var(--red);border-color:var(--red-b);}
 .page{display:none;padding:22px;max-width:880px;}
 .page.active{display:block;animation:fi .28s ease;}
 @keyframes fi{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:translateY(0);}}
 .ph{margin-bottom:20px;}
 .pe{font-size:.56rem;letter-spacing:3px;text-transform:uppercase;color:var(--nude);font-weight:700;margin-bottom:5px;}
-.pt{font-family:'Plus Jakarta Sans',serif;font-size:clamp(1.3rem,4vw,1.9rem);font-weight:600;line-height:1.1;color:var(--cafe);}
+.pt{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,4vw,1.9rem);font-weight:600;line-height:1.1;color:var(--cafe);}
 .pt em{font-style:italic;color:var(--nude);}
 .ps{font-size:.72rem;color:var(--muted);margin-top:4px;line-height:1.5;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr;}.sb{width:50px;}.main{margin-left:50px;}.page{padding:13px;}}
-.card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:15px;box-shadow:0 1px 3px rgba(58,40,32,.05),0 1px 2px rgba(58,40,32,.04);transition:box-shadow .2s,transform .15s;}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr;}.sb{width:88px;}.main{margin-left:88px;}.page{padding:13px;}.sb .nl,.sb .nb-group-label,.sb .chev,.sb .ndot{display:none;}.sb .sb-group-body{max-height:none!important;}.sb .nb{justify-content:center;padding:11px 0;position:relative;}.sb .ni{width:auto;font-size:1.15rem;}.sb .nb[data-tooltip]:hover::after{content:attr(data-tooltip);position:absolute;left:100%;top:50%;transform:translateY(-50%);margin-left:10px;background:var(--cafe);color:var(--ouro);font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;white-space:nowrap;padding:6px 11px;border-radius:10px;box-shadow:0 4px 12px rgba(58,40,32,.22);z-index:200;pointer-events:none;}.sb .sb-logo span{display:none;}}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:20px;margin-bottom:15px;box-shadow:0 1px 3px rgba(58,40,32,.05),0 1px 2px rgba(58,40,32,.04);transition:box-shadow .2s,transform .15s;}
 .card:hover{box-shadow:0 4px 12px rgba(58,40,32,.07),0 2px 4px rgba(58,40,32,.05);}
 .card.warm{border-color:var(--nude-b);background:linear-gradient(135deg,rgba(201,140,115,.04),var(--s1));}
 .cl{font-size:.54rem;letter-spacing:3px;text-transform:uppercase;color:var(--nude);font-weight:700;margin-bottom:10px;}
-.sv{font-family:'Plus Jakarta Sans',serif;font-size:clamp(1.2rem,3vw,1.8rem);font-weight:600;line-height:1;}
+.sv{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,3vw,1.8rem);font-weight:600;line-height:1;}
 .sv.o{color:var(--ouro);}.sv.g{color:var(--green);}.sv.r{color:var(--red);}.sv.n{color:var(--nude);}
 .sl{font-size:.58rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
 .ss{font-size:.64rem;color:var(--muted);margin-top:3px;}
-.sc{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:14px;transition:box-shadow .2s,transform .15s;}
+.sc{background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:14px;transition:box-shadow .2s,transform .15s;}
 .sc:hover{box-shadow:0 3px 10px rgba(58,40,32,.06);transform:translateY(-1px);}
 .pr{margin-bottom:11px;}.pr:last-child{margin-bottom:0;}
 .pt2{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
@@ -115,28 +130,28 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
 .bdg.m{background:var(--s2);color:var(--muted);border-color:var(--muted2);}
 .fi{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
 .fi label{font-size:.54rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;}
-.fi input,.fi select,.fi textarea{background:var(--s2);border:1px solid var(--muted2);border-radius:8px;padding:9px 11px;color:var(--text);font-family:'Inter',sans-serif;font-size:.82rem;outline:none;transition:border-color .2s;width:100%;}
+.fi input,.fi select,.fi textarea{background:var(--s2);border:1px solid var(--muted2);border-radius:12px;padding:9px 11px;color:var(--text);font-family:'Inter',sans-serif;font-size:.82rem;outline:none;transition:border-color .2s;width:100%;}
 .fi input:focus,.fi select:focus,.fi textarea:focus{border-color:var(--nude);}
 .fi input::placeholder,.fi textarea::placeholder{color:var(--muted);}
 .fi select option{background:var(--s1);}
 .fi textarea{resize:vertical;min-height:68px;}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.bp{background:var(--cafe);color:var(--ouro);border:none;border-radius:9px;padding:10px 18px;font-family:Plus Jakarta Sans,sans-serif;font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:opacity .2s,transform .1s;}
+.bp{background:var(--cafe);color:var(--ouro);border:none;border-radius:12px;padding:13px 20px;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:opacity .2s,transform .1s;}
 .bp:hover{opacity:.84;}.bp:active{transform:scale(.97);}
 .bp.nude{background:var(--nude);color:white;}
-.bg{background:transparent;border:1px solid var(--muted2);border-radius:8px;padding:8px 13px;color:var(--muted);font-family:Plus Jakarta Sans,sans-serif;font-size:.68rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.bg{background:transparent;border:1px solid var(--muted2);border-radius:12px;padding:11px 16px;color:var(--muted);font-family:'Inter',sans-serif;font-size:.68rem;font-weight:600;cursor:pointer;transition:all .2s;}
 .bg:hover{border-color:var(--nude);color:var(--nude);}
-.bd{background:var(--red-dim);border:1px solid var(--red-b);border-radius:7px;padding:5px 10px;color:var(--red);font-family:Plus Jakarta Sans,sans-serif;font-size:.66rem;font-weight:600;cursor:pointer;}
-.be{background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:7px;padding:5px 10px;color:var(--ouro);font-family:Plus Jakarta Sans,sans-serif;font-size:.66rem;font-weight:600;cursor:pointer;}
+.bd{background:var(--red-dim);border:1px solid var(--red-b);border-radius:12px;padding:8px 14px;color:var(--red);font-family:'Inter',sans-serif;font-size:.66rem;font-weight:600;cursor:pointer;}
+.be{background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:12px;padding:8px 14px;color:var(--ouro);font-family:'Inter',sans-serif;font-size:.66rem;font-weight:600;cursor:pointer;}
 .itabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:15px;overflow-x:auto;}
-.itab{padding:8px 13px;font-size:.6rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;font-family:Plus Jakarta Sans,sans-serif;}
+.itab{padding:8px 13px;font-size:.6rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;font-family:'Inter',sans-serif;}
 .itab.active{color:var(--nude);border-bottom-color:var(--nude);}
 .itab-pane{display:none;}.itab-pane.active{display:block;}
-.cc{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:9px;transition:border-color .2s;cursor:pointer;}
+.cc{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:9px;transition:border-color .2s;cursor:pointer;}
 .cc:hover,.cc.exp{border-color:var(--nude-b);}
 .ch2{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
-.cn{font-family:'Plus Jakarta Sans',serif;font-size:.96rem;font-weight:600;color:var(--cafe);}
-.cv{font-family:'Plus Jakarta Sans',serif;font-size:.96rem;font-weight:600;color:var(--ouro);white-space:nowrap;}
+.cn{font-family:'Cormorant Garamond',serif;font-size:.96rem;font-weight:600;color:var(--cafe);}
+.cv{font-family:'Cormorant Garamond',serif;font-size:.96rem;font-weight:600;color:var(--ouro);white-space:nowrap;}
 .cd{display:none;margin-top:11px;border-top:1px solid var(--border);padding-top:11px;}
 .cd.open{display:block;}
 .dg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
@@ -149,12 +164,12 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
 .analysis-card{background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:12px;margin-top:9px;font-size:.76rem;line-height:1.65;color:var(--text);}
 .analysis-card strong{color:var(--cafe);display:block;margin-bottom:4px;font-size:.56rem;letter-spacing:1.5px;text-transform:uppercase;}
 .crm-b{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;}
-.crm-col{flex-shrink:0;width:185px;background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:12px;}
+.crm-col{flex-shrink:0;width:185px;background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:12px;}
 .crm-ct{font-size:.54rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:9px;}
 .crm-card{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:9px;margin-bottom:7px;font-size:.74rem;}
 .crm-cn{font-weight:600;margin-bottom:3px;color:var(--cafe);}
 .crm-cv{font-size:.65rem;color:var(--ouro);}
-.crm-add{width:100%;padding:7px;background:transparent;border:1px dashed var(--muted2);border-radius:7px;color:var(--muted);font-size:.67rem;cursor:pointer;transition:all .2s;font-family:Plus Jakarta Sans,sans-serif;font-weight:600;}
+.crm-add{width:100%;padding:7px;background:transparent;border:1px dashed var(--muted2);border-radius:12px;color:var(--muted);font-size:.67rem;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;font-weight:600;}
 .crm-add:hover{border-color:var(--nude);color:var(--nude);}
 .mac{border-radius:14px;padding:16px;border:1px solid var(--border);margin-bottom:12px;background:var(--s1);}
 .mac-item{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:7px;}
@@ -166,15 +181,15 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
 .rw{position:relative;width:96px;height:96px;}
 .rw svg{transform:rotate(-90deg);}
 .rl{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.rs{font-family:'Plus Jakarta Sans',serif;font-size:1.65rem;font-weight:600;}
+.rs{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:600;}
 .rb{font-size:.44rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
 .mo{position:fixed;inset:0;background:rgba(90,64,52,.38);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;padding:16px;}
 .mo.open{display:flex;}
-.md{background:var(--offwhite);border:1px solid var(--nude-b);border-radius:16px;padding:22px;width:100%;max-width:490px;max-height:90vh;overflow-y:auto;animation:fi .22s ease;box-shadow:0 12px 32px rgba(58,40,32,.14),0 4px 10px rgba(58,40,32,.08);}
-.mt{font-family:'Plus Jakarta Sans',serif;font-size:1.1rem;font-weight:600;margin-bottom:14px;color:var(--cafe);}
+.md{background:var(--offwhite);border:1px solid var(--nude-b);border-radius:24px;padding:22px;width:100%;max-width:490px;max-height:90vh;overflow-y:auto;animation:fi .22s ease;box-shadow:0 12px 32px rgba(58,40,32,.14),0 4px 10px rgba(58,40,32,.08);}
+.mt{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;margin-bottom:14px;color:var(--cafe);}
 .ma{display:flex;gap:8px;justify-content:flex-end;margin-top:13px;}
 .manifesto{background:var(--cafe);border-radius:14px;padding:20px;text-align:center;margin-bottom:14px;}
-.manifesto p{font-family:'Plus Jakarta Sans',serif;font-size:clamp(.82rem,2.5vw,.98rem);font-style:italic;font-weight:300;color:var(--ouro);line-height:1.75;}
+.manifesto p{font-family:'Cormorant Garamond',serif;font-size:clamp(.82rem,2.5vw,.98rem);font-style:italic;font-weight:300;color:var(--ouro);line-height:1.75;}
 .inv-item{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:13px;margin-bottom:8px;}
 .inv-status{display:inline-block;padding:2px 8px;border-radius:99px;font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;}
 .inv-status.sim{background:var(--green-dim);color:var(--green);border:1px solid var(--green-b);}
@@ -186,7 +201,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
 .clara-section-title{font-size:.56rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--nude);font-weight:700;margin-bottom:7px;}
 .clara-msg{font-size:.8rem;line-height:1.75;color:var(--text);}
 .clara-provoca{background:var(--cafe);border-radius:10px;padding:14px;margin-top:12px;}
-.clara-provoca p{font-family:'Plus Jakarta Sans',serif;font-size:.95rem;font-style:italic;color:var(--ouro);line-height:1.65;}
+.clara-provoca p{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:var(--ouro);line-height:1.65;}
 .notif{position:fixed;bottom:18px;right:18px;background:var(--cafe);border:1px solid var(--ouro-b);border-radius:10px;padding:11px 15px;font-size:.76rem;color:var(--ouro);z-index:300;animation:su .3s ease;max-width:255px;}
 @keyframes su{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .empty{text-align:center;padding:24px 16px;color:var(--muted);}
@@ -194,7 +209,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
 .et{font-size:.74rem;line-height:1.6;}
 .ev{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 16px;text-align:center;gap:7px;}
 .ev .eicon{font-size:1.8rem;}
-.ev .etitle{font-family:'Plus Jakarta Sans',serif;font-size:1rem;font-weight:600;color:var(--cafe);}
+.ev .etitle{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--cafe);}
 .ev .edesc{font-size:.73rem;color:var(--muted);line-height:1.6;max-width:240px;}
 
 .sb::-webkit-scrollbar{display:none;}
@@ -241,7 +256,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
       <div style="margin-top:8px;text-align:center">
         <button onclick="toggleSupaReconnect()" style="background:none;border:none;font-size:.68rem;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:Inter,sans-serif;">☁️ Limpou o cache e não consegue entrar?</button>
       </div>
-      <div id="supa-reconnect-form" style="display:none;margin-top:12px;background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:14px">
+      <div id="supa-reconnect-form" style="display:none;margin-top:12px;background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:14px">
         <div style="font-size:.72rem;font-weight:600;color:var(--cafe);margin-bottom:6px">Reconectar à nuvem (Supabase)</div>
         <div style="font-size:.66rem;color:var(--muted);margin-bottom:10px;line-height:1.5">Se você limpou o cache do navegador, a conexão com seus dados na nuvem foi apagada do celular — mas seus dados continuam salvos. Cole aqui a URL e a chave do seu projeto Supabase (as mesmas de sempre) pra reconectar.</div>
         <div class="auth-field"><label>URL do Projeto</label><input type="text" id="login-supa-url" placeholder="https://xxxxx.supabase.co"></div>
@@ -249,7 +264,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
         <div class="auth-err" id="login-supa-err"></div>
         <button class="bp" style="width:100%;padding:10px;margin-top:6px" onclick="reconectarSupaLogin()">Reconectar</button>
       </div>
-      <div id="reset-form" style="display:none;margin-top:12px;background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:14px">
+      <div id="reset-form" style="display:none;margin-top:12px;background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:14px">
         <div style="font-size:.72rem;font-weight:600;color:var(--cafe);margin-bottom:10px">Redefinir senha</div>
         <div class="auth-field"><label>E-mail</label><input type="email" id="reset-email" placeholder="seu@email.com"></div>
         <div class="auth-field"><label>Nova senha</label><input type="password" id="reset-nova" placeholder="mínimo 6 caracteres"></div>
@@ -263,40 +278,44 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
 
 <!-- SIDEBAR -->
 <nav class="sb" id="sidebar" style="display:none;">
-  <div class="sb-logo">🌿 <span style="font-family:'Plus Jakarta Sans',serif;font-size:.9rem;font-weight:600;color:rgba(255,255,255,.9)">Raiz</span></div>
+  <div class="sb-logo">🌿 <span style="font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:600;color:rgba(255,255,255,.9)">Raiz</span></div>
   <div class="nb-scroll">
     <div class="sb-group-header open" data-group="principal" onclick="toggleSidebarGroup('principal')"><span class="nb-group-label" style="padding:0">Principal</span><span class="chev">▸</span></div>
     <div class="sb-group-body open" id="sbgroup-principal">
-    <button class="nb active" onclick="goPage('home',this)"><span class="ni">🏠</span><span class="nl">Início</span></button>
-    <button class="nb" id="nav-btn-clientes" onclick="goPage('clientes',this)"><span class="ni">🌸</span><span class="nl">Clientes</span><span class="ndot" id="dot-cli"></span></button>
-    <button class="nb" onclick="goPage('financeiro',this)"><span class="ni">💛</span><span class="nl">Finanças</span></button>
-    <button class="nb" onclick="goPage('crm',this)"><span class="ni">🎯</span><span class="nl">CRM</span></button>
+    <button class="nb active" data-tooltip="Início" onclick="goPage('home',this)"><span class="ni">🏠</span><span class="nl">Início</span></button>
+    <button class="nb" data-tooltip="Clientes" id="nav-btn-clientes" onclick="goPage('clientes',this)"><span class="ni">🌸</span><span class="nl">Clientes</span><span class="ndot" id="dot-cli"></span></button>
+    <button class="nb" data-tooltip="Finanças" onclick="goPage('financeiro',this)"><span class="ni">💛</span><span class="nl">Finanças</span></button>
+    <button class="nb" data-tooltip="CRM" onclick="goPage('crm',this)"><span class="ni">🎯</span><span class="nl">CRM</span></button>
     </div>
     <div class="sb-group-header" data-group="gestao" onclick="toggleSidebarGroup('gestao')"><span class="nb-group-label" style="padding:0">Gestão</span><span class="chev">▸</span></div>
     <div class="sb-group-body" id="sbgroup-gestao">
-    <button class="nb" onclick="goPage('entregas',this)"><span class="ni">📊</span><span class="nl">Entregas</span></button>
-    <button class="nb" onclick="goPage('propostas',this)"><span class="ni">📝</span><span class="nl">Propostas</span></button>
-    <button class="nb" onclick="goPage('alertas',this)"><span class="ni">🔔</span><span class="nl">Alertas</span></button>
-    <button class="nb" onclick="goPage('historico-cli',this)"><span class="ni">💬</span><span class="nl">Histórico</span></button>
-    <button class="nb" onclick="goPage('crescimento',this)"><span class="ni">📈</span><span class="nl">Crescimento</span></button>
+    <button class="nb" data-tooltip="Entregas" onclick="goPage('entregas',this)"><span class="ni">📊</span><span class="nl">Entregas</span></button>
+    <button class="nb" data-tooltip="Propostas" onclick="goPage('propostas',this)"><span class="ni">📝</span><span class="nl">Propostas</span></button>
+    <button class="nb" data-tooltip="Alertas" onclick="goPage('alertas',this)"><span class="ni">🔔</span><span class="nl">Alertas</span></button>
+    <button class="nb" data-tooltip="Histórico" onclick="goPage('historico-cli',this)"><span class="ni">💬</span><span class="nl">Histórico</span></button>
+    <button class="nb" data-tooltip="Crescimento" onclick="goPage('crescimento',this)"><span class="ni">📈</span><span class="nl">Crescimento</span></button>
     </div>
     <div class="sb-group-header" data-group="negocio" onclick="toggleSidebarGroup('negocio')"><span class="nb-group-label" style="padding:0">Negócio</span><span class="chev">▸</span></div>
     <div class="sb-group-body" id="sbgroup-negocio">
-    <button class="nb" onclick="goPage('macros',this)"><span class="ni">🌿</span><span class="nl">Processos</span></button>
-    <button class="nb" onclick="goPage('produtividade',this)"><span class="ni">⏱️</span><span class="nl">Tempo</span></button>
-    <button class="nb" onclick="goPage('estrategia',this)"><span class="ni">🗺</span><span class="nl">Estratégia</span></button>
-    <button class="nb" onclick="goPage('investir',this)"><span class="ni">🔍</span><span class="nl">Investir</span></button>
-    <button class="nb" onclick="goPage('reservas',this)"><span class="ni">🏦</span><span class="nl">Reservas</span></button>
-    <button class="nb" onclick="goPage('empresa',this)"><span class="ni">✨</span><span class="nl">Empresa</span></button>
-    <button class="nb" onclick="goPage('biblioteca',this)"><span class="ni">📚</span><span class="nl">Biblioteca</span></button>
+    <button class="nb" data-tooltip="Processos" onclick="goPage('macros',this)"><span class="ni">🌿</span><span class="nl">Processos</span></button>
+    <button class="nb" data-tooltip="Tempo" onclick="goPage('produtividade',this)"><span class="ni">⏱️</span><span class="nl">Tempo</span></button>
+    <button class="nb" data-tooltip="Estratégia" onclick="goPage('estrategia',this)"><span class="ni">🗺</span><span class="nl">Estratégia</span></button>
+    <button class="nb" data-tooltip="Investir" onclick="goPage('investir',this)"><span class="ni">🔍</span><span class="nl">Investir</span></button>
+    <button class="nb" data-tooltip="Reservas" onclick="goPage('reservas',this)"><span class="ni">🏦</span><span class="nl">Reservas</span></button>
+    <button class="nb" data-tooltip="Empresa" onclick="goPage('empresa',this)"><span class="ni">✨</span><span class="nl">Empresa</span></button>
+    <button class="nb" data-tooltip="Biblioteca" onclick="goPage('biblioteca',this)"><span class="ni">📚</span><span class="nl">Biblioteca</span></button>
     </div>
   </div>
-  <div class="sb-bot"><button class="nb" onclick="goPage('config',this)"><span class="ni">⚙️</span><span class="nl">Config</span></button></div>
+  <div class="sb-bot"><button class="nb" data-tooltip="Config" onclick="goPage('config',this)"><span class="ni">⚙️</span><span class="nl">Config</span></button></div>
 </nav>
 
 <main class="main" id="main-content" style="display:none;">
   <div class="topbar">
-    <div><div class="tb-title">Ecossistema <em>Raiz</em></div><div class="tb-date" id="tbdate">—</div></div>
+    <div><div class="tb-title">Ecossistema <em>Raiz</em></div><div class="tb-breadcrumb" id="tb-breadcrumb">Início</div><div class="tb-date" id="tbdate">—</div></div>
+    <div class="tb-search-wrap">
+      <input type="text" id="tb-search" class="tb-search" placeholder="🔍 Pesquisar clientes, propostas, biblioteca..." autocomplete="off" oninput="buscarGlobalLive(this.value)" onfocus="if(this.value)buscarGlobalLive(this.value)" onblur="setTimeout(function(){fecharBuscaGlobal();},150)" onkeydown="if(event.key==='Escape')this.blur();">
+      <div id="tb-search-results" class="tb-search-results"></div>
+    </div>
     <div class="tb-r" id="tbright"><button class="logout-btn" onclick="logout()">Sair</button></div>
   </div>
 
@@ -314,7 +333,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
           <svg width="96" height="96" viewBox="0 0 96 96"><circle cx="48" cy="48" r="40" fill="none" stroke="#EEE2D8" stroke-width="7"/><circle cx="48" cy="48" r="40" fill="none" stroke="var(--nude)" stroke-width="7" stroke-linecap="round" stroke-dasharray="251.33" stroke-dashoffset="251.33" id="home-arc" style="transition:stroke-dashoffset 1s ease,stroke .5s;"/></svg>
           <div class="rl"><span class="rs" id="home-score" style="color:var(--nude);">—</span><span class="rb">Score</span></div>
         </div>
-        <div style="font-family:'Plus Jakarta Sans',serif;font-size:.9rem;font-weight:600;color:var(--cafe);margin-top:8px;text-align:center;" id="home-stage">Nenhum dado ainda</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:600;color:var(--cafe);margin-top:8px;text-align:center;" id="home-stage">Nenhum dado ainda</div>
         <div style="font-size:.67rem;color:var(--muted);text-align:center;max-width:190px;margin-top:3px;line-height:1.5;" id="home-desc">Alimente o sistema para ver a saúde do seu negócio.</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:8px;">
@@ -362,14 +381,14 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     <div class="card warm" style="margin-bottom:13px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
         <div style="width:36px;height:36px;border-radius:50%;background:var(--cafe);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🌿</div>
-        <div><div style="font-family:'Plus Jakarta Sans',serif;font-size:1rem;font-weight:600;color:var(--cafe);">Clara</div><div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Mentora de Negócio</div></div>
+        <div><div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--cafe);">Clara</div><div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Mentora de Negócio</div></div>
         <button class="bd" style="margin-left:auto;font-size:.58rem;padding:6px 10px;" onclick="claraNovaConversa()" title="Começar uma nova conversa">Nova conversa</button>
       </div>
       <div id="clara-chat" style="max-height:360px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:12px;padding-right:2px;"></div>
       <div id="clara-loading" style="display:none;padding:2px 0 10px;font-size:.74rem;color:var(--muted);">🌿 Clara está pensando...</div>
       <div style="display:flex;gap:8px;align-items:flex-end;">
         <button class="bd" style="font-size:.62rem;padding:9px 12px;white-space:nowrap;flex-shrink:0;" onclick="claraAnalise()">Fazer o raio-x</button>
-        <textarea id="clara-input" rows="1" placeholder="Escreva pra Clara..." style="flex:1;resize:none;border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:.8rem;font-family:inherit;background:var(--s1);color:var(--text);outline:none;" onkeydown="claraKeydown(event)"></textarea>
+        <textarea id="clara-input" rows="1" placeholder="Escreva pra Clara..." style="flex:1;resize:none;border:1px solid var(--border);border-radius:16px;padding:9px 12px;font-size:.8rem;font-family:inherit;background:var(--s1);color:var(--text);outline:none;" onkeydown="claraKeydown(event)"></textarea>
         <button class="bp" style="font-size:.62rem;padding:9px 14px;flex-shrink:0;" onclick="claraSend()">Enviar</button>
       </div>
     </div>
@@ -401,10 +420,10 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
   <div class="ph"><div class="pe">Financeiro</div><div class="pt">Mês a mês, <em>com clareza</em></div></div>
   
   <!-- Navegação de mês -->
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;background:var(--s2);border:1px solid var(--border);border-radius:11px;padding:12px 16px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:12px 16px">
     <button class="be" onclick="navMes(-1)" style="font-size:1.1rem;padding:4px 12px">‹</button>
     <div style="text-align:center">
-      <div style="font-family:'Plus Jakarta Sans',serif;font-size:1.3rem;font-weight:600;color:var(--cafe)" id="fin-mes-titulo">—</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--cafe)" id="fin-mes-titulo">—</div>
       <div style="font-size:.65rem;color:var(--muted);margin-top:2px" id="fin-mes-sub">Selecione um mês</div>
     </div>
     <button class="be" onclick="navMes(1)" style="font-size:1.1rem;padding:4px 12px">›</button>
@@ -496,7 +515,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
       </div>
       <div class="fi"><label>Descrição rápida</label><input type="text" id="prod-desc-sessao" placeholder="ex: alinhamento semanal, ajuste de planilha..."></div>
       <div id="prod-timer-box" style="text-align:center;padding:24px 0">
-        <div id="prod-timer-display" style="font-family:'Plus Jakarta Sans',serif;font-size:3rem;font-weight:600;color:var(--cafe);letter-spacing:2px">00:00:00</div>
+        <div id="prod-timer-display" style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;color:var(--cafe);letter-spacing:2px">00:00:00</div>
         <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px" id="prod-timer-status">Pronta para começar</div>
         <div style="display:flex;gap:10px;justify-content:center;margin-top:16px">
           <button class="bp" id="prod-btn-iniciar" onclick="prodIniciarTimer()">▶ Iniciar</button>
@@ -551,7 +570,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
         <div style="width:36px;height:36px;border-radius:50%;background:var(--cafe);display:flex;align-items:center;justify-content:center;font-size:1rem">🌿</div>
         <div>
-          <div style="font-family:'Plus Jakarta Sans',serif;font-size:1rem;font-weight:600;color:var(--cafe)">Análise Estratégica</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--cafe)">Análise Estratégica</div>
           <div style="font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)">O que vale, o que otimizar, o que encerrar</div>
         </div>
         <button class="bp" style="margin-left:auto;font-size:.6rem;padding:7px 12px" onclick="prodAnalisarEstrategia()">Analisar agora</button>
@@ -585,7 +604,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
       <label style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--cafe);margin:2px 0 10px"><input type="checkbox" id="sim-recorrente" onchange="calcSimulador()" style="width:auto"> É um gasto recorrente mensal (ex: contratação, assinatura)</label>
       <div id="sim-resultado"></div>
     </div><div style="display:flex;justify-content:flex-end;margin-bottom:13px"><button class="bp" onclick="openModal('modal-add-inv')">+ Analisar Investimento</button></div><div id="lista-inv"></div></div>
-  <div class="page" id="page-reservas"><div class="ph"><div class="pe">Reservas e Investimentos</div><div class="pt">Seu dinheiro <em>trabalhando por você</em></div></div><div id="reservas-edu" class="card warm" style="margin-bottom:13px"><div class="cl">Educação Financeira</div><div id="edu-content"></div></div><div class="g3" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Investido</div><div class="sv o" id="res-total">—</div></div><div class="sc"><div class="sl">Rentabilidade Média</div><div class="sv g" id="res-rent">—</div></div><div class="sc"><div class="sl">Rendimento Mensal Est.</div><div class="sv g" id="res-rend">—</div></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Meus Caixas e Reservas</div><div id="caixas-grid"></div><div style="margin-top:12px;display:flex;justify-content:flex-end"><button class="bp" onclick="openModal('modal-edit-caixas')">Atualizar Valores</button></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Aporte Mensal</div><div style="font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Registre quanto você vai depositar este mês. O valor é somado ao saldo de cada objetivo, dividido pelo percentual que você definir.</div><div class="fr"><div class="fi"><label>Valor disponível para aportar (R$)</label><input type="text" inputmode="decimal" id="ap-valor" oninput="calcAportePreview()"></div><div class="fi"><label>&nbsp;</label><button class="bg" style="width:100%" onclick="openModal('modal-aporte-config')">⚙️ Definir % por objetivo</button></div></div><div id="ap-preview" style="display:none;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;margin-bottom:12px"><div id="ap-preview-list"></div></div><div style="display:flex;justify-content:flex-end"><button class="bp" onclick="registrarAporte()">Registrar Aporte</button></div><div id="ap-historico" style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px"></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="cl" style="margin-bottom:0">Minhas Aplicações</div><button class="bp" onclick="abrirNovaReserva()">+ Adicionar</button></div><div id="lista-reservas"></div></div><div class="card"><div class="cl">Distribuição das Reservas</div><div id="reservas-dist"></div></div><div id="risco-painel" class="card" style="margin-bottom:13px"></div>
+  <div class="page" id="page-reservas"><div class="ph"><div class="pe">Reservas e Investimentos</div><div class="pt">Seu dinheiro <em>trabalhando por você</em></div></div><div id="reservas-edu" class="card warm" style="margin-bottom:13px"><div class="cl">Educação Financeira</div><div id="edu-content"></div></div><div class="g3" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Investido</div><div class="sv o" id="res-total">—</div></div><div class="sc"><div class="sl">Rentabilidade Média</div><div class="sv g" id="res-rent">—</div></div><div class="sc"><div class="sl">Rendimento Mensal Est.</div><div class="sv g" id="res-rend">—</div></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Meus Caixas e Reservas</div><div id="caixas-grid"></div><div style="margin-top:12px;display:flex;justify-content:flex-end"><button class="bp" onclick="openModal('modal-edit-caixas')">Atualizar Valores</button></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Aporte Mensal</div><div style="font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Registre quanto você vai depositar este mês. O valor é somado ao saldo de cada objetivo, dividido pelo percentual que você definir.</div><div class="fr"><div class="fi"><label>Valor disponível para aportar (R$)</label><input type="text" inputmode="decimal" id="ap-valor" oninput="calcAportePreview()"></div><div class="fi"><label>&nbsp;</label><button class="bg" style="width:100%" onclick="openModal('modal-aporte-config')">⚙️ Definir % por objetivo</button></div></div><div id="ap-preview" style="display:none;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:16px;padding:10px;margin-bottom:12px"><div id="ap-preview-list"></div></div><div style="display:flex;justify-content:flex-end"><button class="bp" onclick="registrarAporte()">Registrar Aporte</button></div><div id="ap-historico" style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px"></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="cl" style="margin-bottom:0">Minhas Aplicações</div><button class="bp" onclick="abrirNovaReserva()">+ Adicionar</button></div><div id="lista-reservas"></div></div><div class="card"><div class="cl">Distribuição das Reservas</div><div id="reservas-dist"></div></div><div id="risco-painel" class="card" style="margin-bottom:13px"></div>
 <div class="card" style="margin-top:13px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
         <div><div class="cl" style="margin-bottom:2px;">Evolução Mensal</div>
@@ -679,7 +698,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
         <input type="text" id="emp-cores" placeholder="ex: #4A3428 (café), #D9C2A3 (areia), #B76A4A (terracota)">
       </div>
       <div class="fi"><label>Fontes</label>
-        <input type="text" id="emp-fontes" placeholder="ex: Plus Jakarta Sans (títulos), Inter (corpo)">
+        <input type="text" id="emp-fontes" placeholder="ex: Cormorant Garamond (títulos), Inter (corpo)">
       </div>
     </div>
 
@@ -861,7 +880,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     <div id="recibo-preview" style="display:none">
       <div class="card" style="border:2px solid var(--nude);margin-bottom:13px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-          <div style="font-family:'Plus Jakarta Sans',serif;font-size:1.4rem;font-weight:600;color:var(--cafe)">RECIBO DE PAGAMENTO</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--cafe)">RECIBO DE PAGAMENTO</div>
           <div style="display:flex;gap:8px">
             <button class="be" onclick="imprimirRecibo()">🖨️ Imprimir</button>
             <button class="bp" onclick="copiarRecibo()">📋 Copiar</button>
@@ -1055,7 +1074,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     </select>
   </div>
   <div id="cli-contrato-obs-wrap" style="display:none">
-    <div style="background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:9px;padding:11px;margin-bottom:10px">
+    <div style="background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:16px;padding:11px;margin-bottom:10px">
       <div style="font-size:.63rem;font-weight:700;color:var(--ouro);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px">⚠️ CONTRATO VENCIDO — EM ANDAMENTO</div>
       <div class="fi" style="margin-bottom:0"><label>Observação</label>
         <input type="text" id="cli-contrato-obs" placeholder="ex: Contrato venceu em jun/2026, seguindo sem renovação. Novo contrato previsto para julho.">
@@ -1076,7 +1095,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     </select>
   </div>
   <div id="cli-variavel-wrap" style="display:none">
-    <div style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:9px;padding:12px;margin-bottom:10px">
+    <div style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:16px;padding:12px;margin-bottom:10px">
       <div style="font-size:.65rem;font-weight:700;color:var(--cafe);margin-bottom:8px">⚡ PARTE VARIÁVEL</div>
       <div class="fr">
         <div class="fi"><label>Valor variável recebido (R$)</label><input type="number" id="cli-val-variavel" placeholder="ex: 200"></div>
@@ -1108,17 +1127,17 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
 <div class="mo" id="modal-add-meta-p"><div class="md"><div class="mt">Objetivo Pessoal</div><div class="fi"><label>Objetivo</label><input type="text" id="mtp-titulo"></div><div class="fr"><div class="fi"><label>Valor (R$)</label><input type="number" id="mtp-val"></div><div class="fi"><label>Prazo</label><input type="text" id="mtp-prazo"></div></div><div class="fi"><label>Status</label><select id="mtp-status"><option>Sonhando</option><option>Planejando</option><option>Em andamento</option><option>Realizado</option></select></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-meta-p')">Cancelar</button><button class="bp" onclick="salvarMetaPessoal()">Salvar</button></div></div></div>
 <div class="mo" id="modal-add-inv"><div class="md"><div class="mt">Analisar Investimento</div><div class="fr"><div class="fi"><label>O que é?</label><input type="text" id="inv-desc"></div><div class="fi"><label>Valor (R$)</label><input type="number" id="inv-val"></div></div><div class="fi"><label>Tipo</label><select id="inv-tipo"><option>Curso / Capacitação</option><option>Ferramenta / App</option><option>Serviço terceirizado</option><option>Compra pessoal</option><option>Marketing</option><option>Outro</option></select></div><div class="fi"><label>Por que quer?</label><input type="text" id="inv-motivo"></div><div class="fi"><label>Resultado esperado</label><textarea id="inv-retorno"></textarea></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-inv')">Cancelar</button><button class="bp" onclick="salvarInvestimento()">Analisar</button></div></div></div>
 <div class="mo" id="modal-edit-caixas"><div class="md"><div class="mt">Atualizar Caixas e Reservas</div>
-  <div style="margin-bottom:12px;padding:12px;background:var(--s2);border-radius:10px;border-left:3px solid var(--nude)">
+  <div style="margin-bottom:12px;padding:12px;background:var(--s2);border-radius:16px;border-left:3px solid var(--nude)">
     <div style="font-size:.72rem;font-weight:600;color:var(--cafe);margin-bottom:3px">🌸 Reserva Paz</div>
     <div style="font-size:.64rem;color:var(--muted);margin-bottom:8px">Sua reserva pessoal — paz de espírito</div>
     <div class="fr"><div class="fi"><label>Valor Atual (R$)</label><input type="number" id="cx-paz-val"></div><div class="fi"><label>Meta (R$)</label><input type="number" id="cx-paz-meta"></div></div>
   </div>
-  <div style="margin-bottom:12px;padding:12px;background:var(--s2);border-radius:10px;border-left:3px solid var(--ouro)">
+  <div style="margin-bottom:12px;padding:12px;background:var(--s2);border-radius:16px;border-left:3px solid var(--ouro)">
     <div style="font-size:.72rem;font-weight:600;color:var(--cafe);margin-bottom:3px">🏢 Caixa da Empresa</div>
     <div style="font-size:.64rem;color:var(--muted);margin-bottom:8px">Capital de giro e operação do negócio</div>
     <div class="fr"><div class="fi"><label>Valor Atual (R$)</label><input type="number" id="cx-emp-val"></div><div class="fi"><label>Meta (R$)</label><input type="number" id="cx-emp-meta"></div></div>
   </div>
-  <div style="margin-bottom:12px;padding:12px;background:var(--s2);border-radius:10px;border-left:3px solid var(--green)">
+  <div style="margin-bottom:12px;padding:12px;background:var(--s2);border-radius:16px;border-left:3px solid var(--green)">
     <div style="font-size:.72rem;font-weight:600;color:var(--cafe);margin-bottom:3px">✨ Projetos Pontuais</div>
     <div style="font-size:.64rem;color:var(--muted);margin-bottom:8px">Cursos, ferramentas, investimentos curtos</div>
     <div class="fr"><div class="fi"><label>Valor Atual (R$)</label><input type="number" id="cx-proj-val"></div><div class="fi"><label>Meta (R$)</label><input type="number" id="cx-proj-meta"></div></div>
@@ -1133,7 +1152,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
   <div id="apc-soma-aviso" style="font-size:.68rem;color:var(--red);display:none;margin-bottom:8px">A soma dos percentuais precisa ser 100%. Ajuste antes de salvar.</div>
   <div class="ma"><button class="bg" onclick="closeModal('modal-aporte-config')">Cancelar</button><button class="bp" onclick="salvarAporteConfig()">Salvar</button></div>
 </div></div>
-<div class="mo" id="modal-add-reserva"><div class="md"><div class="mt" id="mres-title">Adicionar Aplicação</div><input type="hidden" id="res-edit-id"><div class="fi"><label>Nome / Descrição</label><input type="text" id="res-desc"></div><div class="fi"><label>Banco / Instituição</label><input type="text" id="res-inst"></div><div class="fi"><label>Tipo de Investimento</label><select id="res-tipo" onchange="atualizarDicaTipo()"><option value="CDB">CDB</option><option value="Poupança">Poupança</option><option value="Tesouro Direto">Tesouro Direto</option><option value="LCI/LCA">LCI / LCA</option><option value="Fundo de Investimento">Fundo de Investimento</option><option value="Ações">Ações</option><option value="Criptomoedas">Criptomoedas</option><option value="Renda Fixa">Renda Fixa</option><option value="Outro">Outro</option></select></div><div id="dica-tipo-modal" style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px;font-size:.72rem;line-height:1.55;margin-bottom:10px;display:none"></div><div class="fr"><div class="fi"><label>Valor Atual (R$)</label><input type="text" inputmode="decimal" id="res-val" oninput="calcRentModal()"></div><div class="fi"><label>Rentabilidade (% ao mês) *</label><input type="text" inputmode="decimal" id="res-rent-input" oninput="calcRentModal()" placeholder="ex: 0,85"></div></div><div class="fi" id="res-aporte-wrap" style="display:none"><label>Aporte deste mês (R$) — soma ao Valor Atual e abate do Saldo do mês como Investido (não entra como despesa)</label><input type="text" inputmode="decimal" id="res-aporte" placeholder="ex: 200"></div><div id="rent-preview" style="display:none;background:var(--green-dim);border:1px solid var(--green-b);border-radius:8px;padding:10px;margin-bottom:10px"><div class="g3"><div><div style="font-size:.58rem;color:var(--muted)">Rende/mês</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-mes">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rende/ano</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-ano">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rent. anual</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-pct">—</div></div></div></div><div class="fr"><div class="fi"><label>Objetivo</label><select id="res-obj"><option value="Emergência">Reserva de Emergência</option><option value="Reserva PF">Reserva Pessoal</option><option value="Caixa Empresa">Caixa da Empresa</option><option value="Crescimento">Crescimento</option><option value="Aposentadoria">Aposentadoria</option><option value="Sonho">Sonho</option><option value="Livre">Livre</option></select></div><div class="fi"><label>Liquidez</label><select id="res-liq"><option value="Diária">Diária</option><option value="Mensal">Mensal</option><option value="No vencimento">No vencimento</option><option value="Longo prazo">Longo prazo</option></select></div></div><div class="fi"><label>Notas</label><input type="text" id="res-nota"></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-reserva')">Cancelar</button><button class="bp" onclick="salvarReserva()">Salvar</button></div></div></div>
+<div class="mo" id="modal-add-reserva"><div class="md"><div class="mt" id="mres-title">Adicionar Aplicação</div><input type="hidden" id="res-edit-id"><div class="fi"><label>Nome / Descrição</label><input type="text" id="res-desc"></div><div class="fi"><label>Banco / Instituição</label><input type="text" id="res-inst"></div><div class="fi"><label>Tipo de Investimento</label><select id="res-tipo" onchange="atualizarDicaTipo()"><option value="CDB">CDB</option><option value="Poupança">Poupança</option><option value="Tesouro Direto">Tesouro Direto</option><option value="LCI/LCA">LCI / LCA</option><option value="Fundo de Investimento">Fundo de Investimento</option><option value="Ações">Ações</option><option value="Criptomoedas">Criptomoedas</option><option value="Renda Fixa">Renda Fixa</option><option value="Outro">Outro</option></select></div><div id="dica-tipo-modal" style="background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:16px;padding:10px;font-size:.72rem;line-height:1.55;margin-bottom:10px;display:none"></div><div class="fr"><div class="fi"><label>Valor Atual (R$)</label><input type="text" inputmode="decimal" id="res-val" oninput="calcRentModal()"></div><div class="fi"><label>Rentabilidade (% ao mês) *</label><input type="text" inputmode="decimal" id="res-rent-input" oninput="calcRentModal()" placeholder="ex: 0,85"></div></div><div class="fi" id="res-aporte-wrap" style="display:none"><label>Aporte deste mês (R$) — soma ao Valor Atual e abate do Saldo do mês como Investido (não entra como despesa)</label><input type="text" inputmode="decimal" id="res-aporte" placeholder="ex: 200"></div><div id="rent-preview" style="display:none;background:var(--green-dim);border:1px solid var(--green-b);border-radius:16px;padding:10px;margin-bottom:10px"><div class="g3"><div><div style="font-size:.58rem;color:var(--muted)">Rende/mês</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-mes">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rende/ano</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-ano">—</div></div><div><div style="font-size:.58rem;color:var(--muted)">Rent. anual</div><div style="font-size:.9rem;font-weight:600;color:var(--green)" id="prev-pct">—</div></div></div></div><div class="fr"><div class="fi"><label>Objetivo</label><select id="res-obj"><option value="Emergência">Reserva de Emergência</option><option value="Reserva PF">Reserva Pessoal</option><option value="Caixa Empresa">Caixa da Empresa</option><option value="Crescimento">Crescimento</option><option value="Aposentadoria">Aposentadoria</option><option value="Sonho">Sonho</option><option value="Livre">Livre</option></select></div><div class="fi"><label>Liquidez</label><select id="res-liq"><option value="Diária">Diária</option><option value="Mensal">Mensal</option><option value="No vencimento">No vencimento</option><option value="Longo prazo">Longo prazo</option></select></div></div><div class="fi"><label>Notas</label><input type="text" id="res-nota"></div><div class="ma"><button class="bg" onclick="closeModal('modal-add-reserva')">Cancelar</button><button class="bp" onclick="salvarReserva()">Salvar</button></div></div></div>
 <div class="mo" id="modal-add-projeto"><div class="md">
   <div class="mt" id="mproj-title">Novo Projeto / Comissão</div>
   <input type="hidden" id="proj-edit-id">
@@ -1628,10 +1647,10 @@ function renderHistorico(){
   var reversed=DB.meses.slice().reverse();
   el.innerHTML=reversed.map(function(m){
     var sob=Math.round(((m.fat||0)-(m.gasto||0))*100)/100;
-    return '<div style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:9px">'
+    return '<div style="background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:12px;margin-bottom:9px">'
       +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">'
       +'<div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+m.mes+'</div>'
-      +'<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1rem;font-weight:600;color:var(--ouro)">R$ '+m.fat.toLocaleString('pt-BR')+'</div></div>'
+      +'<div style="font-family:\'Cormorant Garamond\',serif;font-size:1rem;font-weight:600;color:var(--ouro)">R$ '+m.fat.toLocaleString('pt-BR')+'</div></div>'
       +'<div class="g3" style="margin-bottom:7px">'
       +'<div><div style="font-size:.6rem;color:var(--muted)">Gasto PJ</div><div style="font-size:.72rem;color:var(--red)">R$ '+(m.gastoPJ||m.gasto||0).toLocaleString('pt-BR')+'</div></div>'
       +'<div><div style="font-size:.6rem;color:var(--muted)">Gasto PF</div><div style="font-size:.72rem;color:var(--red)">R$ '+(m.gastoPF||0).toLocaleString('pt-BR')+'</div></div>'
@@ -1757,7 +1776,7 @@ function renderClientes(){
     h.push('</div></div>');
     var totalCli=c.val+(c.val_variavel&&c.modelo_rec==='hibrido'?c.val_variavel:0);
     h.push('<div style="text-align:right">');
-    h.push('<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+(c.val||0).toLocaleString('pt-BR')+'</div>');
+    h.push('<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+(c.val||0).toLocaleString('pt-BR')+'</div>');
     if(c.val_variavel&&c.modelo_rec==='hibrido'){
       h.push('<div style="font-size:.65rem;color:var(--green);margin-top:2px">+R$ '+c.val_variavel.toLocaleString('pt-BR')+(c.variavel_desc?' ('+c.variavel_desc+')':'')+'</div>');
       h.push('<div style="font-size:.6rem;color:var(--muted)">Total: R$ '+totalCli.toLocaleString('pt-BR')+'</div>');
@@ -1776,9 +1795,9 @@ function renderClientes(){
     if(c.contrato_status&&c.contrato_status!=='ativo')dets.push({l:'Contrato',v:cStatusLabel[c.contrato_status]||c.contrato_status,alert:c.contrato_status==='vencido_renovando'||c.contrato_status==='em_renovacao'});
     if(c.contrato_obs)dets.push({l:'Obs. contrato',v:c.contrato_obs});if(c.primeiro_pag)dets.push({l:'1º Pagamento',v:c.primeiro_pag});if(c.fim)dets.push({l:'Fim',v:c.fim});if(c.reajuste)dets.push({l:'Reajuste',v:c.reajuste});if(c.canal)dets.push({l:'Canal',v:c.canal});if(c.origem)dets.push({l:'Como chegou',v:c.origem});
     if(dets.length){h.push('<div class="g2" style="margin-bottom:10px">');dets.forEach(function(d){h.push('<div class="di"><div class="dl">'+d.l+'</div><div class="dv">'+d.v+'</div></div>');});h.push('</div>');}
-    if(c.servico)h.push('<div style="background:var(--s2);border-radius:8px;padding:10px;margin-bottom:8px;font-size:.76rem;line-height:1.55;color:var(--text)"><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:5px">ESCOPO</div>'+c.servico+'</div>');
-    if(c.resumo)h.push('<div style="background:var(--s2);border-radius:8px;padding:10px;margin-bottom:8px;font-size:.76rem;line-height:1.55;color:var(--text)"><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:5px">PERFIL COMPORTAMENTAL</div>'+c.resumo+'</div>');
-    if(c.notas)h.push('<div style="background:var(--nude-dim);border-radius:8px;padding:10px;font-size:.76rem;line-height:1.55;color:var(--muted)"><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:5px">NOTAS</div>'+c.notas+'</div>');
+    if(c.servico)h.push('<div style="background:var(--s2);border-radius:16px;padding:10px;margin-bottom:8px;font-size:.76rem;line-height:1.55;color:var(--text)"><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:5px">ESCOPO</div>'+c.servico+'</div>');
+    if(c.resumo)h.push('<div style="background:var(--s2);border-radius:16px;padding:10px;margin-bottom:8px;font-size:.76rem;line-height:1.55;color:var(--text)"><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:5px">PERFIL COMPORTAMENTAL</div>'+c.resumo+'</div>');
+    if(c.notas)h.push('<div style="background:var(--nude-dim);border-radius:16px;padding:10px;font-size:.76rem;line-height:1.55;color:var(--muted)"><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:5px">NOTAS</div>'+c.notas+'</div>');
     h.push('<div style="display:flex;gap:7px;margin-top:10px">');
     h.push('<button class="be" style="font-size:.64rem;padding:5px 11px" data-id="'+c.id+'" onclick="editarCliente(this.dataset.id)">Editar</button>');
     h.push('<button class="bd" style="font-size:.64rem;padding:5px 11px" data-id="'+c.id+'" onclick="remCli(this.dataset.id)">Remover</button>');
@@ -1918,7 +1937,7 @@ function renderMacros(){
     h.push('<div style="display:flex;align-items:center;gap:9px"><span style="font-size:1.1rem">'+d.icon+'</span>');
     h.push('<div><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:'+d.color+'">'+d.name+'</div>');
     h.push('<div style="font-size:.63rem;color:var(--muted)">'+done+'/'+items.length+' processos</div></div></div>');
-    h.push('<div style="text-align:right"><div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.5rem;font-weight:600;color:'+d.color+';line-height:1">'+(score!==null?score:'—')+'</div><div style="font-size:.55rem;color:var(--muted)">/ 100</div></div></div>');
+    h.push('<div style="text-align:right"><div style="font-family:\'Cormorant Garamond\',serif;font-size:1.5rem;font-weight:600;color:'+d.color+';line-height:1">'+(score!==null?score:'—')+'</div><div style="font-size:.55rem;color:var(--muted)">/ 100</div></div></div>');
     h.push('<div class="pr" style="margin-bottom:11px"><div class="pt2"><span class="pn" style="font-size:.65rem">Concluídos</span><span class="pp" style="color:'+d.color+'">'+pct+'%</span></div><div class="pt3"><div class="pf '+d.cc+'" style="width:'+pct+'%"></div></div></div>');
     h.push('<div style="display:flex;gap:7px;margin-bottom:11px;flex-wrap:wrap;align-items:center">');
     h.push('<button class="bp" style="font-size:.6rem;padding:7px 11px" onclick="abrirMI(\''+k+'\',-1)">+ Processo</button>');
@@ -2000,7 +2019,7 @@ function renderVisaoAnual(){
   if(v&&(v.texto||v.fat)){
     el.style.display='block';
     var h=[];
-    if(v.texto)h.push('<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.05rem;font-style:italic;color:var(--cafe);line-height:1.6;margin-bottom:12px">"'+v.texto+'"</div>');
+    if(v.texto)h.push('<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.05rem;font-style:italic;color:var(--cafe);line-height:1.6;margin-bottom:12px">"'+v.texto+'"</div>');
     h.push('<div class="g2">');
     if(v.fat)h.push('<div class="sc"><div class="sl">Meta Anual</div><div class="sv o">R$ '+parseInt(v.fat).toLocaleString('pt-BR')+'</div></div>');
     if(v.cli)h.push('<div class="sc"><div class="sl">Clientes Alvo</div><div class="sv o">'+v.cli+'</div></div>');
@@ -2088,7 +2107,7 @@ function renderCaixasGrid(){
     var falta=c.meta>0?Math.max(0,c.meta-c.valor):0;
     h.push('<div class="sc" style="border-left:3px solid '+item.color+'">');
     h.push('<div style="display:flex;align-items:center;gap:7px;margin-bottom:5px"><span style="font-size:1.1rem">'+item.icon+'</span><div><div style="font-size:.72rem;font-weight:600;color:var(--cafe)">'+item.label+'</div><div style="font-size:.6rem;color:var(--muted)">'+item.sub+'</div></div></div>');
-    h.push('<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.3rem;font-weight:600;color:'+item.color+'">R$ '+c.valor.toLocaleString('pt-BR')+'</div>');
+    h.push('<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.3rem;font-weight:600;color:'+item.color+'">R$ '+c.valor.toLocaleString('pt-BR')+'</div>');
     if(c.meta>0){
       h.push('<div style="font-size:.62rem;color:var(--muted);margin-top:2px">Meta: R$ '+c.meta.toLocaleString('pt-BR')+'</div>');
       h.push('<div class="pr" style="margin:7px 0 3px"><div class="pt2"><span style="font-size:.62rem;color:var(--muted)">Progresso</span><span style="font-size:.62rem;font-weight:600;color:'+item.color+'">'+pct+'%</span></div><div class="pt3"><div class="pf" style="width:'+pct+'%;background:'+item.color+'"></div></div></div>');
@@ -2284,7 +2303,7 @@ function renderRisco(){
   h+='<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">';
   h+='<div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:10px">💡 Onde isso costuma se resolver</div>';
   sugestoes.forEach(function(s){
-    h+='<div style="display:flex;gap:10px;background:var(--s2);border-radius:10px;padding:10px 12px;margin-bottom:8px;align-items:flex-start">';
+    h+='<div style="display:flex;gap:10px;background:var(--s2);border-radius:16px;padding:10px 12px;margin-bottom:8px;align-items:flex-start">';
     h+='<div style="font-size:1.1rem;line-height:1">'+s.icone+'</div>';
     h+='<div><div style="font-size:.76rem;font-weight:600;color:var(--cafe);margin-bottom:2px">'+s.titulo+'</div><div style="font-size:.7rem;color:var(--text);line-height:1.55">'+s.texto+'</div></div>';
     h+='</div>';
@@ -2373,7 +2392,7 @@ function renderReservas(){
     else if(vsCDI>=0){smartTip='✅ Boa aplicação! Rendendo acima do CDI.';}
     else{smartTip='💡 '+edu.dica;}
     var row=document.createElement('div');
-    row.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:11px;padding:14px;margin-bottom:9px';
+    row.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:9px';
     var h=[];
     h.push('<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">');
     h.push('<div><div style="font-size:.86rem;font-weight:600;color:var(--cafe)">'+r.desc+'</div>');
@@ -2383,9 +2402,9 @@ function renderReservas(){
     h.push('<span class="bdg m">'+r.liq+'</span>');
     if(r.inst)h.push('<span class="bdg m">'+r.inst+'</span>');
     h.push('</div></div>');
-    h.push('<div style="text-align:right"><div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+(r.val||0).toLocaleString('pt-BR')+'</div>');
+    h.push('<div style="text-align:right"><div style="font-family:\'Cormorant Garamond\',serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+(r.val||0).toLocaleString('pt-BR')+'</div>');
     h.push('<div style="font-size:.62rem;color:var(--muted)">'+pct+'% da carteira</div></div></div>');
-    h.push('<div style="background:var(--s1);border-radius:8px;padding:11px;margin-bottom:9px">');
+    h.push('<div style="background:var(--s1);border-radius:16px;padding:11px;margin-bottom:9px">');
     h.push('<div class="g4"><div><div class="sl">Rent./mês</div><div style="font-size:.88rem;font-weight:600;color:var(--green)">'+(r.rent||0).toFixed(2)+'%</div></div>');
     h.push('<div><div class="sl">Rende/mês</div><div style="font-size:.88rem;font-weight:600;color:var(--green)">R$ '+rentMensal.toFixed(2)+'</div></div>');
     h.push('<div><div class="sl">Rent. anual</div><div style="font-size:.88rem;font-weight:600;color:var(--green)">'+rentAnual.toFixed(1)+'%</div></div>');
@@ -2399,7 +2418,7 @@ function renderReservas(){
     h.push('</div></div></div>');
     h.push('<div class="pt2"><span style="font-size:.63rem;color:var(--muted)">Participação na carteira</span><span style="font-size:.63rem;color:var(--ouro)">'+pct+'%</span></div>');
     h.push('<div class="pt3" style="margin-bottom:10px"><div class="pf o" style="width:'+pct+'%"></div></div>');
-    h.push('<div style="font-size:.72rem;line-height:1.55;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:8px;padding:10px">'+smartTip+'</div>');
+    h.push('<div style="font-size:.72rem;line-height:1.55;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:16px;padding:10px">'+smartTip+'</div>');
     row.innerHTML=h.join('');
     var btns=document.createElement('div');btns.style.cssText='display:flex;gap:6px;margin-top:9px';
     var beBtn=document.createElement('button');beBtn.className='be';beBtn.style.cssText='font-size:.62rem;padding:3px 9px';beBtn.textContent='Editar';
@@ -2475,11 +2494,11 @@ function renderHistoricoReservas(){
   for(var i=0;i<reversed.length;i++){
     var snap=reversed[i];var prev=reversed[i+1];
     var growth=prev&&prev.total>0?Math.round(((snap.total-prev.total)/prev.total)*100*10)/10:null;
-    h.push('<div style="background:var(--s2);border-radius:10px;padding:13px;margin-bottom:9px;border:1px solid var(--border)">');
+    h.push('<div style="background:var(--s2);border-radius:16px;padding:13px;margin-bottom:9px;border:1px solid var(--border)">');
     h.push('<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px">');
     h.push('<div><div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+snap.mes+'</div>');
     h.push('<div style="font-size:.63rem;color:var(--muted);margin-top:2px">'+snap.qtd+' aplicação'+(snap.qtd>1?'ões':'')+'</div></div>');
-    h.push('<div style="text-align:right"><div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+(snap.total||0).toLocaleString('pt-BR')+'</div>');
+    h.push('<div style="text-align:right"><div style="font-family:\'Cormorant Garamond\',serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+(snap.total||0).toLocaleString('pt-BR')+'</div>');
     if(growth!==null){var gc=growth>=0?'var(--green)':'var(--red)';h.push('<div style="font-size:.66rem;color:'+gc+'">'+(growth>=0?'▲ +':'▼ ')+growth+'% vs mês anterior</div>');}
     h.push('</div></div>');
     h.push('<div style="display:flex;gap:8px;flex-wrap:wrap">');
@@ -3125,11 +3144,78 @@ function abrirGrupoSidebarDaPagina(id){
     body.classList.add('open');
   }
 }
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function buscarGlobalLive(q){
+  var box=document.getElementById('tb-search-results');
+  if(!box)return;
+  q=(q||'').trim().toLowerCase();
+  if(!q||q.length<2){box.classList.remove('show');box.innerHTML='';return;}
+  if(!DB){box.classList.remove('show');return;}
+  var grupos=[];
+  function bate(v){return v&&String(v).toLowerCase().indexOf(q)>=0;}
+
+  var mCli=(DB.clientes||[]).filter(function(c){return bate(c.nome)||bate(c.resumo)||bate(c.notas)||bate(c.servico)||bate(c.canal)||bate(c.origem);});
+  if(mCli.length)grupos.push({label:'Clientes',page:'clientes',items:mCli.slice(0,6).map(function(c){return{id:c.id,nome:c.nome,snippet:c.servico||c.resumo||'',abrir:function(){editarCliente(c.id);}};})});
+
+  var mCrm=((DB.crm&&DB.crm.cards)||[]).filter(function(c){return bate(c.nome)||bate(c.notas)||bate(c.contato);});
+  if(mCrm.length)grupos.push({label:'CRM',page:'crm',items:mCrm.slice(0,6).map(function(c){return{id:c.id,nome:c.nome,snippet:c.etapa||'',abrir:function(){editarCRM(c.id);}};})});
+
+  var mProp=(DB.propostas||[]).filter(function(p){return bate(p.nome)||bate(p.escopo)||bate(p.notas);});
+  if(mProp.length)grupos.push({label:'Propostas',page:'propostas',items:mProp.slice(0,6).map(function(p){return{id:p.id,nome:p.nome,snippet:p.escopo||'',abrir:function(){editarProposta(p.id);}};})});
+
+  var mEnt=(DB.entregas||[]).filter(function(e){return bate(e.clienteNome)||bate(e.descricao)||bate(e.resultados);});
+  if(mEnt.length)grupos.push({label:'Entregas',page:'entregas',items:mEnt.slice(0,6).map(function(e){return{id:e.id,nome:e.clienteNome+(e.mes?' · '+e.mes:''),snippet:e.descricao||'',abrir:function(){editarEntrega(e.id);}};})});
+
+  var mProj=(DB.projetos||[]).filter(function(p){return bate(p.clienteNome)||bate(p.desc)||bate(p.notas);});
+  if(mProj.length)grupos.push({label:'Projetos',page:'crescimento',items:mProj.slice(0,6).map(function(p){return{id:p.id,nome:p.clienteNome+(p.tipo?' · '+p.tipo:''),snippet:p.desc||'',abrir:function(){editarProjeto(p.id);}};})});
+
+  var mBib=(DB.biblioteca||[]).filter(function(b){return bate(b.titulo)||bate(b.desc)||bate(b.tags);});
+  if(mBib.length)grupos.push({label:'Biblioteca',page:'biblioteca',items:mBib.slice(0,6).map(function(b){return{id:b.id,nome:b.titulo,snippet:b.desc||b.tags||'',abrir:function(){editarBib(b.id);}};})});
+
+  window._buscaGlobalResultados=grupos;
+
+  if(!grupos.length){box.innerHTML='<div class="tb-sr-empty">Nenhum resultado para "'+esc(q)+'"</div>';box.classList.add('show');return;}
+
+  var h='';
+  grupos.forEach(function(g,gi){
+    h+='<div class="tb-sr-group">'+g.label+'</div>';
+    g.items.forEach(function(it,ii){
+      h+='<button type="button" class="tb-sr-item" onmousedown="event.preventDefault();abrirResultadoBusca('+gi+','+ii+')"><div class="tb-sr-name">'+esc(it.nome)+'</div>'+(it.snippet?'<div class="tb-sr-snippet">'+esc(it.snippet).slice(0,80)+'</div>':'')+'</button>';
+    });
+  });
+  box.innerHTML=h;
+  box.classList.add('show');
+}
+function abrirResultadoBusca(gi,ii){
+  var grupos=window._buscaGlobalResultados;
+  if(!grupos||!grupos[gi]||!grupos[gi].items[ii])return;
+  var g=grupos[gi];var it=g.items[ii];
+  goPage(g.page);
+  setTimeout(function(){if(it.abrir)it.abrir();},60);
+  fecharBuscaGlobal();
+  var input=document.getElementById('tb-search');
+  if(input){input.value='';input.blur();}
+}
+function fecharBuscaGlobal(){
+  var box=document.getElementById('tb-search-results');
+  if(box){box.classList.remove('show');}
+}
+function atualizarBreadcrumb(id){
+  var PAGE_LABELS={home:'Início',clientes:'Clientes',financeiro:'Finanças',crm:'CRM',entregas:'Entregas',propostas:'Propostas',alertas:'Alertas','historico-cli':'Histórico',crescimento:'Crescimento',macros:'Processos',produtividade:'Tempo',estrategia:'Estratégia',investir:'Investir',reservas:'Reservas',empresa:'Empresa',biblioteca:'Biblioteca',config:'Config'};
+  var el=document.getElementById('tb-breadcrumb');
+  if(!el)return;
+  var label=PAGE_LABELS[id]||id;
+  if(id==='home'){el.innerHTML='Início';}
+  else{el.innerHTML='Início<span class="tb-bc-sep">›</span><span class="tb-bc-current">'+label+'</span>';}
+}
 function goPage(id,btn){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('active');});
-  document.getElementById('page-'+id).classList.add('active');btn.classList.add('active');
+  document.getElementById('page-'+id).classList.add('active');
+  if(!btn)btn=document.querySelector('.nb[onclick*="goPage(\'"+id+"\'"]');
+  if(btn)btn.classList.add('active');
   abrirGrupoSidebarDaPagina(id);
+  atualizarBreadcrumb(id);
   var r={home:renderHome,clientes:renderClientes,financeiro:renderFinanceiro,crm:renderCRM,macros:renderMacros,estrategia:renderEstrategia,empresa:renderEmpresa,investir:renderInvestir,reservas:renderReservas,produtividade:prodInit,'historico-cli':renderHistCli,entregas:renderEntregas,propostas:renderPropostas,alertas:renderAlertasFull,crescimento:renderCrescimento,biblioteca:renderBiblioteca};
   if(r[id])r[id]();
 }
@@ -3373,7 +3459,7 @@ function prodRenderSessoes(){
       +'<div style="font-size:.64rem;color:var(--muted);margin-top:2px">'+s.tipo+(s.descricao?' · '+s.descricao:'')+'</div>'
       +'<div style="font-size:.62rem;color:var(--muted);margin-top:1px">'+(s.data||'—')+(s.manual?' · manual':'')+'</div>';
     var right=document.createElement('div');right.style.textAlign='right';
-    var dur=document.createElement('div');dur.style.cssText='font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:var(--ouro)';
+    var dur=document.createElement('div');dur.style.cssText='font-family:\'Cormorant Garamond\',serif;font-size:1.1rem;font-weight:600;color:var(--ouro)';
     dur.textContent=prodDurStr(s.durMin);
     var btn=document.createElement('button');btn.className='bd';btn.style.cssText='font-size:.58rem;padding:2px 6px;margin-top:4px';btn.textContent='✕';
     (function(sid){btn.onclick=function(){prodRemSessao(sid);};})(s.id);
@@ -3419,11 +3505,11 @@ function prodRenderDemandas(){
   Object.keys(agrupado).forEach(function(nome){
     var grp=document.createElement('div');grp.style.marginBottom='13px';
     var title=document.createElement('div');
-    title.style.cssText='font-family:Plus Jakarta Sans,sans-serif;font-size:.95rem;font-weight:600;color:var(--cafe);margin-bottom:7px';
+    title.style.cssText='font-family:\'Cormorant Garamond\',serif;font-size:.95rem;font-weight:600;color:var(--cafe);margin-bottom:7px';
     title.textContent=nome;grp.appendChild(title);
     agrupado[nome].forEach(function(d){
       var card=document.createElement('div');
-      card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:flex-start';
+      card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:10px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:flex-start';
       var left=document.createElement('div');
       var sc=statusCls[d.status]||'m';
       var durStr=d.durMin?prodDurStr(d.durMin):'—';
@@ -3474,7 +3560,7 @@ function prodRenderRentabilidade(){
     left.innerHTML='<div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+r.nome+'</div>'
       +'<div style="font-size:.64rem;color:var(--muted);margin-top:2px">'+horasStr+' · R$ '+(r.val||0).toLocaleString('pt-BR')+'/mês</div>';
     var right=document.createElement('div');right.style.textAlign='right';
-    right.innerHTML='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.2rem;font-weight:600;color:var(--'+r.cls+')">R$ '+r.rh.toLocaleString('pt-BR')+'/h</div>'
+    right.innerHTML='<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.2rem;font-weight:600;color:var(--'+r.cls+')">R$ '+r.rh.toLocaleString('pt-BR')+'/h</div>'
       +'<span class="bdg '+r.cls+'" style="font-size:.5rem">'+(r.rh>=60?'Ótimo':r.rh>=30?'Regular':'Atenção')+'</span>';
     top.appendChild(left);top.appendChild(right);row.appendChild(top);
     if(r.meta){
@@ -3547,11 +3633,11 @@ function prodRenderHistorico(){
     grp.appendChild(header);
     items.forEach(function(s){
       var card=document.createElement('div');
-      card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:9px;margin-bottom:5px;display:flex;justify-content:space-between';
+      card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:9px;margin-bottom:5px;display:flex;justify-content:space-between';
       var left=document.createElement('div');
       left.innerHTML='<div style="font-size:.78rem;font-weight:600;color:var(--cafe)">'+s.clienteNome+'</div>'
         +'<div style="font-size:.63rem;color:var(--muted);margin-top:2px">'+s.tipo+(s.descricao?' · '+s.descricao:'')+'</div>';
-      var dur=document.createElement('div');dur.style.cssText='font-family:Plus Jakarta Sans,sans-serif;font-size:1rem;font-weight:600;color:var(--ouro)';
+      var dur=document.createElement('div');dur.style.cssText='font-family:\'Cormorant Garamond\',serif;font-size:1rem;font-weight:600;color:var(--ouro)';
       dur.textContent=prodDurStr(s.durMin);
       card.appendChild(left);card.appendChild(dur);grp.appendChild(card);
     });
@@ -3688,7 +3774,7 @@ function renderReunioes(){
     else if(r.contrato==='em_negociacao')contratoBadge='<span class="bdg o" style="margin-left:5px">🤝 Em negociação</span>';
     else if(r.contrato==='encerrado')contratoBadge='<span class="bdg r" style="margin-left:5px">❌ Encerrado</span>';
     var card=document.createElement('div');
-    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:11px;padding:14px;margin-bottom:10px';
+    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px';
     var h='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">';
     h+='<div><div style="font-size:.88rem;font-weight:600;color:var(--cafe)">'+(cli?cli.nome:r.clienteNome||'—')+'</div>';
     h+='<div style="font-size:.72rem;color:var(--muted);margin-top:2px">'+r.tipo+' · '+(r.data||'—')+'</div>';
@@ -3698,7 +3784,7 @@ function renderReunioes(){
     h+='<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+r.id+'" onclick="remReuniao(this.dataset.id)">✕</button>';
     h+='</div></div>';
     if(r.valor)h+='<div style="font-size:.78rem;color:var(--ouro);margin-bottom:5px">💰 R$ '+parseBRL(String(r.valor)).toLocaleString('pt-BR')+' no contrato</div>';
-    if(r.notas)h+='<div style="font-size:.74rem;color:var(--text);line-height:1.55;background:var(--s1);border-radius:8px;padding:9px;margin-top:5px">'+r.notas+'</div>';
+    if(r.notas)h+='<div style="font-size:.74rem;color:var(--text);line-height:1.55;background:var(--s1);border-radius:16px;padding:9px;margin-top:5px">'+r.notas+'</div>';
     if(r.proxima)h+='<div style="font-size:.68rem;color:var(--nude);margin-top:7px">📅 Próxima reunião: '+r.proxima+'</div>';
     card.innerHTML=h;
     el.appendChild(card);
@@ -3818,7 +3904,7 @@ function renderProjetos(){
     var valRec=p.valor_rec?parseBRL(String(p.valor_rec)):val;
 
     var card=document.createElement('div');
-    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:11px;padding:14px;margin-bottom:10px';
+    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px';
 
     var h='';
     // Header
@@ -3836,13 +3922,13 @@ function renderProjetos(){
     h+='</div></div>';
     // Value + buttons
     h+='<div style="text-align:right;flex-shrink:0">';
-    h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+val.toLocaleString('pt-BR')+'</div>';
+    h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+val.toLocaleString('pt-BR')+'</div>';
     if(p.recebido==='sim'&&valRec!==val)h+='<div style="font-size:.62rem;color:var(--green)">Rec: R$ '+valRec.toLocaleString('pt-BR')+'</div>';
     h+='<div style="display:flex;gap:5px;margin-top:6px;justify-content:flex-end">';
     h+='<button class="be" style="font-size:.6rem;padding:3px 8px" data-id="'+p.id+'" onclick="editarProjeto(this.dataset.id)">Editar</button>';
     h+='<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+p.id+'" onclick="remProjeto(this.dataset.id)">✕</button>';
     h+='</div></div></div>';
-    if(p.notas)h+='<div style="font-size:.72rem;color:var(--text);line-height:1.55;background:var(--s1);border-radius:8px;padding:9px">'+p.notas+'</div>';
+    if(p.notas)h+='<div style="font-size:.72rem;color:var(--text);line-height:1.55;background:var(--s1);border-radius:16px;padding:9px">'+p.notas+'</div>';
 
     card.innerHTML=h;
     el.appendChild(card);
@@ -4076,18 +4162,18 @@ function renderEntregas(){
   sorted.forEach(function(ent){
     var cli=DB.clientes.find(function(c){return c.id===ent.clienteId;});
     var card=document.createElement('div');
-    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:11px;padding:14px;margin-bottom:10px';
+    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px';
     var npsColor=ent.nps>=8?'var(--green)':ent.nps>=6?'var(--ouro)':'var(--red)';
     var h='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">';
     h+='<div><div style="font-size:.9rem;font-weight:600;color:var(--cafe)">'+(cli?cli.nome:ent.clienteNome||'—')+'</div>';
     h+='<div style="font-size:.68rem;color:var(--muted);margin-top:2px">'+ent.mes+(ent.horas?' · '+ent.horas+'h dedicadas':'')+'</div></div>';
     h+='<div style="display:flex;gap:6px;align-items:center">';
-    if(ent.nps)h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:'+npsColor+'">NPS '+ent.nps+'</div>';
+    if(ent.nps)h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.1rem;font-weight:600;color:'+npsColor+'">NPS '+ent.nps+'</div>';
     h+='<button class="be" style="font-size:.6rem;padding:3px 8px" data-id="'+ent.id+'" onclick="editarEntrega(this.dataset.id)">Editar</button>';
     h+='<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+ent.id+'" onclick="remEntrega(this.dataset.id)">✕</button>';
     h+='</div></div>';
     if(ent.descricao)h+='<div style="margin-bottom:9px"><div style="font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px">ENTREGAS</div><div style="font-size:.78rem;line-height:1.6;color:var(--text)">'+ent.descricao+'</div></div>';
-    if(ent.resultados)h+='<div style="margin-bottom:9px;background:var(--green-dim);border:1px solid var(--green-b);border-radius:8px;padding:9px"><div style="font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:4px">RESULTADOS</div><div style="font-size:.78rem;line-height:1.6;color:var(--text)">'+ent.resultados+'</div></div>';
+    if(ent.resultados)h+='<div style="margin-bottom:9px;background:var(--green-dim);border:1px solid var(--green-b);border-radius:16px;padding:9px"><div style="font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:4px">RESULTADOS</div><div style="font-size:.78rem;line-height:1.6;color:var(--text)">'+ent.resultados+'</div></div>';
     if(ent.proximos)h+='<div style="font-size:.72rem;color:var(--nude);line-height:1.5">→ Próximos passos: '+ent.proximos+'</div>';
     card.innerHTML=h;
     el.appendChild(card);
@@ -4148,14 +4234,14 @@ function renderPropostas(){
   el.innerHTML='';
   sorted.forEach(function(p){
     var card=document.createElement('div');
-    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:11px;padding:14px;margin-bottom:10px';
+    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px';
     var sc=statusCls[p.status]||'m';
     var h='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">';
     h+='<div><div style="font-size:.9rem;font-weight:600;color:var(--cafe)">'+p.nome+'</div>';
     h+='<div style="font-size:.68rem;color:var(--muted);margin-top:2px">'+(p.data||'—')+(p.validade?' · válida até '+p.validade:'')+'</div>';
     h+='<span class="bdg '+sc+'" style="margin-top:5px;display:inline-block">'+(statusIcon[p.status]||'')+(statusLabel[p.status]||p.status)+'</span></div>';
     h+='<div style="text-align:right;flex-shrink:0">';
-    h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+parseBRL(String(p.valor||0)).toLocaleString('pt-BR')+'</div>';
+    h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.2rem;font-weight:600;color:var(--ouro)">R$ '+parseBRL(String(p.valor||0)).toLocaleString('pt-BR')+'</div>';
     h+='<div style="display:flex;gap:5px;margin-top:5px;justify-content:flex-end">';
     h+='<button class="be" style="font-size:.6rem;padding:3px 8px" data-id="'+p.id+'" onclick="editarProposta(this.dataset.id)">Editar</button>';
     h+='<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+p.id+'" onclick="remProposta(this.dataset.id)">✕</button>';
@@ -4287,7 +4373,7 @@ function renderHistCli(){
     porData[data].forEach(function(h){
       var cli=DB.clientes.find(function(c){return c.id===h.clienteId;});
       var card=document.createElement('div');
-      card.style.cssText='background:var(--s2);border:1px solid var(--border);border-left:3px solid var(--nude);border-radius:8px;padding:11px;margin-bottom:7px';
+      card.style.cssText='background:var(--s2);border:1px solid var(--border);border-left:3px solid var(--nude);border-radius:16px;padding:11px;margin-bottom:7px';
       var sc=tipoCls[h.tipo]||'m';
       card.innerHTML='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">'
         +'<div style="display:flex;align-items:center;gap:7px"><span>'+(tipoIcon[h.tipo]||'📌')+'</span><span style="font-size:.8rem;font-weight:600;color:var(--cafe)">'+(cli?cli.nome:h.clienteNome||'—')+'</span><span class="bdg '+sc+'" style="font-size:.5rem">'+(tipoLabel[h.tipo]||h.tipo)+'</span></div>'
@@ -4387,7 +4473,7 @@ function renderCrescimento(){
     h+='<div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+m.mes+'</div>';
     h+='<div style="display:flex;align-items:center;gap:10px">';
     if(diff!==null)h+='<span style="font-size:.65rem;color:'+(diff>=0?'var(--green)':'var(--red)')+'">'+(diff>=0?'▲+':'▼')+diff+'%</span>';
-    h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1rem;font-weight:600;color:var(--ouro)">R$ '+(m.fat||0).toLocaleString('pt-BR')+'</div>';
+    h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:1rem;font-weight:600;color:var(--ouro)">R$ '+(m.fat||0).toLocaleString('pt-BR')+'</div>';
     h+='<button class="bd" style="font-size:.56rem;padding:2px 6px" data-key="'+m.key+'" onclick="excluirMesCrescimento(this.dataset.key)" title="Excluir este mês (dado de teste)">✕</button>';
     h+='</div></div>';
     h+='<div class="pt3"><div class="pf o" style="width:'+pct+'%"></div></div>';
@@ -4533,8 +4619,8 @@ function calcSimulador(){
   else if(!cabeNaSobra){veredicto='❌ Ainda não';cor='var(--red)';motivo='A sobra deste mês (R$ '+sobra.toLocaleString('pt-BR')+') não cobre esse valor.';}
   else if(!reservasOk){veredicto='⏳ Espera um pouco';cor='var(--ouro)';motivo='Suas reservas estão abaixo de 50% da meta — priorize elas primeiro.';}
   else{veredicto='⏳ Avalie com cuidado';cor='var(--ouro)';motivo='Esse valor representa uma fatia grande do seu faturamento ('+pctFat+'%).';}
-  var h='<div style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-top:8px">';
-  h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.15rem;font-weight:600;color:'+cor+';margin-bottom:6px">'+veredicto+'</div>';
+  var h='<div style="background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:14px;margin-top:8px">';
+  h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.15rem;font-weight:600;color:'+cor+';margin-bottom:6px">'+veredicto+'</div>';
   h+='<div style="font-size:.74rem;color:var(--muted);margin-bottom:8px">'+motivo+'</div>';
   h+='<div style="font-size:.7rem;color:var(--cafe);line-height:1.8">';
   if(pctFat!==null)h+='Representa <strong>'+pctFat+'%</strong> do seu recebido este mês<br>';
@@ -4551,9 +4637,9 @@ function calcSimulador(){
   }
   fatNecessario=Math.round(fatNecessario*100)/100;
   var faltaFat=Math.round((fatNecessario-recebido)*100)/100;
-  h+='<div style="background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:10px;padding:14px;margin-top:10px">';
+  h+='<div style="background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:16px;padding:14px;margin-top:10px">';
   h+='<div style="font-size:.72rem;color:var(--cafe);font-weight:600;margin-bottom:6px">💡 Quanto eu precisaria estar faturando</div>';
-  h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.3rem;font-weight:600;color:var(--ouro)">R$ '+fatNecessario.toLocaleString('pt-BR')+'</div>';
+  h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.3rem;font-weight:600;color:var(--ouro)">R$ '+fatNecessario.toLocaleString('pt-BR')+'</div>';
   h+='<div style="font-size:.7rem;color:var(--muted);margin-top:4px">'+(recorrente?'por mês, pra essa despesa fixa caber mantendo seu limite de '+limitePct+'% de gastos':'de faturamento pra essa compra caber com folga, mantendo seu padrão de '+limitePct+'% de gastos')+'</div>';
   if(faltaFat>0)h+='<div style="font-size:.7rem;color:var(--red);margin-top:6px">Faltam <strong>R$ '+faltaFat.toLocaleString('pt-BR')+'</strong> em relação ao que você recebeu este mês</div>';
   else h+='<div style="font-size:.7rem;color:var(--green);margin-top:6px">Seu faturamento atual já cobre isso ✅</div>';
@@ -4619,7 +4705,7 @@ function renderBiblioteca(){
   el.innerHTML='';
   items.forEach(function(b){
     var card=document.createElement('div');
-    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:13px;margin-bottom:9px';
+    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:13px;margin-bottom:9px';
     var h='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px">';
     h+='<div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.1rem">'+(catIcon[b.cat]||'📌')+'</span>';
     h+='<div><div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+b.titulo+'</div>';
@@ -4937,7 +5023,7 @@ function renderFinReceitas(mes, key){
     h += '<div><div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+icon+' '+r.nome+'</div>';
     h += '<div style="font-size:.65rem;color:var(--muted);margin-top:2px">'+(r.dia?'Dia '+r.dia+' · ':'')+r.meio+(r.dataRecebido?' · Recebido em '+r.dataRecebido:'')+'</div></div>';
     h += '<div style="display:flex;align-items:center;gap:8px">';
-    h += '<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+parseFloat(r.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
+    h += '<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+parseFloat(r.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
     if(!r.recebido){
       h += '<button class="bp" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="darBaixaReceita(this.dataset.id,this.dataset.key)">✓ Receber</button>';
     } else {
@@ -5005,7 +5091,7 @@ function renderFinDespesas(mes, key){
     h += '<div><div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+icon+' '+d.desc+(d.variavel?' <span class="bdg n" style="font-size:.5rem">variável</span>':'')+'</div>';
     h += '<div style="font-size:.65rem;color:var(--muted);margin-top:2px">'+tipoLabel+(d.dia?' · Dia '+d.dia:'')+(d.dataPago?' · Pago em '+d.dataPago:'')+'</div></div>';
     h += '<div style="display:flex;align-items:center;gap:8px">';
-    h += '<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:var(--red)">R$ '+parseFloat(d.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
+    h += '<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.1rem;font-weight:600;color:var(--red)">R$ '+parseFloat(d.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
     if(!d.pago){
       h += '<button class="bp" style="font-size:.6rem;padding:4px 10px" data-id="'+d.id+'" data-key="'+key+'" onclick="pagarDespesa(this.dataset.id,this.dataset.key)">✓ Pagar</button>';
     } else {
@@ -5141,7 +5227,7 @@ function renderFinOutras(mes, key){
     h += '<div><div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+(r.recebido?'✅':'⏳')+' '+r.desc+'</div>';
     h += '<div style="font-size:.65rem;color:var(--muted);margin-top:2px">'+r.tipo+(r.dataRecebido?' · Recebido em '+r.dataRecebido:'')+'</div></div>';
     h += '<div style="display:flex;align-items:center;gap:8px">';
-    h += '<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+parseFloat(r.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
+    h += '<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.1rem;font-weight:600;color:var(--ouro)">R$ '+parseFloat(r.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
     if(!r.recebido){
       h += '<button class="bp" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="receberOutra(this.dataset.id,this.dataset.key)">✓ Receber</button>';
     } else {
@@ -5233,11 +5319,11 @@ function renderFinContasFixas(){
   }
   var h = '<div style="font-size:.7rem;color:var(--muted);margin-bottom:10px">Estas contas aparecem automaticamente em todos os meses. Variáveis você atualiza o valor na hora de pagar.</div>';
   DB.contas_fixas.forEach(function(c){
-    h += '<div style="background:var(--s2);border:1px solid var(--border);border-radius:9px;padding:11px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">';
+    h += '<div style="background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:11px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">';
     h += '<div><div style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+c.desc+(c.variavel?' <span class="bdg n" style="font-size:.5rem">variável</span>':'')+'</div>';
     h += '<div style="font-size:.63rem;color:var(--muted);margin-top:2px">'+c.tipo+(c.dia?' · Dia '+c.dia:'')+'</div></div>';
     h += '<div style="display:flex;align-items:center;gap:8px">';
-    h += '<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1rem;font-weight:600;color:var(--cafe)">R$ '+parseFloat(c.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
+    h += '<div style="font-family:\'Cormorant Garamond\',serif;font-size:1rem;font-weight:600;color:var(--cafe)">R$ '+parseFloat(c.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
     h += '<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+c.id+'" onclick="remContaFixa(this.dataset.id)">✕</button>';
     h += '</div></div>';
   });
@@ -5452,7 +5538,7 @@ function renderRespostasExperiencia(items){
     var badgeCls=(r.momento==='Encerramento')?'r':'g';
     var indicHtml=(r.indicacoes&&r.indicacoes.length)?r.indicacoes.map(function(x){return x.nome+' ('+x.whatsapp+')';}).join(', '):'—';
     var card=document.createElement('div');
-    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-left:3px solid var(--nude);border-radius:8px;padding:12px;margin-bottom:9px';
+    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-left:3px solid var(--nude);border-radius:16px;padding:12px;margin-bottom:9px';
     card.innerHTML=
       '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">'
       +'<div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap"><span style="font-size:.82rem;font-weight:600;color:var(--cafe)">'+(r.cliente_nome||'—')+'</span><span class="bdg '+badgeCls+'">'+(r.momento||'—')+'</span></div>'
@@ -5493,7 +5579,7 @@ function renderLinksEmp(){
   el.innerHTML='';
   items.forEach(function(l){
     var card=document.createElement('div');
-    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px';
+    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px';
     card.innerHTML='<div style="flex:1;min-width:0">'
       +'<div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+(catIcon[l.cat]||'📌')+' '+l.titulo+'</div>'
       +'<div style="font-size:.65rem;color:var(--muted);margin-top:2px">'+(catLabel[l.cat]||l.cat)+(l.desc?' · '+l.desc:'')+'</div>'
@@ -5557,7 +5643,7 @@ function gerarRecibo(){
 
   var recibo=
     '<div style="border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:12px">'
-    +'<strong style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.1rem;color:var(--cafe)">'+(e.fantasia||e.razao||'Daniela Santos')+'</strong>'
+    +'<strong style="font-family:\'Cormorant Garamond\',serif;font-size:1.1rem;color:var(--cafe)">'+(e.fantasia||e.razao||'Daniela Santos')+'</strong>'
     +(e.cnpj?'<div style="font-size:.7rem;color:var(--muted)">CNPJ: '+e.cnpj+'</div>':'')
     +(e.cidade?'<div style="font-size:.7rem;color:var(--muted)">'+e.cidade+'</div>':'')
     +'</div>'
@@ -5566,9 +5652,9 @@ function gerarRecibo(){
     +'<div style="margin-bottom:10px"><span style="font-size:.6rem;font-weight:700;color:var(--nude);letter-spacing:1.5px;text-transform:uppercase">SERVIÇO</span>'
     +'<div style="font-size:.82rem;margin-top:3px">'+servico+'</div>'
     +'<div style="font-size:.72rem;color:var(--muted)">Referência: '+mes+'</div></div>'
-    +'<div style="background:var(--green-dim);border:1px solid var(--green-b);border-radius:8px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center">'
+    +'<div style="background:var(--green-dim);border:1px solid var(--green-b);border-radius:16px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center">'
     +'<div><div style="font-size:.6rem;font-weight:700;color:var(--green);letter-spacing:1.5px;text-transform:uppercase">VALOR RECEBIDO</div>'
-    +'<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:1.5rem;font-weight:600;color:var(--green)">'+valorFmt+'</div></div>'
+    +'<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.5rem;font-weight:600;color:var(--green)">'+valorFmt+'</div></div>'
     +'<div style="text-align:right"><div style="font-size:.7rem;color:var(--muted)">Via '+forma+'</div>'
     +'<div style="font-size:.7rem;color:var(--muted)">'+data+'</div></div></div>'
     +(e.pix?'<div style="font-size:.7rem;color:var(--muted);margin-bottom:8px">PIX: '+e.pix+(e.nome_pix?' — '+e.nome_pix:'')+'</div>':'')
@@ -5822,7 +5908,7 @@ function editarInvestimento(id){
   </div>
 
   <div id="dm-media-wrap" style="display:none">
-    <div style="background:var(--s1);border:1px solid var(--border);border-radius:9px;padding:10px;margin-bottom:10px">
+    <div style="background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:10px;margin-bottom:10px">
       <div style="font-size:.63rem;font-weight:700;color:var(--nude);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">📊 VALOR VARIÁVEL</div>
       <div class="fi" style="margin-bottom:0"><label>Média que costuma gastar (R$)</label>
         <input type="number" id="dm-media" step="0.01" placeholder="ex: 250 — para referência nos outros meses">
@@ -5833,7 +5919,7 @@ function editarInvestimento(id){
   <div class="fi"><label>Dia do vencimento</label>
     <input type="number" id="dm-dia" min="1" max="31" placeholder="ex: 10">
   </div>
-  <div style="background:var(--green-dim);border:1px solid var(--green-b);border-radius:9px;padding:11px;margin-bottom:10px">
+  <div style="background:var(--green-dim);border:1px solid var(--green-b);border-radius:16px;padding:11px;margin-bottom:10px">
     <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
       <input type="checkbox" id="dm-fixa">
       <div>
