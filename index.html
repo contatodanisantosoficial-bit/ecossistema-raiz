@@ -328,7 +328,7 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
   <!-- HOME -->
   <div class="page active" id="page-home">
     <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:6px;">
-      <div><div class="pe">Início</div><div class="pt" id="home-title">Olá</div></div>
+      <div><div class="pe">Início</div><div class="pt" id="home-title">Olá</div><div style="font-size:.78rem;color:var(--muted);margin-top:3px;max-width:420px;line-height:1.5;" id="home-msg-dinamica"></div></div>
       <button class="bg" style="font-size:.66rem;padding:8px 14px;" onclick="gerarReuniaoExecutiva(false)"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block;margin-right:4px;"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /></svg>Reunião Executiva</button>
     </div>
 
@@ -342,6 +342,7 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
         </div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:600;color:var(--cafe);margin-top:8px;text-align:center;" id="home-stage">Nenhum dado ainda</div>
         <div style="font-size:.67rem;color:var(--muted);text-align:center;max-width:190px;margin-top:3px;line-height:1.5;" id="home-desc">Alimente o sistema para ver a saúde do seu negócio.</div>
+        <div style="font-size:.66rem;color:var(--nude);text-align:center;max-width:210px;margin-top:6px;line-height:1.5;" id="home-score-trend"></div>
       </div>
       <div style="display:flex;flex-direction:column;gap:8px;">
         <div class="sc"><div class="sl">Caixa PJ</div><div class="sv o" id="hcaixa">—</div><div class="ss" id="hcaixa-sub">registre o primeiro mês</div><div class="pr" style="margin-top:8px;margin-bottom:0;"><div class="pt3"><div class="pf o" id="hbar-caixa" style="width:0%"></div></div></div></div>
@@ -355,7 +356,7 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
     <div class="g3" style="margin-bottom:13px;">
       <div class="sc"><div class="sl">Faturamento Mensal</div><div class="sv o" id="hfat">—</div><div class="ss" id="hfat-sub">nenhuma cliente cadastrada</div></div>
       <div class="sc"><div class="sl">Recebido no Mês</div><div class="sv g" id="hrecebido">—</div><div class="ss" id="hrecebido-sub">confirme os recebimentos</div></div>
-      <div class="sc"><div class="sl">Sobra Mensal</div><div class="sv" id="hsobra" style="color:var(--muted);">—</div><div class="ss">registre um mês para calcular</div></div>
+      <div class="sc"><div class="sl">Sobra Mensal</div><div class="sv" id="hsobra" style="color:var(--muted);">—</div><div class="ss" id="hsobra-sub">registre um mês para calcular</div></div>
     </div>
     <div class="g2" style="margin-bottom:13px;">
       <div class="card" style="margin-bottom:0;"><div class="cl">Receitas do Mês</div><div id="home-rec-list"><div class="ev"><div class="eicon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" /> <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" /></svg></div><div class="edesc">Cadastre suas clientes na aba Clientes.</div></div></div></div>
@@ -504,6 +505,7 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
     <div class="sc"><div class="sl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M10 18v-7" /> <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" /> <path d="M14 18v-7" /> <path d="M18 18v-7" /> <path d="M3 22h18" /> <path d="M6 18v-7" /></svg> Caixa PJ</div><div class="sv o" id="fin-caixa-pj">R$ —</div></div>
   </div>
 
+  <div class="card warm" style="margin-bottom:13px;" id="fin-narrativa-card"><div style="font-size:.82rem;color:var(--cafe);line-height:1.6;" id="fin-narrativa-texto">Registre movimentações para ver o resumo da sua situação financeira.</div></div>
   <!-- Abas -->
   <div class="itabs" style="margin-bottom:13px">
     <button class="itab active" onclick="showFinTab('receitas',this)"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M13.744 17.736a6 6 0 1 1-7.48-7.48" /> <path d="M15 6h1v4" /> <path d="m6.134 14.768.866-.5 2 3.464" /> <circle cx="16" cy="8" r="6" /></svg> Receitas</button>
@@ -1467,6 +1469,33 @@ function toggleDMNatureza(){
   var v=document.getElementById('dm-natureza').value;
   var wrap=document.getElementById('dm-media-wrap');
   if(wrap)wrap.style.display=v==='variavel'?'block':'none';
+  var pWrap=document.getElementById('dm-parcelamento-wrap');
+  if(pWrap)pWrap.style.display=v==='unica'?'block':'none';
+  if(v!=='unica'){
+    var formaEl=document.getElementById('dm-forma-pagamento');
+    if(formaEl)formaEl.value='vista';
+    var det=document.getElementById('dm-parcelas-detalhes');
+    if(det)det.style.display='none';
+  }
+}
+function toggleDMParcelamento(){
+  var forma=document.getElementById('dm-forma-pagamento').value;
+  var det=document.getElementById('dm-parcelas-detalhes');
+  if(det)det.style.display=forma==='parcelado'?'block':'none';
+  if(forma==='parcelado')recalcularValorParcela();
+}
+function toggleDMIntervaloCustom(){
+  var intervalo=document.getElementById('dm-intervalo-parcela').value;
+  var wrap=document.getElementById('dm-intervalo-custom-wrap');
+  if(wrap)wrap.style.display=intervalo==='custom'?'block':'none';
+}
+function recalcularValorParcela(){
+  var valorTotal=parseFloat(document.getElementById('dm-valor').value)||0;
+  var numParcelas=parseInt(document.getElementById('dm-num-parcelas').value)||1;
+  if(valorTotal&&numParcelas){
+    var valorParcela=Math.round((valorTotal/numParcelas)*100)/100;
+    document.getElementById('dm-valor-parcela').value=valorParcela;
+  }
 }
 
 function toggleContratoObs(){
@@ -1540,6 +1569,56 @@ function getStage(score){
   if(score>=60)return{label:'Crescendo',color:'var(--ouro)',desc:'Boa base, mas ainda há espaço.'};
   if(score>=40)return{label:'Estruturando',color:'var(--nude)',desc:'Fundação sendo construída.'};
   return{label:'Iniciando',color:'var(--red)',desc:'Foque na geração de caixa.'};
+}
+function explicarScore(){
+  if(!DB.meses||DB.meses.length<2)return null;
+  var atual=DB.meses[DB.meses.length-1];
+  var anterior=DB.meses[DB.meses.length-2];
+  var scoreAtual=calcScore(atual);
+  var scoreAnterior=calcScore(anterior);
+  if(scoreAtual===null||scoreAnterior===null)return null;
+  var diff=scoreAtual-scoreAnterior;
+  var sobraAtual=(atual.fat||0)-(atual.gasto||0);
+  var sobraAnterior=(anterior.fat||0)-(anterior.gasto||0);
+  var mc=DB.config.metaCaixa||7062;
+  var motivos=[];
+  if((atual.fat||0)>(anterior.fat||0))motivos.push('seu faturamento aumentou');
+  else if((atual.fat||0)<(anterior.fat||0))motivos.push('seu faturamento caiu');
+  if(sobraAtual>sobraAnterior)motivos.push('sua sobra mensal melhorou');
+  else if(sobraAtual<sobraAnterior)motivos.push('sua sobra mensal diminuiu');
+  if((atual.caixa||0)>(anterior.caixa||0))motivos.push('seu caixa cresceu');
+  else if((atual.caixa||0)<(anterior.caixa||0))motivos.push('seu caixa reduziu');
+  return {diff:diff,motivos:motivos,scoreAtual:scoreAtual,scoreAnterior:scoreAnterior,caixaAbaixoMeta:(atual.caixa||0)<mc};
+}
+function renderMensagemDinamicaHome(){
+  var el=document.getElementById('home-msg-dinamica');
+  if(!el)return;
+  var alGerais=typeof getAlertasGerais==='function'?getAlertasGerais():[];
+  var criticos=alGerais.filter(function(a){return a.urgencia==='r';});
+  if(criticos.length){
+    el.textContent='Existe'+(criticos.length>1?'m ':' ')+criticos.length+' ponto(s) que precisa'+(criticos.length>1?'m':'')+' de atenção agora: '+criticos[0].titulo+'.';
+    return;
+  }
+  if(DB.meses&&DB.meses.length>=2){
+    var atualM=DB.meses[DB.meses.length-1];
+    var anteriorM=DB.meses[DB.meses.length-2];
+    if((atualM.fat||0)>(anteriorM.fat||0)){
+      var pct=anteriorM.fat?Math.round(((atualM.fat-anteriorM.fat)/anteriorM.fat)*100):0;
+      el.textContent='Parabéns! Seu faturamento está '+(pct>0?pct+'% ':'')+'acima do mês anterior.';
+      return;
+    }
+  }
+  var comprHoje=typeof getCompromissosHoje==='function'?getCompromissosHoje():[];
+  if(comprHoje.length){
+    el.textContent='Você tem '+comprHoje.length+' compromisso(s) hoje. Sua agenda está '+(comprHoje.length>=4?'cheia hoje.':'tranquila hoje.');
+    return;
+  }
+  var al=typeof getAlerts==='function'?getAlerts():[];
+  if(al.length){
+    el.textContent='Existem pagamentos aguardando confirmação.';
+    return;
+  }
+  el.textContent='Nenhuma pendência importante hoje.';
 }
 function getAlerts(){
   if(!DB)return[];
@@ -1700,6 +1779,7 @@ function renderHome(){
     _reuniaoAutoMostrada=true;
     setTimeout(function(){gerarReuniaoExecutiva(false);},600);
   }
+  renderMensagemDinamicaHome();
   var hoje=new Date();hoje.setHours(0,0,0,0);
   var mesAtual=hoje.getMonth();var anoAtual=hoje.getFullYear();
   var al=getAlerts();
@@ -1763,12 +1843,49 @@ function renderHome(){
   else{se.textContent='—';arc.style.strokeDashoffset=251.33;arc.style.stroke='var(--nude)';}
   document.getElementById('home-stage').textContent=st.label;document.getElementById('home-stage').style.color=st.color;
   document.getElementById('home-desc').textContent=st.desc;
+  var trendEl=document.getElementById('home-score-trend');
+  if(trendEl){
+    var tendencia=typeof explicarScore==='function'?explicarScore():null;
+    if(tendencia&&tendencia.diff!==0){
+      var sinal=tendencia.diff>0?'+':'';
+      var motivoTxt=tendencia.motivos.length?' — '+tendencia.motivos[0]+(tendencia.motivos.length>1?' e '+tendencia.motivos[1]:'')+'.':'.';
+      trendEl.textContent=sinal+tendencia.diff+' pontos desde o mês passado'+motivoTxt;
+    }else if(tendencia&&tendencia.diff===0){
+      trendEl.textContent='Seu score se manteve estável em relação ao mês passado.';
+    }else{
+      trendEl.textContent='';
+    }
+  }
   document.getElementById('hfat').textContent=fatTotal?'R$ '+fatTotal.toLocaleString('pt-BR'):'—';
-  document.getElementById('hfat-sub').textContent=ativos.length?ativos.length+' clientes'+(totalOR?' + outras receitas':''):'nenhuma cliente ativa';
+  var fatSubTxt=ativos.length?ativos.length+' clientes'+(totalOR?' + outras receitas':''):'nenhuma cliente ativa';
+  if(DB.meses&&DB.meses.length>=2){
+    var mAtualFat=DB.meses[DB.meses.length-1].fat||0;
+    var mAnteriorFat=DB.meses[DB.meses.length-2].fat||0;
+    if(mAnteriorFat>0&&mAtualFat!==mAnteriorFat){
+      var pctFat=Math.round(((mAtualFat-mAnteriorFat)/mAnteriorFat)*100);
+      fatSubTxt=(pctFat>0?'↑ ':'↓ ')+Math.abs(pctFat)+'% em relação ao mês anterior';
+    }
+  }
+  document.getElementById('hfat-sub').textContent=fatSubTxt;
   document.getElementById('hrecebido').textContent=recebido?'R$ '+recebido.toLocaleString('pt-BR'):'—';
   var cliComDia=0;for(var ci2=0;ci2<ativos.length;ci2++)if(ativos[ci2].dia)cliComDia++;
   document.getElementById('hrecebido-sub').textContent=nRec+' de '+cliComDia+' confirmados este mês';
-  if(ul){var sob=Math.round(((ul.fat||0)-(ul.gasto||0))*100)/100;var sobEl=document.getElementById('hsobra');sobEl.textContent='R$ '+Math.abs(sob).toLocaleString('pt-BR')+(sob<0?' (negativo)':'');sobEl.className='sv '+(sob>=0?'g':'r');}
+  if(ul){
+    var sob=Math.round(((ul.fat||0)-(ul.gasto||0))*100)/100;var sobEl=document.getElementById('hsobra');
+    sobEl.textContent='R$ '+Math.abs(sob).toLocaleString('pt-BR')+(sob<0?' (negativo)':'');sobEl.className='sv '+(sob>=0?'g':'r');
+    var sobSubEl=document.getElementById('hsobra-sub');
+    if(sobSubEl){
+      if(DB.meses.length>=2){
+        var mesAnteriorSobra=DB.meses[DB.meses.length-2];
+        var sobAnterior=Math.round(((mesAnteriorSobra.fat||0)-(mesAnteriorSobra.gasto||0))*100)/100;
+        if(sob>sobAnterior)sobSubEl.textContent='Sua sobra melhorou em relação ao mês anterior.';
+        else if(sob<sobAnterior)sobSubEl.textContent='Sua sobra caiu em relação ao mês anterior.';
+        else sobSubEl.textContent='Sua sobra se manteve estável.';
+      }else{
+        sobSubEl.textContent='registre um mês para calcular';
+      }
+    }
+  }
   var caixa=ul?ul.caixa:0;var metaCaixa=(DB.config&&DB.config.metaCaixa)||0;
   var cp=caixa&&metaCaixa?Math.min(Math.round((caixa/metaCaixa)*100),100):0;
   document.getElementById('hcaixa').textContent=caixa?'R$ '+caixa.toLocaleString('pt-BR'):'—';
@@ -2353,7 +2470,43 @@ function renderClientes(){
     });}
     var crmMatch=((DB.crm&&DB.crm.cards)||[]).find(function(cc){return cc.nome&&cc.nome.toLowerCase().trim()===c.nome.toLowerCase().trim();});
     var histCliente=(DB.hist_cli||[]).filter(function(hh){return hh.clienteId===c.id;}).sort(function(a,b){return (b.data||'').localeCompare(a.data||'');}).slice(0,3);
+
+    // Saúde do relacionamento (computada a partir de dados reais)
+    var ultimoContatoResumo=typeof getUltimoContato==='function'?getUltimoContato(c.id):null;
+    var diasSemContatoResumo=ultimoContatoResumo?Math.round((new Date()-new Date(ultimoContatoResumo.data))/86400000):null;
+    var saude={label:'Excelente',cor:'var(--green)'};
+    if(c.status==='Saindo')saude={label:'Em risco',cor:'var(--red)'};
+    else if(diasSemContatoResumo!==null&&diasSemContatoResumo>=60)saude={label:'Precisa de atenção',cor:'var(--red)'};
+    else if(diasSemContatoResumo!==null&&diasSemContatoResumo>=30)saude={label:'Atenção',cor:'var(--ouro)'};
+    else if(c.status==='Encerrado')saude={label:'Encerrado',cor:'var(--muted)'};
+
+    // Tempo de parceria
+    var tempoParceria='';
+    if(c.inicio){
+      var diasParceria=Math.round((new Date()-new Date(c.inicio))/86400000);
+      if(diasParceria>=365)tempoParceria=Math.floor(diasParceria/365)+' ano(s)'+(Math.floor((diasParceria%365)/30)?' e '+Math.floor((diasParceria%365)/30)+' mês(es)':'');
+      else if(diasParceria>=30)tempoParceria=Math.floor(diasParceria/30)+' mês(es)';
+      else tempoParceria=diasParceria+' dia(s)';
+    }
+
+    // Próximo recebimento
+    var proximoRecebimento='';
+    if(c.dia&&c.status!=='Encerrado'){
+      var hojeR=new Date();hojeR.setHours(0,0,0,0);
+      var diaVenc=parseInt(c.dia);
+      var vencC=new Date(hojeR.getFullYear(),hojeR.getMonth(),diaVenc);
+      if(vencC<hojeR)vencC.setMonth(vencC.getMonth()+1);
+      var diffVenc=Math.round((vencC-hojeR)/86400000);
+      proximoRecebimento=diffVenc===0?'hoje':diffVenc+' dia(s)';
+    }
+
     h.push('<div style="background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:11px;margin-top:8px"><div style="font-size:.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:7px">RESUMO</div>');
+    h.push('<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border)">');
+    h.push('<div style="font-size:.76rem;color:var(--text)">Saúde do relacionamento</div>');
+    h.push('<span class="bdg" style="background:'+saude.cor+'22;color:'+saude.cor+';border-color:'+saude.cor+'44">'+saude.label+'</span>');
+    h.push('</div>');
+    if(tempoParceria)h.push('<div style="font-size:.76rem;color:var(--text);margin-bottom:4px">Tempo de parceria: <b>'+tempoParceria+'</b></div>');
+    if(proximoRecebimento)h.push('<div style="font-size:.76rem;color:var(--text);margin-bottom:4px">Próximo recebimento: <b>'+proximoRecebimento+'</b></div>');
     h.push('<div style="font-size:.76rem;color:var(--text);margin-bottom:4px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><circle cx="8" cy="8" r="6" /> <path d="M18.09 10.37A6 6 0 1 1 10.34 18" /> <path d="M7 6h1v4" /> <path d="m16.71 13.88.7.71-2.82 2.82" /></svg> Total recebido: <b>R$ '+totalRecebido.toLocaleString('pt-BR')+'</b>'+(qtdPagamentos?' ('+qtdPagamentos+' pagamento(s))':'')+'</div>');
     if(crmMatch)h.push('<div style="font-size:.76rem;color:var(--text);margin-bottom:4px">Etapa no CRM: <b>'+esc(crmMatch.etapa||'—')+'</b></div>');
     if(histCliente.length){
@@ -2524,7 +2677,39 @@ function renderMacros(){
   });
   el.innerHTML=h.join('');
 }
-function setMScore(k,v){DB.macros[k].score=v!==''?Math.min(100,Math.max(0,parseInt(v))):null;saveDB();renderHome();}
+function setMScore(k,v){DB.macros[k].score=v!==''?Math.min(100,Math.max(0,parseInt(v))):null;registrarSnapshotScore();saveDB();renderHome();}
+function getScoreGeral(){
+  var mc=DB.macros||{};
+  var scores=['fin','com','ope','mkt'].map(function(k){return mc[k]&&mc[k].score!=null?mc[k].score:null;}).filter(function(s){return s!==null;});
+  if(!scores.length)return null;
+  return Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length);
+}
+function registrarSnapshotScore(){
+  var geral=getScoreGeral();
+  if(geral===null)return;
+  if(!DB.macros_historico)DB.macros_historico=[];
+  var hoje=hojeStrPainel();
+  var mc=DB.macros||{};
+  var snap={data:hoje,geral:geral,fin:mc.fin?mc.fin.score:null,com:mc.com?mc.com.score:null,ope:mc.ope?mc.ope.score:null,mkt:mc.mkt?mc.mkt.score:null};
+  var existente=DB.macros_historico.find(function(h){return h.data===hoje;});
+  if(existente){existente.geral=snap.geral;existente.fin=snap.fin;existente.com=snap.com;existente.ope=snap.ope;existente.mkt=snap.mkt;}
+  else DB.macros_historico.push(snap);
+}
+function getTendenciaScore(){
+  if(!DB.macros_historico||!DB.macros_historico.length)return null;
+  var atual=getScoreGeral();
+  if(atual===null)return null;
+  var hoje=new Date();
+  var alvo=new Date(hoje);alvo.setDate(alvo.getDate()-30);
+  var historico=DB.macros_historico.slice().sort(function(a,b){return a.data.localeCompare(b.data);});
+  var referencia=null;
+  for(var i=0;i<historico.length;i++){
+    if(new Date(historico[i].data)<=alvo)referencia=historico[i];
+    else break;
+  }
+  if(!referencia)return null;
+  return {atual:atual,anterior:referencia.geral,diferenca:atual-referencia.geral,dataReferencia:referencia.data};
+}
 function abrirMI(k,idx){
   document.getElementById('mmi-key').value=k;document.getElementById('mmi-idx').value=idx;
   document.getElementById('mmi-title').textContent=idx>=0?'Editar Processo':'Adicionar Processo';
@@ -3720,7 +3905,8 @@ function defaultDB(){return{
   decisoes:[],
   compromissos:[],
   categorias_agenda:['Atendimento','Reunião','Financeiro','Marketing','Estudo','Projeto','Pessoal','Administrativo'],
-  diario_estrategico:[]
+  diario_estrategico:[],
+  macros_historico:[]
 };}
 function initDB(){DB=defaultDB();saveDB();}
 async function loadDBAsync(){
@@ -3776,6 +3962,7 @@ function migrarDB(){
   if(!DB.compromissos)DB.compromissos=[];
   if(!DB.categorias_agenda)DB.categorias_agenda=['Atendimento','Reunião','Financeiro','Marketing','Estudo','Projeto','Pessoal','Administrativo'];
   if(!DB.diario_estrategico)DB.diario_estrategico=[];
+  if(!DB.macros_historico)DB.macros_historico=[];
   if(!DB.investimentos)DB.investimentos=[];if(!DB.clientes)DB.clientes=[];
   if(!DB.contas)DB.contas=[];if(!DB.config)DB.config=def.config;
   if(!DB.crm)DB.crm=def.crm;if(!DB.macros)DB.macros=def.macros;if(!DB.meses)DB.meses=[];
@@ -6409,6 +6596,20 @@ function renderFinanceiro(){
   }
   if(e4) e4.textContent = 'R$ '+(mes.caixa_pj||0).toLocaleString('pt-BR',{minimumFractionDigits:2});
 
+  var narrEl=document.getElementById('fin-narrativa-texto');
+  if(narrEl){
+    if(totalReceitas<=0){
+      narrEl.textContent='Ainda não há receitas confirmadas neste mês.';
+    }else{
+      var pctUsado=Math.round((totalSaiu/totalReceitas)*100);
+      if(saldo>=0){
+        narrEl.textContent='Seu saldo permanece saudável. Você utilizou '+pctUsado+'% das receitas deste período.';
+      }else{
+        narrEl.textContent='Atenção: suas despesas superaram as receitas neste período ('+pctUsado+'% utilizado). Vale revisar os gastos.';
+      }
+    }
+  }
+
   // Render active tab
   var activeTab = 'receitas';
   document.querySelectorAll('.itab').forEach(function(b){
@@ -6547,11 +6748,16 @@ function renderFinDespesas(mes, key){
     var cor = d.pago ? 'var(--green)' : 'var(--red)';
     var icon = d.pago ? '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--red)"/></svg>';
     var tipoLabel = d.tipo==='PF'?'PF':d.tipo==='PJ'?'PJ':'—';
-    var natIcon={fixa:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></svg>',variavel:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M5 21v-6" /> <path d="M12 21V3" /> <path d="M19 21V9" /></svg>',unica:'1⃣'};
+    var natIcon={fixa:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></svg>',variavel:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M5 21v-6" /> <path d="M12 21V3" /> <path d="M19 21V9" /></svg>',unica:''};
     var natLabel={fixa:'Fixa',variavel:'Variável',unica:'Única vez'};
+    var hoje=new Date();hoje.setHours(0,0,0,0);
+    var atrasado=false;
+    if(!d.pago&&d.vencimento){var venc=new Date(d.vencimento+'T00:00:00');atrasado=venc<hoje;}
+    var statusBadge=d.pago?'<span class="bdg g" style="font-size:.52rem">Pago</span>':atrasado?'<span class="bdg r" style="font-size:.52rem">Atrasado</span>':'<span class="bdg m" style="font-size:.52rem">Pendente</span>';
+    var parcelaBadge=d.parcelado?'<span class="bdg n" style="font-size:.5rem">Parcela '+d.parcelaAtual+'/'+d.totalParcelas+'</span>':'';
     h += '<div style="background:var(--s2);border:1px solid var(--border);border-left:3px solid '+cor+';border-radius:9px;padding:12px;margin-bottom:8px">';
     h += '<div style="display:flex;justify-content:space-between;align-items:center">';
-    h += '<div><div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+icon+' '+d.desc+(d.variavel?' <span class="bdg n" style="font-size:.5rem">variável</span>':'')+'</div>';
+    h += '<div><div style="font-size:.84rem;font-weight:600;color:var(--cafe)">'+icon+' '+d.desc+(d.variavel?' <span class="bdg n" style="font-size:.5rem">variável</span>':'')+' '+parcelaBadge+' '+statusBadge+'</div>';
     h += '<div style="font-size:.65rem;color:var(--muted);margin-top:2px">'+tipoLabel+(d.dia?' · Dia '+d.dia:'')+(d.dataPago?' · Pago em '+d.dataPago:'')+'</div></div>';
     h += '<div style="display:flex;align-items:center;gap:8px">';
     h += '<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.1rem;font-weight:600;color:var(--red)">R$ '+parseFloat(d.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2})+'</div>';
@@ -6605,8 +6811,12 @@ function remDespesaMes(id, key){
 function abrirNovaDespesaMes(){
   window._editingDespesaId=null;
   window._editingDespesaKey=null;
-  ['dm-desc','dm-valor','dm-dia','dm-media'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  ['dm-desc','dm-valor','dm-dia','dm-media','dm-num-parcelas','dm-valor-parcela','dm-data-primeira-parcela','dm-intervalo-dias'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
   var pagoEl=document.getElementById('dm-pago');if(pagoEl)pagoEl.checked=false;
+  var natEl=document.getElementById('dm-natureza');if(natEl)natEl.value='fixa';
+  var formaEl=document.getElementById('dm-forma-pagamento');if(formaEl)formaEl.value='vista';
+  var intervEl=document.getElementById('dm-intervalo-parcela');if(intervEl)intervEl.value='mensal';
+  toggleDMNatureza();
   var mt=document.querySelector('#modal-add-despesa-mes .mt');if(mt)mt.textContent='Nova Despesa';
   openModal('modal-add-despesa-mes');
 }
@@ -6622,6 +6832,46 @@ function salvarDespesaMes(){
   var pago=document.getElementById('dm-pago').checked;
   var mediaEl=document.getElementById('dm-media');
   var media=mediaEl&&natureza==='variavel'?parseFloat(mediaEl.value)||0:0;
+  var editId=window._editingDespesaId;
+
+  // PARCELAMENTO: se for despesa única, parcelada e nova (não edição), gera as parcelas e encerra aqui
+  var formaPagamentoEl=document.getElementById('dm-forma-pagamento');
+  var formaPagamento=(natureza==='unica'&&formaPagamentoEl)?formaPagamentoEl.value:'vista';
+  if(natureza==='unica'&&formaPagamento==='parcelado'&&!editId){
+    var numParcelas=parseInt(document.getElementById('dm-num-parcelas').value)||2;
+    if(numParcelas<2){notif('Informe pelo menos 2 parcelas.');return;}
+    var valorParcelaInput=parseFloat(document.getElementById('dm-valor-parcela').value);
+    var valorParcela=valorParcelaInput||Math.round((valor/numParcelas)*100)/100;
+    var dataPrimeira=document.getElementById('dm-data-primeira-parcela').value;
+    if(!dataPrimeira){notif('Informe a data de vencimento da primeira parcela.');return;}
+    var intervaloTipo=document.getElementById('dm-intervalo-parcela').value;
+    var intervaloDiasCustom=parseInt(document.getElementById('dm-intervalo-dias').value)||30;
+    var grupoId=uid();
+    var dataBase=new Date(dataPrimeira+'T00:00:00');
+    for(var pi=0;pi<numParcelas;pi++){
+      var dataParcela=new Date(dataBase);
+      if(intervaloTipo==='mensal')dataParcela.setMonth(dataBase.getMonth()+pi);
+      else if(intervaloTipo==='quinzenal')dataParcela.setDate(dataBase.getDate()+(15*pi));
+      else dataParcela.setDate(dataBase.getDate()+(intervaloDiasCustom*pi));
+      var mesKeyParcela=dataParcela.getFullYear()+'-'+String(dataParcela.getMonth()+1).padStart(2,'0');
+      var mesParcela=getOrCreateMesFin(mesKeyParcela);
+      mesParcela.despesas.push({
+        id:uid(),desc:desc+' ('+(pi+1)+'/'+numParcelas+')',valor:valorParcela,cat:cat,tipo:tipo,
+        natureza:'unica',variavel:false,media:0,
+        dia:String(dataParcela.getDate()),pago:false,dataPago:null,contaFixaId:null,
+        parcelado:true,parcelaAtual:pi+1,totalParcelas:numParcelas,
+        grupoParcelamentoId:grupoId,valorTotalCompra:valor,
+        vencimento:dataParcela.toISOString().slice(0,10)
+      });
+    }
+    saveDB();
+    ['dm-desc','dm-valor','dm-dia','dm-media','dm-num-parcelas','dm-valor-parcela','dm-data-primeira-parcela','dm-intervalo-dias'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+    var pagoElReset=document.getElementById('dm-pago');if(pagoElReset)pagoElReset.checked=false;
+    closeModal('modal-add-despesa-mes');
+    renderFinanceiro();
+    notif(numParcelas+' parcelas criadas com sucesso.');
+    return;
+  }
 
   // Se fixa: salva em contas_fixas para migrar automaticamente
   if(natureza==='fixa'){
@@ -6638,7 +6888,6 @@ function salvarDespesaMes(){
 
   var key=finMesKey(_finMesIdx);
   var mes=getOrCreateMesFin(key);
-  var editId=window._editingDespesaId;
   var editKey=window._editingDespesaKey;
   if(editId){
     // MODO EDIÇÃO: localiza a despesa existente (no mês em que ela foi criada) e atualiza no lugar
@@ -7316,11 +7565,11 @@ function editarInvestimento(id){
   <div class="ma"><button class="bg" onclick="closeModal('modal-add-bib')">Cancelar</button><button class="bp" onclick="salvarBib()">Salvar</button></div>
 </div></div>
 
-<div cl<div class="mo" id="modal-add-despesa-mes"><div class="md">
+<div class="mo" id="modal-add-despesa-mes"><div class="md">
   <div class="mt">Nova Despesa</div>
   <div class="fr">
     <div class="fi"><label>Descrição</label><input type="text" id="dm-desc" placeholder="ex: Internet, Mercado, Curso..."></div>
-    <div class="fi"><label>Valor (R$)</label><input type="number" id="dm-valor" step="0.01"></div>
+    <div class="fi"><label>Valor (R$)</label><input type="number" id="dm-valor" step="0.01" oninput="recalcularValorParcela()"></div>
   </div>
   <div class="fr">
     <div class="fi"><label>Tipo PF / PJ</label>
@@ -7368,7 +7617,7 @@ function editarInvestimento(id){
     <select id="dm-natureza" onchange="toggleDMNatureza()">
       <option value="fixa">Fixa — repete todo mês com o mesmo valor</option>
       <option value="variavel">Variável — muda todo mês (água, mercado...)</option>
-      <option value="unica">1⃣ Única vez — não se repete</option>
+      <option value="unica">Única vez — não se repete</option>
     </select>
   </div>
 
@@ -7378,6 +7627,33 @@ function editarInvestimento(id){
       <div class="fi" style="margin-bottom:0"><label>Média que costuma gastar (R$)</label>
         <input type="number" id="dm-media" step="0.01" placeholder="ex: 250 — para referência nos outros meses">
       </div>
+    </div>
+  </div>
+
+  <div id="dm-parcelamento-wrap" style="display:none">
+    <div class="fi"><label>Forma de pagamento</label>
+      <select id="dm-forma-pagamento" onchange="toggleDMParcelamento()">
+        <option value="vista">À vista</option>
+        <option value="parcelado">Parcelado</option>
+      </select>
+    </div>
+    <div id="dm-parcelas-detalhes" style="display:none;background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:12px;margin-bottom:10px">
+      <div class="fr">
+        <div class="fi"><label>Número de parcelas</label><input type="number" id="dm-num-parcelas" min="2" value="2" oninput="recalcularValorParcela()"></div>
+        <div class="fi"><label>Valor de cada parcela (R$)</label><input type="number" id="dm-valor-parcela" step="0.01"></div>
+      </div>
+      <div class="fr">
+        <div class="fi"><label>Vencimento da 1ª parcela</label><input type="date" id="dm-data-primeira-parcela"></div>
+        <div class="fi"><label>Intervalo</label>
+          <select id="dm-intervalo-parcela" onchange="toggleDMIntervaloCustom()">
+            <option value="mensal">Mensal</option>
+            <option value="quinzenal">Quinzenal</option>
+            <option value="custom">Personalizado (dias)</option>
+          </select>
+        </div>
+      </div>
+      <div class="fi" id="dm-intervalo-custom-wrap" style="display:none"><label>Intervalo personalizado (dias entre parcelas)</label><input type="number" id="dm-intervalo-dias" min="1" placeholder="ex: 45"></div>
+      <div style="font-size:.68rem;color:var(--muted);margin-top:4px">As parcelas serão criadas automaticamente nos meses correspondentes.</div>
     </div>
   </div>
 
