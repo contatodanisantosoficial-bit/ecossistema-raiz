@@ -1056,12 +1056,14 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
   <!-- ALERTAS -->
   <div class="page" id="page-alertas">
     <div class="ph"><div class="pe">Alertas</div><div class="pt">Nada passa <em>despercebido</em></div><div class="ps">Contratos vencendo, clientes sem contato, metas em risco</div></div>
-    <div class="g3" style="margin-bottom:13px">
-      <div class="sc"><div class="sl"><svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--red)"/></svg> Urgentes</div><div class="sv r" id="alerta-urgentes">—</div></div>
+    <div class="g4" style="margin-bottom:13px">
+      <div class="sc"><div class="sl"><svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--red)"/></svg> Crítico</div><div class="sv r" id="alerta-urgentes">—</div></div>
+      <div class="sc"><div class="sl"><svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--nude)"/></svg> Prioritário</div><div class="sv n" id="alerta-prioritario">—</div></div>
       <div class="sc"><div class="sl"><svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--ouro)"/></svg> Atenção</div><div class="sv o" id="alerta-atencao">—</div></div>
       <div class="sc"><div class="sl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> Em dia</div><div class="sv g" id="alerta-ok">—</div></div>
     </div>
     <div id="lista-alertas-full"></div>
+    <div id="alertas-aniversarios"></div>
   </div>
 
   <!-- HISTÓRICO CLIENTES -->
@@ -1200,6 +1202,7 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
 </div></div>
 
 <div class="mo" id="modal-add-cli"><div class="md"><div class="mt" id="mcli-title">Nova Cliente</div><input type="hidden" id="cli-edit-id"><div class="fr"><div class="fi"><label>Nome</label><input type="text" id="cli-nome"></div><div class="fi"><label>Valor Mensal (R$)</label><input type="number" id="cli-val"></div></div><div class="fr"><div class="fi"><label>Dia Vencimento</label><input type="number" id="cli-dia" min="1" max="31"></div><div class="fi"><label>Meio de Pagamento</label><select id="cli-meio"><option>PIX</option><option>Transferência</option><option>Boleto</option><option>Cartão</option></select></div></div><div class="fr"><div class="fi"><label>Início Contrato</label><input type="date" id="cli-inicio"></div><div class="fi"><label>Primeiro Pagamento</label><input type="date" id="cli-primeiro-pag"></div></div><div class="fr"><div class="fi"><label>Status</label><select id="cli-status"><option>Ativo</option><option>Saindo</option><option>Parceria</option><option>Encerrado</option></select></div><div class="fi"><label>Canal</label><input type="text" id="cli-canal"></div></div><div class="fi"><label>Fim Contrato</label><input type="date" id="cli-fim"></div>
+  <div class="fr"><div class="fi"><label>Aniversário</label><input type="date" id="cli-nascimento"></div><div class="fi" style="display:flex;align-items:flex-end;padding-bottom:11px;"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.82rem;color:var(--text);margin-bottom:0;"><input type="checkbox" id="cli-vip-manual" style="width:17px;height:17px;accent-color:var(--nude);cursor:pointer;"> Marcar como VIP manualmente</label></div></div>
   <div class="fi"><label>Situação do contrato</label>
     <select id="cli-contrato-status" onchange="toggleContratoObs()">
       <option value="ativo">Ativo — dentro do prazo</option>
@@ -1500,7 +1503,7 @@ function getAlerts(){
     var gd=parseInt(gc.dia);var gv=new Date(today.getFullYear(),today.getMonth(),gd);
     if(gv<today)gv.setMonth(gv.getMonth()+1);
     var gdiff=Math.round((gv-today)/86400000);
-    if(gdiff<=dias)al.push({nome:gc.nome,val:gc.val||0,diff:gdiff,meio:gc.meio});
+    if(gdiff<=dias)al.push({nome:gc.nome,val:gc.val||0,diff:gdiff,meio:gc.meio,clienteId:gc.id});
   }
   for(var ci=0;ci<(DB.contas&&DB.contas.length);ci++){
     var cc=DB.contas[ci];if(!cc.dia)continue;
@@ -1540,6 +1543,79 @@ function getAlertasNF(){
   });
   return al;
 }
+
+// ══════════════════════════════════════════════
+// AUTOMAÇÕES: VIP, ANIVERSÁRIO, INATIVA, ALERTAS 4 NÍVEIS
+// ══════════════════════════════════════════════
+function calcularVIP(cliente){
+  if(!cliente)return false;
+  if(cliente.vip_manual)return true;
+  var ativos=(DB.clientes||[]).filter(function(c){return c.status!=='Encerrado';});
+  if(ativos.length<3)return false;
+  var valores=ativos.map(function(c){return c.val||0;}).sort(function(a,b){return b-a;});
+  var top20Idx=Math.max(0,Math.ceil(ativos.length*0.2)-1);
+  var limiar=valores[top20Idx]||0;
+  return limiar>0&&(cliente.val||0)>=limiar;
+}
+function getUltimoContato(clienteId){
+  var hist=(DB.hist_cli||[]).filter(function(h){return h.clienteId===clienteId;});
+  if(!hist.length)return null;
+  return hist.sort(function(a,b){return (b.data||'').localeCompare(a.data||'');})[0];
+}
+function getClientesInativasFormal(){
+  if(!DB)return[];
+  var today=new Date();today.setHours(0,0,0,0);
+  var out=[];
+  (DB.clientes||[]).forEach(function(c){
+    if(c.status==='Encerrado')return;
+    var ultimo=getUltimoContato(c.id);
+    if(!ultimo)return;
+    var dias=Math.round((today-new Date(ultimo.data))/86400000);
+    if(dias>=90)out.push({cliente:c,dias:dias,ultimoContato:ultimo.data});
+  });
+  return out;
+}
+function getAniversariosProximos(dias){
+  if(!DB)return[];
+  dias=dias||7;
+  var today=new Date();today.setHours(0,0,0,0);
+  var out=[];
+  (DB.clientes||[]).forEach(function(c){
+    if(!c.nascimento||c.status==='Encerrado')return;
+    var nasc=new Date(c.nascimento+'T00:00:00');
+    var prox=new Date(today.getFullYear(),nasc.getMonth(),nasc.getDate());
+    if(prox<today)prox.setFullYear(prox.getFullYear()+1);
+    var diff=Math.round((prox-today)/86400000);
+    if(diff<=dias)out.push({cliente:c,diff:diff,data:c.nascimento});
+  });
+  return out.sort(function(a,b){return a.diff-b.diff;});
+}
+function getAlertasClassificados(){
+  if(!DB)return{critico:[],prioritario:[],atencao:[],informativo:[]};
+  var out={critico:[],prioritario:[],atencao:[],informativo:[]};
+  var al=typeof getAlerts==='function'?getAlerts():[];
+  al.forEach(function(a){
+    var item={titulo:a.nome,desc:'R$ '+(a.val||0).toLocaleString('pt-BR')+(a.meio?' · '+a.meio:''),diff:a.diff};
+    if(a.diff<0)out.critico.push(Object.assign({},item,{titulo:item.titulo+' — vencido há '+(-a.diff)+'d'}));
+    else if(a.diff===0)out.critico.push(Object.assign({},item,{titulo:item.titulo+' — vence hoje'}));
+    else if(a.diff<=2)out.prioritario.push(Object.assign({},item,{titulo:item.titulo+' — vence em '+a.diff+'d'}));
+    else out.atencao.push(Object.assign({},item,{titulo:item.titulo+' — vence em '+a.diff+'d'}));
+  });
+  getClientesInativasFormal().forEach(function(x){
+    out.prioritario.push({titulo:x.cliente.nome+' — sem contato há '+x.dias+'d',desc:'Último contato: '+x.ultimoContato});
+  });
+  getAniversariosProximos(7).forEach(function(x){
+    var msg=x.diff===0?'é hoje!':x.diff===1?'é amanhã.':'em '+x.diff+' dias.';
+    out.informativo.push({titulo:'Aniversário de '+x.cliente.nome,desc:'Aniversário '+msg});
+  });
+  var metasAbaixo=(DB.metas||[]).filter(function(m){return (m.prog||0)<50&&m.status!=='Concluída';});
+  metasAbaixo.forEach(function(m){
+    out.atencao.push({titulo:'Meta "'+m.titulo+'" abaixo de 50%',desc:'Progresso atual: '+(m.prog||0)+'%'});
+  });
+  return out;
+}
+
+
 function marcarNFEmitida(clienteId,mesKey){
   if(!DB.meses_fin)DB.meses_fin={};
   var mes=getOrCreateMesFin(mesKey);
@@ -1581,14 +1657,14 @@ function renderHome(){
   document.getElementById('dot-cli').className='ndot'+((al.length+alNF.length)?' on':'');
   var tbr=document.getElementById('tbright');
   var totalLembretes=al.length+alNF.length;
-  tbr.innerHTML=(totalLembretes?'<div class="ab w">'+totalLembretes+' lembrete'+(totalLembretes>1?'s':'')+'</div>':'')+'<button class="logout-btn" onclick="logout()">Sair</button>';
+  tbr.innerHTML=(totalLembretes?'<div class="ab w" style="cursor:pointer" onclick="try{goPage(\'alertas\');}catch(e){}">'+totalLembretes+' lembrete'+(totalLembretes>1?'s':'')+'</div>':'')+'<button class="logout-btn" onclick="logout()">Sair</button>';
   var paysEl=document.getElementById('home-pays');
   if(al.length||alNF.length){
     var pHTML='';
     for(var ai=0;ai<al.length;ai++){
       var a=al[ai];var cls=a.diff===0?'urg':a.diff<=2?'sn':'ok';
       var msg=a.diff===0?'HOJE':a.diff<0?'Vencido há '+(-a.diff)+'d':'Em '+a.diff+'d';
-      pHTML+='<div class="pa '+cls+'">'+(cls==='urg'?'<svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--red)"/></svg>':cls==='sn'?'<svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--ouro)"/></svg>':'<svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--green)"/></svg>')+' <strong>'+a.nome+'</strong> — R$ '+(a.val||0).toLocaleString('pt-BR')+' · '+msg+(a.meio?' · '+a.meio:'')+'</div>';
+      pHTML+='<div class="pa '+cls+'"'+(a.clienteId?' style="cursor:pointer" onclick="abrirClienteDoAlerta(\''+a.clienteId+'\')"':'')+'>'+(cls==='urg'?'<svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--red)"/></svg>':cls==='sn'?'<svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--ouro)"/></svg>':'<svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--green)"/></svg>')+' <strong>'+a.nome+'</strong> — R$ '+(a.val||0).toLocaleString('pt-BR')+' · '+msg+(a.meio?' · '+a.meio:'')+'</div>';
     }
     for(var ni=0;ni<alNF.length;ni++){
       var n=alNF[ni];var ncls=n.diff<0?'urg':n.diff<=1?'sn':'ok';
@@ -2044,9 +2120,10 @@ function salvarCliente(){
   var modeloRecEl=document.getElementById('cli-modelo-rec');
   var valVariavelEl=document.getElementById('cli-val-variavel');
   var varDescEl=document.getElementById('cli-variavel-desc');
-  var obj={id:eid||uid(),nome:nome,val:Math.round((parseBRL(document.getElementById('cli-val').value)||0)*100)/100,dia:document.getElementById('cli-dia').value,meio:document.getElementById('cli-meio').value,inicio:document.getElementById('cli-inicio').value,primeiro_pag:document.getElementById('cli-primeiro-pag').value,fim:document.getElementById('cli-fim').value,status:document.getElementById('cli-status').value,canal:document.getElementById('cli-canal').value,servico:document.getElementById('cli-servico').value,reajuste:document.getElementById('cli-reajuste').value,origem:document.getElementById('cli-origem').value,nps:document.getElementById('cli-nps').value!==''?parseInt(document.getElementById('cli-nps').value):null,resumo:document.getElementById('cli-resumo').value,notas:document.getElementById('cli-notas').value,modelo_rec:modeloRecEl?modeloRecEl.value:'fixo',val_variavel:valVariavelEl?parseFloat(valVariavelEl.value)||0:0,variavel_desc:varDescEl?varDescEl.value.trim():''};
+  var obj={id:eid||uid(),nome:nome,val:Math.round((parseBRL(document.getElementById('cli-val').value)||0)*100)/100,dia:document.getElementById('cli-dia').value,meio:document.getElementById('cli-meio').value,inicio:document.getElementById('cli-inicio').value,primeiro_pag:document.getElementById('cli-primeiro-pag').value,fim:document.getElementById('cli-fim').value,status:document.getElementById('cli-status').value,canal:document.getElementById('cli-canal').value,servico:document.getElementById('cli-servico').value,reajuste:document.getElementById('cli-reajuste').value,origem:document.getElementById('cli-origem').value,nps:document.getElementById('cli-nps').value!==''?parseInt(document.getElementById('cli-nps').value):null,resumo:document.getElementById('cli-resumo').value,notas:document.getElementById('cli-notas').value,modelo_rec:modeloRecEl?modeloRecEl.value:'fixo',val_variavel:valVariavelEl?parseFloat(valVariavelEl.value)||0:0,variavel_desc:varDescEl?varDescEl.value.trim():'',nascimento:document.getElementById('cli-nascimento')?document.getElementById('cli-nascimento').value:'',vip_manual:document.getElementById('cli-vip-manual')?document.getElementById('cli-vip-manual').checked:false};
   if(eid){var idx=DB.clientes.findIndex(function(c){return c.id===eid;});if(idx>=0)DB.clientes[idx]=obj;else DB.clientes.push(obj);}else DB.clientes.push(obj);
-  saveDB();document.getElementById('cli-edit-id').value='';['cli-nome','cli-val','cli-dia','cli-inicio','cli-primeiro-pag','cli-fim','cli-canal','cli-servico','cli-reajuste','cli-origem','cli-resumo','cli-notas','cli-val-variavel','cli-variavel-desc','cli-contrato-obs'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  saveDB();document.getElementById('cli-edit-id').value='';['cli-nome','cli-val','cli-dia','cli-inicio','cli-primeiro-pag','cli-fim','cli-canal','cli-servico','cli-reajuste','cli-origem','cli-resumo','cli-notas','cli-val-variavel','cli-variavel-desc','cli-contrato-obs','cli-nascimento'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  var vipCk=document.getElementById('cli-vip-manual');if(vipCk)vipCk.checked=false;
   document.getElementById('cli-nps').value='';
   closeModal('modal-add-cli');renderClientes();renderHome();notif('Cliente salva!');
 }
@@ -2102,6 +2179,14 @@ function renderClientes(){
     h.push('<span class="bdg '+sc+'">'+c.status+'</span>');
     if(c.meio)h.push('<span class="bdg m">'+c.meio+'</span>');
     if(c.dia)h.push('<span class="bdg m">DIA '+c.dia+'</span>');
+    if(typeof calcularVIP==='function'&&calcularVIP(c))h.push('<span class="bdg o">⭐ VIP</span>');
+    if(typeof getUltimoContato==='function'){
+      var ultCont=getUltimoContato(c.id);
+      if(ultCont){
+        var diasSemContato=Math.round((new Date()-new Date(ultCont.data))/86400000);
+        if(diasSemContato>=90)h.push('<span class="bdg r">Inativa · '+diasSemContato+'d sem contato</span>');
+      }
+    }
     if(c.nps!==null&&c.nps!==undefined)h.push('<span class="bdg '+(c.nps>=8?'g':c.nps>=6?'o':'r')+'">NPS '+c.nps+'</span>');
     if(c.contrato_status==='vencido_renovando')h.push('<span class="bdg o" style="font-size:.5rem"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg> Renovar</span>');
     if(c.contrato_status==='em_renovacao')h.push('<span class="bdg n" style="font-size:.5rem"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg> Renovando</span>');
@@ -3655,11 +3740,20 @@ function abrirResultadoBusca(gi,ii){
   var grupos=window._buscaGlobalResultados;
   if(!grupos||!grupos[gi]||!grupos[gi].items[ii])return;
   var g=grupos[gi];var it=g.items[ii];
-  goPage(g.page);
-  setTimeout(function(){if(it.abrir)it.abrir();},60);
   fecharBuscaGlobal();
   var input=document.getElementById('tb-search');
   if(input){input.value='';input.blur();}
+  try{
+    goPage(g.page);
+  }catch(e){
+    notif('Não consegui abrir essa página. Tente de novo.');
+    return;
+  }
+  try{
+    if(it.abrir)it.abrir();
+  }catch(e){
+    notif('Encontrei o item, mas não consegui abrir os detalhes. Ele está na lista da página '+(g.label||'')+'.');
+  }
 }
 function fecharBuscaGlobal(){
   var box=document.getElementById('tb-search-results');
@@ -5234,6 +5328,30 @@ async function criarEventoGoogle(compromisso){
 
 
 // ══════════════════════════════════════════════
+function abrirClienteDoAlerta(clienteId){
+  if(!clienteId)return;
+  try{goPage('clientes');}catch(e){notif('Não consegui abrir a página de Clientes.');return;}
+  try{editarCliente(clienteId);}catch(e){notif('Cliente encontrada na lista de Clientes.');}
+}
+function abrirPropostaDoAlerta(propostaId){
+  if(!propostaId)return;
+  try{goPage('propostas');}catch(e){notif('Não consegui abrir a página de Propostas.');return;}
+  try{editarProposta(propostaId);}catch(e){notif('Proposta encontrada na lista de Propostas.');}
+}
+function renderAniversariosAlertas(){
+  var el=document.getElementById('alertas-aniversarios');
+  if(!el)return;
+  var prox=typeof getAniversariosProximos==='function'?getAniversariosProximos(30):[];
+  if(!prox.length){el.innerHTML='';return;}
+  var h='<div style="font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:20px 0 8px;">Aniversários (próximos 30 dias)</div>';
+  prox.forEach(function(x){
+    var msg=x.diff===0?'Hoje!':x.diff===1?'Amanhã':'Em '+x.diff+' dias';
+    h+='<div onclick="abrirClienteDoAlerta(\''+x.cliente.id+'\')" style="cursor:pointer;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:10px;padding:10px 13px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;">';
+    h+='<span style="font-size:.8rem;color:var(--cafe);font-weight:600;">'+esc(x.cliente.nome)+'</span>';
+    h+='<span style="font-size:.68rem;color:var(--nude);font-weight:600;">'+msg+'</span></div>';
+  });
+  el.innerHTML=h;
+}
 function renderAlertasFull(){
   if(!DB)return;
   var alertas=[];
@@ -5244,8 +5362,8 @@ function renderAlertasFull(){
     if(c.fim){
       var fim=new Date(c.fim);fim.setHours(0,0,0,0);
       var diff=Math.round((fim-hoje)/86400000);
-      if(diff<=30&&diff>=0)alertas.push({tipo:'contrato',urgencia:diff<=7?'r':'o',titulo:'Contrato vence em '+diff+'d',desc:c.nome+' — '+c.fim,acao:'Renovar contrato'});
-      else if(diff<0)alertas.push({tipo:'contrato',urgencia:'r',titulo:'Contrato VENCIDO há '+(-diff)+'d',desc:c.nome,acao:'Regularizar agora'});
+      if(diff<=30&&diff>=0)alertas.push({tipo:'contrato',urgencia:diff<=7?'r':'o',titulo:'Contrato vence em '+diff+'d',desc:c.nome+' — '+c.fim,acao:'Renovar contrato',clienteId:c.id});
+      else if(diff<0)alertas.push({tipo:'contrato',urgencia:'r',titulo:'Contrato VENCIDO há '+(-diff)+'d',desc:c.nome,acao:'Regularizar agora',clienteId:c.id});
     }
     // Sem contato há mais de 30 dias (usando histórico)
     if(DB.hist_cli){
@@ -5253,7 +5371,7 @@ function renderAlertasFull(){
       if(hcli.length){
         var ultimo=hcli.sort(function(a,b){return b.data.localeCompare(a.data);})[0];
         var diasSem=Math.round((hoje-new Date(ultimo.data))/86400000);
-        if(diasSem>=45)alertas.push({tipo:'contato',urgencia:diasSem>=60?'r':'o',titulo:'Sem registro há '+diasSem+' dias',desc:c.nome+' — último: '+ultimo.data,acao:'Registrar contato'});
+        if(diasSem>=45)alertas.push({tipo:'contato',urgencia:diasSem>=60?'r':'o',titulo:'Sem registro há '+diasSem+' dias',desc:c.nome+' — último: '+ultimo.data,acao:'Registrar contato',clienteId:c.id});
       }
     }
   });
@@ -5261,13 +5379,13 @@ function renderAlertasFull(){
   if(DB.propostas)DB.propostas.filter(function(p){return p.status==='enviada'&&p.validade;}).forEach(function(p){
     var val=new Date(p.validade);val.setHours(0,0,0,0);
     var diff=Math.round((val-hoje)/86400000);
-    if(diff<=0)alertas.push({tipo:'proposta',urgencia:'r',titulo:'Proposta expirada',desc:p.nome+' — R$ '+parseBRL(String(p.valor||0)).toLocaleString('pt-BR'),acao:'Contatar agora'});
-    else if(diff<=5)alertas.push({tipo:'proposta',urgencia:'o',titulo:'Proposta expira em '+diff+'d',desc:p.nome,acao:'Fazer follow-up'});
+    if(diff<=0)alertas.push({tipo:'proposta',urgencia:'r',titulo:'Proposta expirada',desc:p.nome+' — R$ '+parseBRL(String(p.valor||0)).toLocaleString('pt-BR'),acao:'Contatar agora',propostaId:p.id});
+    else if(diff<=5)alertas.push({tipo:'proposta',urgencia:'o',titulo:'Proposta expira em '+diff+'d',desc:p.nome,acao:'Fazer follow-up',propostaId:p.id});
   });
   // Meta de caixa em risco
   var ul=(DB.meses&&DB.meses.length)?DB.meses[(DB.meses&&DB.meses.length)-1]:null;
   var caixa=ul?ul.caixa:0;var mc=DB.config.metaCaixa||0;
-  if(mc&&caixa<mc*0.3)alertas.push({tipo:'meta',urgencia:'r',titulo:'Caixa PJ abaixo de 30% da meta',desc:'R$ '+caixa.toLocaleString('pt-BR')+' de R$ '+mc.toLocaleString('pt-BR'),acao:'Revisar financeiro'});
+  if(mc&&caixa<mc*0.3)alertas.push({tipo:'meta',urgencia:'r',titulo:'Caixa PJ abaixo de 30% da meta',desc:'R$ '+caixa.toLocaleString('pt-BR')+' de R$ '+mc.toLocaleString('pt-BR'),acao:'Revisar financeiro',irPara:'reservas'});
   // Pagamentos atrasados
   var fat=DB.clientes.filter(function(c){return c.status!=='Encerrado'&&c.dia;});
   var urg=0,atenc=0,ok=0;
@@ -5276,6 +5394,9 @@ function renderAlertasFull(){
   var e1=document.getElementById('alerta-urgentes');if(e1)e1.textContent=urg||'0';
   var e2=document.getElementById('alerta-atencao');if(e2)e2.textContent=atenc||'0';
   var e3=document.getElementById('alerta-ok');if(e3)e3.textContent=ok||'0';
+  var inativasFormal=typeof getClientesInativasFormal==='function'?getClientesInativasFormal():[];
+  var e5=document.getElementById('alerta-prioritario');if(e5)e5.textContent=inativasFormal.length||'0';
+  renderAniversariosAlertas();
   var el=document.getElementById('lista-alertas-full');if(!el)return;
   if(!alertas.length){el.innerHTML='<div class="ev"><div class="eicon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg></div><div class="etitle">Tudo em dia!</div><div class="edesc">Nenhum alerta no momento. Continue assim.</div></div>';return;}
   el.innerHTML='';
@@ -5285,8 +5406,11 @@ function renderAlertasFull(){
     var border=a.urgencia==='r'?'var(--red-b)':a.urgencia==='o'?'var(--ouro-b)':'var(--green-b)';
     var color=a.urgencia==='r'?'var(--red)':a.urgencia==='o'?'var(--ouro)':'var(--green)';
     var icon=a.urgencia==='r'?'<svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--red)"/></svg>':'<svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--ouro)"/></svg>';
-    card.style.cssText='background:'+bg+';border:1px solid '+border+';border-radius:10px;padding:12px;margin-bottom:9px';
+    card.style.cssText='background:'+bg+';border:1px solid '+border+';border-radius:10px;padding:12px;margin-bottom:9px;cursor:pointer';
     card.innerHTML='<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div style="font-size:.82rem;font-weight:600;color:'+color+'">'+icon+' '+a.titulo+'</div><div style="font-size:.72rem;color:var(--text);margin-top:3px">'+a.desc+'</div></div><span style="font-size:.62rem;color:'+color+';background:var(--s2);border-radius:6px;padding:3px 8px;flex-shrink:0;margin-left:8px">'+a.acao+'</span></div>';
+    if(a.clienteId)card.onclick=function(cid){return function(){abrirClienteDoAlerta(cid);};}(a.clienteId);
+    else if(a.propostaId)card.onclick=function(pid){return function(){abrirPropostaDoAlerta(pid);};}(a.propostaId);
+    else if(a.irPara)card.onclick=function(pg){return function(){try{goPage(pg);}catch(e){}};}(a.irPara);
     el.appendChild(card);
   });
 }
@@ -6660,6 +6784,8 @@ function editarCliente(id){
   var csEl=document.getElementById('cli-contrato-status');if(csEl)csEl.value=c.contrato_status||'ativo';
   var coEl=document.getElementById('cli-contrato-obs');if(coEl)coEl.value=c.contrato_obs||'';
   if(typeof toggleContratoObs==='function')toggleContratoObs();
+  var nascEl=document.getElementById('cli-nascimento');if(nascEl)nascEl.value=c.nascimento||'';
+  var vipEl=document.getElementById('cli-vip-manual');if(vipEl)vipEl.checked=!!c.vip_manual;
   openModal('modal-add-cli');
 }
 
