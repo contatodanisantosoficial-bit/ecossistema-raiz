@@ -318,7 +318,7 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
   <div class="topbar">
     <div><div class="tb-title">Ecossistema <em>Raiz</em></div><div class="tb-breadcrumb" id="tb-breadcrumb">Início</div><div class="tb-date" id="tbdate">—</div></div>
     <div class="tb-search-wrap">
-      <input type="text" id="tb-search" class="tb-search" aria-label="Pesquisar clientes, propostas, biblioteca" placeholder="Pesquisar clientes, propostas, biblioteca..." autocomplete="off" oninput="buscarGlobalLive(this.value)" onfocus="if(this.value)buscarGlobalLive(this.value)" onblur="setTimeout(function(){fecharBuscaGlobal();},150)" onkeydown="if(event.key==='Escape')this.blur();">
+      <input type="text" id="tb-search" class="tb-search" aria-label="Pesquisar clientes, propostas, biblioteca" placeholder="Pesquisar clientes, propostas, biblioteca..." autocomplete="off" oninput="buscarGlobalLive(this.value)" onfocus="if(this.value)buscarGlobalLive(this.value)" onkeydown="if(event.key==='Escape'){fecharBuscaGlobal();this.blur();}">
       <div id="tb-search-results" class="tb-search-results"></div>
     </div>
     <div class="tb-r" id="tbright"><button class="logout-btn" onclick="logout()">Sair</button></div>
@@ -3082,6 +3082,9 @@ function claraContextoDados(){
   var al=typeof getAlerts==='function'?getAlerts():[];
   var alertasTxt=al.length?al.slice(0,3).map(function(a){return a.nome+' R$'+(a.val||0)+' ('+(a.diff===0?'hoje':a.diff<0?'atrasado '+(-a.diff)+'d':'em '+a.diff+'d')+')';}).join('; '):'nenhum';
 
+  var alGerais=typeof getAlertasGerais==='function'?getAlertasGerais():[];
+  var alGeraisTxt=alGerais.length?alGerais.slice(0,5).map(function(a){return a.titulo+(a.desc?' ('+a.desc+')':'');}).join('; '):'nenhum';
+
   var comprHoje=typeof getCompromissosHoje==='function'?getCompromissosHoje():[];
   var agendaTxt=comprHoje.length?comprHoje.map(function(c){return (c.hora_inicio||'—')+' '+c.titulo+(c.clienteNome?' ('+c.clienteNome+')':'');}).join('; '):'nenhum compromisso hoje';
 
@@ -3101,7 +3104,8 @@ function claraContextoDados(){
     +'- Últimas entregas registradas: '+(entregasRecentes.length?entregasRecentes.join(', '):'nenhuma recente')+'\n'
     +'- Metas trimestrais abaixo de 50%: '+(metasAbaixo.length?metasAbaixo.map(function(m){return m.titulo+' ('+(m.prog||0)+'%)';}).join(', '):'nenhuma')+'\n'
     +'- Compromissos de hoje na Agenda: '+agendaTxt+'\n'
-    +'- Alertas de vencimento próximos: '+alertasTxt+'\n';
+    +'- Alertas de vencimento próximos: '+alertasTxt+'\n'
+    +'- Outros alertas importantes (contratos, sem contato, propostas, caixa): '+alGeraisTxt+'\n';
 }
 
 function claraFmt(texto){
@@ -3227,10 +3231,16 @@ function gerarReuniaoSemIA(){
   var nome=CU?CU.nome:'';
   var linhas=[];
   linhas.push(saud+(nome?', '+nome:'')+'.');
-  var al=typeof getAlerts==='function'?getAlerts():[];
-  if(al.length){
-    var u=al.slice().sort(function(a,b){return a.diff-b.diff;})[0];
-    linhas.push('Ponto de atenção: '+u.nome+' — R$ '+(u.val||0).toLocaleString('pt-BR')+(u.diff===0?' vence hoje.':u.diff<0?' venceu há '+(-u.diff)+' dia(s).':' vence em '+u.diff+' dia(s).'));
+  var alPag=typeof getAlerts==='function'?getAlerts():[];
+  var alNF=typeof getAlertasNF==='function'?getAlertasNF():[];
+  var alGerais=typeof getAlertasGerais==='function'?getAlertasGerais():[];
+  var totalLembretes=alPag.length+alNF.length+alGerais.length;
+  if(totalLembretes){
+    var todosUrgentes=[];
+    alPag.forEach(function(u){todosUrgentes.push(u.nome+' — R$ '+(u.val||0).toLocaleString('pt-BR')+(u.diff===0?' (vence hoje)':u.diff<0?' (venceu há '+(-u.diff)+'d)':' (vence em '+u.diff+'d)'));});
+    alGerais.forEach(function(a){todosUrgentes.push(a.titulo+(a.desc?' — '+a.desc:''));});
+    if(alNF.length)todosUrgentes.push(alNF.length+' nota(s) fiscal(is) pendente(s) de emissão');
+    linhas.push('Você tem '+totalLembretes+' lembrete(s) importante(s): '+todosUrgentes.slice(0,5).join('; ')+(todosUrgentes.length>5?' e mais '+(todosUrgentes.length-5)+'.':'.'));
   }else{
     linhas.push('Nenhum vencimento importante nos próximos dias.');
   }
@@ -3283,7 +3293,7 @@ async function gerarReuniaoExecutiva(forcar){
       +'3. Financeiro: só o que importa hoje\n'
       +'4. Agenda: compromissos de hoje, se houver\n'
       +'5. Clientes/CRM: quem merece atenção\n'
-      +'6. Alertas relevantes, se houver\n'
+      +'6. Alertas relevantes, se houver (considere TODOS os tipos: pagamentos, contratos vencendo ou vencidos, clientes sem contato, propostas expirando, notas fiscais pendentes, caixa em risco)\n'
       +'7. Uma única prioridade principal do dia\n'
       +'8. Plano de ação curto dividido em Agora / Hoje / Esta Semana\n'
       +'9. Mensagem final breve e natural, sem parecer coach motivacional genérico.\n\n'
@@ -3730,7 +3740,7 @@ function buscarGlobalLive(q){
   grupos.forEach(function(g,gi){
     h+='<div class="tb-sr-group">'+g.label+'</div>';
     g.items.forEach(function(it,ii){
-      h+='<button type="button" class="tb-sr-item" onmousedown="event.preventDefault();abrirResultadoBusca('+gi+','+ii+')"><div class="tb-sr-name">'+esc(it.nome)+'</div>'+(it.snippet?'<div class="tb-sr-snippet">'+esc(it.snippet).slice(0,80)+'</div>':'')+'</button>';
+      h+='<button type="button" class="tb-sr-item" onclick="abrirResultadoBusca('+gi+','+ii+')"><div class="tb-sr-name">'+esc(it.nome)+'</div>'+(it.snippet?'<div class="tb-sr-snippet">'+esc(it.snippet).slice(0,80)+'</div>':'')+'</button>';
     });
   });
   box.innerHTML=h;
@@ -3872,6 +3882,10 @@ function renderResumoReceitas(){
 
 document.addEventListener('DOMContentLoaded',function(){
   initGoogleAuth();
+  document.addEventListener('click',function(e){
+    var wrap=document.querySelector('.tb-search-wrap');
+    if(wrap&&!wrap.contains(e.target)){fecharBuscaGlobal();}
+  });
   // Load Supabase config early
   var su=storageGet('raizv2-supa-url');var sk=storageGet('raizv2-supa-key');
   if(su&&sk){SUPA_URL=su;SUPA_KEY=sk;}
@@ -5352,12 +5366,12 @@ function renderAniversariosAlertas(){
   });
   el.innerHTML=h;
 }
-function renderAlertasFull(){
-  if(!DB)return;
+function getAlertasGerais(){
+  if(!DB)return[];
   var alertas=[];
   var hoje=new Date();hoje.setHours(0,0,0,0);
   // Contratos vencendo em 30 dias
-  DB.clientes.forEach(function(c){
+  (DB.clientes||[]).forEach(function(c){
     if(c.status==='Encerrado')return;
     if(c.fim){
       var fim=new Date(c.fim);fim.setHours(0,0,0,0);
@@ -5384,8 +5398,14 @@ function renderAlertasFull(){
   });
   // Meta de caixa em risco
   var ul=(DB.meses&&DB.meses.length)?DB.meses[(DB.meses&&DB.meses.length)-1]:null;
-  var caixa=ul?ul.caixa:0;var mc=DB.config.metaCaixa||0;
+  var caixa=ul?ul.caixa:0;var mc=(DB.config&&DB.config.metaCaixa)||0;
   if(mc&&caixa<mc*0.3)alertas.push({tipo:'meta',urgencia:'r',titulo:'Caixa PJ abaixo de 30% da meta',desc:'R$ '+caixa.toLocaleString('pt-BR')+' de R$ '+mc.toLocaleString('pt-BR'),acao:'Revisar financeiro',irPara:'reservas'});
+  return alertas;
+}
+function renderAlertasFull(){
+  if(!DB)return;
+  var alertas=getAlertasGerais();
+  var hoje=new Date();hoje.setHours(0,0,0,0);
   // Pagamentos atrasados
   var fat=DB.clientes.filter(function(c){return c.status!=='Encerrado'&&c.dia;});
   var urg=0,atenc=0,ok=0;
