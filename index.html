@@ -5158,23 +5158,53 @@ async function sincronizarGoogleAgenda(){
 function renderGoogleEventos(){
   var el=document.getElementById('ag-google-eventos');
   if(!el)return;
-  if(!_googleEventosCache.length){
-    el.innerHTML='<div style="font-size:.72rem;color:var(--muted);padding:10px 0;">Nenhum evento próximo no seu Google Agenda.</div>';
+  if(_agFiltroAtivo==='pendentes'||_agFiltroAtivo==='concluidos'){
+    el.innerHTML='';
     return;
   }
-  var h='<div style="font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:16px 0 8px;">Do seu Google Agenda</div>';
-  _googleEventosCache.forEach(function(ev){
+  var hojeDate=new Date();hojeDate.setHours(0,0,0,0);
+  var limite=new Date(hojeDate);
+  if(_agFiltroAtivo==='hoje')limite.setDate(limite.getDate()+1);
+  else if(_agFiltroAtivo==='semana')limite.setDate(limite.getDate()+7);
+  else limite.setDate(limite.getDate()+30);
+
+  var filtrados=_googleEventosCache.filter(function(ev){
     var start=ev.start&&(ev.start.dateTime||ev.start.date);
-    var dataFmt='—',horaFmt='';
-    if(start){
-      var d=new Date(start);
-      dataFmt=d.toLocaleDateString('pt-BR');
-      if(ev.start.dateTime)horaFmt=d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    if(!start)return false;
+    var d=new Date(start);
+    if(_agFiltroAtivo==='hoje'){
+      var dOnly=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+      return dOnly.getTime()===hojeDate.getTime();
     }
-    h+='<div style="background:var(--s1);border:1px dashed var(--muted2);border-radius:16px;padding:11px 13px;margin-bottom:8px;">';
-    h+='<div style="font-size:.8rem;font-weight:600;color:var(--cafe)">'+(horaFmt?horaFmt+' · ':'')+esc(ev.summary||'(sem título)')+'</div>';
-    h+='<div style="font-size:.66rem;color:var(--muted);margin-top:2px">'+dataFmt+(ev.location?' · '+esc(ev.location):'')+'</div>';
-    h+='</div>';
+    return d>=hojeDate&&d<limite;
+  });
+
+  if(!filtrados.length){
+    el.innerHTML='<div style="font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:16px 0 8px;">Do seu Google Agenda</div><div style="font-size:.72rem;color:var(--muted);padding-bottom:10px;">Nenhum evento do Google nesse período.</div>';
+    return;
+  }
+
+  var grupos={};
+  var ordemDatas=[];
+  filtrados.forEach(function(ev){
+    var start=ev.start.dateTime||ev.start.date;
+    var d=new Date(start);
+    var key=d.toLocaleDateString('pt-BR');
+    if(!grupos[key]){grupos[key]=[];ordemDatas.push(key);}
+    grupos[key].push(ev);
+  });
+
+  var h='<div style="font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:16px 0 8px;">Do seu Google Agenda</div>';
+  ordemDatas.forEach(function(dataKey){
+    h+='<div style="font-size:.68rem;color:var(--muted);font-weight:600;margin:10px 0 6px;">'+dataKey+'</div>';
+    grupos[dataKey].forEach(function(ev){
+      var start=ev.start.dateTime||ev.start.date;
+      var horaFmt=ev.start.dateTime?new Date(start).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'';
+      h+='<div style="background:var(--s1);border:1px dashed var(--muted2);border-radius:16px;padding:11px 13px;margin-bottom:8px;">';
+      h+='<div style="font-size:.8rem;font-weight:600;color:var(--cafe)">'+(horaFmt?horaFmt+' · ':'')+esc(ev.summary||'(sem título)')+'</div>';
+      if(ev.location)h+='<div style="font-size:.66rem;color:var(--muted);margin-top:2px">'+esc(ev.location)+'</div>';
+      h+='</div>';
+    });
   });
   el.innerHTML=h;
 }
