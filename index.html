@@ -14,13 +14,14 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 :root{
-  --nude:#C98C73;--nude-dim:rgba(201,140,115,.12);--nude-b:rgba(201,140,115,.28);
+  --nude:#A95F41;--nude-dim:rgba(169,95,65,.12);--nude-b:rgba(169,95,65,.28);
   --cafe:#5A4034;--cafe-dim:rgba(90,64,52,.07);
   --ouro:#C9A46A;--ouro-dim:rgba(201,164,106,.13);--ouro-b:rgba(201,164,106,.3);
   --offwhite:#FAF8F6;
-  --text:#3A2820;--muted:#9A7A6E;--muted2:#DDD0C8;--border:rgba(201,140,115,.13);
+  --text:#3A2820;--muted:#8A6B60;--muted2:#DDD0C8;--border:rgba(169,95,65,.13);
   --green:#7BAE8A;--green-dim:rgba(123,174,138,.12);--green-b:rgba(123,174,138,.28);
   --red:#C97070;--red-dim:rgba(201,112,112,.1);--red-b:rgba(201,112,112,.25);
   --s1:#FFFBF8;--s2:#F7EFE9;--s3:#EEE2D8;
@@ -105,7 +106,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
 @media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr;}.sb{width:88px;}.main{margin-left:88px;}.page{padding:13px;}.sb .nl,.sb .nb-group-label,.sb .chev,.sb .ndot{display:none;}.sb .sb-group-body{max-height:none!important;}.sb .nb{justify-content:center;padding:11px 0;position:relative;}.sb .ni{width:auto;font-size:1.15rem;}.sb .nb[data-tooltip]:hover::after{content:attr(data-tooltip);position:absolute;left:100%;top:50%;transform:translateY(-50%);margin-left:10px;background:var(--cafe);color:var(--ouro);font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;white-space:nowrap;padding:6px 11px;border-radius:10px;box-shadow:0 4px 12px rgba(58,40,32,.22);z-index:200;pointer-events:none;}.sb .sb-logo span{display:none;}}
 .card{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:20px;margin-bottom:15px;box-shadow:0 1px 3px rgba(58,40,32,.05),0 1px 2px rgba(58,40,32,.04);transition:box-shadow .2s,transform .15s;}
 .card:hover{box-shadow:0 4px 12px rgba(58,40,32,.07),0 2px 4px rgba(58,40,32,.05);}
-.card.warm{border-color:var(--nude-b);background:linear-gradient(135deg,rgba(201,140,115,.04),var(--s1));}
+.card.warm{border-color:var(--nude-b);background:linear-gradient(135deg,rgba(169,95,65,.04),var(--s1));}
 .cl{font-size:.54rem;letter-spacing:3px;text-transform:uppercase;color:var(--nude);font-weight:700;margin-bottom:10px;}
 .sv{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,3vw,1.8rem);font-weight:600;line-height:1;}
 .sv.o{color:var(--ouro);}.sv.g{color:var(--green);}.sv.r{color:var(--red);}.sv.n{color:var(--nude);}
@@ -132,6 +133,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
 .fi label{font-size:.54rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;}
 .fi input,.fi select,.fi textarea{background:var(--s2);border:1px solid var(--muted2);border-radius:12px;padding:9px 11px;color:var(--text);font-family:'Inter',sans-serif;font-size:.82rem;outline:none;transition:border-color .2s;width:100%;}
 .fi input:focus,.fi select:focus,.fi textarea:focus{border-color:var(--nude);}
+button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outline:2px solid var(--nude);outline-offset:2px;border-radius:6px;}
 .fi input::placeholder,.fi textarea::placeholder{color:var(--muted);}
 .fi select option{background:var(--s1);}
 .fi textarea{resize:vertical;min-height:68px;}
@@ -254,7 +256,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
         <button onclick="toggleResetForm()" style="background:none;border:none;font-size:.72rem;color:var(--nude);cursor:pointer;text-decoration:underline;font-family:Inter,sans-serif;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4" /> <path d="m21 2-9.6 9.6" /> <circle cx="7.5" cy="15.5" r="5.5" /></svg> Esqueci minha senha</button>
       </div>
       <div style="margin-top:8px;text-align:center">
-        <button onclick="toggleSupaReconnect()" style="background:none;border:none;font-size:.68rem;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:Inter,sans-serif;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" /></svg>️ Limpou o cache e não consegue entrar?</button>
+        <button onclick="toggleSupaReconnect()" style="background:none;border:none;font-size:.68rem;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:Inter,sans-serif;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" /></svg> Limpou o cache e não consegue entrar?</button>
       </div>
       <div id="supa-reconnect-form" style="display:none;margin-top:12px;background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:14px">
         <div style="font-size:.72rem;font-weight:600;color:var(--cafe);margin-bottom:6px">Reconectar à nuvem (Supabase)</div>
@@ -283,9 +285,11 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     <div class="sb-group-header open" data-group="principal" onclick="toggleSidebarGroup('principal')"><span class="nb-group-label" style="padding:0">Principal</span><span class="chev">▸</span></div>
     <div class="sb-group-body open" id="sbgroup-principal">
     <button class="nb active" data-tooltip="Início" onclick="goPage('home',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /> <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg></span><span class="nl">Início</span></button>
+    <button class="nb" data-tooltip="Painel Pessoal" onclick="goPage('painel',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /></svg></span><span class="nl">Painel Pessoal</span></button>
     <button class="nb" data-tooltip="Clientes" id="nav-btn-clientes" onclick="goPage('clientes',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg></span><span class="nl">Clientes</span><span class="ndot" id="dot-cli"></span></button>
     <button class="nb" data-tooltip="Finanças" onclick="goPage('financeiro',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" /> <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" /></svg></span><span class="nl">Finanças</span></button>
     <button class="nb" data-tooltip="CRM" onclick="goPage('crm',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></svg></span><span class="nl">CRM</span></button>
+    <button class="nb" data-tooltip="Agenda" onclick="goPage('agenda',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /></svg></span><span class="nl">Agenda</span></button>
     </div>
     <div class="sb-group-header" data-group="gestao" onclick="toggleSidebarGroup('gestao')"><span class="nb-group-label" style="padding:0">Gestão</span><span class="chev">▸</span></div>
     <div class="sb-group-body" id="sbgroup-gestao">
@@ -298,22 +302,23 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     <div class="sb-group-header" data-group="negocio" onclick="toggleSidebarGroup('negocio')"><span class="nb-group-label" style="padding:0">Negócio</span><span class="chev">▸</span></div>
     <div class="sb-group-body" id="sbgroup-negocio">
     <button class="nb" data-tooltip="Processos" onclick="goPage('macros',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /> <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></svg></span><span class="nl">Processos</span></button>
-    <button class="nb" data-tooltip="Tempo" onclick="goPage('produtividade',this)"><span class="ni">⏱️</span><span class="nl">Tempo</span></button>
+    <button class="nb" data-tooltip="Tempo" onclick="goPage('produtividade',this)"><span class="ni">⏱</span><span class="nl">Tempo</span></button>
     <button class="nb" data-tooltip="Estratégia" onclick="goPage('estrategia',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /></svg></span><span class="nl">Estratégia</span></button>
     <button class="nb" data-tooltip="Investir" onclick="goPage('investir',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /></svg></span><span class="nl">Investir</span></button>
     <button class="nb" data-tooltip="Reservas" onclick="goPage('reservas',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M10 18v-7" /> <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" /> <path d="M14 18v-7" /> <path d="M18 18v-7" /> <path d="M3 22h18" /> <path d="M6 18v-7" /></svg></span><span class="nl">Reservas</span></button>
     <button class="nb" data-tooltip="Empresa" onclick="goPage('empresa',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /></svg></span><span class="nl">Empresa</span></button>
     <button class="nb" data-tooltip="Biblioteca" onclick="goPage('biblioteca',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg></span><span class="nl">Biblioteca</span></button>
+    <button class="nb" data-tooltip="Decisões" onclick="goPage('decisoes',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" /></svg></span><span class="nl">Decisões</span></button>
     </div>
   </div>
-  <div class="sb-bot"><button class="nb" data-tooltip="Config" onclick="goPage('config',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg>️</span><span class="nl">Config</span></button></div>
+  <div class="sb-bot"><button class="nb" data-tooltip="Config" onclick="goPage('config',this)"><span class="ni"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg></span><span class="nl">Config</span></button></div>
 </nav>
 
 <main class="main" id="main-content" style="display:none;">
   <div class="topbar">
     <div><div class="tb-title">Ecossistema <em>Raiz</em></div><div class="tb-breadcrumb" id="tb-breadcrumb">Início</div><div class="tb-date" id="tbdate">—</div></div>
     <div class="tb-search-wrap">
-      <input type="text" id="tb-search" class="tb-search" placeholder="<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /></svg> Pesquisar clientes, propostas, biblioteca..." autocomplete="off" oninput="buscarGlobalLive(this.value)" onfocus="if(this.value)buscarGlobalLive(this.value)" onblur="setTimeout(function(){fecharBuscaGlobal();},150)" onkeydown="if(event.key==='Escape')this.blur();">
+      <input type="text" id="tb-search" class="tb-search" aria-label="Pesquisar clientes, propostas, biblioteca" placeholder="Pesquisar clientes, propostas, biblioteca..." autocomplete="off" oninput="buscarGlobalLive(this.value)" onfocus="if(this.value)buscarGlobalLive(this.value)" onblur="setTimeout(function(){fecharBuscaGlobal();},150)" onkeydown="if(event.key==='Escape')this.blur();">
       <div id="tb-search-results" class="tb-search-results"></div>
     </div>
     <div class="tb-r" id="tbright"><button class="logout-btn" onclick="logout()">Sair</button></div>
@@ -323,6 +328,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
   <div class="page active" id="page-home">
     <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:6px;">
       <div><div class="pe">Início</div><div class="pt" id="home-title">Olá</div></div>
+      <button class="bg" style="font-size:.66rem;padding:8px 14px;" onclick="gerarReuniaoExecutiva(false)"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block;margin-right:4px;"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /></svg>Reunião Executiva</button>
     </div>
 
     <div class="section-hdr"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M5 21v-6" /> <path d="M12 21V3" /> <path d="M19 21V9" /></svg> Visão Geral</div>
@@ -386,6 +392,12 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
       </div>
       <div id="clara-chat" style="max-height:360px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:12px;padding-right:2px;"></div>
       <div id="clara-loading" style="display:none;padding:2px 0 10px;font-size:.74rem;color:var(--muted);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /> <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></svg> Clara está pensando...</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+        <button class="bg" style="font-size:.6rem;padding:5px 10px;" onclick="claraPerguntaRapida('Onde está meu maior gargalo agora?')">Meu maior gargalo</button>
+        <button class="bg" style="font-size:.6rem;padding:5px 10px;" onclick="claraPerguntaRapida('Quem entre minhas clientes merece minha atenção imediata, e por quê?')">Quem merece atenção</button>
+        <button class="bg" style="font-size:.6rem;padding:5px 10px;" onclick="claraPerguntaRapida('Estou crescendo de forma saudável, considerando meu financeiro, CRM e carga de trabalho?')">Estou crescendo bem?</button>
+        <button class="bg" style="font-size:.6rem;padding:5px 10px;" onclick="claraPreencher('Quero simular um cenário: se eu ')">Simular cenário</button>
+      </div>
       <div style="display:flex;gap:8px;align-items:flex-end;">
         <button class="bd" style="font-size:.62rem;padding:9px 12px;white-space:nowrap;flex-shrink:0;" onclick="claraAnalise()">Fazer o raio-x</button>
         <textarea id="clara-input" rows="1" placeholder="Escreva pra Clara..." style="flex:1;resize:none;border:1px solid var(--border);border-radius:16px;padding:9px 12px;font-size:.8rem;font-family:inherit;background:var(--s1);color:var(--text);outline:none;" onkeydown="claraKeydown(event)"></textarea>
@@ -393,6 +405,48 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
       </div>
     </div>
     <div class="manifesto"><p>"Aqui, o negócio não é apenas gerido, ele é vivido, observado e reorganizado como um organismo vivo em evolução consciente."</p></div>
+  </div>
+
+  <!-- PAINEL PESSOAL (FUNDADORA) -->
+  <div class="page" id="page-painel">
+    <div class="ph"><div class="pe">Painel Pessoal</div><div class="pt">Como você está, <em>de verdade</em></div><div class="ps">Este espaço é sobre você, não sobre a empresa.</div></div>
+
+    <div class="card warm" id="painel-saudacao" style="text-align:center;padding:20px;margin-bottom:13px;"></div>
+
+    <div class="section-hdr">Meu Dia</div>
+    <div class="card" style="margin-bottom:13px;"><div id="painel-meudia"></div></div>
+
+    <div class="section-hdr">Check-in do Dia</div>
+    <div class="card" style="margin-bottom:13px;">
+      <div class="cl">Como está sua energia hoje?</div>
+      <div id="painel-energia-opts" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;"></div>
+      <div class="cl">Você sabe exatamente o que precisa fazer hoje?</div>
+      <div id="painel-clareza-opts" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;"></div>
+      <div class="fi"><label>Sua prioridade principal de hoje</label><input type="text" id="painel-prioridade" placeholder="ex: Finalizar o fechamento financeiro do mês" onchange="salvarCheckinPainel()"></div>
+    </div>
+
+    <div class="section-hdr">Hábitos de Hoje</div>
+    <div class="card" style="margin-bottom:13px;">
+      <div id="painel-habitos-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px;"></div>
+      <button class="bg" style="font-size:.64rem;padding:6px 12px;" onclick="editarHabitosPainel()">Editar hábitos acompanhados</button>
+    </div>
+
+    <div class="section-hdr">Radar do Dia</div>
+    <div class="card" id="painel-radar" style="margin-bottom:13px;"></div>
+
+    <div class="section-hdr">Reflexão do Dia</div>
+    <div class="card" style="margin-bottom:13px;">
+      <div class="fi"><label>O que funcionou bem hoje?</label><textarea id="ref-bem" rows="2"></textarea></div>
+      <div class="fi"><label>O que pode melhorar amanhã?</label><textarea id="ref-melhorar" rows="2"></textarea></div>
+      <div class="fr"><div class="fi"><label>Maior conquista de hoje</label><input type="text" id="ref-conquista"></div><div class="fi"><label>Algo te preocupando?</label><input type="text" id="ref-preocupacao"></div></div>
+      <div style="display:flex;justify-content:flex-end;"><button class="bp" onclick="salvarReflexaoPainel()">Salvar Reflexão</button></div>
+    </div>
+
+    <div class="section-hdr">Histórico de Reflexões</div>
+    <div class="card" style="margin-bottom:13px;"><div id="painel-reflexoes-hist"></div></div>
+
+    <div class="section-hdr">Seu Espelho</div>
+    <div class="card"><div id="espelho-conteudo"></div></div>
   </div>
 
   <!-- CLIENTES -->
@@ -533,7 +587,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
         <button class="bp" onclick="prodSalvarManual()">Salvar Manual</button>
       </div>
     </div>
-    <div class="card"><div class="cl">Sessões Recentes</div><div id="prod-lista-sessoes"><div class="ev"><div class="eicon">⏱️</div><div class="edesc">Nenhuma sessão registrada ainda.</div></div></div></div>
+    <div class="card"><div class="cl">Sessões Recentes</div><div id="prod-lista-sessoes"><div class="ev"><div class="eicon">⏱</div><div class="edesc">Nenhuma sessão registrada ainda.</div></div></div></div>
   </div>
 
   <div class="itab-pane" id="prod-demandas" style="display:none" style="display:none">
@@ -604,7 +658,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
       <label style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--cafe);margin:2px 0 10px"><input type="checkbox" id="sim-recorrente" onchange="calcSimulador()" style="width:auto"> É um gasto recorrente mensal (ex: contratação, assinatura)</label>
       <div id="sim-resultado"></div>
     </div><div style="display:flex;justify-content:flex-end;margin-bottom:13px"><button class="bp" onclick="openModal('modal-add-inv')">+ Analisar Investimento</button></div><div id="lista-inv"></div></div>
-  <div class="page" id="page-reservas"><div class="ph"><div class="pe">Reservas e Investimentos</div><div class="pt">Seu dinheiro <em>trabalhando por você</em></div></div><div id="reservas-edu" class="card warm" style="margin-bottom:13px"><div class="cl">Educação Financeira</div><div id="edu-content"></div></div><div class="g3" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Investido</div><div class="sv o" id="res-total">—</div></div><div class="sc"><div class="sl">Rentabilidade Média</div><div class="sv g" id="res-rent">—</div></div><div class="sc"><div class="sl">Rendimento Mensal Est.</div><div class="sv g" id="res-rend">—</div></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Meus Caixas e Reservas</div><div id="caixas-grid"></div><div style="margin-top:12px;display:flex;justify-content:flex-end"><button class="bp" onclick="openModal('modal-edit-caixas')">Atualizar Valores</button></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Aporte Mensal</div><div style="font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Registre quanto você vai depositar este mês. O valor é somado ao saldo de cada objetivo, dividido pelo percentual que você definir.</div><div class="fr"><div class="fi"><label>Valor disponível para aportar (R$)</label><input type="text" inputmode="decimal" id="ap-valor" oninput="calcAportePreview()"></div><div class="fi"><label>&nbsp;</label><button class="bg" style="width:100%" onclick="openModal('modal-aporte-config')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg>️ Definir % por objetivo</button></div></div><div id="ap-preview" style="display:none;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:16px;padding:10px;margin-bottom:12px"><div id="ap-preview-list"></div></div><div style="display:flex;justify-content:flex-end"><button class="bp" onclick="registrarAporte()">Registrar Aporte</button></div><div id="ap-historico" style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px"></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="cl" style="margin-bottom:0">Minhas Aplicações</div><button class="bp" onclick="abrirNovaReserva()">+ Adicionar</button></div><div id="lista-reservas"></div></div><div class="card"><div class="cl">Distribuição das Reservas</div><div id="reservas-dist"></div></div><div id="risco-painel" class="card" style="margin-bottom:13px"></div>
+  <div class="page" id="page-reservas"><div class="ph"><div class="pe">Reservas e Investimentos</div><div class="pt">Seu dinheiro <em>trabalhando por você</em></div></div><div id="reservas-edu" class="card warm" style="margin-bottom:13px"><div class="cl">Educação Financeira</div><div id="edu-content"></div></div><div class="g3" style="margin-bottom:13px"><div class="sc"><div class="sl">Total Investido</div><div class="sv o" id="res-total">—</div></div><div class="sc"><div class="sl">Rentabilidade Média</div><div class="sv g" id="res-rent">—</div></div><div class="sc"><div class="sl">Rendimento Mensal Est.</div><div class="sv g" id="res-rend">—</div></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Meus Caixas e Reservas</div><div id="caixas-grid"></div><div style="margin-top:12px;display:flex;justify-content:flex-end"><button class="bp" onclick="openModal('modal-edit-caixas')">Atualizar Valores</button></div></div><div class="card warm" style="margin-bottom:13px"><div class="cl">Aporte Mensal</div><div style="font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Registre quanto você vai depositar este mês. O valor é somado ao saldo de cada objetivo, dividido pelo percentual que você definir.</div><div class="fr"><div class="fi"><label>Valor disponível para aportar (R$)</label><input type="text" inputmode="decimal" id="ap-valor" oninput="calcAportePreview()"></div><div class="fi"><label>&nbsp;</label><button class="bg" style="width:100%" onclick="openModal('modal-aporte-config')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg> Definir % por objetivo</button></div></div><div id="ap-preview" style="display:none;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:16px;padding:10px;margin-bottom:12px"><div id="ap-preview-list"></div></div><div style="display:flex;justify-content:flex-end"><button class="bp" onclick="registrarAporte()">Registrar Aporte</button></div><div id="ap-historico" style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px"></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="cl" style="margin-bottom:0">Minhas Aplicações</div><button class="bp" onclick="abrirNovaReserva()">+ Adicionar</button></div><div id="lista-reservas"></div></div><div class="card"><div class="cl">Distribuição das Reservas</div><div id="reservas-dist"></div></div><div id="risco-painel" class="card" style="margin-bottom:13px"></div>
 <div class="card" style="margin-top:13px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
         <div><div class="cl" style="margin-bottom:2px;">Evolução Mensal</div>
@@ -633,7 +687,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     <div class="card" style="margin-bottom:13px">
       <div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg> Bio da Empresa</div>
       <div class="fi"><label>Bio curta (para Instagram, WhatsApp, apresentações)</label>
-        <textarea id="emp-bio" placeholder="Ex: Consultora estratégica para mulheres empreendedoras. Ajudo a organizar, crescer e ganhar dinheiro com intencionalidade. Salvador/BA <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /> <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></svg>"></textarea>
+        <textarea id="emp-bio" placeholder="Ex: Consultora estratégica para mulheres empreendedoras. Ajudo a organizar, crescer e ganhar dinheiro com intencionalidade. Salvador/BA"></textarea>
       </div>
       <div class="fi"><label>Tipo de negócio</label>
         <select id="emp-tipo" onchange="toggleEmpCustom()">
@@ -645,7 +699,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
           <option value="Agência">Agência</option>
           <option value="Educação / Cursos">Educação / Cursos</option>
           <option value="Tecnologia / SaaS">Tecnologia / SaaS</option>
-          <option value="custom"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg>️ Outro — escrever</option>
+          <option value="custom"> Outro — escrever</option>
         </select>
       </div>
       <div class="fi" id="emp-custom-wrap" style="display:none">
@@ -671,7 +725,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     </div>
 
     <div class="card" style="margin-bottom:13px">
-      <div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /> <circle cx="12" cy="7" r="4" /></svg>‍<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /></svg>‍<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /> <circle cx="12" cy="7" r="4" /></svg> Público-alvo e Posicionamento</div>
+      <div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /> <circle cx="12" cy="7" r="4" /></svg><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /></svg><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /> <circle cx="12" cy="7" r="4" /></svg> Público-alvo e Posicionamento</div>
       <div class="fi"><label>Quem é sua cliente ideal?</label>
         <textarea id="emp-pub" placeholder="Ex: Mulheres empreendedoras, 28-45 anos, que já faturam mas não sabem para onde o dinheiro vai. Querem clareza e estrutura."></textarea>
       </div>
@@ -684,7 +738,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     </div>
 
     <div class="card" style="margin-bottom:13px">
-      <div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" /> <path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14" /> <path d="M8 6v8" /></svg>️ Linguagem e Identidade Visual</div>
+      <div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" /> <path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14" /> <path d="M8 6v8" /></svg> Linguagem e Identidade Visual</div>
       <div class="fi"><label>Tom de voz — como você fala?</label>
         <textarea id="emp-tom" placeholder="Ex: Direta, acolhedora, sem jargões, fala como uma amiga que entende de negócio. Usa metáforas da natureza."></textarea>
       </div>
@@ -882,7 +936,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
           <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--cafe)">RECIBO DE PAGAMENTO</div>
           <div style="display:flex;gap:8px">
-            <button class="be" onclick="imprimirRecibo()"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /> <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" /> <rect x="6" y="14" width="12" height="8" rx="1" /></svg>️ Imprimir</button>
+            <button class="be" onclick="imprimirRecibo()"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /> <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" /> <rect x="6" y="14" width="12" height="8" rx="1" /></svg> Imprimir</button>
             <button class="bp" onclick="copiarRecibo()"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" /></svg> Copiar</button>
           </div>
         </div>
@@ -908,7 +962,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
 
 <div class="page" id="page-config"><div class="ph"><div class="pe">Configurações</div><div class="pt"><em>Personalize</em> seu ecossistema</div></div><div class="card"><div class="cl">Preferências</div><div class="fr"><div class="fi"><label>Seu nome</label><input type="text" id="cfg-nome"></div><div class="fi"><label>Lembrar pagamentos</label><select id="cfg-dias"><option value="3">3 dias antes</option><option value="5">5 dias antes</option><option value="7">7 dias antes</option></select></div></div><div class="fr"><div class="fi"><label>Custo pessoal mensal (R$)</label><input type="number" id="cfg-custo"></div><div class="fi"><label>Meta Caixa Emergência PJ (R$)</label><input type="number" id="cfg-meta-caixa"></div></div><button class="bp" onclick="salvarConfig()">Salvar</button></div><div class="card"><div class="cl">Clara — Chave de API</div><div style="font-size:.74rem;color:var(--muted);margin-bottom:11px;line-height:1.6">Para a Clara funcionar fora do Claude.ai. <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--nude)">Criar chave →</a></div><div class="fi"><label>Chave de API (sk-ant-...)</label><input type="password" id="cfg-apikey"></div><button class="bp" onclick="salvarApiKey()">Salvar Chave</button><span id="cfg-apikey-status" style="font-size:.72rem;color:var(--green);margin-left:10px"></span></div><div class="card"><div class="cl">Conta</div><div style="font-size:.76rem;color:var(--muted);margin-bottom:11px" id="cfg-user-info">—</div><button class="bd" onclick="if(confirm('Apagar todos os dados?')){limparDados();}">Apagar todos os dados</button></div>
 <div class="card" style="border:2px solid var(--ouro)">
-  <div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" /></svg>️ Supabase — Dados na Nuvem</div>
+  <div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" /></svg> Supabase — Dados na Nuvem</div>
   <div style="font-size:.74rem;color:var(--muted);margin-bottom:11px;line-height:1.6">Para acessar seus dados em qualquer dispositivo. Gratuito em <a href="https://supabase.com" target="_blank" style="color:var(--nude)">supabase.com →</a></div>
   <div class="fi"><label>URL do Projeto</label><input type="text" id="cfg-supa-url" placeholder="https://xxxxx.supabase.co"></div>
   <div class="fi"><label>Chave Pública (anon key)</label><input type="password" id="cfg-supa-key" placeholder="eyJ..."></div>
@@ -929,8 +983,8 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
   <div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></svg> Meus Serviços</div>
   <div style="font-size:.74rem;color:var(--muted);margin-bottom:12px;line-height:1.5">Cadastre seus serviços para vincular ao criar clientes.</div>
   <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
-    <input type="text" id="srv-nome" placeholder="ex: Consultoria estratégica mensal" style="flex:1;min-width:180px">
-    <input type="number" id="srv-valor" placeholder="Valor R$" style="width:110px">
+    <input type="text" id="srv-nome" aria-label="Nome do serviço" placeholder="ex: Consultoria estratégica mensal" style="flex:1;min-width:180px">
+    <input type="number" id="srv-valor" aria-label="Valor do serviço em reais" placeholder="Valor R$" style="width:110px">
     <button class="bp" onclick="adicionarServico()">+ Adicionar</button>
   </div>
   <div id="lista-servicos-cfg"><div style="font-size:.74rem;color:var(--muted)">Nenhum serviço cadastrado ainda.</div></div>
@@ -1031,7 +1085,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
       <b>Faturamento planejado / Meta de lucro do mês:</b> são metas que <b>você define livremente</b> pra cada mês, não são calculadas uma a partir da outra. A meta de lucro pode até ser maior que o faturamento planejado se você quiser um valor de referência sem vínculo matemático direto — é só um alvo.
     </div></details>
     <div class="card" style="margin-bottom:13px">
-      <div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg>️ Configurar Saúde Financeira</div>
+      <div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg> Configurar Saúde Financeira</div>
       <div class="fr">
         <div class="fi"><label>Meta Padrão de Faturamento (R$)</label><input type="text" inputmode="decimal" id="cfg-meta-fat" oninput="calcSaudeFinanceira();marcarConfigNaoSalva()"></div>
         <div class="fi"><label>Limite de Gastos (% do recebido)</label><input type="text" inputmode="decimal" id="cfg-limite-gasto" oninput="calcSaudeFinanceira();marcarConfigNaoSalva()" placeholder="ex: 40"></div>
@@ -1062,20 +1116,102 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     <div id="lista-biblioteca"><div class="ev"><div class="eicon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg></div><div class="etitle">Biblioteca vazia</div><div class="edesc">Adicione templates, links e materiais que você usa com clientes.</div></div></div>
   </div>
 
+  <!-- CENTRO DE DECISÕES -->
+  <div class="page" id="page-decisoes">
+    <div class="ph"><div class="pe">Decisões</div><div class="pt">O que você decidiu, <em>e o que aconteceu depois</em></div><div class="ps">Registre decisões importantes e revisite os resultados no futuro.</div></div>
+    <div class="g4" style="margin-bottom:13px">
+      <div class="sc"><div class="sl">Total</div><div class="sv o" id="dec-total">—</div></div>
+      <div class="sc"><div class="sl">Em andamento</div><div class="sv n" id="dec-andamento">—</div></div>
+      <div class="sc"><div class="sl">Aguardando revisão</div><div class="sv o" id="dec-revisao">—</div></div>
+      <div class="sc"><div class="sl">Taxa de sucesso</div><div class="sv g" id="dec-taxa">—</div></div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:13px"><button class="bp" onclick="abrirNovaDecisao()">+ Nova Decisão</button></div>
+    <div id="lista-decisoes"></div>
+  </div>
+
+  <!-- AGENDA -->
+  <div class="page" id="page-agenda">
+    <div class="ph"><div class="pe">Agenda</div><div class="pt">O que precisa acontecer <em>hoje</em></div><div class="ps">Organize sua rotina e acompanhe todos os compromissos.</div></div>
+    <div class="card" style="margin-bottom:13px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px" id="ag-google-card">
+      <div style="display:flex;align-items:center;gap:8px">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.1em" height="1.1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--nude)"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /></svg>
+        <div><div style="font-size:.8rem;font-weight:600;color:var(--cafe)">Google Agenda</div><div style="font-size:.68rem;color:var(--muted)" id="ag-google-status">Não conectado</div></div>
+      </div>
+      <button class="bg" style="font-size:.66rem;padding:8px 14px" id="ag-google-btn" onclick="conectarGoogleAgenda()">Conectar</button>
+    </div>
+    <div class="g4" style="margin-bottom:13px">
+      <div class="sc"><div class="sl">Hoje</div><div class="sv o" id="ag-hoje-count">—</div></div>
+      <div class="sc"><div class="sl">Esta semana</div><div class="sv n" id="ag-semana-count">—</div></div>
+      <div class="sc"><div class="sl">Atrasados</div><div class="sv r" id="ag-atrasados-count">—</div></div>
+      <div class="sc"><div class="sl">Concluídos (mês)</div><div class="sv g" id="ag-concluidos-count">—</div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;flex-wrap:wrap;gap:8px">
+      <div style="display:flex;gap:6px;flex-wrap:wrap" id="ag-filtros">
+        <button class="itab active" onclick="agFiltrar('hoje',this)">Hoje</button>
+        <button class="itab" onclick="agFiltrar('semana',this)">Esta semana</button>
+        <button class="itab" onclick="agFiltrar('todos',this)">Todos</button>
+        <button class="itab" onclick="agFiltrar('pendentes',this)">Pendentes</button>
+        <button class="itab" onclick="agFiltrar('concluidos',this)">Concluídos</button>
+      </div>
+      <button class="bp" onclick="abrirNovoCompromisso()">+ Novo Compromisso</button>
+    </div>
+    <div id="lista-agenda"></div>
+    <div id="ag-google-eventos"></div>
+  </div>
+
 </main>
+<div class="mo" id="modal-add-compromisso"><div class="md">
+  <div class="mt" id="mag-title">Novo Compromisso</div>
+  <input type="hidden" id="ag-edit-id">
+  <div class="fi"><label>Título</label><input type="text" id="ag-titulo" placeholder="ex: Reunião de alinhamento"></div>
+  <div class="fr">
+    <div class="fi"><label>Data</label><input type="date" id="ag-data"></div>
+    <div class="fi"><label>Categoria</label><select id="ag-categoria"></select></div>
+  </div>
+  <div class="fr">
+    <div class="fi"><label>Hora inicial</label><input type="time" id="ag-hora-ini"></div>
+    <div class="fi"><label>Hora final</label><input type="time" id="ag-hora-fim"></div>
+  </div>
+  <div class="fi"><label>Cliente vinculada (opcional)</label><select id="ag-cliente"><option value="">Nenhuma</option></select></div>
+  <div class="fi"><label>Local</label><input type="text" id="ag-local" placeholder="ex: Online, WhatsApp, escritório..."></div>
+  <div class="fi"><label>Observações</label><textarea id="ag-obs" rows="2"></textarea></div>
+  <div class="fi"><label>Status</label><select id="ag-status"><option value="agendado">Agendado</option><option value="confirmado">Confirmado</option><option value="concluido">Concluído</option><option value="cancelado">Cancelado</option><option value="reagendado">Reagendado</option></select></div>
+  <div id="ag-conflito-aviso" style="display:none;background:var(--red-dim);border:1px solid var(--red-b);border-radius:12px;padding:9px 11px;font-size:.72rem;color:var(--red);margin-bottom:10px;"></div>
+  <div class="ma"><button class="bg" onclick="closeModal('modal-add-compromisso')">Cancelar</button><button class="bp" onclick="salvarCompromisso()">Salvar</button></div>
+</div></div>
+<div class="mo" id="modal-add-decisao"><div class="md">
+  <div class="mt" id="mdec-title">Nova Decisão</div>
+  <input type="hidden" id="dec-edit-id">
+  <div class="fi"><label>Título</label><input type="text" id="dec-titulo" placeholder="ex: Aumentar preço do pacote mensal"></div>
+  <div class="fr">
+    <div class="fi"><label>Categoria</label><select id="dec-categoria"><option>Financeiro</option><option>Comercial</option><option>Marketing</option><option>Clientes</option><option>Equipe</option><option>Processos</option><option>Tecnologia</option><option>Estratégia</option><option>Pessoal</option></select></div>
+    <div class="fi"><label>Prazo para revisão</label><input type="date" id="dec-prazo"></div>
+  </div>
+  <div class="fi"><label>Descrição</label><textarea id="dec-descricao" rows="2" placeholder="O que exatamente foi decidido"></textarea></div>
+  <div class="fi"><label>Objetivo (o que espero alcançar)</label><input type="text" id="dec-objetivo"></div>
+  <div class="fi"><label>Hipótese (o que acredito que vai acontecer)</label><input type="text" id="dec-hipotese"></div>
+  <div class="fi"><label>Status</label><select id="dec-status"><option value="planejada">Planejada</option><option value="andamento">Em andamento</option><option value="implementada">Implementada</option></select></div>
+  <div class="ma"><button class="bg" onclick="closeModal('modal-add-decisao')">Cancelar</button><button class="bp" onclick="salvarDecisao()">Salvar</button></div>
+</div></div>
+<div class="mo" id="modal-reuniao-exec"><div class="md" style="max-width:560px;">
+  <div class="mt" style="display:flex;align-items:center;gap:8px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /></svg> Reunião Executiva</div>
+  <div id="reuniao-exec-body" style="max-height:60vh;overflow-y:auto;margin:12px 0;"></div>
+  <div class="ma"><button class="bg" onclick="closeModal('modal-reuniao-exec')">Fechar</button><button class="bp" onclick="gerarReuniaoExecutiva(true)">Gerar de novo</button></div>
+</div></div>
+
 <div class="mo" id="modal-add-cli"><div class="md"><div class="mt" id="mcli-title">Nova Cliente</div><input type="hidden" id="cli-edit-id"><div class="fr"><div class="fi"><label>Nome</label><input type="text" id="cli-nome"></div><div class="fi"><label>Valor Mensal (R$)</label><input type="number" id="cli-val"></div></div><div class="fr"><div class="fi"><label>Dia Vencimento</label><input type="number" id="cli-dia" min="1" max="31"></div><div class="fi"><label>Meio de Pagamento</label><select id="cli-meio"><option>PIX</option><option>Transferência</option><option>Boleto</option><option>Cartão</option></select></div></div><div class="fr"><div class="fi"><label>Início Contrato</label><input type="date" id="cli-inicio"></div><div class="fi"><label>Primeiro Pagamento</label><input type="date" id="cli-primeiro-pag"></div></div><div class="fr"><div class="fi"><label>Status</label><select id="cli-status"><option>Ativo</option><option>Saindo</option><option>Parceria</option><option>Encerrado</option></select></div><div class="fi"><label>Canal</label><input type="text" id="cli-canal"></div></div><div class="fi"><label>Fim Contrato</label><input type="date" id="cli-fim"></div>
   <div class="fi"><label>Situação do contrato</label>
     <select id="cli-contrato-status" onchange="toggleContratoObs()">
-      <option value="ativo"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> Ativo — dentro do prazo</option>
-      <option value="sem_prazo"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></svg> Ativo — sem data de fim (contínuo)</option>
-      <option value="vencido_renovando"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg>️ Vencido — seguindo sem renovação formal</option>
-      <option value="em_renovacao"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg> Em renovação — negociando novo contrato</option>
-      <option value="encerrado"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><circle cx="12" cy="12" r="10" /> <path d="m15 9-6 6" /> <path d="m9 9 6 6" /></svg> Encerrado</option>
+      <option value="ativo">Ativo — dentro do prazo</option>
+      <option value="sem_prazo">Ativo — sem data de fim (contínuo)</option>
+      <option value="vencido_renovando"> Vencido — seguindo sem renovação formal</option>
+      <option value="em_renovacao">Em renovação — negociando novo contrato</option>
+      <option value="encerrado">Encerrado</option>
     </select>
   </div>
   <div id="cli-contrato-obs-wrap" style="display:none">
     <div style="background:var(--ouro-dim);border:1px solid var(--ouro-b);border-radius:16px;padding:11px;margin-bottom:10px">
-      <div style="font-size:.63rem;font-weight:700;color:var(--ouro);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg>️ CONTRATO VENCIDO — EM ANDAMENTO</div>
+      <div style="font-size:.63rem;font-weight:700;color:var(--ouro);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg> CONTRATO VENCIDO — EM ANDAMENTO</div>
       <div class="fi" style="margin-bottom:0"><label>Observação</label>
         <input type="text" id="cli-contrato-obs" placeholder="ex: Contrato venceu em jun/2026, seguindo sem renovação. Novo contrato previsto para julho.">
       </div>
@@ -1087,10 +1223,10 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     <textarea id="cli-servico" placeholder="Descreva o escopo..."></textarea>
   </div><div class="fi"><label>Modelo de receita</label>
     <select id="cli-modelo-rec" onchange="toggleCliVariavel()">
-      <option value="fixo"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M13.744 17.736a6 6 0 1 1-7.48-7.48" /> <path d="M15 6h1v4" /> <path d="m6.134 14.768.866-.5 2 3.464" /> <circle cx="16" cy="8" r="6" /></svg> Fixo mensal</option>
-      <option value="hibrido"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" /></svg> Híbrido (fixo + variável)</option>
-      <option value="projeto"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /> <path d="M12 22V12" /> <polyline points="3.29 7 12 12 20.71 7" /> <path d="m7.5 4.27 9 5.15" /></svg> Por projeto</option>
-      <option value="comissao"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /></svg> Comissão por resultado</option>
+      <option value="fixo">Fixo mensal</option>
+      <option value="hibrido">Híbrido (fixo + variável)</option>
+      <option value="projeto">Por projeto</option>
+      <option value="comissao">Comissão por resultado</option>
       <option value="hora">⏱ Por hora</option>
     </select>
   </div>
@@ -1115,7 +1251,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
   <div class="fi"><label>Etapa</label><select id="crm-etapa"></select></div>
   <div class="fr"><div class="fi"><label>Como chegou</label><select id="crm-orig"><option>Indicação</option><option>Instagram</option><option>WhatsApp</option><option>Prospecção ativa</option><option>Outro</option></select></div><div class="fi"><label>Canal</label><select id="crm-canal"><option value="">A definir</option><option value="WhatsApp">Só WhatsApp</option><option value="Reunião">Precisou de reunião</option></select></div></div>
   <div class="fr"><div class="fi"><label><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /></svg> Data da Reunião</label><input type="date" id="crm-reuniao-data"></div><div class="fi"><label>Status da Reunião</label><select id="crm-reuniao-status"><option value="">Sem reunião</option><option value="agendada">Agendada</option><option value="realizada">Realizada</option><option value="cancelada">Cancelada</option></select></div></div>
-  <div class="fi"><label><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" /></svg> Contrato</label><select id="crm-contrato"><option value="">Sem contrato ainda</option><option value="em_negociacao">Em negociação</option><option value="enviado">Proposta enviada</option><option value="fechado"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> Contrato fechado!</option><option value="perdido"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><circle cx="12" cy="12" r="10" /> <path d="m15 9-6 6" /> <path d="m9 9 6 6" /></svg> Não fechou</option></select></div>
+  <div class="fi"><label><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" /></svg> Contrato</label><select id="crm-contrato"><option value="">Sem contrato ainda</option><option value="em_negociacao">Em negociação</option><option value="enviado">Proposta enviada</option><option value="fechado">Contrato fechado!</option><option value="perdido">Não fechou</option></select></div>
   <div class="fr"><div class="fi"><label>Data fechamento</label><input type="date" id="crm-contrato-data"></div><div class="fi"><label>Próximo Contato</label><input type="date" id="crm-contato"></div></div>
   <div class="fi"><label>Notas</label><textarea id="crm-notas"></textarea></div>
   <div class="ma"><button class="bg" onclick="closeModal('modal-add-crm')">Cancelar</button><button class="bp" onclick="adicionarCRM()">Salvar</button></div>
@@ -1160,11 +1296,11 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     <div class="fi"><label>Cliente</label><select id="proj-cliente"></select></div>
     <div class="fi"><label>Tipo</label>
       <select id="proj-tipo">
-        <option value="reuniao_agendada"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /> <rect width="20" height="14" x="2" y="6" rx="2" /></svg> Reunião agendada (para cliente dela)</option>
-        <option value="fechamento"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /></svg> Fechamento de contrato (cliente dela)</option>
-        <option value="projeto_pontual"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /></svg> Projeto pontual</option>
-        <option value="consultoria_avulsa"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></svg> Consultoria avulsa</option>
-        <option value="entrega_especifica"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /> <path d="M12 22V12" /> <polyline points="3.29 7 12 12 20.71 7" /> <path d="m7.5 4.27 9 5.15" /></svg> Entrega específica</option>
+        <option value="reuniao_agendada">Reunião agendada (para cliente dela)</option>
+        <option value="fechamento">Fechamento de contrato (cliente dela)</option>
+        <option value="projeto_pontual">Projeto pontual</option>
+        <option value="consultoria_avulsa">Consultoria avulsa</option>
+        <option value="entrega_especifica">Entrega específica</option>
         <option value="outro">Outro</option>
       </select>
     </div>
@@ -1175,7 +1311,7 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     <div class="fi"><label>Status</label>
       <select id="proj-status">
         <option value="em_andamento">Em andamento</option>
-        <option value="concluido"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> Concluído</option>
+        <option value="concluido">Concluído</option>
         <option value="aguardando">Aguardando</option>
         <option value="cancelado">Cancelado</option>
       </select>
@@ -1185,9 +1321,9 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
     <div class="fi"><label><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M13.744 17.736a6 6 0 1 1-7.48-7.48" /> <path d="M15 6h1v4" /> <path d="m6.134 14.768.866-.5 2 3.464" /> <circle cx="16" cy="8" r="6" /></svg> Valor combinado (R$)</label><input type="number" id="proj-valor" placeholder="ex: 300"></div>
     <div class="fi"><label>Recebido?</label>
       <select id="proj-recebido">
-        <option value="nao"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><circle cx="12" cy="12" r="10" /> <path d="m15 9-6 6" /> <path d="m9 9 6 6" /></svg> Ainda não</option>
-        <option value="sim"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> Sim, recebi</option>
-        <option value="parcial"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" /></svg> Parcialmente</option>
+        <option value="nao">Ainda não</option>
+        <option value="sim">Sim, recebi</option>
+        <option value="parcial">Parcialmente</option>
       </select>
     </div>
   </div>
@@ -1230,10 +1366,10 @@ body{background:var(--offwhite);color:var(--text);font-family:'Inter',sans-serif
   <div class="fi"><label><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" /></svg> Contrato</label>
     <select id="reu-contrato">
       <option value="">Sem contrato nesta reunião</option>
-      <option value="renovado"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> Contrato renovado</option>
-      <option value="fechado"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> Novo contrato fechado</option>
-      <option value="em_negociacao"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /></svg> Em negociação</option>
-      <option value="encerrado"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><circle cx="12" cy="12" r="10" /> <path d="m15 9-6 6" /> <path d="m9 9 6 6" /></svg> Contrato encerrado</option>
+      <option value="renovado">Contrato renovado</option>
+      <option value="fechado">Novo contrato fechado</option>
+      <option value="em_negociacao">Em negociação</option>
+      <option value="encerrado">Contrato encerrado</option>
     </select>
   </div>
   <div class="fr">
@@ -1292,7 +1428,7 @@ function toggleCliVariavel(){
   if(wrap)wrap.style.display=modelo==='hibrido'||modelo==='comissao'?'block':'none';
 }
 
-var CU=null;var DB=null;
+var CU=null;var DB=null;var _reuniaoAutoMostrada=false;
 
 function parseBRL(v){
   if(!v) return 0;
@@ -1433,6 +1569,11 @@ function renderHome(){
   if(!DB.meses)DB.meses=[];
   if(!DB.crm)DB.crm={etapas:[],cards:[]};
   if(!DB.crm.cards)DB.crm.cards=[];
+  if(!DB.reuniao_executiva)DB.reuniao_executiva={ultima_data:'',ultimo_texto:''};
+  if(!_reuniaoAutoMostrada&&DB.reuniao_executiva.ultima_data!==reuniaoExecHojeStr()){
+    _reuniaoAutoMostrada=true;
+    setTimeout(function(){gerarReuniaoExecutiva(false);},600);
+  }
   var hoje=new Date();hoje.setHours(0,0,0,0);
   var mesAtual=hoje.getMonth();var anoAtual=hoje.getFullYear();
   var al=getAlerts();
@@ -1564,6 +1705,197 @@ function renderHome(){
   document.getElementById('hcrm-pot').textContent=pot?'R$ '+pot.toLocaleString('pt-BR'):'—';
 }
 
+function hojeStrPainel(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function getCheckinHoje(){var hoje=hojeStrPainel();return DB.painel.checkins.find(function(c){return c.data===hoje;});}
+function renderPainel(){
+  if(!DB)return;
+  if(!DB.painel)DB.painel={checkins:[],habitos:['Água','Exercício','Leitura','Descanso'],habitos_log:{},reflexoes:[]};
+  var hr=new Date().getHours();
+  var saud=hr<12?'Bom dia':hr<18?'Boa tarde':'Boa noite';
+  var nome=CU?CU.nome:'';
+  document.getElementById('painel-saudacao').innerHTML='<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.4rem;font-weight:600;color:var(--cafe);">'+saud+(nome?', '+nome:'')+'</div><div style="font-size:.72rem;color:var(--muted);margin-top:4px;">'+DS[new Date().getDay()]+', '+new Date().getDate()+' de '+MOS[new Date().getMonth()]+'</div>';
+
+  var checkin=getCheckinHoje()||{};
+  var energiaOpts=['Excelente','Boa','Neutra','Cansada','Muito cansada'];
+  document.getElementById('painel-energia-opts').innerHTML=energiaOpts.map(function(op){
+    var active=checkin.energia===op;
+    return '<button type="button" class="'+(active?'bp':'bg')+'" style="font-size:.66rem;padding:7px 12px;" onclick="setEnergiaPainel(\''+op+'\')">'+op+'</button>';
+  }).join('');
+
+  var clarezaOpts=['Sim','Mais ou menos','Não'];
+  document.getElementById('painel-clareza-opts').innerHTML=clarezaOpts.map(function(op){
+    var active=checkin.clareza===op;
+    return '<button type="button" class="'+(active?'bp':'bg')+'" style="font-size:.66rem;padding:7px 12px;" onclick="setClarezaPainel(\''+op+'\')">'+op+'</button>';
+  }).join('');
+
+  document.getElementById('painel-prioridade').value=checkin.prioridade||'';
+
+  renderMeuDiaPainel();
+  renderHabitosPainel();
+  renderRadarPainel();
+  renderReflexoesPainelHist();
+  renderEspelhoFundadora();
+}
+function renderMeuDiaPainel(){
+  var el=document.getElementById('painel-meudia');
+  if(!el)return;
+  var compr=typeof getCompromissosHoje==='function'?getCompromissosHoje():[];
+  if(!compr.length){
+    el.innerHTML='<div style="font-size:.78rem;color:var(--muted);">Nenhum compromisso agendado para hoje.</div>';
+    return;
+  }
+  el.innerHTML=compr.map(function(c){
+    var statusCls={agendado:'m',confirmado:'n',concluido:'g',cancelado:'r',reagendado:'o'}[c.status]||'m';
+    var statusLabel={agendado:'Agendado',confirmado:'Confirmado',concluido:'Concluído',cancelado:'Cancelado',reagendado:'Reagendado'}[c.status]||c.status;
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);"><div><span style="font-size:.8rem;font-weight:600;color:var(--cafe)">'+(c.hora_inicio||'—')+'</span> <span style="font-size:.8rem;color:var(--text)">'+esc(c.titulo)+'</span>'+(c.clienteNome?' <span style="font-size:.68rem;color:var(--muted)">· '+esc(c.clienteNome)+'</span>':'')+'</div><span class="bdg '+statusCls+'">'+statusLabel+'</span></div>';
+  }).join('');
+}
+function setEnergiaPainel(v){
+  var hoje=hojeStrPainel();var c=getCheckinHoje();
+  if(!c){c={id:uid(),data:hoje,energia:'',clareza:'',prioridade:''};DB.painel.checkins.push(c);}
+  c.energia=v;saveDB();renderPainel();
+}
+function setClarezaPainel(v){
+  var hoje=hojeStrPainel();var c=getCheckinHoje();
+  if(!c){c={id:uid(),data:hoje,energia:'',clareza:'',prioridade:''};DB.painel.checkins.push(c);}
+  c.clareza=v;saveDB();renderPainel();
+}
+function salvarCheckinPainel(){
+  var hoje=hojeStrPainel();var c=getCheckinHoje();
+  if(!c){c={id:uid(),data:hoje,energia:'',clareza:'',prioridade:''};DB.painel.checkins.push(c);}
+  c.prioridade=document.getElementById('painel-prioridade').value.trim();
+  saveDB();notif('Prioridade do dia salva.');
+}
+function renderHabitosPainel(){
+  var hoje=hojeStrPainel();
+  if(!DB.painel.habitos_log[hoje])DB.painel.habitos_log[hoje]={};
+  var log=DB.painel.habitos_log[hoje];
+  var el=document.getElementById('painel-habitos-list');
+  if(!DB.painel.habitos.length){el.innerHTML='<div style="font-size:.74rem;color:var(--muted);">Nenhum hábito configurado ainda.</div>';return;}
+  el.innerHTML=DB.painel.habitos.map(function(hb){
+    var checked=!!log[hb];
+    return '<label style="display:flex;align-items:center;gap:9px;cursor:pointer;font-size:.8rem;color:var(--text);"><input type="checkbox" '+(checked?'checked':'')+' onchange="toggleHabitoPainel(\''+hb.replace(/'/g,"\\'")+'\')" style="width:17px;height:17px;accent-color:var(--nude);cursor:pointer;">'+esc(hb)+'</label>';
+  }).join('');
+}
+function toggleHabitoPainel(nome){
+  var hoje=hojeStrPainel();
+  if(!DB.painel.habitos_log[hoje])DB.painel.habitos_log[hoje]={};
+  DB.painel.habitos_log[hoje][nome]=!DB.painel.habitos_log[hoje][nome];
+  saveDB();renderHabitosPainel();renderEspelhoFundadora();
+}
+function editarHabitosPainel(){
+  var atual=DB.painel.habitos.join(', ');
+  var novo=prompt('Liste os hábitos que você quer acompanhar, separados por vírgula:',atual);
+  if(novo===null)return;
+  DB.painel.habitos=novo.split(',').map(function(s){return s.trim();}).filter(Boolean);
+  saveDB();renderHabitosPainel();notif('Hábitos atualizados.');
+}
+function renderRadarPainel(){
+  var el=document.getElementById('painel-radar');
+  var al=typeof getAlerts==='function'?getAlerts():[];
+  var itens=[];
+  if(al.length){
+    var maisUrgente=al.slice().sort(function(a,b){return a.diff-b.diff;})[0];
+    var msg=maisUrgente.diff===0?'vence hoje':maisUrgente.diff<0?'venceu há '+(-maisUrgente.diff)+' dia(s)':'vence em '+maisUrgente.diff+' dia(s)';
+    itens.push({tipo:'Ponto de atenção',cor:'var(--red)',texto:esc(maisUrgente.nome)+' — R$ '+(maisUrgente.val||0).toLocaleString('pt-BR')+' ('+msg+')'});
+  }
+  var ativas=(DB.clientes||[]).filter(function(c){return c.status==='Ativo';}).length;
+  var totalCli=(DB.clientes||[]).length;
+  if(totalCli){itens.push({tipo:'Panorama',cor:'var(--nude)',texto:ativas+' de '+totalCli+' clientes ativas.'});}
+  var metasAtrasadas=(DB.metas||[]).filter(function(m){return (m.prog||0)<50 && m.status!=='Concluída';});
+  if(metasAtrasadas.length){itens.push({tipo:'Oportunidade',cor:'var(--green)',texto:metasAtrasadas.length+' meta(s) trimestral(is) abaixo de 50% de progresso — talvez valha revisar.'});}
+  if(!itens.length){el.innerHTML='<div style="font-size:.76rem;color:var(--muted);">Nada crítico no radar hoje. Bom momento para tocar o que é importante, não só urgente.</div>';return;}
+  el.innerHTML=itens.map(function(it){
+    return '<div style="padding:9px 0;border-bottom:1px solid var(--border);"><div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:'+it.cor+';margin-bottom:3px;">'+it.tipo+'</div><div style="font-size:.78rem;color:var(--text);line-height:1.5;">'+it.texto+'</div></div>';
+  }).join('');
+}
+function salvarReflexaoPainel(){
+  var bem=document.getElementById('ref-bem').value.trim();
+  var melhorar=document.getElementById('ref-melhorar').value.trim();
+  var conquista=document.getElementById('ref-conquista').value.trim();
+  var preocupacao=document.getElementById('ref-preocupacao').value.trim();
+  if(!bem&&!melhorar&&!conquista&&!preocupacao){notif('Escreva ao menos uma reflexão.');return;}
+  DB.painel.reflexoes.unshift({id:uid(),data:hojeStrPainel(),bem:bem,melhorar:melhorar,conquista:conquista,preocupacao:preocupacao,criado:new Date().toISOString()});
+  saveDB();
+  ['ref-bem','ref-melhorar','ref-conquista','ref-preocupacao'].forEach(function(id){document.getElementById(id).value='';});
+  renderReflexoesPainelHist();
+  renderEspelhoFundadora();
+  notif('Reflexão salva.');
+}
+function renderReflexoesPainelHist(){
+  var el=document.getElementById('painel-reflexoes-hist');
+  var lista=DB.painel.reflexoes||[];
+  if(!lista.length){el.innerHTML='<div style="font-size:.74rem;color:var(--muted);">Nenhuma reflexão registrada ainda.</div>';return;}
+  el.innerHTML=lista.slice(0,20).map(function(r){
+    var partes=[];
+    if(r.bem)partes.push('<b>Bem:</b> '+esc(r.bem));
+    if(r.melhorar)partes.push('<b>Melhorar:</b> '+esc(r.melhorar));
+    if(r.conquista)partes.push('<b>Conquista:</b> '+esc(r.conquista));
+    if(r.preocupacao)partes.push('<b>Preocupação:</b> '+esc(r.preocupacao));
+    return '<div style="padding:10px 0;border-bottom:1px solid var(--border);"><div style="font-size:.62rem;color:var(--muted);margin-bottom:4px;">'+r.data+'</div><div style="font-size:.76rem;color:var(--text);line-height:1.6;">'+partes.join(' · ')+'</div></div>';
+  }).join('');
+}
+
+function ultimosNDiasPainel(n){
+  var arr=[];
+  for(var i=0;i<n;i++){
+    var d=new Date();d.setDate(d.getDate()-i);
+    arr.push(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'));
+  }
+  return arr;
+}
+
+function renderEspelhoFundadora(){
+  var el=document.getElementById('espelho-conteudo');
+  if(!el)return;
+  var dias7=ultimosNDiasPainel(7);
+  var checkins7=(DB.painel.checkins||[]).filter(function(c){return dias7.indexOf(c.data)>=0;});
+  var reflexoes7=(DB.painel.reflexoes||[]).filter(function(r){return dias7.indexOf(r.data)>=0;});
+  var habitosLog=DB.painel.habitos_log||{};
+  var totalHabitosPossiveis=0,totalHabitosFeitos=0;
+  dias7.forEach(function(dia){
+    var log=habitosLog[dia];
+    if(log){(DB.painel.habitos||[]).forEach(function(hb){totalHabitosPossiveis++;if(log[hb])totalHabitosFeitos++;});}
+  });
+  var decisoesAvaliadas=(DB.decisoes||[]).filter(function(d){return d.resultado;});
+
+  if(!checkins7.length&&!reflexoes7.length&&!totalHabitosPossiveis&&!decisoesAvaliadas.length){
+    el.innerHTML='<div style="font-size:.78rem;color:var(--muted);line-height:1.65;">Ainda não há check-ins, hábitos ou reflexões registrados nos últimos 7 dias. O Espelho fica mais útil com o tempo — volte aqui depois de usar o Painel Pessoal por alguns dias, e ele vai começar a mostrar padrões reais do seu comportamento.</div>';
+    return;
+  }
+
+  var h='';
+
+  if(checkins7.length){
+    var energCont={};
+    checkins7.forEach(function(c){if(c.energia)energCont[c.energia]=(energCont[c.energia]||0)+1;});
+    var energiaTop=Object.keys(energCont).sort(function(a,b){return energCont[b]-energCont[a];})[0];
+    h+='<div style="padding:10px 0;border-bottom:1px solid var(--border);"><div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--nude);margin-bottom:3px;">Energia</div><div style="font-size:.8rem;color:var(--text);line-height:1.5;">Em '+checkins7.length+' dia(s) registrado(s) esta semana, sua energia predominante foi <b>'+(energiaTop?energiaTop.toLowerCase():'—')+'</b>.</div></div>';
+
+    var clarezaSim=checkins7.filter(function(c){return c.clareza==='Sim';}).length;
+    h+='<div style="padding:10px 0;border-bottom:1px solid var(--border);"><div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--nude);margin-bottom:3px;">Clareza</div><div style="font-size:.8rem;color:var(--text);line-height:1.5;">Você respondeu "Sim" à pergunta de clareza em '+clarezaSim+' de '+checkins7.length+' dia(s) registrado(s).</div></div>';
+  }else{
+    h+='<div style="padding:10px 0;border-bottom:1px solid var(--border);"><div style="font-size:.76rem;color:var(--muted);">Sem check-ins de energia/clareza nos últimos 7 dias.</div></div>';
+  }
+
+  if(totalHabitosPossiveis){
+    var pctHabitos=Math.round((totalHabitosFeitos/totalHabitosPossiveis)*100);
+    h+='<div style="padding:10px 0;border-bottom:1px solid var(--border);"><div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--nude);margin-bottom:3px;">Hábitos</div><div style="font-size:.8rem;color:var(--text);line-height:1.5;">Você cumpriu '+pctHabitos+'% dos hábitos que acompanha nesta semana.</div></div>';
+  }
+
+  if(decisoesAvaliadas.length){
+    var sucesso=decisoesAvaliadas.filter(function(d){return d.resultado==='sim';}).length;
+    h+='<div style="padding:10px 0;border-bottom:1px solid var(--border);"><div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--nude);margin-bottom:3px;">Decisões</div><div style="font-size:.8rem;color:var(--text);line-height:1.5;">De '+decisoesAvaliadas.length+' decisão(ões) avaliada(s) até agora, '+sucesso+' trouxe(ram) o resultado esperado.</div></div>';
+  }
+
+  if(reflexoes7.length){
+    h+='<div style="padding:10px 0;"><div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--nude);margin-bottom:3px;">Reflexões desta semana</div><div style="font-size:.8rem;color:var(--text);line-height:1.5;">Você registrou '+reflexoes7.length+' reflexão(ões) nos últimos 7 dias.</div></div>';
+  }else{
+    h+='<div style="padding:10px 0;"><div style="font-size:.76rem;color:var(--muted);">Nenhuma reflexão registrada nos últimos 7 dias.</div></div>';
+  }
+
+  el.innerHTML=h;
+}
 function confirmarBaixa(tipo){
   var pre=tipo==='rec'?'mbr':'mbp';
   var id=document.getElementById(pre+'-id').value;
@@ -1771,7 +2103,7 @@ function renderClientes(){
     if(c.meio)h.push('<span class="bdg m">'+c.meio+'</span>');
     if(c.dia)h.push('<span class="bdg m">DIA '+c.dia+'</span>');
     if(c.nps!==null&&c.nps!==undefined)h.push('<span class="bdg '+(c.nps>=8?'g':c.nps>=6?'o':'r')+'">NPS '+c.nps+'</span>');
-    if(c.contrato_status==='vencido_renovando')h.push('<span class="bdg o" style="font-size:.5rem"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg>️ Renovar</span>');
+    if(c.contrato_status==='vencido_renovando')h.push('<span class="bdg o" style="font-size:.5rem"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg> Renovar</span>');
     if(c.contrato_status==='em_renovacao')h.push('<span class="bdg n" style="font-size:.5rem"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg> Renovando</span>');
     h.push('</div></div>');
     var totalCli=c.val+(c.val_variavel&&c.modelo_rec==='hibrido'?c.val_variavel:0);
@@ -1791,7 +2123,7 @@ function renderClientes(){
     var dets=[];
     if(c.inicio)dets.push({l:'Início',v:c.inicio});
     // Show contrato status if relevant
-    var cStatusLabel={ativo:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> Dentro do prazo',sem_prazo:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></svg> Contínuo (sem fim)',vencido_renovando:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg>️ Vencido — seguindo sem renovação',em_renovacao:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg> Em renovação',encerrado:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><circle cx="12" cy="12" r="10" /> <path d="m15 9-6 6" /> <path d="m9 9 6 6" /></svg> Encerrado'};
+    var cStatusLabel={ativo:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> Dentro do prazo',sem_prazo:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></svg> Contínuo (sem fim)',vencido_renovando:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg> Vencido — seguindo sem renovação',em_renovacao:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg> Em renovação',encerrado:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><circle cx="12" cy="12" r="10" /> <path d="m15 9-6 6" /> <path d="m9 9 6 6" /></svg> Encerrado'};
     if(c.contrato_status&&c.contrato_status!=='ativo')dets.push({l:'Contrato',v:cStatusLabel[c.contrato_status]||c.contrato_status,alert:c.contrato_status==='vencido_renovando'||c.contrato_status==='em_renovacao'});
     if(c.contrato_obs)dets.push({l:'Obs. contrato',v:c.contrato_obs});if(c.primeiro_pag)dets.push({l:'1º Pagamento',v:c.primeiro_pag});if(c.fim)dets.push({l:'Fim',v:c.fim});if(c.reajuste)dets.push({l:'Reajuste',v:c.reajuste});if(c.canal)dets.push({l:'Canal',v:c.canal});if(c.origem)dets.push({l:'Como chegou',v:c.origem});
     if(dets.length){h.push('<div class="g2" style="margin-bottom:10px">');dets.forEach(function(d){h.push('<div class="di"><div class="dl">'+d.l+'</div><div class="dv">'+d.v+'</div></div>');});h.push('</div>');}
@@ -2265,7 +2597,7 @@ function renderAporteSecao(){
 function renderRisco(){
   var el=document.getElementById('risco-painel');if(!el||!DB)return;
   var res=DB.reservas||[];
-  if(!res.length){el.innerHTML='<div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /></svg>️ Análise de Risco</div><div style="font-size:.72rem;color:var(--muted)">Adicione aplicações pra ver essa análise.</div>';return;}
+  if(!res.length){el.innerHTML='<div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /></svg> Análise de Risco</div><div style="font-size:.72rem;color:var(--muted)">Adicione aplicações pra ver essa análise.</div>';return;}
   var total=res.reduce(function(a,r){return a+(r.val||0);},0);
   // Concentração por instituição
   var porInst={};
@@ -2281,7 +2613,7 @@ function renderRisco(){
   var ipcaMes=Math.round((Math.pow(1+ipcaAno/100,1/12)-1)*10000)/100;
   var cobreInflacao=rentPonderada>=ipcaMes;
 
-  var h='<div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /></svg>️ Análise de Risco de Investimento</div>';
+  var h='<div class="cl"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /></svg> Análise de Risco de Investimento</div>';
   h+='<div class="fr" style="margin-bottom:12px"><div class="fi"><label>Inflação de referência (% ao ano)</label><input type="text" inputmode="decimal" id="risco-ipca" value="'+ipcaAno+'" oninput="renderRisco()"></div></div>';
 
   h+='<div style="padding:10px 0;border-bottom:1px solid var(--border)">';
@@ -2384,10 +2716,10 @@ function renderReservas(){
     var vsCDI=rentMensal-((r.val||0)*1.0/100);
     var isSofisa=r.inst&&r.inst.toLowerCase().indexOf('sofisa')>-1;
     var smartTip='';
-    if(r.tipo==='Poupança'){smartTip='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg>️ Poupança rende menos que CDB com a mesma segurança. Sofisa, Nubank e PicPay oferecem CDB com liquidez diária a 100-105% do CDI.';}
+    if(r.tipo==='Poupança'){smartTip='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg> Poupança rende menos que CDB com a mesma segurança. Sofisa, Nubank e PicPay oferecem CDB com liquidez diária a 100-105% do CDI.';}
     else if(r.tipo==='CDB'&&isSofisa&&vsCDI>=0){smartTip='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> Excelente! Sofisa é referência em CDB para pessoa física — boa taxa, seguro pelo FGC e liquidez diária.';}
     else if(r.tipo==='CDB'&&vsCDI>=0&&r.liq==='Diária'){smartTip='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> CDB com liquidez diária acima do CDI — perfeito para reservas.';}
-    else if(r.tipo==='CDB'&&r.liq!=='Diária'&&(r.obj==='Emergência'||r.obj==='Reserva PF')){smartTip='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg>️ Reserva de emergência precisa de liquidez diária. Considere CDB com resgate diário.';}
+    else if(r.tipo==='CDB'&&r.liq!=='Diária'&&(r.obj==='Emergência'||r.obj==='Reserva PF')){smartTip='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg> Reserva de emergência precisa de liquidez diária. Considere CDB com resgate diário.';}
     else if(vsCDI<0&&r.tipo!=='Ações'&&r.tipo!=='Criptomoedas'){smartTip='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" /> <path d="M9 18h6" /> <path d="M10 22h4" /></svg> Rendendo abaixo do CDI. Compare com CDBs da Sofisa ou Nubank (100-105% CDI).';}
     else if(vsCDI>=0){smartTip='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> Boa aplicação! Rendendo acima do CDI.';}
     else{smartTip='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" /> <path d="M9 18h6" /> <path d="M10 22h4" /></svg> '+edu.dica;}
@@ -2512,7 +2844,7 @@ function renderHistoricoReservas(){
     }
     h.push('<div style="display:flex;gap:8px;margin-top:10px;justify-content:flex-end">');
     h.push('<button class="bd" style="font-size:.62rem;padding:5px 10px" onclick="atualizarSnapshotReserva(\''+snap.key+'\')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></svg> Atualizar com valores atuais</button>');
-    h.push('<button class="bd" style="font-size:.62rem;padding:5px 10px" onclick="remSnapshotReserva(\''+snap.key+'\')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M10 11v6" /> <path d="M14 11v6" /> <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /> <path d="M3 6h18" /> <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>️ Excluir</button>');
+    h.push('<button class="bd" style="font-size:.62rem;padding:5px 10px" onclick="remSnapshotReserva(\''+snap.key+'\')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M10 11v6" /> <path d="M14 11v6" /> <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /> <path d="M3 6h18" /> <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg> Excluir</button>');
     h.push('</div>');
     h.push('</div>');
   }
@@ -2650,6 +2982,24 @@ function claraContextoDados(){
   var ul=(DB.meses&&DB.meses.length)?DB.meses[DB.meses.length-1]:null;
   var caixa=ul?(ul.caixa||0):0;var gasto=(DB.config&&DB.config.custo)||0;var sobra=fat-gasto;
   var mc=DB.macros||{};var mcFin=mc.fin||{score:null};var mcCom=mc.com||{score:null};
+
+  var crmCards=(DB.crm&&DB.crm.cards)||[];
+  var crmPorEtapa={};
+  crmCards.forEach(function(c){crmPorEtapa[c.etapa]=(crmPorEtapa[c.etapa]||0)+1;});
+  var crmResumo=Object.keys(crmPorEtapa).map(function(et){return et+': '+crmPorEtapa[et];}).join(', ');
+
+  var propAbertas=(DB.propostas||[]).filter(function(p){return p.status!=='fechada'&&p.status!=='recusada';});
+
+  var entregasRecentes=(DB.entregas||[]).slice(-3).map(function(e){return e.clienteNome+(e.mes?' ('+e.mes+')':'');});
+
+  var metasAbaixo=(DB.metas||[]).filter(function(m){return (m.prog||0)<50&&m.status!=='Concluída';});
+
+  var al=typeof getAlerts==='function'?getAlerts():[];
+  var alertasTxt=al.length?al.slice(0,3).map(function(a){return a.nome+' R$'+(a.val||0)+' ('+(a.diff===0?'hoje':a.diff<0?'atrasado '+(-a.diff)+'d':'em '+a.diff+'d')+')';}).join('; '):'nenhum';
+
+  var comprHoje=typeof getCompromissosHoje==='function'?getCompromissosHoje():[];
+  var agendaTxt=comprHoje.length?comprHoje.map(function(c){return (c.hora_inicio||'—')+' '+c.titulo+(c.clienteNome?' ('+c.clienteNome+')':'');}).join('; '):'nenhum compromisso hoje';
+
   return 'Você é Clara, mentora e consultora de gestão de negócios da Dani. Vocês têm uma conversa de verdade, via de mão dupla: você pode fazer perguntas de volta antes de opinar, discordar com respeito, pedir mais contexto, e construir uma conclusão junto com ela — isso não é um relatório de mão única, é um debate.\n'
     +'Seja honesta, acolhedora e direta. Provoque-a a pensar, mas ouça de verdade o que ela responde e construa a partir disso, em vez de só repetir seu diagnóstico inicial.\n'
     +'Responda em português do Brasil, em tom de conversa natural — não force seções fixas nem listas toda hora. Sem asteriscos. O tamanho da resposta deve combinar com o tamanho da pergunta: perguntas simples merecem respostas curtas.\n\n'
@@ -2660,7 +3010,13 @@ function claraContextoDados(){
     +'- Sobra: R$ '+sobra.toLocaleString('pt-BR')+'\n'
     +'- Caixa PJ: R$ '+caixa.toLocaleString('pt-BR')+'\n'
     +'- Score Financeiro: '+(mcFin.score!==null&&mcFin.score!==undefined?mcFin.score:'não avaliado')+'\n'
-    +'- Score Comercial: '+(mcCom.score!==null&&mcCom.score!==undefined?mcCom.score:'não avaliado')+'\n';
+    +'- Score Comercial: '+(mcCom.score!==null&&mcCom.score!==undefined?mcCom.score:'não avaliado')+'\n'
+    +'- CRM (pipeline): '+(crmResumo||'sem leads registrados')+'\n'
+    +'- Propostas em aberto: '+propAbertas.length+(propAbertas.length?' ('+propAbertas.map(function(p){return p.nome;}).join(', ')+')':'')+'\n'
+    +'- Últimas entregas registradas: '+(entregasRecentes.length?entregasRecentes.join(', '):'nenhuma recente')+'\n'
+    +'- Metas trimestrais abaixo de 50%: '+(metasAbaixo.length?metasAbaixo.map(function(m){return m.titulo+' ('+(m.prog||0)+'%)';}).join(', '):'nenhuma')+'\n'
+    +'- Compromissos de hoje na Agenda: '+agendaTxt+'\n'
+    +'- Alertas de vencimento próximos: '+alertasTxt+'\n';
 }
 
 function claraFmt(texto){
@@ -2694,7 +3050,7 @@ function claraErro(msg){
   div.style.cssText='align-self:flex-start;max-width:90%;background:var(--s2);border-radius:12px;padding:12px 14px;font-size:.78rem;line-height:1.65;color:var(--text);';
   if(!apiKey){
     var p1=document.createElement('div');p1.style.cssText='color:var(--cafe);font-weight:600;margin-bottom:6px;';p1.textContent='A Clara precisa de uma chave de API para rodar fora do Claude.ai.';
-    var p2=document.createElement('div');p2.style.cssText='color:var(--muted);margin-bottom:9px;';p2.textContent='Vá em <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg>️ Config → Clara — Chave de API e cadastre sua chave da Anthropic.';
+    var p2=document.createElement('div');p2.style.cssText='color:var(--muted);margin-bottom:9px;';p2.textContent='Vá em <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg> Config → Clara — Chave de API e cadastre sua chave da Anthropic.';
     var btn=document.createElement('button');btn.className='bp';btn.style.cssText='font-size:.65rem;padding:7px 13px';btn.textContent='Ir para Configurações →';
     btn.onclick=function(){irConfig();};
     div.appendChild(p1);div.appendChild(p2);div.appendChild(btn);
@@ -2758,6 +3114,17 @@ function claraKeydown(ev){
     claraSend();
   }
 }
+function claraPerguntaRapida(texto){
+  if(!DB){notif('Faça login primeiro.');return;}
+  DB.claraChat.push({role:'user',content:texto});
+  saveDB();
+  renderClaraChat();
+  claraChamarAPI();
+}
+function claraPreencher(texto){
+  var el=document.getElementById('clara-input');
+  if(el){el.value=texto;el.focus();}
+}
 
 function claraNovaConversa(){
   if(!DB)return;
@@ -2765,6 +3132,92 @@ function claraNovaConversa(){
   DB.claraChat=[];
   saveDB();
   renderClaraChat();
+}
+
+function reuniaoExecHojeStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+
+function gerarReuniaoSemIA(){
+  var hr=new Date().getHours();
+  var saud=hr<12?'Bom dia':hr<18?'Boa tarde':'Boa noite';
+  var nome=CU?CU.nome:'';
+  var linhas=[];
+  linhas.push(saud+(nome?', '+nome:'')+'.');
+  var al=typeof getAlerts==='function'?getAlerts():[];
+  if(al.length){
+    var u=al.slice().sort(function(a,b){return a.diff-b.diff;})[0];
+    linhas.push('Ponto de atenção: '+u.nome+' — R$ '+(u.val||0).toLocaleString('pt-BR')+(u.diff===0?' vence hoje.':u.diff<0?' venceu há '+(-u.diff)+' dia(s).':' vence em '+u.diff+' dia(s).'));
+  }else{
+    linhas.push('Nenhum vencimento importante nos próximos dias.');
+  }
+  var ativos=(DB.clientes||[]).filter(function(c){return c.status==='Ativo';});
+  linhas.push(ativos.length+' cliente(s) ativa(s) no momento.');
+  var comprHoje=typeof getCompromissosHoje==='function'?getCompromissosHoje():[];
+  if(comprHoje.length){
+    linhas.push('Você tem '+comprHoje.length+' compromisso(s) hoje: '+comprHoje.map(function(c){return (c.hora_inicio||'—')+' '+c.titulo;}).join(', ')+'.');
+  }else{
+    linhas.push('Nenhum compromisso na Agenda para hoje.');
+  }
+  linhas.push('Configure sua chave de API da Anthropic em Config para ter a Reunião Executiva completa, com análise e plano de ação gerados pela Clara.');
+  return linhas.join('\n\n');
+}
+
+function abrirModalReuniao(texto){
+  var body=document.getElementById('reuniao-exec-body');
+  if(!body)return;
+  if(texto==='__loading__'){
+    body.innerHTML='<div style="text-align:center;padding:24px;color:var(--muted);font-size:.8rem;">Preparando sua reunião executiva...</div>';
+  }else{
+    body.innerHTML='<div style="white-space:pre-wrap;line-height:1.75;font-size:.85rem;color:var(--text);">'+esc(texto)+'</div>';
+  }
+  openModal('modal-reuniao-exec');
+}
+
+async function gerarReuniaoExecutiva(forcar){
+  if(!DB)return;
+  if(!DB.reuniao_executiva)DB.reuniao_executiva={ultima_data:'',ultimo_texto:''};
+  var hoje=reuniaoExecHojeStr();
+  if(!forcar&&DB.reuniao_executiva.ultima_data===hoje&&DB.reuniao_executiva.ultimo_texto){
+    abrirModalReuniao(DB.reuniao_executiva.ultimo_texto);
+    return;
+  }
+  var apiKey=getApiKey();
+  if(!apiKey){
+    var textoSemIA=gerarReuniaoSemIA();
+    DB.reuniao_executiva.ultima_data=hoje;
+    DB.reuniao_executiva.ultimo_texto=textoSemIA;
+    saveDB();
+    abrirModalReuniao(textoSemIA);
+    return;
+  }
+  abrirModalReuniao('__loading__');
+  try{
+    var fetchHeaders={'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};
+    var prompt='Gere a Reunião Executiva Diária da Dani agora, com base nos dados atuais do negócio. Siga esta estrutura, em português do Brasil, tom próximo e direto, sem asteriscos e sem títulos numerados chamativos:\n\n'
+      +'1. Saudação breve (bom dia/tarde/noite + dia da semana)\n'
+      +'2. Panorama geral em 1-2 frases\n'
+      +'3. Financeiro: só o que importa hoje\n'
+      +'4. Agenda: compromissos de hoje, se houver\n'
+      +'5. Clientes/CRM: quem merece atenção\n'
+      +'6. Alertas relevantes, se houver\n'
+      +'7. Uma única prioridade principal do dia\n'
+      +'8. Plano de ação curto dividido em Agora / Hoje / Esta Semana\n'
+      +'9. Mensagem final breve e natural, sem parecer coach motivacional genérico.\n\n'
+      +'Seja objetiva. Se não houver dados suficientes para alguma seção, pule a seção em vez de inventar informação.';
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:fetchHeaders,body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:900,system:claraContextoDados(),messages:[{role:'user',content:prompt}]})});
+    var data=await resp.json();
+    var texto=data.content&&data.content[0]?data.content[0].text:null;
+    if(!texto)texto=gerarReuniaoSemIA();
+    DB.reuniao_executiva.ultima_data=hoje;
+    DB.reuniao_executiva.ultimo_texto=texto;
+    saveDB();
+    abrirModalReuniao(texto);
+  }catch(e){
+    var fallback=gerarReuniaoSemIA();
+    DB.reuniao_executiva.ultima_data=hoje;
+    DB.reuniao_executiva.ultimo_texto=fallback;
+    saveDB();
+    abrirModalReuniao(fallback);
+  }
 }
 
 
@@ -3020,7 +3473,12 @@ function defaultDB(){return{
   propostas:[],
   hist_cli:[],
   biblioteca:[],
-  claraChat:[]
+  claraChat:[],
+  painel:{checkins:[],habitos:['Água','Exercício','Leitura','Descanso'],habitos_log:{},reflexoes:[]},
+  reuniao_executiva:{ultima_data:'',ultimo_texto:''},
+  decisoes:[],
+  compromissos:[],
+  categorias_agenda:['Atendimento','Reunião','Financeiro','Marketing','Estudo','Projeto','Pessoal','Administrativo']
 };}
 function initDB(){DB=defaultDB();saveDB();}
 async function loadDBAsync(){
@@ -3068,6 +3526,13 @@ function migrarDB(){
   DB.caixas=cx;if(!DB.baixas)DB.baixas=[];
   if(!DB.estrategias)DB.estrategias=def.estrategias;if(!DB.visao_anual)DB.visao_anual=def.visao_anual;
   if(!DB.metas)DB.metas=[];if(!DB.metas_pessoais)DB.metas_pessoais=[];
+  if(!DB.painel)DB.painel={checkins:[],habitos:['Água','Exercício','Leitura','Descanso'],habitos_log:{},reflexoes:[]};
+  if(!DB.painel.checkins)DB.painel.checkins=[];if(!DB.painel.habitos)DB.painel.habitos=['Água','Exercício','Leitura','Descanso'];
+  if(!DB.painel.habitos_log)DB.painel.habitos_log={};if(!DB.painel.reflexoes)DB.painel.reflexoes=[];
+  if(!DB.reuniao_executiva)DB.reuniao_executiva={ultima_data:'',ultimo_texto:''};
+  if(!DB.decisoes)DB.decisoes=[];
+  if(!DB.compromissos)DB.compromissos=[];
+  if(!DB.categorias_agenda)DB.categorias_agenda=['Atendimento','Reunião','Financeiro','Marketing','Estudo','Projeto','Pessoal','Administrativo'];
   if(!DB.investimentos)DB.investimentos=[];if(!DB.clientes)DB.clientes=[];
   if(!DB.contas)DB.contas=[];if(!DB.config)DB.config=def.config;
   if(!DB.crm)DB.crm=def.crm;if(!DB.macros)DB.macros=def.macros;if(!DB.meses)DB.meses=[];
@@ -3201,7 +3666,7 @@ function fecharBuscaGlobal(){
   if(box){box.classList.remove('show');}
 }
 function atualizarBreadcrumb(id){
-  var PAGE_LABELS={home:'Início',clientes:'Clientes',financeiro:'Finanças',crm:'CRM',entregas:'Entregas',propostas:'Propostas',alertas:'Alertas','historico-cli':'Histórico',crescimento:'Crescimento',macros:'Processos',produtividade:'Tempo',estrategia:'Estratégia',investir:'Investir',reservas:'Reservas',empresa:'Empresa',biblioteca:'Biblioteca',config:'Config'};
+  var PAGE_LABELS={home:'Início',painel:'Painel Pessoal',clientes:'Clientes',financeiro:'Finanças',crm:'CRM',agenda:'Agenda',entregas:'Entregas',propostas:'Propostas',alertas:'Alertas','historico-cli':'Histórico',crescimento:'Crescimento',macros:'Processos',produtividade:'Tempo',estrategia:'Estratégia',investir:'Investir',reservas:'Reservas',empresa:'Empresa',biblioteca:'Biblioteca',decisoes:'Decisões',config:'Config'};
   var el=document.getElementById('tb-breadcrumb');
   if(!el)return;
   var label=PAGE_LABELS[id]||id;
@@ -3216,7 +3681,7 @@ function goPage(id,btn){
   if(btn)btn.classList.add('active');
   abrirGrupoSidebarDaPagina(id);
   atualizarBreadcrumb(id);
-  var r={home:renderHome,clientes:renderClientes,financeiro:renderFinanceiro,crm:renderCRM,macros:renderMacros,estrategia:renderEstrategia,empresa:renderEmpresa,investir:renderInvestir,reservas:renderReservas,produtividade:prodInit,'historico-cli':renderHistCli,entregas:renderEntregas,propostas:renderPropostas,alertas:renderAlertasFull,crescimento:renderCrescimento,biblioteca:renderBiblioteca};
+  var r={home:renderHome,painel:renderPainel,clientes:renderClientes,financeiro:renderFinanceiro,crm:renderCRM,agenda:renderAgenda,macros:renderMacros,estrategia:renderEstrategia,empresa:renderEmpresa,investir:renderInvestir,reservas:renderReservas,produtividade:prodInit,'historico-cli':renderHistCli,entregas:renderEntregas,propostas:renderPropostas,alertas:renderAlertasFull,crescimento:renderCrescimento,biblioteca:renderBiblioteca,decisoes:renderDecisoes};
   if(r[id])r[id]();
 }
 function showItab(g,id,btn){
@@ -3312,6 +3777,7 @@ function renderResumoReceitas(){
 }
 
 document.addEventListener('DOMContentLoaded',function(){
+  initGoogleAuth();
   // Load Supabase config early
   var su=storageGet('raizv2-supa-url');var sk=storageGet('raizv2-supa-key');
   if(su&&sk){SUPA_URL=su;SUPA_KEY=sk;}
@@ -3449,7 +3915,7 @@ function prodRenderSessoes(){
   if(!DB.produtividade)return;
   var el=document.getElementById('prod-lista-sessoes');if(!el)return;
   var sessoes=DB.produtividade.sessoes.slice().reverse().slice(0,20);
-  if(!sessoes.length){el.innerHTML='<div class="ev"><div class="eicon">⏱️</div><div class="edesc">Nenhuma sessão registrada ainda.</div></div>';return;}
+  if(!sessoes.length){el.innerHTML='<div class="ev"><div class="eicon">⏱</div><div class="edesc">Nenhuma sessão registrada ainda.</div></div>';return;}
   el.innerHTML='';
   sessoes.forEach(function(s){
     var row=document.createElement('div');
@@ -4283,7 +4749,460 @@ function editarProposta(id){
 function remProposta(id){if(!confirm('Remover?'))return;DB.propostas=DB.propostas.filter(function(x){return x.id!==id;});saveDB();renderPropostas();notif('Removida.');}
 
 // ══════════════════════════════════════════════
-// MÓDULO ALERTAS COMPLETO
+// CENTRO DE DECISÕES
+// ══════════════════════════════════════════════
+function abrirNovaDecisao(){
+  document.getElementById('mdec-title').textContent='Nova Decisão';
+  ['dec-edit-id','dec-titulo','dec-prazo','dec-descricao','dec-objetivo','dec-hipotese'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('dec-categoria').value='Financeiro';
+  document.getElementById('dec-status').value='planejada';
+  openModal('modal-add-decisao');
+}
+function editarDecisao(id){
+  var d=(DB.decisoes||[]).find(function(x){return x.id===id;});if(!d)return;
+  document.getElementById('mdec-title').textContent='Editar Decisão';
+  document.getElementById('dec-edit-id').value=d.id;
+  document.getElementById('dec-titulo').value=d.titulo||'';
+  document.getElementById('dec-categoria').value=d.categoria||'Financeiro';
+  document.getElementById('dec-prazo').value=d.prazo_revisao||'';
+  document.getElementById('dec-descricao').value=d.descricao||'';
+  document.getElementById('dec-objetivo').value=d.objetivo||'';
+  document.getElementById('dec-hipotese').value=d.hipotese||'';
+  document.getElementById('dec-status').value=d.status||'planejada';
+  openModal('modal-add-decisao');
+}
+function salvarDecisao(){
+  var titulo=document.getElementById('dec-titulo').value.trim();
+  if(!titulo){notif('Dê um título para a decisão.');return;}
+  if(!DB.decisoes)DB.decisoes=[];
+  var eid=document.getElementById('dec-edit-id').value;
+  var obj={
+    id:eid||uid(),
+    titulo:titulo,
+    categoria:document.getElementById('dec-categoria').value,
+    prazo_revisao:document.getElementById('dec-prazo').value,
+    descricao:document.getElementById('dec-descricao').value.trim(),
+    objetivo:document.getElementById('dec-objetivo').value.trim(),
+    hipotese:document.getElementById('dec-hipotese').value.trim(),
+    status:document.getElementById('dec-status').value,
+    resultado:eid?((DB.decisoes.find(function(x){return x.id===eid;})||{}).resultado||''):'',
+    avaliacao:eid?((DB.decisoes.find(function(x){return x.id===eid;})||{}).avaliacao||''):'',
+    criado:eid?((DB.decisoes.find(function(x){return x.id===eid;})||{}).criado||new Date().toISOString()):new Date().toISOString()
+  };
+  if(eid){var idx=DB.decisoes.findIndex(function(x){return x.id===eid;});if(idx>=0)DB.decisoes[idx]=obj;else DB.decisoes.push(obj);}
+  else DB.decisoes.push(obj);
+  saveDB();closeModal('modal-add-decisao');renderDecisoes();notif('Decisão salva.');
+}
+function remDecisao(id){if(!confirm('Remover esta decisão?'))return;DB.decisoes=DB.decisoes.filter(function(x){return x.id!==id;});saveDB();renderDecisoes();notif('Removida.');}
+function avaliarDecisao(id,resultado){
+  var d=(DB.decisoes||[]).find(function(x){return x.id===id;});if(!d)return;
+  d.resultado=resultado;
+  var nota=prompt('Quer registrar o que deu certo, o que deu errado, ou o que faria diferente? (opcional)','');
+  if(nota)d.avaliacao=nota;
+  saveDB();renderDecisoes();notif('Avaliação registrada.');
+}
+function renderDecisoes(){
+  if(!DB)return;
+  if(!DB.decisoes)DB.decisoes=[];
+  var hoje=new Date();hoje.setHours(0,0,0,0);
+  var total=DB.decisoes.length;
+  var andamento=DB.decisoes.filter(function(d){return d.status==='andamento'||d.status==='implementada';}).length;
+  var aguardando=DB.decisoes.filter(function(d){
+    if(d.resultado)return false;
+    if(!d.prazo_revisao)return false;
+    var pr=new Date(d.prazo_revisao);pr.setHours(0,0,0,0);
+    return pr<=hoje;
+  }).length;
+  var avaliadas=DB.decisoes.filter(function(d){return d.resultado;});
+  var sucesso=avaliadas.filter(function(d){return d.resultado==='sim';}).length;
+  var taxa=avaliadas.length?Math.round((sucesso/avaliadas.length)*100)+'%':'—';
+  var e1=document.getElementById('dec-total');if(e1)e1.textContent=total||'—';
+  var e2=document.getElementById('dec-andamento');if(e2)e2.textContent=andamento||'—';
+  var e3=document.getElementById('dec-revisao');if(e3)e3.textContent=aguardando||'—';
+  var e4=document.getElementById('dec-taxa');if(e4)e4.textContent=taxa;
+
+  var el=document.getElementById('lista-decisoes');if(!el)return;
+  if(!DB.decisoes.length){
+    el.innerHTML='<div class="ev"><div class="eicon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" /></svg></div><div class="etitle">Nenhuma decisão registrada ainda</div><div class="edesc">Registre decisões importantes e revisite os resultados no futuro.</div></div>';
+    return;
+  }
+  var statusLabel={planejada:'Planejada',andamento:'Em andamento',implementada:'Implementada'};
+  var statusCls={planejada:'m',andamento:'n',implementada:'o'};
+  var resultadoLabel={sim:'Trouxe resultado',parcial:'Parcialmente',nao:'Não funcionou'};
+  var resultadoCls={sim:'g',parcial:'o',nao:'r'};
+  var sorted=DB.decisoes.slice().sort(function(a,b){return (b.criado||'').localeCompare(a.criado||'');});
+  el.innerHTML='';
+  sorted.forEach(function(d){
+    var card=document.createElement('div');
+    card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px';
+    var pr=d.prazo_revisao?new Date(d.prazo_revisao):null;if(pr)pr.setHours(0,0,0,0);
+    var precisaRevisao=!d.resultado&&pr&&pr<=hoje;
+    var h='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">';
+    h+='<div><div style="font-size:.9rem;font-weight:600;color:var(--cafe)">'+esc(d.titulo)+'</div>';
+    h+='<div style="font-size:.66rem;color:var(--muted);margin-top:2px">'+esc(d.categoria||'')+(d.prazo_revisao?' · revisão em '+d.prazo_revisao:'')+'</div>';
+    h+='<div style="margin-top:6px;display:flex;gap:5px;flex-wrap:wrap">';
+    h+='<span class="bdg '+(statusCls[d.status]||'m')+'">'+(statusLabel[d.status]||d.status)+'</span>';
+    if(d.resultado)h+='<span class="bdg '+(resultadoCls[d.resultado]||'m')+'">'+(resultadoLabel[d.resultado]||d.resultado)+'</span>';
+    h+='</div></div>';
+    h+='<div style="display:flex;gap:5px;flex-shrink:0"><button class="be" style="font-size:.6rem;padding:3px 8px" onclick="editarDecisao(\''+d.id+'\')">Editar</button><button class="bd" style="font-size:.6rem;padding:3px 8px" onclick="remDecisao(\''+d.id+'\')">✕</button></div>';
+    h+='</div>';
+    if(d.descricao)h+='<div style="font-size:.76rem;line-height:1.55;color:var(--text);margin-bottom:6px">'+esc(d.descricao)+'</div>';
+    if(d.objetivo)h+='<div style="font-size:.7rem;color:var(--muted);margin-bottom:3px"><b>Objetivo:</b> '+esc(d.objetivo)+'</div>';
+    if(d.hipotese)h+='<div style="font-size:.7rem;color:var(--muted);margin-bottom:3px"><b>Hipótese:</b> '+esc(d.hipotese)+'</div>';
+    if(d.avaliacao)h+='<div style="font-size:.72rem;color:var(--text);margin-top:6px;font-style:italic">"'+esc(d.avaliacao)+'"</div>';
+    if(precisaRevisao){
+      h+='<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">';
+      h+='<div style="font-size:.74rem;color:var(--cafe);font-weight:600;margin-bottom:6px">Esta decisão trouxe os resultados esperados?</div>';
+      h+='<div style="display:flex;gap:6px;flex-wrap:wrap">';
+      h+='<button class="bg" style="font-size:.62rem;padding:5px 11px" onclick="avaliarDecisao(\''+d.id+'\',\'sim\')">Sim</button>';
+      h+='<button class="bg" style="font-size:.62rem;padding:5px 11px" onclick="avaliarDecisao(\''+d.id+'\',\'parcial\')">Parcialmente</button>';
+      h+='<button class="bg" style="font-size:.62rem;padding:5px 11px" onclick="avaliarDecisao(\''+d.id+'\',\'nao\')">Não</button>';
+      h+='</div></div>';
+    }
+    card.innerHTML=h;
+    el.appendChild(card);
+  });
+}
+
+// ══════════════════════════════════════════════
+// MÓDULO AGENDA
+// ══════════════════════════════════════════════
+var _agFiltroAtivo='hoje';
+function agHojeStr(){return hojeStrPainel();}
+function agPopularSelects(){
+  var catSel=document.getElementById('ag-categoria');
+  if(catSel)catSel.innerHTML=(DB.categorias_agenda||[]).map(function(c){return '<option>'+esc(c)+'</option>';}).join('');
+  var cliSel=document.getElementById('ag-cliente');
+  if(cliSel){
+    var ativos=(DB.clientes||[]).filter(function(c){return c.status!=='Encerrado';});
+    cliSel.innerHTML='<option value="">Nenhuma</option>'+ativos.map(function(c){return '<option value="'+c.id+'">'+esc(c.nome)+'</option>';}).join('');
+  }
+}
+function abrirNovoCompromisso(){
+  agPopularSelects();
+  document.getElementById('mag-title').textContent='Novo Compromisso';
+  ['ag-edit-id','ag-titulo','ag-hora-ini','ag-hora-fim','ag-local','ag-obs'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('ag-data').value=agHojeStr();
+  document.getElementById('ag-cliente').value='';
+  document.getElementById('ag-status').value='agendado';
+  document.getElementById('ag-conflito-aviso').style.display='none';
+  openModal('modal-add-compromisso');
+}
+function editarCompromisso(id){
+  var c=(DB.compromissos||[]).find(function(x){return x.id===id;});if(!c)return;
+  agPopularSelects();
+  document.getElementById('mag-title').textContent='Editar Compromisso';
+  document.getElementById('ag-edit-id').value=c.id;
+  document.getElementById('ag-titulo').value=c.titulo||'';
+  document.getElementById('ag-data').value=c.data||'';
+  document.getElementById('ag-categoria').value=c.categoria||'';
+  document.getElementById('ag-hora-ini').value=c.hora_inicio||'';
+  document.getElementById('ag-hora-fim').value=c.hora_fim||'';
+  document.getElementById('ag-cliente').value=c.clienteId||'';
+  document.getElementById('ag-local').value=c.local||'';
+  document.getElementById('ag-obs').value=c.observacoes||'';
+  document.getElementById('ag-status').value=c.status||'agendado';
+  document.getElementById('ag-conflito-aviso').style.display='none';
+  openModal('modal-add-compromisso');
+}
+function agVerificarConflito(data,horaIni,horaFim,ignorarId){
+  if(!horaIni||!horaFim)return null;
+  return (DB.compromissos||[]).find(function(c){
+    if(c.id===ignorarId)return false;
+    if(c.data!==data)return false;
+    if(c.status==='cancelado')return false;
+    if(!c.hora_inicio||!c.hora_fim)return false;
+    return (horaIni<c.hora_fim&&horaFim>c.hora_inicio);
+  });
+}
+function salvarCompromisso(){
+  var titulo=document.getElementById('ag-titulo').value.trim();
+  if(!titulo){notif('Dê um título para o compromisso.');return;}
+  var data=document.getElementById('ag-data').value;
+  if(!data){notif('Selecione a data.');return;}
+  var horaIni=document.getElementById('ag-hora-ini').value;
+  var horaFim=document.getElementById('ag-hora-fim').value;
+  if(horaIni&&horaFim&&horaFim<=horaIni){notif('A hora final deve ser depois da inicial.');return;}
+  var eid=document.getElementById('ag-edit-id').value;
+  var conflito=agVerificarConflito(data,horaIni,horaFim,eid);
+  var avisoEl=document.getElementById('ag-conflito-aviso');
+  if(conflito){
+    avisoEl.style.display='block';
+    avisoEl.textContent='Já existe "'+conflito.titulo+'" nesse horário ('+conflito.hora_inicio+'–'+conflito.hora_fim+'). Clique em Salvar novamente para manter assim mesmo, ou ajuste o horário.';
+    if(!avisoEl.dataset.confirmado){avisoEl.dataset.confirmado='1';return;}
+  }
+  if(avisoEl)avisoEl.dataset.confirmado='';
+  var clienteId=document.getElementById('ag-cliente').value;
+  var cli=clienteId?(DB.clientes||[]).find(function(c){return c.id===clienteId;}):null;
+  if(!DB.compromissos)DB.compromissos=[];
+  var obj={
+    id:eid||uid(),
+    titulo:titulo,
+    data:data,
+    categoria:document.getElementById('ag-categoria').value,
+    hora_inicio:horaIni,
+    hora_fim:horaFim,
+    clienteId:clienteId||'',
+    clienteNome:cli?cli.nome:'',
+    local:document.getElementById('ag-local').value.trim(),
+    observacoes:document.getElementById('ag-obs').value.trim(),
+    status:document.getElementById('ag-status').value,
+    criado:eid?((DB.compromissos.find(function(x){return x.id===eid;})||{}).criado||new Date().toISOString()):new Date().toISOString()
+  };
+  if(eid){var idx=DB.compromissos.findIndex(function(x){return x.id===eid;});if(idx>=0)DB.compromissos[idx]=obj;else DB.compromissos.push(obj);}
+  else DB.compromissos.push(obj);
+  saveDB();closeModal('modal-add-compromisso');renderAgenda();notif('Compromisso salvo.');
+  if(!eid&&_googleAccessToken){
+    criarEventoGoogle(obj).then(function(googleId){
+      if(googleId){
+        var idx2=DB.compromissos.findIndex(function(x){return x.id===obj.id;});
+        if(idx2>=0){DB.compromissos[idx2].googleEventId=googleId;saveDB();}
+        notif('Também adicionado ao Google Agenda.');
+      }
+    });
+  }
+}
+function remCompromisso(id){if(!confirm('Remover este compromisso?'))return;DB.compromissos=DB.compromissos.filter(function(x){return x.id!==id;});saveDB();renderAgenda();notif('Removido.');}
+function mudarStatusCompromisso(id,status){
+  var c=(DB.compromissos||[]).find(function(x){return x.id===id;});if(!c)return;
+  c.status=status;saveDB();renderAgenda();notif('Status atualizado.');
+}
+function agFiltrar(tipo,btn){
+  _agFiltroAtivo=tipo;
+  document.querySelectorAll('#ag-filtros .itab').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  renderAgenda();
+}
+function getCompromissosHoje(){
+  var hoje=agHojeStr();
+  return (DB.compromissos||[]).filter(function(c){return c.data===hoje&&c.status!=='cancelado';}).sort(function(a,b){return (a.hora_inicio||'').localeCompare(b.hora_inicio||'');});
+}
+function renderAgenda(){
+  if(!DB)return;
+  if(!DB.compromissos)DB.compromissos=[];
+  if(!DB.categorias_agenda)DB.categorias_agenda=['Atendimento','Reunião','Financeiro','Marketing','Estudo','Projeto','Pessoal','Administrativo'];
+  atualizarStatusGoogleAgenda();
+  if(_googleAccessToken&&!_googleEventosCache.length){sincronizarGoogleAgenda();}
+  else if(_googleEventosCache.length){renderGoogleEventos();}
+  var hoje=agHojeStr();
+  var hojeDate=new Date();hojeDate.setHours(0,0,0,0);
+  var em7dias=new Date(hojeDate);em7dias.setDate(em7dias.getDate()+7);
+  var mesAtual=hojeDate.getMonth(),anoAtual=hojeDate.getFullYear();
+
+  var hojeCompr=DB.compromissos.filter(function(c){return c.data===hoje&&c.status!=='cancelado';});
+  var semanaCompr=DB.compromissos.filter(function(c){
+    if(!c.data||c.status==='cancelado')return false;
+    var d=new Date(c.data+'T00:00:00');
+    return d>=hojeDate&&d<=em7dias;
+  });
+  var atrasados=DB.compromissos.filter(function(c){
+    if(!c.data||c.status==='concluido'||c.status==='cancelado')return false;
+    var d=new Date(c.data+'T00:00:00');
+    return d<hojeDate;
+  });
+  var concluidosMes=DB.compromissos.filter(function(c){
+    if(!c.data||c.status!=='concluido')return false;
+    var d=new Date(c.data+'T00:00:00');
+    return d.getMonth()===mesAtual&&d.getFullYear()===anoAtual;
+  });
+
+  var e1=document.getElementById('ag-hoje-count');if(e1)e1.textContent=hojeCompr.length||'—';
+  var e2=document.getElementById('ag-semana-count');if(e2)e2.textContent=semanaCompr.length||'—';
+  var e3=document.getElementById('ag-atrasados-count');if(e3)e3.textContent=atrasados.length||'—';
+  var e4=document.getElementById('ag-concluidos-count');if(e4)e4.textContent=concluidosMes.length||'—';
+
+  var lista=DB.compromissos.slice();
+  if(_agFiltroAtivo==='hoje'){lista=hojeCompr;}
+  else if(_agFiltroAtivo==='semana'){lista=semanaCompr;}
+  else if(_agFiltroAtivo==='pendentes'){lista=lista.filter(function(c){return c.status==='agendado'||c.status==='confirmado';});}
+  else if(_agFiltroAtivo==='concluidos'){lista=lista.filter(function(c){return c.status==='concluido';});}
+
+  var el=document.getElementById('lista-agenda');if(!el)return;
+  if(!lista.length){
+    var msg=_agFiltroAtivo==='hoje'?'Você não tem compromissos hoje.':'Nenhum compromisso encontrado neste filtro.';
+    el.innerHTML='<div class="ev"><div class="eicon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /></svg></div><div class="etitle">'+msg+'</div><div class="edesc">Crie um novo compromisso quando quiser.</div></div>';
+    return;
+  }
+
+  var sorted=lista.slice().sort(function(a,b){
+    var da=(a.data||'')+((a.hora_inicio)||'00:00');
+    var db=(b.data||'')+((b.hora_inicio)||'00:00');
+    return da.localeCompare(db);
+  });
+
+  var statusLabel={agendado:'Agendado',confirmado:'Confirmado',concluido:'Concluído',cancelado:'Cancelado',reagendado:'Reagendado'};
+  var statusCls={agendado:'m',confirmado:'n',concluido:'g',cancelado:'r',reagendado:'o'};
+
+  var grupos={};
+  var ordemDatas=[];
+  sorted.forEach(function(c){
+    var key=c.data||'—';
+    if(!grupos[key]){grupos[key]=[];ordemDatas.push(key);}
+    grupos[key].push(c);
+  });
+
+  el.innerHTML='';
+  ordemDatas.forEach(function(dataKey){
+    var dObj=dataKey!=='—'?new Date(dataKey+'T00:00:00'):null;
+    var label=dataKey;
+    if(dObj){
+      var diffDias=Math.round((dObj-hojeDate)/86400000);
+      if(diffDias===0)label='Hoje · '+dataKey;
+      else if(diffDias===1)label='Amanhã · '+dataKey;
+      else if(diffDias===-1)label='Ontem · '+dataKey;
+      else label=dataKey;
+    }
+    var hdr=document.createElement('div');
+    hdr.style.cssText='font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:16px 0 8px;';
+    hdr.textContent=label;
+    el.appendChild(hdr);
+
+    grupos[dataKey].forEach(function(c){
+      var card=document.createElement('div');
+      card.style.cssText='background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:12px;margin-bottom:9px';
+      var h='<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">';
+      h+='<div><div style="font-size:.85rem;font-weight:600;color:var(--cafe)">'+(c.hora_inicio?c.hora_inicio+(c.hora_fim?'–'+c.hora_fim+' · ':' · '):'')+esc(c.titulo)+'</div>';
+      h+='<div style="font-size:.68rem;color:var(--muted);margin-top:3px">'+esc(c.categoria||'')+(c.clienteNome?' · '+esc(c.clienteNome):'')+(c.local?' · '+esc(c.local):'')+'</div>';
+      h+='<div style="margin-top:6px"><span class="bdg '+(statusCls[c.status]||'m')+'">'+(statusLabel[c.status]||c.status)+'</span></div></div>';
+      h+='<div style="display:flex;gap:5px;flex-shrink:0">';
+      if(c.status!=='concluido')h+='<button class="be" style="font-size:.58rem;padding:3px 7px" onclick="mudarStatusCompromisso(\''+c.id+'\',\'concluido\')">Concluir</button>';
+      h+='<button class="bg" style="font-size:.58rem;padding:3px 7px" onclick="editarCompromisso(\''+c.id+'\')">Editar</button>';
+      h+='<button class="bd" style="font-size:.58rem;padding:3px 7px" onclick="remCompromisso(\''+c.id+'\')">✕</button>';
+      h+='</div></div>';
+      if(c.observacoes)h+='<div style="font-size:.72rem;color:var(--text);margin-top:7px;padding-top:7px;border-top:1px solid var(--border)">'+esc(c.observacoes)+'</div>';
+      card.innerHTML=h;
+      el.appendChild(card);
+    });
+  });
+}
+
+// ══════════════════════════════════════════════
+// INTEGRAÇÃO GOOGLE AGENDA
+// ══════════════════════════════════════════════
+var GOOGLE_CLIENT_ID='1067962940691-vhk22bimtqeihglll16rmkqe056gv7bn.apps.googleusercontent.com';
+var GOOGLE_CALENDAR_SCOPE='https://www.googleapis.com/auth/calendar.events';
+var _googleTokenClient=null;
+var _googleAccessToken=null;
+var _googleEventosCache=[];
+
+function initGoogleAuth(){
+  if(typeof google==='undefined'||!google.accounts||!google.accounts.oauth2){
+    setTimeout(initGoogleAuth,800);
+    return;
+  }
+  _googleTokenClient=google.accounts.oauth2.initTokenClient({
+    client_id:GOOGLE_CLIENT_ID,
+    scope:GOOGLE_CALENDAR_SCOPE,
+    callback:function(resp){
+      if(resp&&resp.access_token){
+        _googleAccessToken=resp.access_token;
+        if(DB){if(!DB.config)DB.config={};DB.config.google_agenda_conectada=true;saveDB();}
+        atualizarStatusGoogleAgenda();
+        sincronizarGoogleAgenda();
+        notif('Google Agenda conectado!');
+      }
+    },
+    error_callback:function(){
+      notif('Não foi possível conectar ao Google. Tente novamente.');
+    }
+  });
+}
+function conectarGoogleAgenda(){
+  if(!_googleTokenClient){notif('Aguarde o Google carregar (alguns segundos) e tente de novo.');initGoogleAuth();return;}
+  _googleTokenClient.requestAccessToken({prompt:_googleAccessToken?'':'consent'});
+}
+function desconectarGoogleAgenda(){
+  _googleAccessToken=null;
+  _googleEventosCache=[];
+  if(DB){if(DB.config)DB.config.google_agenda_conectada=false;saveDB();}
+  var el=document.getElementById('ag-google-eventos');if(el)el.innerHTML='';
+  atualizarStatusGoogleAgenda();
+  notif('Google Agenda desconectado.');
+}
+function atualizarStatusGoogleAgenda(){
+  var statusEl=document.getElementById('ag-google-status');
+  var btnEl=document.getElementById('ag-google-btn');
+  if(!statusEl||!btnEl)return;
+  if(_googleAccessToken){
+    statusEl.textContent='Conectado — sincronizando compromissos novos';
+    btnEl.textContent='Desconectar';
+    btnEl.setAttribute('onclick','desconectarGoogleAgenda()');
+  }else{
+    var jaConectouAntes=DB&&DB.config&&DB.config.google_agenda_conectada;
+    statusEl.textContent=jaConectouAntes?'Sessão expirou — clique para reconectar':'Não conectado';
+    btnEl.textContent='Conectar';
+    btnEl.setAttribute('onclick','conectarGoogleAgenda()');
+  }
+}
+async function sincronizarGoogleAgenda(){
+  if(!_googleAccessToken)return;
+  var el=document.getElementById('ag-google-eventos');
+  if(el)el.innerHTML='<div style="font-size:.72rem;color:var(--muted);padding:10px 0;">Buscando eventos do Google...</div>';
+  try{
+    var timeMin=new Date();timeMin.setDate(timeMin.getDate()-3);
+    var timeMax=new Date();timeMax.setDate(timeMax.getDate()+30);
+    var url='https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin='+encodeURIComponent(timeMin.toISOString())+'&timeMax='+encodeURIComponent(timeMax.toISOString())+'&singleEvents=true&orderBy=startTime&maxResults=100';
+    var resp=await fetch(url,{headers:{'Authorization':'Bearer '+_googleAccessToken}});
+    if(!resp.ok){
+      if(resp.status===401){_googleAccessToken=null;atualizarStatusGoogleAgenda();}
+      if(el)el.innerHTML='<div style="font-size:.72rem;color:var(--muted);padding:10px 0;">Não foi possível buscar os eventos do Google agora.</div>';
+      return;
+    }
+    var data=await resp.json();
+    _googleEventosCache=data.items||[];
+    renderGoogleEventos();
+  }catch(e){
+    if(el)el.innerHTML='<div style="font-size:.72rem;color:var(--muted);padding:10px 0;">Erro ao buscar eventos do Google.</div>';
+  }
+}
+function renderGoogleEventos(){
+  var el=document.getElementById('ag-google-eventos');
+  if(!el)return;
+  if(!_googleEventosCache.length){
+    el.innerHTML='<div style="font-size:.72rem;color:var(--muted);padding:10px 0;">Nenhum evento próximo no seu Google Agenda.</div>';
+    return;
+  }
+  var h='<div style="font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:16px 0 8px;">Do seu Google Agenda</div>';
+  _googleEventosCache.forEach(function(ev){
+    var start=ev.start&&(ev.start.dateTime||ev.start.date);
+    var dataFmt='—',horaFmt='';
+    if(start){
+      var d=new Date(start);
+      dataFmt=d.toLocaleDateString('pt-BR');
+      if(ev.start.dateTime)horaFmt=d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    }
+    h+='<div style="background:var(--s1);border:1px dashed var(--muted2);border-radius:16px;padding:11px 13px;margin-bottom:8px;">';
+    h+='<div style="font-size:.8rem;font-weight:600;color:var(--cafe)">'+(horaFmt?horaFmt+' · ':'')+esc(ev.summary||'(sem título)')+'</div>';
+    h+='<div style="font-size:.66rem;color:var(--muted);margin-top:2px">'+dataFmt+(ev.location?' · '+esc(ev.location):'')+'</div>';
+    h+='</div>';
+  });
+  el.innerHTML=h;
+}
+async function criarEventoGoogle(compromisso){
+  if(!_googleAccessToken)return null;
+  if(!compromisso.data)return null;
+  var horaIni=compromisso.hora_inicio||'09:00';
+  var horaFim=compromisso.hora_fim||horaIni;
+  var body={
+    summary:compromisso.titulo,
+    description:compromisso.observacoes||'',
+    location:compromisso.local||'',
+    start:{dateTime:compromisso.data+'T'+horaIni+':00',timeZone:'America/Sao_Paulo'},
+    end:{dateTime:compromisso.data+'T'+horaFim+':00',timeZone:'America/Sao_Paulo'}
+  };
+  try{
+    var resp=await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events',{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+_googleAccessToken,'Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+    if(!resp.ok)return null;
+    var data=await resp.json();
+    return data.id||null;
+  }catch(e){return null;}
+}
+
+
 // ══════════════════════════════════════════════
 function renderAlertasFull(){
   if(!DB)return;
@@ -4359,7 +5278,7 @@ function renderHistCli(){
   if(filtroVal)items=items.filter(function(h){return h.clienteId===filtroVal;});
   items.sort(function(a,b){return (b.data||'').localeCompare(a.data||'');});
   if(!items.length){el.innerHTML='<div class="ev"><div class="eicon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></svg></div><div class="etitle">Nenhum registro ainda</div><div class="edesc">Registre conversas, decisões e combinados.</div></div>';return;}
-  var tipoIcon={conversa:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></svg>',decisao:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg>',combinado:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /></svg>',feedback:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>',problema:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg>️',outro:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></svg>'};
+  var tipoIcon={conversa:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></svg>',decisao:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg>',combinado:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /></svg>',feedback:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>',problema:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg>',outro:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></svg>'};
   var tipoCls={conversa:'m',decisao:'g',combinado:'n',feedback:'o',problema:'r',outro:'m'};
   var tipoLabel={conversa:'Conversa',decisao:'Decisão',combinado:'Combinado',feedback:'Feedback',problema:'Problema',outro:'Outro'};
   el.innerHTML='';
@@ -4486,7 +5405,7 @@ function renderCrescimento(){
     h+='<input type="text" inputmode="decimal" value="'+planFat+'" placeholder="ex: 2200" style="width:100%;font-size:.72rem;padding:6px 8px;border-radius:7px;border:1px solid var(--muted2);background:#fff;font-family:Inter,sans-serif" data-key="'+m.key+'" onchange="salvarMetaMensal(this.dataset.key,\'fat\',this.value)">';
     h+=diffFatPct!==null?'<div style="font-size:.6rem;margin-top:3px;color:'+(diffFatPct>=0?'var(--green)':'var(--red)')+'">'+(diffFatPct>=0?'+':'')+diffFatPct+'% vs. planejado</div>':'<div style="font-size:.58rem;margin-top:3px;color:var(--muted)">defina uma meta pra comparar</div>';
     h+='</div>';
-    h+='<div><div style="font-size:.58rem;color:var(--muted);margin-bottom:3px;letter-spacing:.5px;text-transform:uppercase" title="Meta livre — não é calculada automaticamente a partir do faturamento planejado">Meta de lucro do mês ℹ️</div>';
+    h+='<div><div style="font-size:.58rem;color:var(--muted);margin-bottom:3px;letter-spacing:.5px;text-transform:uppercase" title="Meta livre — não é calculada automaticamente a partir do faturamento planejado">Meta de lucro do mês ℹ</div>';
     h+='<input type="text" inputmode="decimal" value="'+planLucro+'" placeholder="ex: 800" style="width:100%;font-size:.72rem;padding:6px 8px;border-radius:7px;border:1px solid var(--muted2);background:#fff;font-family:Inter,sans-serif" data-key="'+m.key+'" onchange="salvarMetaMensal(this.dataset.key,\'lucro\',this.value)">';
     h+=diffLucroPct!==null?'<div style="font-size:.6rem;margin-top:3px;color:'+(diffLucroPct>=0?'var(--green)':'var(--red)')+'">'+(diffLucroPct>=0?'+':'')+diffLucroPct+'% vs. planejado</div>':'<div style="font-size:.58rem;margin-top:3px;color:var(--muted)">defina uma meta pra comparar</div>';
     h+='</div></div>';
@@ -4508,7 +5427,7 @@ function salvarMetaMensal(key,campo,valor){
 
 function marcarConfigNaoSalva(){
   var st=document.getElementById('cfg-saude-status');
-  if(st)st.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg>️ Alteração não salva — clique em Salvar';
+  if(st)st.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg> Alteração não salva — clique em Salvar';
   var btn=document.getElementById('btn-salvar-config-saude');
   if(btn)btn.style.background='var(--red)';
 }
@@ -4785,7 +5704,7 @@ async function claraContextual(modulo, dados){
     out.innerHTML='<div class="clara-section"><div class="clara-section-title"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" /> <path d="M9 18h6" /> <path d="M10 22h4" /></svg> Clara</div><div class="clara-msg">'+texto.replace(/\n/g,'<br>')+'</div></div>';
   }catch(err){
     load.style.display='none';out.style.display='block';
-    out.innerHTML='<div style="font-size:.76rem;color:var(--muted)">Configure a chave de API em <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg>️ Config para a Clara funcionar fora do Claude.ai.</div>';
+    out.innerHTML='<div style="font-size:.76rem;color:var(--muted)">Configure a chave de API em <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg> Config para a Clara funcionar fora do Claude.ai.</div>';
   }
 }
 
@@ -5029,7 +5948,7 @@ function renderFinReceitas(mes, key){
     } else {
       h += '<button class="bg" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="desfazerBaixaReceita(this.dataset.id,this.dataset.key)">Desfazer</button>';
     }
-    h += '<button class="be" style="font-size:.6rem;padding:4px 9px" data-id="'+r.id+'" data-key="'+key+'" onclick="editarReceita(this.dataset.id,this.dataset.key)"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg>️</button>';
+    h += '<button class="be" style="font-size:.6rem;padding:4px 9px" data-id="'+r.id+'" data-key="'+key+'" onclick="editarReceita(this.dataset.id,this.dataset.key)"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg></button>';
     h += '</div></div></div>';
   });
 
@@ -5084,7 +6003,7 @@ function renderFinDespesas(mes, key){
     var cor = d.pago ? 'var(--green)' : 'var(--red)';
     var icon = d.pago ? '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="0.6em" height="0.6em" viewBox="0 0 24 24" style="vertical-align:0.05em;display:inline-block"><circle cx="12" cy="12" r="10" fill="var(--red)"/></svg>';
     var tipoLabel = d.tipo==='PF'?'PF':d.tipo==='PJ'?'PJ':'—';
-    var natIcon={fixa:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></svg>',variavel:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M5 21v-6" /> <path d="M12 21V3" /> <path d="M19 21V9" /></svg>',unica:'1️⃣'};
+    var natIcon={fixa:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></svg>',variavel:'<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M5 21v-6" /> <path d="M12 21V3" /> <path d="M19 21V9" /></svg>',unica:'1⃣'};
     var natLabel={fixa:'Fixa',variavel:'Variável',unica:'Única vez'};
     h += '<div style="background:var(--s2);border:1px solid var(--border);border-left:3px solid '+cor+';border-radius:9px;padding:12px;margin-bottom:8px">';
     h += '<div style="display:flex;justify-content:space-between;align-items:center">';
@@ -5097,7 +6016,7 @@ function renderFinDespesas(mes, key){
     } else {
       h += '<button class="bg" style="font-size:.6rem;padding:4px 10px" data-id="'+d.id+'" data-key="'+key+'" onclick="desfazerPagamento(this.dataset.id,this.dataset.key)">Desfazer</button>';
     }
-    h += '<button class="be" style="font-size:.6rem;padding:4px 9px" data-id="'+d.id+'" data-key="'+key+'" onclick="editarDespesa(this.dataset.id,this.dataset.key)"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg>️</button>';
+    h += '<button class="be" style="font-size:.6rem;padding:4px 9px" data-id="'+d.id+'" data-key="'+key+'" onclick="editarDespesa(this.dataset.id,this.dataset.key)"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg></button>';
     h += '<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+d.id+'" data-key="'+key+'" onclick="remDespesaMes(this.dataset.id,this.dataset.key)"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>';
     h += '</div></div></div>';
   });
@@ -5233,7 +6152,7 @@ function renderFinOutras(mes, key){
     } else {
       h += '<button class="bg" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="desfazerOutra(this.dataset.id,this.dataset.key)">Desfazer</button>';
     }
-    h += '<button class="be" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="editarOutraReceita(this.dataset.id,this.dataset.key)"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg>️</button>';
+    h += '<button class="be" style="font-size:.6rem;padding:4px 10px" data-id="'+r.id+'" data-key="'+key+'" onclick="editarOutraReceita(this.dataset.id,this.dataset.key)"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg></button>';
     h += '<button class="bd" style="font-size:.6rem;padding:3px 8px" data-id="'+r.id+'" data-key="'+key+'" onclick="remOutra(this.dataset.id,this.dataset.key)"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>';
     h += '</div></div></div>';
   });
@@ -5512,7 +6431,7 @@ function carregarRespostasExperiencia(){
     .then(function(r){ if(!r.ok)throw new Error('Erro '+r.status); return r.json(); })
     .then(function(data){ renderRespostasExperiencia(data); })
     .catch(function(err){
-      el.innerHTML='<div class="ev"><div class="eicon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg>️</div><div class="etitle">Não consegui carregar</div><div class="edesc">'+err.message+'</div></div>';
+      el.innerHTML='<div class="ev"><div class="eicon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></div><div class="etitle">Não consegui carregar</div><div class="edesc">'+err.message+'</div></div>';
     });
 }
 function renderRespostasExperiencia(items){
@@ -5799,10 +6718,10 @@ function editarInvestimento(id){
   </div>
   <div class="fi"><label>Status</label>
     <select id="prop-status">
-      <option value="enviada"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M12 3v12" /> <path d="m17 8-5-5-5 5" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></svg> Enviada</option>
-      <option value="em_negociacao"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /></svg> Em negociação</option>
-      <option value="aceita"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> Aceita</option>
-      <option value="recusada"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><circle cx="12" cy="12" r="10" /> <path d="m15 9-6 6" /> <path d="m9 9 6 6" /></svg> Recusada</option>
+      <option value="enviada">Enviada</option>
+      <option value="em_negociacao">Em negociação</option>
+      <option value="aceita">Aceita</option>
+      <option value="recusada">Recusada</option>
       <option value="expirada">⏰ Expirada</option>
     </select>
   </div>
@@ -5817,12 +6736,12 @@ function editarInvestimento(id){
     <div class="fi"><label>Cliente</label><select id="hcli-cliente"></select></div>
     <div class="fi"><label>Tipo</label>
       <select id="hcli-tipo">
-        <option value="conversa"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></svg> Conversa</option>
-        <option value="decisao"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" /></svg> Decisão tomada</option>
-        <option value="combinado"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /></svg> Combinado</option>
-        <option value="feedback"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg> Feedback</option>
-        <option value="problema"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg>️ Problema</option>
-        <option value="outro"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></svg> Outro</option>
+        <option value="conversa">Conversa</option>
+        <option value="decisao">Decisão tomada</option>
+        <option value="combinado">Combinado</option>
+        <option value="feedback">Feedback</option>
+        <option value="problema"> Problema</option>
+        <option value="outro">Outro</option>
       </select>
     </div>
   </div>
@@ -5838,10 +6757,10 @@ function editarInvestimento(id){
     <div class="fi"><label>Título</label><input type="text" id="bib-titulo" placeholder="Nome do material..."></div>
     <div class="fi"><label>Categoria</label>
       <select id="bib-cat">
-        <option value="template"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg> Template</option>
-        <option value="link"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /> <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg> Link</option>
-        <option value="material"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg> Material</option>
-        <option value="ferramenta"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" /></svg> Ferramenta</option>
+        <option value="template">Template</option>
+        <option value="link">Link</option>
+        <option value="material">Material</option>
+        <option value="ferramenta">Ferramenta</option>
       </select>
     </div>
   </div>
@@ -5867,33 +6786,33 @@ function editarInvestimento(id){
     <div class="fi"><label>Categoria</label>
       <select id="dm-cat">
         <optgroup label="Pessoal (PF)">
-          <option value="Moradia / Aluguel"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /> <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg> Moradia / Aluguel</option>
-          <option value="Água / Luz / Gás"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" /> <path d="M9 18h6" /> <path d="M10 22h4" /></svg> Água / Luz / Gás</option>
-          <option value="Internet / Telefone"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M16.247 7.761a6 6 0 0 1 0 8.478" /> <path d="M19.075 4.933a10 10 0 0 1 0 14.134" /> <path d="M4.925 19.067a10 10 0 0 1 0-14.134" /> <path d="M7.753 16.239a6 6 0 0 1 0-8.478" /> <circle cx="12" cy="12" r="2" /></svg> Internet / Telefone</option>
-          <option value="Mercado / Alimentação"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><circle cx="8" cy="21" r="1" /> <circle cx="19" cy="21" r="1" /> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg> Mercado / Alimentação</option>
-          <option value="Transporte"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" /> <circle cx="7" cy="17" r="2" /> <path d="M9 17h6" /> <circle cx="17" cy="17" r="2" /></svg> Transporte</option>
-          <option value="Saúde / Plano"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>️ Saúde / Plano</option>
-          <option value="Educação"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg> Educação</option>
-          <option value="Vestuário"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" /></svg> Vestuário</option>
-          <option value="Beleza / Autocuidado"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /></svg> Beleza / Autocuidado</option>
-          <option value="Lazer / Entretenimento"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M5.8 11.3 2 22l10.7-3.79" /> <path d="M4 3h.01" /> <path d="M22 8h.01" /> <path d="M15 2h.01" /> <path d="M22 20h.01" /> <path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10" /> <path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17" /> <path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7" /> <path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z" /></svg> Lazer / Entretenimento</option>
-          <option value="Filhos / Família"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5" /> <path d="M15 12h.01" /> <path d="M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1" /> <path d="M9 12h.01" /></svg> Filhos / Família</option>
-          <option value="Empréstimo / Parcela"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></svg> Empréstimo / Parcela</option>
-          <option value="Cartão de crédito PF"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></svg> Cartão de crédito</option>
-          <option value="Outros PF"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></svg> Outros PF</option>
+          <option value="Moradia / Aluguel">Moradia / Aluguel</option>
+          <option value="Água / Luz / Gás">Água / Luz / Gás</option>
+          <option value="Internet / Telefone">Internet / Telefone</option>
+          <option value="Mercado / Alimentação">Mercado / Alimentação</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde / Plano"> Saúde / Plano</option>
+          <option value="Educação">Educação</option>
+          <option value="Vestuário">Vestuário</option>
+          <option value="Beleza / Autocuidado">Beleza / Autocuidado</option>
+          <option value="Lazer / Entretenimento">Lazer / Entretenimento</option>
+          <option value="Filhos / Família">Filhos / Família</option>
+          <option value="Empréstimo / Parcela">Empréstimo / Parcela</option>
+          <option value="Cartão de crédito PF">Cartão de crédito</option>
+          <option value="Outros PF">Outros PF</option>
         </optgroup>
         <optgroup label="Empresa (PJ)">
-          <option value="MEI / Impostos"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M10 18v-7" /> <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" /> <path d="M14 18v-7" /> <path d="M18 18v-7" /> <path d="M3 22h18" /> <path d="M6 18v-7" /></svg> MEI / Impostos</option>
-          <option value="Contador / Assessoria"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M5 21v-6" /> <path d="M12 21V3" /> <path d="M19 21V9" /></svg> Contador / Assessoria</option>
-          <option value="Ferramentas / Apps"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" /></svg> Ferramentas / Apps</option>
-          <option value="Cursos / Capacitação PJ"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg> Cursos / Capacitação</option>
-          <option value="Marketing / Tráfego"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" /> <path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14" /> <path d="M8 6v8" /></svg> Marketing / Tráfego</option>
-          <option value="Assinaturas PJ"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></svg> Assinaturas</option>
-          <option value="Equipamentos"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z" /> <path d="M20.054 15.987H3.946" /></svg> Equipamentos</option>
-          <option value="Fornecedores / Serviços"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /></svg> Fornecedores / Serviços</option>
-          <option value="Empréstimo PJ"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></svg> Empréstimo PJ</option>
-          <option value="Cartão de crédito PJ"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></svg> Cartão de crédito PJ</option>
-          <option value="Outros PJ"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></svg> Outros PJ</option>
+          <option value="MEI / Impostos">MEI / Impostos</option>
+          <option value="Contador / Assessoria">Contador / Assessoria</option>
+          <option value="Ferramentas / Apps">Ferramentas / Apps</option>
+          <option value="Cursos / Capacitação PJ">Cursos / Capacitação</option>
+          <option value="Marketing / Tráfego">Marketing / Tráfego</option>
+          <option value="Assinaturas PJ">Assinaturas</option>
+          <option value="Equipamentos">Equipamentos</option>
+          <option value="Fornecedores / Serviços">Fornecedores / Serviços</option>
+          <option value="Empréstimo PJ">Empréstimo PJ</option>
+          <option value="Cartão de crédito PJ">Cartão de crédito PJ</option>
+          <option value="Outros PJ">Outros PJ</option>
         </optgroup>
       </select>
     </div>
@@ -5901,9 +6820,9 @@ function editarInvestimento(id){
 
   <div class="fi"><label>Natureza da despesa</label>
     <select id="dm-natureza" onchange="toggleDMNatureza()">
-      <option value="fixa"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></svg> Fixa — repete todo mês com o mesmo valor</option>
-      <option value="variavel"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M5 21v-6" /> <path d="M12 21V3" /> <path d="M19 21V9" /></svg> Variável — muda todo mês (água, mercado...)</option>
-      <option value="unica">1️⃣ Única vez — não se repete</option>
+      <option value="fixa">Fixa — repete todo mês com o mesmo valor</option>
+      <option value="variavel">Variável — muda todo mês (água, mercado...)</option>
+      <option value="unica">1⃣ Única vez — não se repete</option>
     </select>
   </div>
 
@@ -5976,11 +6895,11 @@ function editarInvestimento(id){
   <div class="fi"><label>URL</label><input type="text" id="lkemp-url" placeholder="https://..."></div>
   <div class="fi"><label>Categoria</label>
     <select id="lkemp-cat">
-      <option value="drive"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" /></svg> Drive (pasta de cliente ou geral)</option>
-      <option value="rede"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" /> <path d="M12 18h.01" /></svg> Rede social</option>
-      <option value="ferramenta"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" /></svg> Ferramenta</option>
-      <option value="cliente"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg> Cliente (link direto)</option>
-      <option value="outro"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;flex-shrink:0;display:inline-block"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></svg> Outro</option>
+      <option value="drive">Drive (pasta de cliente ou geral)</option>
+      <option value="rede">Rede social</option>
+      <option value="ferramenta">Ferramenta</option>
+      <option value="cliente">Cliente (link direto)</option>
+      <option value="outro">Outro</option>
     </select>
   </div>
   <div class="fi"><label>Descrição (opcional)</label><input type="text" id="lkemp-desc" placeholder="ex: Pasta com contrato e entregas da Lilian"></div>
