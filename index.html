@@ -443,6 +443,17 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
       <div style="display:flex;justify-content:flex-end;"><button class="bp" onclick="salvarReflexaoPainel()">Salvar Reflexão</button></div>
     </div>
 
+    <div class="section-hdr">Objetivos Pessoais</div>
+    <div class="card" style="margin-bottom:13px;"><div id="painel-objetivos"></div></div>
+
+    <div class="section-hdr">Indicadores Pessoais</div>
+    <div class="g4" style="margin-bottom:13px;">
+      <div class="sc"><div class="sl">Dias seguidos com check-in</div><div class="sv n" id="ind-sequencia-checkin">—</div></div>
+      <div class="sc"><div class="sl">Dias seguidos refletindo</div><div class="sv n" id="ind-sequencia-reflexao">—</div></div>
+      <div class="sc"><div class="sl">Decisões tomadas</div><div class="sv o" id="ind-decisoes-tomadas">—</div></div>
+      <div class="sc"><div class="sl">Metas pessoais realizadas</div><div class="sv g" id="ind-metas-realizadas">—</div></div>
+    </div>
+
     <div class="section-hdr">Histórico de Reflexões</div>
     <div class="card" style="margin-bottom:13px;"><div id="painel-reflexoes-hist"></div></div>
 
@@ -1129,6 +1140,7 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
       <div class="sc"><div class="sl">Taxa de sucesso</div><div class="sv g" id="dec-taxa">—</div></div>
     </div>
     <div style="display:flex;justify-content:flex-end;margin-bottom:13px"><button class="bp" onclick="abrirNovaDecisao()">+ Nova Decisão</button></div>
+    <div id="dec-comparacao"></div>
     <div id="lista-decisoes"></div>
   </div>
 
@@ -1170,6 +1182,7 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
       <button class="itab active" onclick="showItab('mem','timeline',this)">Linha do Tempo</button>
       <button class="itab" onclick="showItab('mem','diario',this)">Diário Estratégico</button>
       <button class="itab" onclick="showItab('mem','marcos',this)">Marcos</button>
+      <button class="itab" onclick="showItab('mem','revisoes',this)">Revisões</button>
     </div>
 
     <div class="itab-pane active" id="mem-timeline" style="display:block">
@@ -1187,6 +1200,13 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
 
     <div class="itab-pane" id="mem-marcos" style="display:none">
       <div id="mem-marcos-lista"></div>
+    </div>
+
+    <div class="itab-pane" id="mem-revisoes" style="display:none">
+      <div class="section-hdr">Revisão da Semana</div>
+      <div class="card" style="margin-bottom:13px;"><div id="mem-revisao-semana"></div></div>
+      <div class="section-hdr">Revisão do Mês</div>
+      <div class="card"><div id="mem-revisao-mes"></div></div>
     </div>
   </div>
 
@@ -1215,9 +1235,10 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
   <input type="hidden" id="dec-edit-id">
   <div class="fi"><label>Título</label><input type="text" id="dec-titulo" placeholder="ex: Aumentar preço do pacote mensal"></div>
   <div class="fr">
-    <div class="fi"><label>Categoria</label><select id="dec-categoria"><option>Financeiro</option><option>Comercial</option><option>Marketing</option><option>Clientes</option><option>Equipe</option><option>Processos</option><option>Tecnologia</option><option>Estratégia</option><option>Pessoal</option></select></div>
+    <div class="fi"><label>Categoria</label><select id="dec-categoria" onchange="atualizarSugestoesDecisao()"><option>Financeiro</option><option>Comercial</option><option>Marketing</option><option>Clientes</option><option>Equipe</option><option>Processos</option><option>Tecnologia</option><option>Estratégia</option><option>Pessoal</option></select></div>
     <div class="fi"><label>Prazo para revisão</label><input type="date" id="dec-prazo"></div>
   </div>
+  <div id="dec-sugestoes" style="display:none;background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:11px;font-size:.72rem;color:var(--muted);"></div>
   <div class="fi"><label>Descrição</label><textarea id="dec-descricao" rows="2" placeholder="O que exatamente foi decidido"></textarea></div>
   <div class="fi"><label>Objetivo (o que espero alcançar)</label><input type="text" id="dec-objetivo"></div>
   <div class="fi"><label>Hipótese (o que acredito que vai acontecer)</label><input type="text" id="dec-hipotese"></div>
@@ -1836,10 +1857,28 @@ function renderPainel(){
   document.getElementById('painel-prioridade').value=checkin.prioridade||'';
 
   renderMeuDiaPainel();
+  renderObjetivosPainel();
+  renderIndicadoresPessoais();
   renderHabitosPainel();
   renderRadarPainel();
   renderReflexoesPainelHist();
   renderEspelhoFundadora();
+}
+function calcularMaiorIntervaloLivre(compr){
+  var comHorario=compr.filter(function(c){return c.hora_inicio&&c.hora_fim;}).sort(function(a,b){return a.hora_inicio.localeCompare(b.hora_inicio);});
+  if(comHorario.length<2)return null;
+  var maiorGap=0,gapInicio='',gapFim='';
+  for(var i=0;i<comHorario.length-1;i++){
+    var fimAtual=comHorario[i].hora_fim;
+    var inicioProx=comHorario[i+1].hora_inicio;
+    var minFim=parseInt(fimAtual.split(':')[0])*60+parseInt(fimAtual.split(':')[1]);
+    var minInicio=parseInt(inicioProx.split(':')[0])*60+parseInt(inicioProx.split(':')[1]);
+    var gap=minInicio-minFim;
+    if(gap>maiorGap){maiorGap=gap;gapInicio=fimAtual;gapFim=inicioProx;}
+  }
+  if(maiorGap<=0)return null;
+  var h=Math.floor(maiorGap/60),m=maiorGap%60;
+  return {texto:(h?h+'h':'')+(m?m+'min':''),inicio:gapInicio,fim:gapFim};
 }
 function renderMeuDiaPainel(){
   var el=document.getElementById('painel-meudia');
@@ -1849,11 +1888,49 @@ function renderMeuDiaPainel(){
     el.innerHTML='<div style="font-size:.78rem;color:var(--muted);">Nenhum compromisso agendado para hoje.</div>';
     return;
   }
-  el.innerHTML=compr.map(function(c){
+  var h='';
+  var gap=calcularMaiorIntervaloLivre(compr);
+  if(gap)h+='<div style="font-size:.7rem;color:var(--nude);margin-bottom:8px;">Maior intervalo livre: '+gap.texto+' (entre '+gap.inicio+' e '+gap.fim+')</div>';
+  h+=compr.map(function(c){
     var statusCls={agendado:'m',confirmado:'n',concluido:'g',cancelado:'r',reagendado:'o'}[c.status]||'m';
     var statusLabel={agendado:'Agendado',confirmado:'Confirmado',concluido:'Concluído',cancelado:'Cancelado',reagendado:'Reagendado'}[c.status]||c.status;
     return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);"><div><span style="font-size:.8rem;font-weight:600;color:var(--cafe)">'+(c.hora_inicio||'—')+'</span> <span style="font-size:.8rem;color:var(--text)">'+esc(c.titulo)+'</span>'+(c.clienteNome?' <span style="font-size:.68rem;color:var(--muted)">· '+esc(c.clienteNome)+'</span>':'')+'</div><span class="bdg '+statusCls+'">'+statusLabel+'</span></div>';
   }).join('');
+  el.innerHTML=h;
+}
+function renderObjetivosPainel(){
+  var el=document.getElementById('painel-objetivos');
+  if(!el)return;
+  var lista=(DB.metas_pessoais||[]).filter(function(m){return m.status!=='Realizado';});
+  if(!lista.length){
+    el.innerHTML='<div style="font-size:.76rem;color:var(--muted);">Nenhum objetivo pessoal em andamento. Cadastre em Estratégia → Metas Pessoais.</div>';
+    return;
+  }
+  var statusCls={Sonhando:'m',Planejando:'n',['Em andamento']:'o'};
+  el.innerHTML=lista.slice(0,5).map(function(m){
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);"><div><div style="font-size:.8rem;color:var(--text);font-weight:600;">'+esc(m.titulo)+'</div>'+(m.prazo?'<div style="font-size:.66rem;color:var(--muted);margin-top:2px;">'+esc(m.prazo)+'</div>':'')+'</div><span class="bdg '+(statusCls[m.status]||'m')+'">'+esc(m.status)+'</span></div>';
+  }).join('');
+}
+function calcularSequenciaDias(datas){
+  if(!datas||!datas.length)return 0;
+  var setDatas={};
+  datas.forEach(function(d){setDatas[d]=true;});
+  var seq=0;
+  var d=new Date();d.setHours(0,0,0,0);
+  while(true){
+    var key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    if(setDatas[key]){seq++;d.setDate(d.getDate()-1);}
+    else break;
+  }
+  return seq;
+}
+function renderIndicadoresPessoais(){
+  var datasCheckin=(DB.painel.checkins||[]).map(function(c){return c.data;});
+  var datasReflexao=(DB.painel.reflexoes||[]).map(function(r){return r.data;});
+  var e1=document.getElementById('ind-sequencia-checkin');if(e1)e1.textContent=calcularSequenciaDias(datasCheckin)||'0';
+  var e2=document.getElementById('ind-sequencia-reflexao');if(e2)e2.textContent=calcularSequenciaDias(datasReflexao)||'0';
+  var e3=document.getElementById('ind-decisoes-tomadas');if(e3)e3.textContent=(DB.decisoes||[]).length||'0';
+  var e4=document.getElementById('ind-metas-realizadas');if(e4)e4.textContent=(DB.metas_pessoais||[]).filter(function(m){return m.status==='Realizado';}).length||'0';
 }
 function setEnergiaPainel(v){
   var hoje=hojeStrPainel();var c=getCheckinHoje();
@@ -1996,8 +2073,25 @@ function renderEspelhoFundadora(){
   if(reflexoes7.length){
     h+='<div style="padding:10px 0;"><div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--nude);margin-bottom:3px;">Reflexões desta semana</div><div style="font-size:.8rem;color:var(--text);line-height:1.5;">Você registrou '+reflexoes7.length+' reflexão(ões) nos últimos 7 dias.</div></div>';
   }else{
-    h+='<div style="padding:10px 0;"><div style="font-size:.76rem;color:var(--muted);">Nenhuma reflexão registrada nos últimos 7 dias.</div></div>';
+    h+='<div style="padding:10px 0;border-bottom:1px solid var(--border);"><div style="font-size:.76rem;color:var(--muted);">Nenhuma reflexão registrada nos últimos 7 dias.</div></div>';
   }
+
+  // Liderança: decisões + registros estratégicos nos últimos 7 dias
+  var decisoes7=(DB.decisoes||[]).filter(function(d){return d.criado&&dias7.indexOf(d.criado.slice(0,10))>=0;});
+  var diario7=(DB.diario_estrategico||[]).filter(function(dr){return dr.criado&&dias7.indexOf(dr.criado.slice(0,10))>=0;});
+  h+='<div style="padding:10px 0;border-bottom:1px solid var(--border);"><div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--nude);margin-bottom:3px;">Liderança</div><div style="font-size:.8rem;color:var(--text);line-height:1.5;">'+decisoes7.length+' decisão(ões) registrada(s) e '+diario7.length+' reflexão(ões) estratégica(s) nos últimos 7 dias.</div></div>';
+
+  // Crescimento: itens adicionados à Biblioteca + decisões de categoria Processos
+  var bibRecente=(DB.biblioteca||[]).filter(function(b){return b.criado&&dias7.indexOf(b.criado.slice(0,10))>=0;});
+  var processosMelhorados=(DB.decisoes||[]).filter(function(d){return d.categoria==='Processos';}).length;
+  h+='<div style="padding:10px 0;">'
+    +'<div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--nude);margin-bottom:3px;">Crescimento</div>'
+    +'<div style="font-size:.8rem;color:var(--text);line-height:1.5;">'+bibRecente.length+' material(is) adicionado(s) à Biblioteca esta semana. '+processosMelhorados+' decisão(ões) de processos registrada(s) ao todo.</div></div>';
+
+  var perguntas=['O que você faria diferente esta semana?','Existe alguma tarefa que pode ser eliminada?','Qual decisão está sendo adiada?','O que mais consumiu sua energia essa semana?','O que trouxe mais resultado ultimamente?','Você está gastando energia nas atividades certas?'];
+  var diaAno=Math.floor((new Date()-new Date(new Date().getFullYear(),0,0))/86400000);
+  var pergunta=perguntas[diaAno%perguntas.length];
+  h+='<div style="margin-top:14px;padding:12px;background:var(--nude-dim);border:1px solid var(--nude-b);border-radius:12px;"><div style="font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--nude);margin-bottom:4px;">Uma pergunta pra reflexão</div><div style="font-size:.82rem;color:var(--cafe);font-style:italic;">'+pergunta+'</div></div>';
 
   el.innerHTML=h;
 }
@@ -3876,7 +3970,7 @@ function showItab(g,id,btn){
   if(g==='fin'){renderFinanceiro();}
   if(g==='est'){if(id==='trimestre')renderMetas();else if(id==='pessoal')renderMetasPessoais();else if(id==='marcos')renderMarcos();else if(id==='anual')renderVisaoAnual();else if(id==='estrategias')renderEstrategias();}
   if(g==='prod'){if(id==='timer')prodRenderSessoes();else if(id==='demandas')prodRenderDemandas();else if(id==='rentabilidade')prodRenderRentabilidade();else if(id==='historico')prodRenderHistorico();else if(id==='estrategia')prodRenderDiagnostico();}
-  if(g==='mem'){if(id==='timeline')renderMemTimeline();else if(id==='diario')renderMemDiario();else if(id==='marcos')renderMemMarcos();}
+  if(g==='mem'){if(id==='timeline')renderMemTimeline();else if(id==='diario')renderMemDiario();else if(id==='marcos')renderMemMarcos();else if(id==='revisoes')renderMemRevisoes();}
 }
 
 function initItabPanes(){
@@ -4926,6 +5020,22 @@ function abrirNovaDecisao(){
   document.getElementById('dec-categoria').value='Financeiro';
   document.getElementById('dec-status').value='planejada';
   openModal('modal-add-decisao');
+  atualizarSugestoesDecisao();
+}
+function atualizarSugestoesDecisao(){
+  var el=document.getElementById('dec-sugestoes');
+  if(!el)return;
+  var cat=document.getElementById('dec-categoria').value;
+  var eid=document.getElementById('dec-edit-id').value;
+  var parecidas=(DB.decisoes||[]).filter(function(d){return d.categoria===cat&&d.id!==eid;});
+  if(!parecidas.length){el.style.display='none';return;}
+  var avaliadas=parecidas.filter(function(d){return d.resultado;});
+  var sucesso=avaliadas.filter(function(d){return d.resultado==='sim';}).length;
+  var txt='Você já registrou '+parecidas.length+' decisão(ões) de '+cat+' antes';
+  if(avaliadas.length)txt+=' — '+sucesso+' de '+avaliadas.length+' avaliada(s) trouxeram o resultado esperado';
+  txt+='. Últimas: '+parecidas.slice(0,3).map(function(d){return d.titulo;}).join(', ')+'.';
+  el.textContent=txt;
+  el.style.display='block';
 }
 function editarDecisao(id){
   var d=(DB.decisoes||[]).find(function(x){return x.id===id;});if(!d)return;
@@ -4939,6 +5049,7 @@ function editarDecisao(id){
   document.getElementById('dec-hipotese').value=d.hipotese||'';
   document.getElementById('dec-status').value=d.status||'planejada';
   openModal('modal-add-decisao');
+  atualizarSugestoesDecisao();
 }
 function salvarDecisao(){
   var titulo=document.getElementById('dec-titulo').value.trim();
@@ -4970,6 +5081,44 @@ function avaliarDecisao(id,resultado){
   if(nota)d.avaliacao=nota;
   saveDB();renderDecisoes();notif('Avaliação registrada.');
 }
+function renderDecComparacao(){
+  var el=document.getElementById('dec-comparacao');
+  if(!el)return;
+  var hoje=new Date();hoje.setHours(0,0,0,0);
+  var h='';
+
+  // Alerta: decisões com prazo de revisão vencido há 14+ dias sem avaliação
+  var atrasadas=(DB.decisoes||[]).filter(function(d){
+    if(d.resultado||!d.prazo_revisao)return false;
+    var pr=new Date(d.prazo_revisao);pr.setHours(0,0,0,0);
+    var diasAtraso=Math.round((hoje-pr)/86400000);
+    return diasAtraso>=14;
+  });
+  if(atrasadas.length){
+    h+='<div style="background:var(--red-dim);border:1px solid var(--red-b);border-radius:16px;padding:13px;margin-bottom:13px;"><div style="font-size:.68rem;color:var(--red);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:5px;">Aguardando avaliação há mais de 2 semanas</div>';
+    atrasadas.forEach(function(d){h+='<div style="font-size:.78rem;color:var(--text);margin-top:3px;">· '+esc(d.titulo)+' (prazo era '+d.prazo_revisao+')</div>';});
+    h+='</div>';
+  }
+
+  // Comparação por categoria
+  var porCategoria={};
+  (DB.decisoes||[]).filter(function(d){return d.resultado;}).forEach(function(d){
+    if(!porCategoria[d.categoria])porCategoria[d.categoria]={total:0,sucesso:0};
+    porCategoria[d.categoria].total++;
+    if(d.resultado==='sim')porCategoria[d.categoria].sucesso++;
+  });
+  var categorias=Object.keys(porCategoria);
+  if(categorias.length){
+    h+='<div class="card" style="margin-bottom:13px;"><div class="cl" style="margin-bottom:9px;">Taxa de sucesso por categoria</div>';
+    categorias.sort(function(a,b){return porCategoria[b].total-porCategoria[a].total;}).forEach(function(cat){
+      var d=porCategoria[cat];
+      var pct=Math.round((d.sucesso/d.total)*100);
+      h+='<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);"><span style="font-size:.78rem;color:var(--text);">'+esc(cat)+'</span><span style="font-size:.78rem;color:var(--muted);">'+d.sucesso+'/'+d.total+' ('+pct+'%)</span></div>';
+    });
+    h+='</div>';
+  }
+  el.innerHTML=h;
+}
 function renderDecisoes(){
   if(!DB)return;
   if(!DB.decisoes)DB.decisoes=[];
@@ -4989,6 +5138,7 @@ function renderDecisoes(){
   var e2=document.getElementById('dec-andamento');if(e2)e2.textContent=andamento||'—';
   var e3=document.getElementById('dec-revisao');if(e3)e3.textContent=aguardando||'—';
   var e4=document.getElementById('dec-taxa');if(e4)e4.textContent=taxa;
+  renderDecComparacao();
 
   var el=document.getElementById('lista-decisoes');if(!el)return;
   if(!DB.decisoes.length){
@@ -5156,6 +5306,41 @@ function renderMemMarcos(){
     return '<div style="background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px;"><div style="font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;">'+esc(m.titulo)+'</div><div style="font-size:.95rem;color:var(--cafe);font-weight:600;margin-top:4px;">'+esc(String(m.valor))+'</div></div>';
   }).join('');
 }
+function renderMemRevisoes(){
+  var dias7=ultimosNDiasPainel(7);
+  var elS=document.getElementById('mem-revisao-semana');
+  if(elS){
+    var decisoes7=(DB.decisoes||[]).filter(function(d){return d.criado&&dias7.indexOf(d.criado.slice(0,10))>=0;});
+    var clientes7=(DB.clientes||[]).filter(function(c){return c.criado&&dias7.indexOf(c.criado.slice(0,10))>=0;});
+    var entregas7=(DB.entregas||[]).filter(function(e){return e.criado&&dias7.indexOf(e.criado.slice(0,10))>=0;});
+    var propostas7=(DB.propostas||[]).filter(function(p){return p.criado&&dias7.indexOf(p.criado.slice(0,10))>=0;});
+    var reflexoes7=(DB.painel.reflexoes||[]).filter(function(r){return dias7.indexOf(r.data)>=0;});
+    var linhas=[];
+    linhas.push({l:'Decisões registradas',v:decisoes7.length});
+    linhas.push({l:'Clientes cadastradas',v:clientes7.length});
+    linhas.push({l:'Entregas registradas',v:entregas7.length});
+    linhas.push({l:'Propostas criadas',v:propostas7.length});
+    linhas.push({l:'Reflexões pessoais',v:reflexoes7.length});
+    elS.innerHTML=linhas.map(function(x){return '<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);"><span style="font-size:.78rem;color:var(--text);">'+x.l+'</span><span style="font-size:.85rem;font-weight:600;color:var(--cafe);">'+x.v+'</span></div>';}).join('');
+  }
+  var elM=document.getElementById('mem-revisao-mes');
+  if(elM){
+    var hoje=new Date();var mesAtual=hoje.getMonth(),anoAtual=hoje.getFullYear();
+    var clientesMes=(DB.clientes||[]).filter(function(c){if(!c.criado)return false;var d=new Date(c.criado);return d.getMonth()===mesAtual&&d.getFullYear()===anoAtual;});
+    var decisoesMes=(DB.decisoes||[]).filter(function(d){if(!d.criado)return false;var dt=new Date(d.criado);return dt.getMonth()===mesAtual&&dt.getFullYear()===anoAtual;});
+    var mesFinKey=typeof finMesKey==='function'?finMesKey(0):null;
+    var mesFin=mesFinKey&&DB.meses_fin?DB.meses_fin[mesFinKey]:null;
+    var faturamentoMes=mesFin?(mesFin.receitas_clientes||[]).filter(function(r){return r.recebido;}).reduce(function(a,r){return a+parseFloat(r.valor||0);},0):0;
+    var ativos=(DB.clientes||[]).filter(function(c){return c.status==='Ativo';}).length;
+    var linhasM=[];
+    linhasM.push({l:'Faturamento recebido no mês',v:'R$ '+faturamentoMes.toLocaleString('pt-BR')});
+    linhasM.push({l:'Clientes ativas hoje',v:ativos});
+    linhasM.push({l:'Clientes cadastradas no mês',v:clientesMes.length});
+    linhasM.push({l:'Decisões registradas no mês',v:decisoesMes.length});
+    elM.innerHTML=linhasM.map(function(x){return '<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);"><span style="font-size:.78rem;color:var(--text);">'+x.l+'</span><span style="font-size:.85rem;font-weight:600;color:var(--cafe);">'+x.v+'</span></div>';}).join('');
+  }
+}
+
 
 
 // MÓDULO AGENDA
