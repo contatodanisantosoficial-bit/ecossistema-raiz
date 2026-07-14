@@ -104,7 +104,12 @@ body{background:var(--cafe);color:var(--offwhite);font-family:'Inter',sans-serif
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr;}.sb{width:88px;}.main{margin-left:88px;}.page{padding:13px;}.sb .nl,.sb .nb-group-label,.sb .chev,.sb .ndot{display:none;}.sb .sb-group-body{max-height:none!important;}.sb .nb{justify-content:center;padding:11px 0;position:relative;}.sb .ni{width:auto;font-size:1.15rem;}.sb .nb[data-tooltip]:hover::after{content:attr(data-tooltip);position:absolute;left:100%;top:50%;transform:translateY(-50%);margin-left:10px;background:var(--cafe);color:var(--ouro);font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;white-space:nowrap;padding:6px 11px;border-radius:10px;box-shadow:0 4px 12px rgba(58,40,32,.22);z-index:200;pointer-events:none;}.sb .sb-logo span{display:none;}}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr;}.sb{width:88px;}.main{margin-left:88px;}.page{padding:13px;}.sb .nl,.sb .nb-group-label,.sb .chev,.sb .ndot{display:none;}.sb .sb-group-body{max-height:none!important;}.sb .nb{justify-content:center;padding:11px 0;position:relative;}.sb .ni{width:auto;font-size:1.15rem;}.sb .nb[data-tooltip]:hover::after{content:attr(data-tooltip);position:absolute;left:100%;top:50%;transform:translateY(-50%);margin-left:10px;background:var(--cafe);color:var(--ouro);font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;white-space:nowrap;padding:6px 11px;border-radius:10px;box-shadow:0 4px 12px rgba(58,40,32,.22);z-index:200;pointer-events:none;}.sb .sb-logo span{display:none;}#mobile-menu-btn{display:block!important;}
+.sb.mobile-aberto{width:250px!important;box-shadow:6px 0 24px rgba(58,40,32,.3);}
+.sb.mobile-aberto .nl,.sb.mobile-aberto .nb-group-label,.sb.mobile-aberto .chev,.sb.mobile-aberto .sb-logo span{display:block!important;}
+.sb.mobile-aberto .nb{justify-content:flex-start!important;padding:9px 16px!important;}
+.sb.mobile-aberto .ni{width:20px!important;font-size:1rem!important;}
+}
 .card{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:20px;margin-bottom:15px;box-shadow:0 1px 3px rgba(58,40,32,.05),0 1px 2px rgba(58,40,32,.04);transition:box-shadow .2s,transform .15s;}
 .card:hover{box-shadow:0 4px 12px rgba(58,40,32,.07),0 2px 4px rgba(58,40,32,.05);}
 .card.warm{border-color:var(--nude-b);background:linear-gradient(135deg,rgba(169,95,65,.04),var(--s1));}
@@ -330,6 +335,7 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
 
 <main class="main" id="main-content" style="display:none;">
   <div class="topbar">
+    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" style="display:none;background:none;border:none;cursor:pointer;padding:6px;margin-right:4px;color:var(--cafe);flex-shrink:0;"><svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16" /> <path d="M4 6h16" /> <path d="M4 18h16" /></svg></button>
     <div><div class="tb-title">Ecossistema <em>Raiz</em></div><div class="tb-breadcrumb" id="tb-breadcrumb">Início</div><div class="tb-date" id="tbdate">—</div></div>
     <div class="tb-search-wrap">
       <input type="text" id="tb-search" class="tb-search" aria-label="Pesquisar clientes, propostas, biblioteca" placeholder="Pesquisar clientes, propostas, biblioteca..." autocomplete="off" oninput="buscarGlobalLive(this.value)" onfocus="if(this.value)buscarGlobalLive(this.value)" onkeydown="if(event.key==='Escape'){fecharBuscaGlobal();this.blur();}">
@@ -337,6 +343,7 @@ button:focus-visible,.nb:focus-visible,.itab:focus-visible,a:focus-visible{outli
     </div>
     <div class="tb-r" id="tbright"><button class="logout-btn" onclick="logout()">Sair</button></div>
   </div>
+  <div id="mobile-menu-overlay" onclick="fecharMobileMenu()" style="display:none;position:fixed;inset:0;background:rgba(58,40,32,.4);z-index:99;"></div>
 
   <!-- HOME -->
   <div class="page active" id="page-home">
@@ -4448,6 +4455,25 @@ function toggleSecaoDetalhe(id){
   var chev=document.getElementById('chev-'+id);
   if(chev)chev.style.transform=aberto?'rotate(0deg)':'rotate(90deg)';
 }
+function toggleMobileMenu(){
+  var sb=document.querySelector('.sb');
+  var overlay=document.getElementById('mobile-menu-overlay');
+  if(!sb)return;
+  var aberto=sb.classList.contains('mobile-aberto');
+  if(aberto){
+    sb.classList.remove('mobile-aberto');
+    if(overlay)overlay.style.display='none';
+  }else{
+    sb.classList.add('mobile-aberto');
+    if(overlay)overlay.style.display='block';
+  }
+}
+function fecharMobileMenu(){
+  var sb=document.querySelector('.sb');
+  var overlay=document.getElementById('mobile-menu-overlay');
+  if(sb)sb.classList.remove('mobile-aberto');
+  if(overlay)overlay.style.display='none';
+}
 function limparDados(){DB=defaultDB();saveDB();try{storageRemove('raizv2-session');}catch(e){}location.reload();}
 function renderMsgDinamicaClientes(){
   var el=document.getElementById('cli-msg-dinamica');
@@ -4619,6 +4645,7 @@ function atualizarBreadcrumb(id){
   else{el.innerHTML='Início<span class="tb-bc-sep">›</span><span class="tb-bc-current">'+label+'</span>';}
 }
 function goPage(id,btn){
+  if(typeof fecharMobileMenu==='function')fecharMobileMenu();
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('active');});
   document.getElementById('page-'+id).classList.add('active');
